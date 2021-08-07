@@ -1,0 +1,21 @@
+version: "3"
+services:
+  app:
+    image: app
+    ports:
+      - "8080:8080"
+    networks:
+      - employee-mysql
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    image: mysql:8
+    networks:
+      - employee-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=regions
+
+networks:
+  employee-mysql:
