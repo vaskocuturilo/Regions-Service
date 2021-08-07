@@ -8,11 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/regions")
 public class RussiaController {
 
     @Autowired
     RussiaService russiaService;
+
 
     public ResponseEntity createRegion(@RequestBody RussiaEntity russia) {
         try {
@@ -23,7 +23,16 @@ public class RussiaController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/regions")
+    public ResponseEntity getRegions() {
+        try {
+            return ResponseEntity.ok(russiaService.getAllRegions());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/region")
     public ResponseEntity getRegionByNumber(@RequestParam String region) {
         try {
             return ResponseEntity.ok(russiaService.getOne(region));
