@@ -3,16 +3,20 @@ package com.regions.simpleRegions.controller;
 import com.regions.simpleRegions.entity.RussiaEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.service.RussiaService;
+import com.regions.simpleRegions.service.UkraineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class RussiaController {
+@RequestMapping("/api")
+public class MainController {
 
     @Autowired
     RussiaService russiaService;
 
+    @Autowired
+    UkraineService ukraineService;
 
     public ResponseEntity createRegion(@RequestBody RussiaEntity russia) {
         try {
@@ -23,19 +27,21 @@ public class RussiaController {
         }
     }
 
-    @GetMapping("/regions")
-    public ResponseEntity getRegions() {
+    @GetMapping("/russia")
+    public ResponseEntity getRussiaRegionByNumber(@RequestParam String region) {
         try {
-            return ResponseEntity.ok(russiaService.getAllRegions());
+            return ResponseEntity.ok(russiaService.getOne(region));
+        } catch (RegionNotFoundException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
-    @GetMapping("/region")
-    public ResponseEntity getRegionByNumber(@RequestParam String region) {
+    @GetMapping("/ukraine")
+    public ResponseEntity getUkraineRegionByNumber(@RequestParam String region) {
         try {
-            return ResponseEntity.ok(russiaService.getOne(region));
+            return ResponseEntity.ok(ukraineService.getOne(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {

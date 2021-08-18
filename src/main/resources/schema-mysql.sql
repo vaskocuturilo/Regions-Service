@@ -26,6 +26,7 @@ CREATE DATABASE regions;
 USE regions;
 
 DROP TABLE IF EXISTS `russia_entity`;
+DROP TABLE IF EXISTS `ukraine_entity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `russia_entity` (
@@ -34,10 +35,16 @@ CREATE TABLE `russia_entity` (
   `region` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `ukraine_entity` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `region` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `russia_entity`
+-- Dumping data for table `russia_entity` and 'ukraine_entity`
 --
 
 LOCK TABLES `russia_entity` WRITE;
@@ -188,8 +195,40 @@ INSERT INTO `russia_entity` VALUES
 (143,'Чеченская республика','95');
 /*!40000 ALTER TABLE `russia_entity` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+LOCK TABLES `ukraine_entity` WRITE;
+/*!40000 ALTER TABLE `ukraine_entity` DISABLE KEYS */;
+INSERT INTO `ukraine_entity` VALUES
+(1,'город Киев','AA'),
+(2,'Винницкая область','AB'),
+(3,'Волынская область','AC'),
+(4,'Днепропетровская область','AE'),
+(5,'Донецкая область','AH'),
+(6,'Киевская область','AI'),
+(7,'Автономная Республика Крым','AK'),
+(8,'Житомирская область','AM'),
+(9,'Закарпатская область','AO'),
+(10,'Запорожская область','AP'),
+(11,'Ивано-Франковская область','AT'),
+(12,'Харьковская область','AX'),
+(13,'Кировоградская область','BA'),
+(14,'Луганская область','BB'),
+(15,'Львовская область','BC'),
+(16,'Николаевская область','BE'),
+(17,'Одесская область','BH'),
+(18,'Полтавская область','BI'),
+(19,'Ровенская область','BK'),
+(20,'Сумская область','BM'),
+(21,'Тернопольская область','BO'),
+(22,'Херсонская область','BT'),
+(23,'Хмельницкая область','BX'),
+(24,'Черкасская область','CA'),
+(25,'Черниговская область','CB'),
+(26,'Черновицкая область','CE'),
+(27,'город Севастополь','CH'),
+(28,'Общегосударственные номера','II');
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

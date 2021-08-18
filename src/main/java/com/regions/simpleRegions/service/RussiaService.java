@@ -6,7 +6,6 @@ import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.RussiaModel;
 import com.regions.simpleRegions.respository.RussiaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
