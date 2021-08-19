@@ -1,8 +1,8 @@
 package com.regions.simpleRegions.model;
 
-import com.regions.simpleRegions.entity.BelarusEntity;
+import com.regions.simpleRegions.entity.PolandEntity;
 
-public class BelarusModel {
+public class PolandModel {
 
     private String description;
 
@@ -14,8 +14,8 @@ public class BelarusModel {
         this.description = description;
     }
 
-    public static BelarusModel toModel(BelarusEntity entity) {
-        BelarusModel model = new BelarusModel();
+    public static PolandModel toModel(PolandEntity entity) {
+        PolandModel model = new PolandModel();
         model.setDescription(entity.getDescription());
 
         return model;
