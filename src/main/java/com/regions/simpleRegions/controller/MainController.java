@@ -3,6 +3,7 @@ package com.regions.simpleRegions.controller;
 import com.regions.simpleRegions.entity.RussiaEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.service.BelarusService;
+import com.regions.simpleRegions.service.PolandService;
 import com.regions.simpleRegions.service.RussiaService;
 import com.regions.simpleRegions.service.UkraineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class MainController {
 
     @Autowired
     BelarusService belarusService;
+
+    @Autowired
+    PolandService polandService;
 
     public ResponseEntity createRegion(@RequestBody RussiaEntity russia) {
         try {
@@ -57,6 +61,17 @@ public class MainController {
     public ResponseEntity getBelarusRegionByNumber(@RequestParam String region) {
         try {
             return ResponseEntity.ok(belarusService.getOne(region));
+        } catch (RegionNotFoundException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/poland")
+    public ResponseEntity getPolandRegionByNumber(@RequestParam String region) {
+        try {
+            return ResponseEntity.ok(polandService.getOne(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
