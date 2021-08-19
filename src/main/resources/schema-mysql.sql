@@ -27,24 +27,36 @@ USE regions;
 
 DROP TABLE IF EXISTS `russia_entity`;
 DROP TABLE IF EXISTS `ukraine_entity`;
+DROP TABLE IF EXISTS `belarus_entity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `russia_entity` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
   `region` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 CREATE TABLE `ukraine_entity` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
   `region` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `belarus_entity` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `region` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `russia_entity` and 'ukraine_entity`
+-- Dumping data for table `russia_entity` 'ukraine_entity` 'belarus_entity`
 --
 
 LOCK TABLES `russia_entity` WRITE;
@@ -228,6 +240,20 @@ INSERT INTO `ukraine_entity` VALUES
 (27,'город Севастополь','CH'),
 (28,'Общегосударственные номера','II');
 UNLOCK TABLES;
+
+LOCK TABLES `belarus_entity` WRITE;
+/*!40000 ALTER TABLE `belarus_entity` DISABLE KEYS */;
+INSERT INTO `belarus_entity` VALUES
+(1,'Вооружённые Силы','0'),
+(2,'Брестская область','1'),
+(3,'Витебская область','2'),
+(4,'Гомельская область','3'),
+(5,'Гродненская область','4'),
+(6,'Минская область','5'),
+(7,'Могилёвская область','6'),
+(8,'город Минск','7'),
+(9,'Минский автомобильный завод','8');
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -237,4 +263,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-06 19:26:54
+-- Dump completed on 2021-08-19 19:26:54
