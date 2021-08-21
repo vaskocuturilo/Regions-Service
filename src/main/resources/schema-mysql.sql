@@ -16,7 +16,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `russia_entity`
+-- Table structure for table `russia_entity` 'ukraine_entity` 'belarus_entity` 'poland_entity` 'czech_entity` 'moldova_entity` 'lithuania_entity`
 --
 
 DROP DATABASE IF EXISTS `regions`;
@@ -31,6 +31,7 @@ DROP TABLE IF EXISTS `belarus_entity`;
 DROP TABLE IF EXISTS `poland_entity`;
 DROP TABLE IF EXISTS `czech_entity`;
 DROP TABLE IF EXISTS `moldova_entity`;
+DROP TABLE IF EXISTS `lithuania_entity`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -77,10 +78,17 @@ CREATE TABLE `moldova_entity` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `lithuania_entity` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `region` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `russia_entity` 'ukraine_entity` 'belarus_entity` 'poland_entity` 'czech_entity` 'moldova_entity`
+-- Dumping data for table `russia_entity` 'ukraine_entity` 'belarus_entity` 'poland_entity` 'czech_entity` 'moldova_entity` 'lithuania_entity`
 --
 
 LOCK TABLES `russia_entity` WRITE;
@@ -753,6 +761,22 @@ INSERT INTO `moldova_entity` VALUES
 (48,'Ungheni','UN'),
 (49,'Vulcănești (currently Gagauzia)','VL');
 UNLOCK TABLES;
+
+LOCK TABLES `lithuania_entity` WRITE;
+/*!40000 ALTER TABLE `lithuania_entity` DISABLE KEYS */;
+INSERT INTO `lithuania_entity` VALUES
+(1,'Alytus County','A'),
+(2,'Tauragė County (but code from first letter of Jurbarkas)','J'),
+(3,'Kaunas County','K'),
+(4,'Klaipėda County','L'),
+(5,'Marijampolė County','M'),
+(6,'Panevėžys County','P'),
+(7,'Šiauliai County','S'),
+(8,'Telšiai County','T'),
+(9,'Utena County','U'),
+(10,'Vilnius County','V');
+UNLOCK TABLES;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
