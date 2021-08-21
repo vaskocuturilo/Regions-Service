@@ -17,7 +17,7 @@
 
 --
 -- Table structure for table `russia_entity` 'ukraine_entity` 'belarus_entity`
--- 'poland_entity` 'czech_entity` 'moldova_entity` 'lithuania_entity` 'turkey_entity`
+-- 'poland_entity` 'czech_entity` 'moldova_entity` 'lithuania_entity` 'turkey_entity` 'estonia_entity`
 --
 
 DROP DATABASE IF EXISTS `regions`;
@@ -34,6 +34,7 @@ DROP TABLE IF EXISTS `czech_entity`;
 DROP TABLE IF EXISTS `moldova_entity`;
 DROP TABLE IF EXISTS `lithuania_entity`;
 DROP TABLE IF EXISTS `turkey_entity`;
+DROP TABLE IF EXISTS `estonia_entity`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -94,11 +95,19 @@ CREATE TABLE `turkey_entity` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `estonia_entity` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `region` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table
---`russia_entity` 'ukraine_entity` 'belarus_entity` 'poland_entity` 'czech_entity` 'moldova_entity` 'lithuania_entity` 'turkey_entity`
+--`russia_entity` 'ukraine_entity` 'belarus_entity` 'poland_entity` 'czech_entity` 'moldova_entity` 'lithuania_entity` 'turkey_entity` 'estonia_entity'
 
 LOCK TABLES `russia_entity` WRITE;
 /*!40000 ALTER TABLE `russia_entity` DISABLE KEYS */;
@@ -870,6 +879,29 @@ INSERT INTO `turkey_entity` VALUES
 (79,'Kilis','79'),
 (80,'Osmaniye','80'),
 (81,'Düzce','81');
+UNLOCK TABLES;
+
+LOCK TABLES `estonia_entity` WRITE;
+/*!40000 ALTER TABLE `estonia_entity` DISABLE KEYS */;
+INSERT INTO `estonia_entity` VALUES
+(1,'Tallinn','A'),
+(2,'Tallinn','B'),
+(3,'Viljandimaa','D'),
+(4,'Pärnumaa','F'),
+(5,'Valgamaa','G'),
+(6,'Hiiumaa','H'),
+(7,'Ida-Virumaa outside of Narva','I'),
+(8,'Jõgevamaa','J'),
+(9,'Saaremaa as Kuressaare','K'),
+(10,'Raplamaa','L'),
+(11,'Harjumaa outside of Tallinn','M'),
+(12,'Narva','N'),
+(13,'Põlvamaa','O'),
+(14,'Järvamaa as Paide','P'),
+(15,'Lääne-Virumaa as Rakvere','R'),
+(17,'Läänemaa as Haapsalu','S'),
+(18,'Tartumaa','T'),
+(19,'Võrumaa','V');
 UNLOCK TABLES;
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
