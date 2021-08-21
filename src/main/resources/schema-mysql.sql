@@ -30,6 +30,7 @@ DROP TABLE IF EXISTS `ukraine_entity`;
 DROP TABLE IF EXISTS `belarus_entity`;
 DROP TABLE IF EXISTS `poland_entity`;
 DROP TABLE IF EXISTS `czech_entity`;
+DROP TABLE IF EXISTS `moldova_entity`;
 
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -69,10 +70,17 @@ CREATE TABLE `czech_entity` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `moldova_entity` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `region` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `russia_entity` 'ukraine_entity` 'belarus_entity`
+-- Dumping data for table `russia_entity` 'ukraine_entity` 'belarus_entity` 'poland_entity` 'czech_entity` 'moldova_entity`
 --
 
 LOCK TABLES `russia_entity` WRITE;
@@ -690,9 +698,61 @@ INSERT INTO `czech_entity` VALUES
 (12,'Moravskoslezský kraj (Ostrava), Moravia-Silesia Region(Ostrava)','T'),
 (13,'Ústecký kraj (Ústí nad Labem), (Ústí nad Labem)','U'),
 (14,'Zlínský kraj (Zlín), (Zlín)','Z');
-
 UNLOCK TABLES;
 
+LOCK TABLES `moldova_entity` WRITE;
+/*!40000 ALTER TABLE `moldova_entity` DISABLE KEYS */;
+INSERT INTO `moldova_entity` VALUES
+(1,'Anenii Noi','AN'),
+(2,'Tighina','BE'),
+(3,'Bălți','BL'),
+(4,'Briceni','BR'),
+(5,'Basarabeasca','BS'),
+(6,'Chișinău','C'),
+(7,'Camenca','CC'),
+(8,'Ceadîr-Lunga (currently Gagauzia)','CG'),
+(9,'Cahul','CH'),
+(10,'Călărași','CL'),
+(11,'Cimișlia','CM'),
+(12,'Căinari (currently merged with Căușeni)','CN'),
+(13,'Comrat (currently Gagauzia)','CO'),
+(14,'Criuleni','CR'),
+(15,'Căușeni','CS'),
+(16,'Cantemir','CT'),
+(17,'Chișinău District (1999–2002)','CU'),
+(18,'Dubăsari','DB'),
+(19,'Dondușeni','DN'),
+(20,'Drochia','DR'),
+(21,'Edineț','ED'),
+(22,'Fălești','FL'),
+(23,'Florești','FR'),
+(24,'Gagauzia','GE'),
+(25,'Glodeni','GL'),
+(26,'Grigoriopol','GR'),
+(27,'Hîncești','HN'),
+(28,'Ialoveni','IL'),
+(29,'Chișinău','K'),
+(30,'Lăpușna (1999–2002)','LP'),
+(31,'Leova','LV'),
+(32,'Nisporeni','NS'),
+(33,'Ocnița','OC'),
+(34,'Orhei','OR'),
+(35,'Rîbnița','RB'),
+(36,'Rîșcani','RS'),
+(37,'Rezina','RZ'),
+(38,'Șoldănești','SD'),
+(39,'Sîngerei','SG'),
+(40,'Slobozia','SL'),
+(41,'Soroca','SR'),
+(42,'Strășeni','ST'),
+(43,'Ștefan Vodă','SV'),
+(44,'Tighina','TG'),
+(45,'Telenești','TL'),
+(46,'Taraclia','TR'),
+(47,'Tiraspol','TS'),
+(48,'Ungheni','UN'),
+(49,'Vulcănești (currently Gagauzia)','VL');
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -702,4 +762,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-19 19:26:54
+-- Dump completed on 2021-08-21 19:26:54
