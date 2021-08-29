@@ -50,6 +50,8 @@ public class MainController {
     @Autowired
     AustriaService austriaService;
 
+    @Autowired
+    GreeceService greeceService;
 
     public ResponseEntity createRegion(@RequestBody RussiaEntity russia) {
         try {
@@ -196,6 +198,17 @@ public class MainController {
     public ResponseEntity getAustriaRegionByNumber(@RequestParam String region) {
         try {
             return ResponseEntity.ok(austriaService.getOne(region));
+        } catch (RegionNotFoundException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/greece")
+    public ResponseEntity getGreeceRegionByNumber(@RequestParam String region) {
+        try {
+            return ResponseEntity.ok(greeceService.getOne(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
