@@ -14,7 +14,7 @@ INSERT INTO `slovenia_entity` VALUES
 (2,'Ajdovščina, Idrija, Tolmin, Nova Gorica','GO'),
 (3,'Brežice, Krško, Sevnica','KK'),
 (4,'Izola, Koper, Piran, Sežana, Ilirska Bistrica','KP'),
-(5,'Jesenice, Kranj, Radovljica, Škofja Loka, Tržič',' KR'),
+(5,'Jesenice, Kranj, Radovljica, Škofja Loka, Tržič','KR'),
 (6,'Cerknica, Domžale, Grosuplje, Hrastnik, Kamnik, Kočevje, Litija, Ljubljana, Logatec, Ribnica, Ribnica, Trbovlje, Vrhnika, Zagorje ob Savi','LJ'),
 (7,'Lenart v Slovenskih Goricah, Maribor, Ormož, Pesnica pri Mariboru, Ptuj, Ruše, Slovenska Bistrica','MB'),
 (8,'Gornja Radgona, Lendava, Ljutomer, Murska Sobota','MS'),
