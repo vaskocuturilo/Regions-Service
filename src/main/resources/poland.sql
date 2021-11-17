@@ -406,5 +406,18 @@ INSERT INTO `poland_entity` VALUES
 (395,'Województwo warmińsko-mazurskie, Olsztyn powiat','NOL'),
 (396,'Województwo warmińsko-mazurskie, Ostróda','NOS'),
 (397,'Województwo warmińsko-mazurskie, Pisz','NPI'),
-(398,'Województwo warmińsko-mazurskie, Szczytno','NSZ');
+(398,'Warsaw (Włochy district)','WWK'),
+(400,'Warsaw (Włochy district)','WWM'),
+(401,'Warsaw (Włochy district)','WWV'),
+(402,'Warsaw (Włochy district)','WWR'),
+(403,'Warsaw (Włochy district)','WWS'),
+(404,'Warsaw (Wilanów district)','WWF'),
+(405,'Warsaw (Wilanów district)','WWG'),
+(406,'Warsaw (Wilanów district)','WWH'),
+(407,'Warsaw (Wilanów district)','WWJ'),
+(408,'Warsaw (Wilanów district)','WWW'),
+(409,'Warsaw (Rembertów district)','WWA'),
+(410,'Warsaw (Rembertów district)','WWC'),
+(411,'Warsaw (Rembertów district)','WWX'),
+(412,'Wołomin County','WV');
 UNLOCK TABLES;
