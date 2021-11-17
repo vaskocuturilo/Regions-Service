@@ -420,5 +420,4 @@ INSERT INTO `poland_entity` VALUES
 (410,'Warsaw (Rembertów district)','WWC'),
 (411,'Warsaw (Rembertów district)','WWX'),
 (412,'Wołomin County','WV');
-
 UNLOCK TABLES;
