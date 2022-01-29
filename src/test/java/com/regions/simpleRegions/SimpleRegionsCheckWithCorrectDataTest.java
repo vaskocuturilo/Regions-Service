@@ -14,7 +14,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.lessThan;
 
-public class SimpleRegionsCheckFunctionalityTest {
+public class SimpleRegionsCheckWithCorrectDataTest {
 
     private static RequestSpecification spec;
 
