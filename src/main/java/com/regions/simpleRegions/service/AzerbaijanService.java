@@ -4,14 +4,16 @@ import com.regions.simpleRegions.entity.AzerbaijanEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.AzerbaijanModel;
 import com.regions.simpleRegions.respository.AzerbaijanRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AzerbaijanService {
 
-    @Autowired
     AzerbaijanRepo azerbaijanRepo;
+
+    public AzerbaijanService(AzerbaijanRepo azerbaijanRepo) {
+        this.azerbaijanRepo = azerbaijanRepo;
+    }
 
     public AzerbaijanModel getOne(String region) throws RegionNotFoundException {
         AzerbaijanEntity azerbaijanRegion = azerbaijanRepo.findByRegion(region);

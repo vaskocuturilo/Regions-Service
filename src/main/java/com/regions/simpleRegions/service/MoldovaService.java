@@ -4,14 +4,16 @@ import com.regions.simpleRegions.entity.MoldovaEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.MoldovaModel;
 import com.regions.simpleRegions.respository.MoldovaRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MoldovaService {
 
-    @Autowired
     MoldovaRepo moldovaRepo;
+
+    public MoldovaService(MoldovaRepo moldovaRepo) {
+        this.moldovaRepo = moldovaRepo;
+    }
 
     public MoldovaModel getOne(String region) throws RegionNotFoundException {
         MoldovaEntity moldovaRegion = moldovaRepo.findByRegion(region);

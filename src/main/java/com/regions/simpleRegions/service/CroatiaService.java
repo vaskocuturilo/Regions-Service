@@ -4,14 +4,16 @@ import com.regions.simpleRegions.entity.CroatiaEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.CroatiaModel;
 import com.regions.simpleRegions.respository.CroatiaRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CroatiaService {
 
-    @Autowired
     CroatiaRepo croatiaRepo;
+
+    public CroatiaService(CroatiaRepo croatiaRepo) {
+        this.croatiaRepo = croatiaRepo;
+    }
 
     public CroatiaModel getOne(String region) throws RegionNotFoundException {
         CroatiaEntity croatiaRegion = croatiaRepo.findByRegion(region);
