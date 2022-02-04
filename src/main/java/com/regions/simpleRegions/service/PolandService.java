@@ -4,14 +4,16 @@ import com.regions.simpleRegions.entity.PolandEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.PolandModel;
 import com.regions.simpleRegions.respository.PolandRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PolandService {
 
-    @Autowired
     PolandRepo polandRepo;
+
+    public PolandService(PolandRepo polandRepo) {
+        this.polandRepo = polandRepo;
+    }
 
     public PolandModel getOne(String region) throws RegionNotFoundException {
         PolandEntity polandRegion = polandRepo.findByRegion(region);

@@ -5,14 +5,16 @@ import com.regions.simpleRegions.exception.RegionAlreadyExistException;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.RussiaModel;
 import com.regions.simpleRegions.respository.RussiaRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RussiaService {
 
-    @Autowired
     RussiaRepo russiaRepo;
+
+    public RussiaService(RussiaRepo russiaRepo) {
+        this.russiaRepo = russiaRepo;
+    }
 
     public RussiaEntity createRegion(RussiaEntity russiaEntity) throws RegionAlreadyExistException {
         if (russiaRepo.findByRegion(russiaEntity.getRegion()) != null) {
