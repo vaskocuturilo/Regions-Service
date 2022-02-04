@@ -2,7 +2,6 @@ package com.regions.simpleRegions.controller;
 
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.service.GermanService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class GermanController {
 
-    @Autowired
     GermanService germanService;
+
+    public GermanController(GermanService germanService) {
+        this.germanService = germanService;
+    }
 
     @GetMapping("/german")
     public ResponseEntity getGermanRegionByNumber(@RequestParam String region) {
