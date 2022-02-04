@@ -3,7 +3,6 @@ package com.regions.simpleRegions.controller;
 
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.service.UzbekistanService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class UzbekistanController {
 
-    @Autowired
     UzbekistanService uzbekistanService;
+
+    public UzbekistanController(UzbekistanService uzbekistanService) {
+        this.uzbekistanService = uzbekistanService;
+    }
 
     @GetMapping("/uzbekistan")
     public ResponseEntity getUzbekistanRegionByNumber(@RequestParam String region) {
