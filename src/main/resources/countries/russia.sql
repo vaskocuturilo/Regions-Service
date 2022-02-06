@@ -1,9 +1,3 @@
-DROP DATABASE IF EXISTS `regions`;
-
-CREATE DATABASE regions;
-
-USE regions;
-
 DROP TABLE IF EXISTS `russia_entity`;
 
 CREATE TABLE `russia_entity` (
