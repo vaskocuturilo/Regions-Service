@@ -35,6 +35,11 @@ You will need the following technologies available to try it out:
 ### http://localhost:8090/actuator/health
 ```{"status":"UP"}```
 
+### Swagger-UI
+* http://localhost:8080/swagger-ui/
+  
+![](https://a.radikal.ru/a22/2202/b8/c2ffcb49219b.png)
+
 ### How it works. (Not correct schema)
 ![](https://c.radikal.ru/c08/2108/48/e78d3e2723cc.png)
 ### Ho w to run.
