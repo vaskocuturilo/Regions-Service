@@ -25,6 +25,16 @@ You will need the following technologies available to try it out:
 * Docker
 * IDE of your choice
 
+
+### Actuator
+
+* http://localhost:8090/actuator
+* http://localhost:8090/actuator/health
+* http://localhost:8090/actuator/info
+
+### http://localhost:8090/actuator/health
+```{"status":"UP"}```
+
 ### How it works. (Not correct schema)
 ![](https://c.radikal.ru/c08/2108/48/e78d3e2723cc.png)
 ### Ho w to run.
