@@ -7,4 +7,6 @@ public interface RussiaRepo extends CrudRepository<RussiaEntity, Long> {
 
     RussiaEntity findByRegion(String region);
 
+    RussiaEntity findByDescription(String description);
+
 }
