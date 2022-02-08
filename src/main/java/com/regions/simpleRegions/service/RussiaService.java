@@ -23,12 +23,20 @@ public class RussiaService {
         return russiaRepo.save(russiaEntity);
     }
 
-    public RussiaModel getOne(String region) throws RegionNotFoundException {
-        RussiaEntity russiaRegion = russiaRepo.findByRegion(region);
+    public RussiaModel getDescription(String region) throws RegionNotFoundException {
+        RussiaEntity russiaDescription = russiaRepo.findByRegion(region);
+        if (russiaDescription == null) {
+            throw new RegionNotFoundException("Region not found.");
+        }
+        return RussiaModel.toModelDescription(russiaDescription);
+    }
+
+    public RussiaModel getRegionNumber(String description) throws RegionNotFoundException {
+        RussiaEntity russiaRegion = russiaRepo.findByDescription(description);
         if (russiaRegion == null) {
             throw new RegionNotFoundException("Region not found.");
         }
-        return RussiaModel.toModel(russiaRegion);
+        return RussiaModel.toModelRegion(russiaRegion);
     }
 
     public Iterable<RussiaEntity> getAllRegions() {
