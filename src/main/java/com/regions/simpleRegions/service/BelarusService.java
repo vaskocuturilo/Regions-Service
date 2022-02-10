@@ -22,4 +22,8 @@ public class BelarusService {
         }
         return BelarusModel.toModel(belarusRegion);
     }
+
+    public Iterable<BelarusEntity> getAllRegions() {
+        return belarusRepo.findAll();
+    }
 }
