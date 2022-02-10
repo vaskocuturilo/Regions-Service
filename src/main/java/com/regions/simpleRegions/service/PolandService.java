@@ -22,4 +22,8 @@ public class PolandService {
         }
         return PolandModel.toModel(polandRegion);
     }
+
+    public Iterable<PolandEntity> getAllRegions() {
+        return polandRepo.findAll();
+    }
 }

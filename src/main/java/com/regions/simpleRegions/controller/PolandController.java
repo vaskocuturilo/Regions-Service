@@ -28,4 +28,13 @@ public class PolandController {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
+
+    @GetMapping("/poland/all")
+    public ResponseEntity getAllPolandRegions() {
+        try {
+            return ResponseEntity.ok(polandService.getAllRegions());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
 }
