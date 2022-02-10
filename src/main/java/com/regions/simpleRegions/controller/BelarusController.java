@@ -28,4 +28,13 @@ public class BelarusController {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
+
+    @GetMapping("/belarus/all")
+    public ResponseEntity getAllBelarusRegions() {
+        try {
+            return ResponseEntity.ok(belarusService.getAllRegions());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
 }
