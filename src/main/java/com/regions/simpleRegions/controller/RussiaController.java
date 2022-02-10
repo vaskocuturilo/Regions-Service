@@ -37,7 +37,7 @@ public class RussiaController {
         }
     }
 
-    @GetMapping("/allRussia")
+    @GetMapping("/russia/all")
     public ResponseEntity getAllRussiaRegions() {
         try {
             return ResponseEntity.ok(russiaService.getAllRegions());

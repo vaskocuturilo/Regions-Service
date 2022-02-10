@@ -23,4 +23,7 @@ public class UkraineService {
         return UkraineModel.toModel(ukraineRegion);
     }
 
+    public Iterable<UkraineEntity> getAllRegions() {
+        return ukraineRepo.findAll();
+    }
 }

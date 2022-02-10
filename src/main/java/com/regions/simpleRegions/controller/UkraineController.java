@@ -28,4 +28,13 @@ public class UkraineController {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
+
+    @GetMapping("/ukraine/all")
+    public ResponseEntity getAllUkraineRegions() {
+        try {
+            return ResponseEntity.ok(ukraineService.getAllRegions());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
 }
