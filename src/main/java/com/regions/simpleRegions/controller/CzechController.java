@@ -28,4 +28,13 @@ public class CzechController {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
+
+    @GetMapping("/czech/all")
+    public ResponseEntity getAllCzechRegions() {
+        try {
+            return ResponseEntity.ok(czechService.getAllRegions());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
 }

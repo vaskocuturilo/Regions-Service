@@ -22,4 +22,8 @@ public class CzechService {
         }
         return CzechModel.toModel(czechRegion);
     }
+
+    public Iterable<CzechEntity> getAllRegions() {
+        return czechRepo.findAll();
+    }
 }
