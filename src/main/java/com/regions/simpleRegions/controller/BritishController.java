@@ -28,4 +28,14 @@ public class BritishController {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
+
+    @GetMapping("/british/all")
+    public ResponseEntity getAllBritishRegions() {
+        try {
+            return ResponseEntity.ok(britishService.getAllRegions());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
 }
