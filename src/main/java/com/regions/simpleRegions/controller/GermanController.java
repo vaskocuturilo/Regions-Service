@@ -28,4 +28,13 @@ public class GermanController {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
+
+    @GetMapping("/german/all")
+    public ResponseEntity getAllGermanRegions() {
+        try {
+            return ResponseEntity.ok(germanService.getAllRegions());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
 }

@@ -22,4 +22,8 @@ public class GermanService {
         }
         return GermanModel.toModel(germanRegion);
     }
+
+    public Iterable<GermanEntity> getAllRegions() {
+        return germanRepo.findAll();
+    }
 }
