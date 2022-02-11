@@ -22,4 +22,8 @@ public class BritishService {
         }
         return BritishModel.toModel(britishRegion);
     }
+
+    public Iterable<BritishEntity> getAllRegions() {
+        return britishRepo.findAll();
+    }
 }
