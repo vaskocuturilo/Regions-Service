@@ -28,4 +28,13 @@ public class FranceController {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
+
+    @GetMapping("/france/all")
+    public ResponseEntity getAllFranceRegions() {
+        try {
+            return ResponseEntity.ok(franceService.getAllRegions());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
 }
