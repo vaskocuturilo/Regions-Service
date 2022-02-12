@@ -22,4 +22,8 @@ public class AustriaService {
         }
         return AustriaModel.toModel(austriaRegion);
     }
+
+    public Iterable<AustriaEntity> getAllRegions() {
+        return austriaRepo.findAll();
+    }
 }
