@@ -22,4 +22,8 @@ public class NorwayService {
         }
         return NorwayModel.toModel(norwayRegion);
     }
+
+    public Iterable<NorwayEntity> getAllRegions(){
+        return norwayRepo.findAll();
+    }
 }
