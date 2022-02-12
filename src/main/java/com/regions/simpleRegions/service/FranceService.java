@@ -22,4 +22,8 @@ public class FranceService {
         }
         return FranceModel.toModel(franceRegion);
     }
+
+    public Iterable<FranceEntity> getAllRegions() {
+        return franceRepo.findAll();
+    }
 }
