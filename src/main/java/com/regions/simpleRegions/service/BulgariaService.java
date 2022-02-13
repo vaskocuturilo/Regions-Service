@@ -22,4 +22,8 @@ public class BulgariaService {
         }
         return BulgariaModel.toModel(bulgariaRegion);
     }
+
+    public Iterable<BulgariaEntity> getAllRegions() {
+        return bulgariaRepo.findAll();
+    }
 }
