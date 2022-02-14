@@ -4,6 +4,7 @@ import com.regions.simpleRegions.entity.CzechEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.CzechModel;
 import com.regions.simpleRegions.respository.CzechRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,6 +12,7 @@ public class CzechService {
 
     CzechRepo czechRepo;
 
+    @Autowired
     public CzechService(CzechRepo czechRepo) {
         this.czechRepo = czechRepo;
     }

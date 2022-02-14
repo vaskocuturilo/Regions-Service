@@ -4,6 +4,7 @@ import com.regions.simpleRegions.entity.KyrgyzstanEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.KyrgyzstanModel;
 import com.regions.simpleRegions.respository.KyrgyzstanRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,6 +12,7 @@ public class KyrgyzstanService {
 
     KyrgyzstanRepo kyrgyzstanRepo;
 
+    @Autowired
     public KyrgyzstanService(KyrgyzstanRepo kyrgyzstanRepo) {
         this.kyrgyzstanRepo = kyrgyzstanRepo;
     }

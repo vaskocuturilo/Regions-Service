@@ -4,6 +4,7 @@ import com.regions.simpleRegions.entity.GreeceEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.GreeceModel;
 import com.regions.simpleRegions.respository.GreeceRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,6 +12,7 @@ public class GreeceService {
 
     GreeceRepo greeceRepo;
 
+    @Autowired
     public GreeceService(GreeceRepo greeceRepo) {
         this.greeceRepo = greeceRepo;
     }
