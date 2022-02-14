@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CroatiaRepository extends CrudRepository<CroatiaEntity, Long> {
+public interface CroatiaRepo extends CrudRepository<CroatiaEntity, Long> {
     CroatiaEntity findByRegion(String region);
 }
