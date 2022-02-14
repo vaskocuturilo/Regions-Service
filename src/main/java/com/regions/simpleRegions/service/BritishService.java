@@ -4,6 +4,7 @@ import com.regions.simpleRegions.entity.BritishEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.BritishModel;
 import com.regions.simpleRegions.respository.BritishRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,6 +12,7 @@ public class BritishService {
 
     BritishRepo britishRepo;
 
+    @Autowired
     public BritishService(BritishRepo britishRepo) {
         this.britishRepo = britishRepo;
     }
