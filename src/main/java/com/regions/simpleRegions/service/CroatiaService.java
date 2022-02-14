@@ -3,22 +3,19 @@ package com.regions.simpleRegions.service;
 import com.regions.simpleRegions.entity.CroatiaEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.CroatiaModel;
-import com.regions.simpleRegions.respository.CroatiaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.regions.simpleRegions.respository.CroatiaRepo;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CroatiaService {
+    CroatiaRepo croatiaRepo;
 
-    CroatiaRepository croatiaRepository;
-
-    @Autowired
-    public CroatiaService(CroatiaRepository croatiaRepository) {
-        this.croatiaRepository = croatiaRepository;
+    public CroatiaService(CroatiaRepo croatiaRepo) {
+        this.croatiaRepo = croatiaRepo;
     }
 
     public CroatiaModel getOne(String region) throws RegionNotFoundException {
-        CroatiaEntity croatiaRegion = croatiaRepository.findByRegion(region);
+        CroatiaEntity croatiaRegion = croatiaRepo.findByRegion(region);
         if (croatiaRegion == null) {
             throw new RegionNotFoundException("Region not found.");
         }
@@ -26,6 +23,6 @@ public class CroatiaService {
     }
 
     public Iterable<CroatiaEntity> getAllRegions() {
-        return croatiaRepository.findAll();
+        return croatiaRepo.findAll();
     }
 }
