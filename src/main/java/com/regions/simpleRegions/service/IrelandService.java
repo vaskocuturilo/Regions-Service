@@ -22,4 +22,8 @@ public class IrelandService {
         }
         return IrelandModel.toModel(irelandRegion);
     }
+
+    public Iterable<IrelandEntity> getAllRegions() {
+        return irelandRepo.findAll();
+    }
 }
