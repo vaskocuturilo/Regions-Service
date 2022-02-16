@@ -24,4 +24,8 @@ public class EstoniaService {
         }
         return EstoniaModel.toModel(estoniaRegion);
     }
+
+    public Iterable<EstoniaEntity> getAllRegions() {
+        return estoniaRepo.findAll();
+    }
 }
