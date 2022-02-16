@@ -24,4 +24,8 @@ public class GreeceService {
         }
         return GreeceModel.toModel(greeceRegion);
     }
+
+    public Iterable<GreeceEntity> getAllRegions() {
+        return greeceRepo.findAll();
+    }
 }
