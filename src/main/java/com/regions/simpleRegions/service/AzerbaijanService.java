@@ -7,6 +7,8 @@ import com.regions.simpleRegions.respository.AzerbaijanRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AzerbaijanService {
 
@@ -23,5 +25,9 @@ public class AzerbaijanService {
             throw new RegionNotFoundException("Region not found.");
         }
         return AzerbaijanModel.toModel(azerbaijanRegion);
+    }
+
+    public Iterable<AzerbaijanEntity> getAllRegions() {
+        return azerbaijanRepo.findAll();
     }
 }
