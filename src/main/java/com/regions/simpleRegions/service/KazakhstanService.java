@@ -24,4 +24,8 @@ public class KazakhstanService {
         }
         return KazakhstanModel.toModel(kazakhstanRegion);
     }
+
+    public Iterable<KazakhstanEntity> getAllRegions() {
+        return kazakhstanRepo.findAll();
+    }
 }
