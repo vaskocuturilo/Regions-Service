@@ -23,4 +23,8 @@ public class ArmeniaService {
         }
         return ArmeniaModel.toModel(armeniaRegion);
     }
+
+    public Iterable<ArmeniaEntity> getAllRegions() {
+        return armeniaRepo.findAll();
+    }
 }
