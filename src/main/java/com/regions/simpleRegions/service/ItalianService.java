@@ -24,4 +24,8 @@ public class ItalianService {
         }
         return ItalianModel.toModel(italianRegion);
     }
+
+    public Iterable<ItalianEntity> getAllRegions() {
+        return italianRepo.findAll();
+    }
 }
