@@ -24,4 +24,8 @@ public class KyrgyzstanService {
         }
         return KyrgyzstanModel.toModel(kyrgyzstanRegion);
     }
+
+    public Iterable<KyrgyzstanEntity> getAllRegions() {
+        return kyrgyzstanRepo.findAll();
+    }
 }
