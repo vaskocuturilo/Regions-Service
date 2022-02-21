@@ -24,4 +24,8 @@ public class HungaryService {
         }
         return HungaryModel.toModel(hungaryRegion);
     }
+
+    public Iterable<HungaryEntity> getAllRegions() {
+        return hungaryRepo.findAll();
+    }
 }
