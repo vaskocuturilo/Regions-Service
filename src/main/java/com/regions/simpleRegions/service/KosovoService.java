@@ -24,4 +24,8 @@ public class KosovoService {
         }
         return KosovoModel.toModel(kosovoRegion);
     }
+
+    public Iterable<KosovoEntity> getAllRegions() {
+        return kosovoRepo.findAll();
+    }
 }
