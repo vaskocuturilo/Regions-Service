@@ -24,4 +24,8 @@ public class MoldovaService {
         }
         return MoldovaModel.toModel(moldovaRegion);
     }
+
+    public Iterable<MoldovaEntity> getAllRegions() {
+        return moldovaRepo.findAll();
+    }
 }
