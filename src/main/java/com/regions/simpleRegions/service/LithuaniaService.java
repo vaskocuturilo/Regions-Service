@@ -25,4 +25,7 @@ public class LithuaniaService {
         return LithuaniaModel.toModel(lithuaniaRegion);
     }
 
+    public Iterable<LithuaniaEntity> getAllRegions() {
+        return lithuaniaRepo.findAll();
+    }
 }
