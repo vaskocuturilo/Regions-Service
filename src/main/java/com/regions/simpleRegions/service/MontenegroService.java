@@ -24,4 +24,8 @@ public class MontenegroService {
         }
         return MontenegroModel.toModel(montenegroRegion);
     }
+
+    public Iterable<MontenegroEntity> getAllRegions() {
+        return montenegroRepo.findAll();
+    }
 }
