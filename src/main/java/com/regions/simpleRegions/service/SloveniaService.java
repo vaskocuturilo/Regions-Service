@@ -24,4 +24,8 @@ public class SloveniaService {
         }
         return SloveniaModel.toModel(sloveniaRegion);
     }
+
+    public Iterable<SloveniaEntity> getAllRegions() {
+        return sloveniaRepo.findAll();
+    }
 }
