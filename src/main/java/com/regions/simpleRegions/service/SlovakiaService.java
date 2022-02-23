@@ -24,4 +24,8 @@ public class SlovakiaService {
         }
         return SlovakiaModel.toModel(slovakiaRegion);
     }
+
+    public Iterable<SlovakiaEntity> getAllRegions() {
+        return slovakiaRepo.findAll();
+    }
 }

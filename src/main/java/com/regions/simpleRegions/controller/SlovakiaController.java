@@ -1,6 +1,7 @@
 package com.regions.simpleRegions.controller;
 
 import com.regions.simpleRegions.exception.RegionNotFoundException;
+import com.regions.simpleRegions.exception.RegionsNotFoundException;
 import com.regions.simpleRegions.service.SlovakiaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,17 @@ public class SlovakiaController {
         try {
             return ResponseEntity.ok(slovakiaService.getOne(region));
         } catch (RegionNotFoundException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/slovakia/all")
+    public ResponseEntity getAllSlovakiaRegions() {
+        try {
+            return ResponseEntity.ok(slovakiaService.getAllRegions());
+        } catch (RegionsNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
