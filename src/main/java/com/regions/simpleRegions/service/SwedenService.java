@@ -24,4 +24,8 @@ public class SwedenService {
         }
         return SwedenModel.toModel(swedenRegion);
     }
+
+    public Iterable<SwedenEntity> getAllRegions() {
+        return swedenRepo.findAll();
+    }
 }
