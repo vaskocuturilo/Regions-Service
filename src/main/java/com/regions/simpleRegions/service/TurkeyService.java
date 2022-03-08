@@ -24,4 +24,8 @@ public class TurkeyService {
         }
         return TurkeyModel.toModel(turkeyRegion);
     }
+
+    public Iterable<TurkeyEntity> getAllRegions() {
+        return turkeyRepo.findAll();
+    }
 }
