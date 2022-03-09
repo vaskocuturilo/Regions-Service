@@ -24,4 +24,8 @@ public class UzbekistanService {
         }
         return UzbekistanModel.toModel(uzbekistanRegion);
     }
+
+    public Iterable<UzbekistanEntity> getAllRegions() {
+        return uzbekistanRepo.findAll();
+    }
 }
