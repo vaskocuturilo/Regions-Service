@@ -10,9 +10,9 @@ CREATE TABLE `sweden_entity` (
 LOCK TABLES `sweden_entity` WRITE;
 /*!40000 ALTER TABLE `sweden_entity` DISABLE KEYS */;
 INSERT INTO `sweden_entity` VALUES
-(1,' City of Stockholm','A'),
-(2,' City of Stockholm','AA'),
-(3,' City of Stockholm','AB'),
+(1,'City of Stockholm','A'),
+(2,'City of Stockholm','AA'),
+(3,'City of Stockholm','AB'),
 (4,'Stockholms län','B'),
 (5,'Stockholms län','BA'),
 (6,'Stockholms län','BB'),
