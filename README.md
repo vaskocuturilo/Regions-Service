@@ -28,6 +28,18 @@ You will need the following technologies available to try it out:
 * Docker
 * IDE of your choice
 
+
+## TO-DO list (ASAP):
+- Add functionality for search by code
+- Add functionality for search by name
+- Add functionality for parse a car plate.
+- Mograte Database for MySQL -> PostgreSQL
+- Add V2
+- Add UI
+- Add Docker, docker-compose.yml
+- Add unit tests.
+- 
+
 ### Actuator
 
 * http://localhost:8090/actuator
