@@ -1,15 +1,15 @@
-DROP TABLE IF EXISTS `german_entity`;
+DROP TABLE IF EXISTS `germany_entity`;
 
-CREATE TABLE `german_entity` (
+CREATE TABLE `germany_entity` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
   `region` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-LOCK TABLES `german_entity` WRITE;
+LOCK TABLES `germany_entity` WRITE;
 /*!40000 ALTER TABLE `german_entity` DISABLE KEYS */;
-INSERT INTO `german_entity` VALUES
+INSERT INTO `germany_entity` VALUES
 (1,'Augsburg, Bavaria','A'),
 (2,'Aalen & Ostalbkreis, Baden-Württemberg','AA'),
 (3,'Aschaffenburg, Bavaria','AB'),
