@@ -37,8 +37,7 @@ You will need the following technologies available to try it out:
 - Add V2
 - Add UI
 - Add Docker, docker-compose.yml
-- Add unit tests.
-- 
+- Add unit tests. :heavy_check_mark:
 
 ### Actuator
 
