@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Setter
 @NoArgsConstructor
 @Entity
-public class GermanEntity {
+public class GermanyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

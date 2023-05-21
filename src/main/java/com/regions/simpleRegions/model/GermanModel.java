@@ -1,6 +1,6 @@
 package com.regions.simpleRegions.model;
 
-import com.regions.simpleRegions.entity.GermanEntity;
+import com.regions.simpleRegions.entity.GermanyEntity;
 
 public class GermanModel {
 
@@ -14,7 +14,7 @@ public class GermanModel {
         this.description = description;
     }
 
-    public static GermanModel toModel(GermanEntity entity) {
+    public static GermanModel toModel(GermanyEntity entity) {
         GermanModel model = new GermanModel();
         model.setDescription(entity.getDescription());
 

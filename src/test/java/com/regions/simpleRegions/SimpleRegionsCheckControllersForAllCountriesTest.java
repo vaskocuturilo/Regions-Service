@@ -1,6 +1,6 @@
 package com.regions.simpleRegions;
 
-import com.regions.simpleRegions.controller.GermanController;
+import com.regions.simpleRegions.controller.GermanyController;
 import com.regions.simpleRegions.controller.PolandController;
 import com.regions.simpleRegions.controller.RussiaController;
 import com.regions.simpleRegions.controller.SwedenController;
@@ -21,7 +21,7 @@ public class SimpleRegionsCheckControllersForAllCountriesTest {
     PolandController polandController;
 
     @Autowired
-    GermanController germanController;
+    GermanyController germanyController;
 
     @Autowired
     SwedenController swedenController;
@@ -38,7 +38,7 @@ public class SimpleRegionsCheckControllersForAllCountriesTest {
 
     @Test
     public void testSimpleRegionsCheckGermanController() {
-        assertThat(germanController).isNotNull();
+        assertThat(germanyController).isNotNull();
     }
 
     @Test

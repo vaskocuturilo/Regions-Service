@@ -1,31 +1,31 @@
 package com.regions.simpleRegions.service;
 
-import com.regions.simpleRegions.entity.GermanEntity;
+import com.regions.simpleRegions.entity.GermanyEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.GermanModel;
-import com.regions.simpleRegions.respository.GermanRepo;
+import com.regions.simpleRegions.respository.GermanyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GermanService {
+public class GermanyService {
 
-    GermanRepo germanRepo;
+    GermanyRepo germanyRepo;
 
     @Autowired
-    public GermanService(GermanRepo germanRepo) {
-        this.germanRepo = germanRepo;
+    public GermanyService(GermanyRepo germanyRepo) {
+        this.germanyRepo = germanyRepo;
     }
 
     public GermanModel getOne(String region) throws RegionNotFoundException {
-        GermanEntity germanRegion = germanRepo.findByRegion(region);
+        GermanyEntity germanRegion = germanyRepo.findByRegion(region);
         if (germanRegion == null) {
             throw new RegionNotFoundException("Region not found.");
         }
         return GermanModel.toModel(germanRegion);
     }
 
-    public Iterable<GermanEntity> getAllRegions() {
-        return germanRepo.findAll();
+    public Iterable<GermanyEntity> getAllRegions() {
+        return germanyRepo.findAll();
     }
 }
