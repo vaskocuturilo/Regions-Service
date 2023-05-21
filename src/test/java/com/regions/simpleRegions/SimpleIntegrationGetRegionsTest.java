@@ -71,7 +71,7 @@ public class SimpleIntegrationGetRegionsTest {
     @Test
     void getRegionHandle_whenGetGermany_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/german")
+                        .get("/api/germany")
                         .param("region", "B")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
