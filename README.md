@@ -30,14 +30,17 @@ You will need the following technologies available to try it out:
 
 
 ## TO-DO list (ASAP):
-- Add functionality for search by code
-- Add functionality for search by name
+- Add functionality for search by region code.
+- Add functionality for search by region name, city, district.
 - Add functionality for parse a car plate.
-- Mograte Database for MySQL -> PostgreSQL
+- Migrate Database for MySQL -> PostgreSQL.
 - Add V2
 - Add UI
-- Add Docker, docker-compose.yml
+- Add JWT
+- Add one time password
+- Add docker-compose
 - Add unit tests. :heavy_check_mark:
+- Fix Germany.
 
 ### Actuator
 
