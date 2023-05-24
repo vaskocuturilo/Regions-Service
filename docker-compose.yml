@@ -1,21 +1,32 @@
-version: "3"
+version: "3.8"
 services:
-  app:
-    image: app
-    ports:
-      - "8080:8080"
-    networks:
-      - employee-mysql
-    depends_on:
-      - mysqldb
-
   mysqldb:
-    image: mysql:8
+    image: mysql:8.0
+    restart: always
+    ports:
+      - 3307:3306
     networks:
-      - employee-mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=regions
+      - demo_springboot-mysql-net
+
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+
+  server:
+    image: myapp
+    container_name: myapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+
+    networks:
+      - demo_springboot-mysql-net
+    depends_on:
+      mysqldb:
+        condition: service_healthy
 
 networks:
-  employee-mysql:
+  demo_springboot-mysql-net:
