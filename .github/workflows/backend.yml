@@ -19,11 +19,5 @@ jobs:
           distribution: adopt
           cache: 'gradle'
 
-      - name: Gradle init.
-        run: gradle init
-
-      - name: Create gradle wrapper.
-        run: gradle wrapper
-
       - name: Build project.
         run: gradle build -x test
