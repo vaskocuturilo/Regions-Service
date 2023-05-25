@@ -7,6 +7,8 @@ services:
       - 3307:3306
     networks:
       - demo_springboot-mysql-net
+    env_file:
+      - .env
 
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
