@@ -9,8 +9,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
+import java.util.List;
+
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,11 +22,12 @@ public class SimpleIntegrationRussiaTest {
     @Autowired
     private MockMvc mockMvc;
 
+    private String PATH = "/api/v1/russia/";
+
     @Test
-    void getRegionHandle_whenGetRussia_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetRussiaByRegion_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/russia")
-                        .param("region", "29")
+                        .get(PATH + "/region/29")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -36,9 +38,22 @@ public class SimpleIntegrationRussiaTest {
     }
 
     @Test
+    void getRegionHandle_whenGetRussiaByDescription_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/description/Москва")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*]").isNotEmpty())
+                .andExpect(jsonPath("$[*].region").isNotEmpty())
+                .andExpect(jsonPath("$[*].description").isNotEmpty())
+                .andExpect(jsonPath("$[*]", hasSize(9)));
+    }
+
+    @Test
     void getRegionHandle_whenGetAllRussiaRegions_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/russia/all")
+                        .get(PATH + "/all")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -47,13 +62,23 @@ public class SimpleIntegrationRussiaTest {
     }
 
     @Test
-    void getRegionHandle_whenExceptionRussia_thenStatus200() throws Exception {
+    void getRegionHandle_whenExceptionRussiaByRegion_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/russia")
-                        .param("region", "600")
+                        .get(PATH + "/region/600")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.content().string("Region not found."));
     }
+
+    @Test
+    void getRegionHandle_whenExceptionRussiaByDescription_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/description/Стамбул")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().string("Region not found."));
+    }
+
 }
