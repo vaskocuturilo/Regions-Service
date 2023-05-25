@@ -1,0 +1,29 @@
+name: CI/CD Pipeline
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      # Setting up the Java environment
+      - uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: adopt
+          cache: 'gradle'
+
+      - name: Gradle init.
+        run: gradle init
+
+      - name: Create gradle wrapper.
+        run: gradle wrapper
+
+      - name: Build project.
+        run: gradle build -x test
