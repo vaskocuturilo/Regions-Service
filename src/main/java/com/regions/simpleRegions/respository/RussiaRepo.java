@@ -12,6 +12,6 @@ public interface RussiaRepo extends CrudRepository<RussiaEntity, Long> {
 
     RussiaEntity findByRegion(String region);
 
-    @Query("select russia from RussiaEntity russia WHERE russia.description = ?1")
+    @Query("select russia from RussiaEntity russia WHERE russia.description LIKE CONCAT('%',:description,'%')")
     List<RussiaEntity> findByDescription(String description);
 }
