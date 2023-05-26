@@ -47,7 +47,36 @@ public class SimpleIntegrationRussiaTest {
                 .andExpect(jsonPath("$[*]").isNotEmpty())
                 .andExpect(jsonPath("$[*].region").isNotEmpty())
                 .andExpect(jsonPath("$[*].description").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(9)));
+                .andExpect(jsonPath("$[*]", hasSize(10)));
+    }
+
+    @Test
+    void getRegionHandle_whenGetRussiaByDescriptionContains_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/description/Ярослав")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].region", equalTo("76")))
+                .andExpect(jsonPath("$[0].description", equalTo("Ярославская область")));
+    }
+
+    @Test
+    void getRegionHandle_whenGetRussiaWithoutDescription_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/description/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getRegionHandle_whenGetRussiaWithoutRegion_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/region/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     @Test

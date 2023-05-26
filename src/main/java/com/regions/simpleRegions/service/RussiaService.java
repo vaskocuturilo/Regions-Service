@@ -25,7 +25,7 @@ public class RussiaService {
         if (russiaDescription == null) {
             throw new RegionNotFoundException("Region not found.");
         }
-        return RussiaModel.toModelDescription(russiaDescription);
+        return RussiaModel.toModelRegion(russiaDescription);
     }
 
     public List<RussiaModel> getDescription(String description) throws RegionNotFoundException {
