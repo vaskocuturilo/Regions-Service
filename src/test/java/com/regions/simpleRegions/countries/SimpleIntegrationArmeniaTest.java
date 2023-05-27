@@ -21,11 +21,12 @@ class SimpleIntegrationArmeniaTest {
     @Autowired
     private MockMvc mockMvc;
 
+    private String PATH = "/api/v1/armenia/";
+
     @Test
-    void getRegionHandle_whenGetArmenia_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetArmeniaByRegion_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/armenia")
-                        .param("region", "01")
+                        .get(PATH + "region/01")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -34,9 +35,50 @@ class SimpleIntegrationArmeniaTest {
     }
 
     @Test
+    void getRegionHandle_whenGetArmeniaByDescription_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "description/Yerevan")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*].description").isNotEmpty())
+                .andExpect(jsonPath("$[*].region").isNotEmpty())
+                .andExpect(jsonPath("$[*]", hasSize(21)));
+    }
+
+    @Test
+    void getRegionHandle_whenGetArmeniaByDescriptionContains_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "description/Yerevan")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].region", equalTo("01")))
+                .andExpect(jsonPath("$[0].description", equalTo("Yerevan (city)")));
+    }
+
+    @Test
+    void getRegionHandle_whenGetArmeniaWithoutDescription_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "description/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getRegionHandle_whenGetArmeniaWithoutRegion_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "region/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     void getRegionHandle_whenGetAllArmeniaRegions_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/armenia/all")
+                        .get(PATH + "all")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -47,8 +89,7 @@ class SimpleIntegrationArmeniaTest {
     @Test
     void getRegionHandle_whenExceptionArmenia_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/armenia")
-                        .param("region", "100")
+                        .get(PATH + "/region/100")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())

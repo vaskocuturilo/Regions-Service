@@ -4,13 +4,10 @@ import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.exception.RegionsNotFoundException;
 import com.regions.simpleRegions.service.ArmeniaService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/armenia")
 public class ArmeniaController {
 
     ArmeniaService armeniaService;
@@ -19,10 +16,10 @@ public class ArmeniaController {
         this.armeniaService = armeniaService;
     }
 
-    @GetMapping("/armenia")
-    public ResponseEntity getArmeniaRegionByNumber(@RequestParam String region) {
+    @GetMapping("region/{region}")
+    public ResponseEntity getArmeniaRegionByNumber(@PathVariable String region) {
         try {
-            return ResponseEntity.ok(armeniaService.getOne(region));
+            return ResponseEntity.ok(armeniaService.getRegionNumber(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -30,7 +27,18 @@ public class ArmeniaController {
         }
     }
 
-    @GetMapping("/armenia/all")
+    @GetMapping("description/{description}")
+    public ResponseEntity getRussiaRegionByDescription(@PathVariable String description) {
+        try {
+            return ResponseEntity.ok(armeniaService.getDescription(description));
+        } catch (RegionNotFoundException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/all")
     public ResponseEntity getAllArmeniaRegions() {
         try {
             return ResponseEntity.ok(armeniaService.getAllRegions());
