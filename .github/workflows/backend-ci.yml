@@ -42,4 +42,4 @@ jobs:
           cache: 'gradle'
 
       - name: Build project.
-        run: gradle clean build -x test
+        run: gradle clean build
