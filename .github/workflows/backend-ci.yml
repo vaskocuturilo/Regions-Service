@@ -1,0 +1,45 @@
+name: CI - Build Backend
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:latest
+        ports:
+          - 3306
+        env:
+          MYSQL_USER: vasko
+          MYSQL_PASSWORD: qwerty123456
+          MYSQL_DATABASE: regions
+          MYSQL_ROOT_PASSWORD: qwerty123456
+
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Verify MariaDB connection
+        env:
+          PORT: ${{ job.services.mariadb.ports[3306] }}
+        run: |
+          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+            sleep 1
+          done          
+      # Setting up the Java environment
+      - uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: adopt
+          cache: 'gradle'
+
+      - name: Build project.
+        run: gradle clean build
