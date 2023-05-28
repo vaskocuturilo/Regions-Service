@@ -9,19 +9,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     services:
-      postgres:
+      mysql:
         image: mysql:8.0
         env:
-          POSTGRES_USER: vasko
-          POSTGRES_PASSWORD: qwerty123456
-          POSTGRES_DB: regions
+          MYSQL_USER: vasko
+          MYSQL_PASSWORD: qwerty123456
+          MYSQL_DB: regions
         ports:
           - 3306:3306
         options: >-
-          --health-cmd pg_isready
+          --health-cmd "mysql health ping"
           --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-timeout 10s
+          --health-retries 10
 
     steps:
       - uses: actions/checkout@v3
