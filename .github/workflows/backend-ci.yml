@@ -10,7 +10,7 @@ on:
     DB_PASSWORD: qwerty123456
 
 jobs:
-  build:
+  init:
     runs-on: ubuntu-latest
 
     services:
