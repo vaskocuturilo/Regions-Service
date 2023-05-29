@@ -37,14 +37,17 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: adopt
           cache: 'gradle'
 
+      # Setting up the Gradle version 7.*
+      - name: Setup Gradle 7.*
       - uses: gradle/gradle-build-action@v2
-      - name: Setup Gradle 7.1.1
         with:
           gradle-version: 7.1.1
 
-      - name: Build project.
-        run: gradle clean build
+      - name: Setup and execute Gradle 'test' task
+      - uses: gradle/gradle-build-action@v2
+        with:
+          arguments: test
