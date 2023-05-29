@@ -24,7 +24,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-
       - name: Verify MariaDB connection
         env:
           PORT: ${{ job.services.mariadb.ports[3306] }}
@@ -34,7 +33,7 @@ jobs:
           done          
       # Setting up the Java environment
       - uses: actions/checkout@v3
-      - name: Setup Java
+      - name: Setup Java 17.*
         uses: actions/setup-java@v3
         with:
           java-version: '17'
