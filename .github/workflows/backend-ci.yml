@@ -33,10 +33,10 @@ jobs:
           done          
       # Setting up the Java environment
       - uses: actions/checkout@v3
-      - name: Setup Java 17.*
+      - name: Setup Java 11.*
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: adopt
           cache: 'gradle'
 
