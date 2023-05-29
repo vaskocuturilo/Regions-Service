@@ -24,7 +24,7 @@ class SimpleIntegrationUzbekistanTest {
     void getRegionHandle_whenGetUzbekistan_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/api/uzbekistan")
-                        .param("region", "103")
+                        .param("region", "03")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
