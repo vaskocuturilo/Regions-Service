@@ -35,7 +35,7 @@ You will need the following technologies available to try it out:
 - Add functionality for parse a car plate.
 - Migrate Database for MySQL -> PostgreSQL.
 - Add V2
-- Add UI
+- Add UI (Countries field) :heavy_check_mark:
 - Add JWT
 - Add one time password
 - Add docker-compose
