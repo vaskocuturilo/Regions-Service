@@ -2,7 +2,9 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/index.js"></script>
 </head>
+<body>
 <div class="container">
     <div class="row">
         <div class="col-lg-3 col-md-2"></div>
@@ -11,7 +13,8 @@
                 <i class="fa fa-key" aria-hidden="true"></i>
             </div>
             <div class="col-lg-12 login-title">
-                <select name="countries">
+                <select id="dropdown" name="dropdown">
+                    <option value="None">None</option>
                     <option value="AM">🇦🇲&emsp;Armenia</option>
                     <option value="AU">🇦🇹&emsp;Austria</option>
                     <option value="AZ">🇦🇿&emsp;Azerbaijan</option>
@@ -21,7 +24,7 @@
                     <option value="HR">🇭🇷&emsp;Croatia</option>
                     <option value="CZ">🇨🇿&emsp;Czech Republic</option>
                     <option value="EE">🇪🇪&emsp;Estonia</option>
-                    <option value="FR">🇫🇷&emsp;France</option> 
+                    <option value="FR">🇫🇷&emsp;France</option>
                     <option value="DE">🇩🇪&emsp;Germany</option>
                     <option value="GR">🇬🇷&emsp;Greece</option>
                     <option value="HU">🇭🇺&emsp;Hungary</option>
@@ -46,12 +49,16 @@
                     <option value="UZ">🇺🇿&emsp;Uzbekistan</option>
                 </select>
             </div>
-
             <div class="col-lg-12 login-title">
                 <input name="countries">
                 </select>
             </div>
+            <div id="image">
+                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQijmYaWonPS_ckwz9WLIrMpDPWCQDOTe8D7O_RIjEVcyMKr7NwZQ"
+                     class="hidden" alt="some image"/>
+            </div>
         </div>
     </div>
 </div>
+</body>
 </html>
