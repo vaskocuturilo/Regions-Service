@@ -2,7 +2,18 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#countries').on('change', function () {
+                if (['AM', 'AU', 'AZ', 'BY', 'GB', 'BG', 'HR', 'CZ', 'EE', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'KZ', 'KO', 'KG', 'LT', 'MD', 'ME', 'NO', 'PL', 'RO', 'RU', 'SK', 'SI', 'SE', 'CH', 'TR', 'UA', 'UZ'].indexOf(this.value) > -1) {
+                    $("#image").show();
+                } else {
+                    $("#image").hide();
+                }
+            }).change();
+        });
+    </script>
 </head>
 <body>
 <div class="container">
@@ -13,8 +24,8 @@
                 <i class="fa fa-key" aria-hidden="true"></i>
             </div>
             <div class="col-lg-12 login-title">
-                <select id="dropdown" name="dropdown">
-                    <option value="None">None</option>
+                <select id="countries" name="countries">
+                    <option value="None">Choose country</option>
                     <option value="AM">🇦🇲&emsp;Armenia</option>
                     <option value="AU">🇦🇹&emsp;Austria</option>
                     <option value="AZ">🇦🇿&emsp;Azerbaijan</option>
@@ -55,7 +66,7 @@
             </div>
             <div id="image">
                 <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQijmYaWonPS_ckwz9WLIrMpDPWCQDOTe8D7O_RIjEVcyMKr7NwZQ"
-                     class="hidden" alt="some image"/>
+                     alt="some image"/>
             </div>
         </div>
     </div>
