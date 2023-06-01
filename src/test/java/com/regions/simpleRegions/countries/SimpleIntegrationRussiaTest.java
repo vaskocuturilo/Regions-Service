@@ -61,7 +61,7 @@ public class SimpleIntegrationRussiaTest {
     }
 
     @Test
-    void getRegionHandle_whenGetRussiaWithoutDescription_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetRussiaWithoutDescription_thenStatus404() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -70,7 +70,7 @@ public class SimpleIntegrationRussiaTest {
     }
 
     @Test
-    void getRegionHandle_whenGetRussiaWithoutRegion_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetRussiaWithoutRegion_thenStatus404() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -90,7 +90,7 @@ public class SimpleIntegrationRussiaTest {
     }
 
     @Test
-    void getRegionHandle_whenExceptionRussiaByRegion_thenStatus200() throws Exception {
+    void getRegionHandle_whenExceptionRussiaByRegion_thenStatus400() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/600")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -100,7 +100,7 @@ public class SimpleIntegrationRussiaTest {
     }
 
     @Test
-    void getRegionHandle_whenExceptionRussiaByDescription_thenStatus200() throws Exception {
+    void getRegionHandle_whenExceptionRussiaByDescription_thenStatus400() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/Стамбул")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -108,5 +108,4 @@ public class SimpleIntegrationRussiaTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.content().string("Region not found."));
     }
-
 }

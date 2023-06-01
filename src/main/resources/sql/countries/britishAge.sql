@@ -1,14 +1,14 @@
-DROP TABLE IF EXISTS `british_age_identifiers`;
-CREATE TABLE `british_age_identifiers` (
+DROP TABLE IF EXISTS `british_age`;
+CREATE TABLE `british_age` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `date` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-LOCK TABLES `british_age_identifiers` WRITE;
+LOCK TABLES `british_age` WRITE;
 /*!40000 ALTER TABLE `british_entity` DISABLE KEYS */;
-INSERT INTO `british_age_identifiers` VALUES
+INSERT INTO `british_age` VALUES
 (1,'March 2002 – Aug 2002','02'),
 (2,'March 2003 – Aug 2003','03'),
 (3,'March 2004 – Aug 2004','04'),
