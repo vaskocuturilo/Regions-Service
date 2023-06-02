@@ -1,11 +1,16 @@
 package com.regions.simpleRegions.model;
 
+import com.regions.simpleRegions.entity.BritishAgeEntity;
 import com.regions.simpleRegions.entity.BritishEntity;
 
 public class BritishModel {
 
     private String description;
     private String region;
+    private String date;
+
+    private String code;
+
 
     public String getDescription() {
         return description;
@@ -23,18 +28,39 @@ public class BritishModel {
         this.region = region;
     }
 
-    public static BritishModel toModelRegion(BritishEntity britishEntity) {
-        BritishModel model = new BritishModel();
-        model.setDescription(britishEntity.getDescription());
-        model.setRegion(britishEntity.getRegion());
+    public String getDate() {
+        return date;
+    }
 
-        return model;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public static BritishModel toModelRegion(BritishEntity city, BritishAgeEntity code) {
+        BritishModel britishModel = new BritishModel();
+
+        britishModel.setDescription(city.getDescription());
+        britishModel.setCode(code.getCode());
+        britishModel.setDate(code.getDate());
+        britishModel.setRegion(city.getRegion());
+
+        return britishModel;
     }
 
     public static BritishModel toModelDescription(BritishEntity britishEntity) {
         BritishModel model = new BritishModel();
         model.setDescription(britishEntity.getDescription());
         model.setRegion(britishEntity.getRegion());
+        model.setDate(britishEntity.getRegion());
+        model.setCode(britishEntity.getDescription());
 
         return model;
     }
