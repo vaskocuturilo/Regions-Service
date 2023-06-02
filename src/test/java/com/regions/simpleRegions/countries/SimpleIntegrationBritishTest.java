@@ -26,14 +26,16 @@ class SimpleIntegrationBritishTest {
     @Test
     void getRegionHandle_whenGetBritishByRegion_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get(PATH + "/region/AA")
+                        .get(PATH + "/region/AA11")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.region").isNotEmpty())
                 .andExpect(jsonPath("$.description").isNotEmpty())
                 .andExpect(jsonPath("$.region", equalTo("AA")))
-                .andExpect(jsonPath("$.description", equalTo("Anglia, Peterborough")));
+                .andExpect(jsonPath("$.description", equalTo("Anglia, Peterborough")))
+                .andExpect(jsonPath("$.code", equalTo("11")))
+                .andExpect(jsonPath("$.date", equalTo("March 2011 – Aug 2011")));
     }
 
     @Test
@@ -46,6 +48,8 @@ class SimpleIntegrationBritishTest {
                 .andExpect(jsonPath("$[*]").isNotEmpty())
                 .andExpect(jsonPath("$[*].region").isNotEmpty())
                 .andExpect(jsonPath("$[*].description").isNotEmpty())
+                .andExpect(jsonPath("$[*].code").isNotEmpty())
+                .andExpect(jsonPath("$[*].date").isNotEmpty())
                 .andExpect(jsonPath("$[*]", hasSize(11)));
     }
 
@@ -57,6 +61,8 @@ class SimpleIntegrationBritishTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].region", equalTo("AA")))
+                .andExpect(jsonPath("$[0].code", equalTo("Anglia, Peterborough")))
+                .andExpect(jsonPath("$[0].date", equalTo("AA")))
                 .andExpect(jsonPath("$[0].description", equalTo("Anglia, Peterborough")));
     }
 
