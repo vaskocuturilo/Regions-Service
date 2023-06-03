@@ -38,9 +38,11 @@ You will need the following technologies available to try it out:
 - Add UI (Countries field) :heavy_check_mark:
 - Add JWT
 - Add one time password
-- Add docker-compose
+- Add docker-compose :heavy_check_mark:
 - Add unit tests. :heavy_check_mark:
 - Fix Germany.
+- Fix British.
+- 
 
 ### Actuator
 
