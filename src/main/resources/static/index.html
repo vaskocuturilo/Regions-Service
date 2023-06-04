@@ -1,110 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#countries').on('change', function () {
-                $("#AM, #AU, #AZ, #BY, #GB, #BG, #HR, #CZ, #EE, #FR, #DE, #GR, #HU, #IE, #IT, #KZ, #KO, #KG, #LT, #MD, #ME, #NO, #PL, #RO, #RU, #SK, #SI, #SE, #CH, #TR, #UA, #UZ").hide();
-                if (this.value === 'AM') {
-                    $("#AM").show();
-                } else if (this.value === 'AU') {
-                    $("#AU").show();
-                } else if (this.value === 'AZ') {
-                    $("#AZ").show();
-                } else if (this.value === 'BY') {
-                    $("#BY").show();
-                } else if (this.value === 'GB') {
-                    $("#GB").show();
-                } else if (this.value === 'BG') {
-                    $("#BG").show();
-                } else if (this.value === 'HR') {
-                    $("#HR").show();
-                } else if (this.value === 'CZ') {
-                    $("#CZ").show();
-                } else if (this.value === 'EE') {
-                    $("#EE").show();
-                } else if (this.value === 'FR') {
-                    $("#FR").show();
-                } else if (this.value === 'DE') {
-                    $("#GR").show();
-                } else if (this.value === 'HU') {
-                    $("#HU").show();
-                } else if (this.value === 'IE') {
-                    $("#IE").show();
-                } else if (this.value === 'IT') {
-                    $("#IT").show();
-                } else if (this.value === 'KZ') {
-                    $("#KZ").show();
-                } else if (this.value === 'KO') {
-                    $("#KO").show();
-                } else if (this.value === 'KG') {
-                    $("#KG").show();
-                } else if (this.value === 'LT') {
-                    $("#LT").show();
-                } else if (this.value === 'MD') {
-                    $("#MD").show();
-                } else if (this.value === 'ME') {
-                    $("#ME").show();
-                } else if (this.value === 'NO') {
-                    $("#NO").show();
-                } else if (this.value === 'PL') {
-                    $("#PL").show();
-                } else if (this.value === 'RO') {
-                    $("#RO").show();
-                } else if (this.value === 'RU') {
-                    $("#RU").show();
-                } else if (this.value === 'SK') {
-                    $("#SK").show();
-                } else if (this.value === 'SI') {
-                    $("#SI").show();
-                } else if (this.value === 'SE') {
-                    $("#SE").show();
-                } else if (this.value === 'CH') {
-                    $("#CH").show();
-                } else if (this.value === 'TR') {
-                    $("#TR").show();
-                } else if (this.value === 'UA') {
-                    $("#UA").show();
-                } else if (this.value === 'UZ') {
-                    $("#UZ").show();
-                } else {
-                    $("#AM").hide();
-                    $("#AU").hide();
-                    $("#AZ").hide();
-                    $("#BY").hide();
-                    $("#GB").hide();
-                    $("#BG").hide();
-                    $("#HR").hide();
-                    $("#CZ").hide();
-                    $("#EE").hide();
-                    $("#FR").hide();
-                    $("#DE").hide();
-                    $("#GR").hide();
-                    $("#HU").hide();
-                    $("#IE").hide();
-                    $("#IT").hide();
-                    $("#KZ").hide();
-                    $("#KO").hide();
-                    $("#KG").hide();
-                    $("#LT").hide();
-                    $("#MD").hide();
-                    $("#ME").hide();
-                    $("#NO").hide();
-                    $("#PL").hide();
-                    $("#RO").hide();
-                    $("#RU").hide();
-                    $("#SK").hide();
-                    $("#SI").hide();
-                    $("#SE").hide();
-                    $("#CH").hide();
-                    $("#TR").hide();
-                    $("#UA").hide();
-                    $("#UZ").hide();
-                }
-            }).change();
-        });
+        let colorUrlMap = {
+            "None": "https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA=",
+            "AM": "https://www.plateshack.com/y2k/Armenia/armenia21sc221.jpg",
+            "AU": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Austrian_license_plate.svg/1280px-Austrian_license_plate.svg.png",
+            "AZ": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Azerbaijan_licence_plate_format.svg/1024px-Azerbaijan_licence_plate_format.svg.png",
+            "BY": "https://upload.wikimedia.org/wikipedia/commons/7/78/Belarus_license_plate.png",
+            "GB": "https://www.thecarexpert.co.uk/wp-content/uploads/2019/03/GB-number-plate-example.jpg",
+            "BG": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Bulgaria-automobile-license-plate.png",
+            "HR": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Registarska_plo%C4%8Dica_Delnice_HR_%282016-%29.jpg/1920px-Registarska_plo%C4%8Dica_Delnice_HR_%282016-%29.jpg",
+            "CZ": "https://cdn.skoda-storyboard.com/2019/01/license-plate-infographics-en.jpg",
+            "EE": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Estonian_license_plate.svg/1280px-Estonian_license_plate.svg.png",
+            "FR": "https://cdn.skoda-storyboard.com/2019/07/France-license-plate-english.jpg",
+            "DE": "https://cdn.skoda-storyboard.com/2019/04/germany-license-plate-english-infographic.jpg",
+            "GR": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Greek_license_plate.svg/1280px-Greek_license_plate.svg.png",
+            "HU": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Hungarian_license_plate.svg/1280px-Hungarian_license_plate.svg.png",
+            "IE": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Revised_format_Republic_of_Ireland_numberplate_%282013-%29.svg/1920px-Revised_format_Republic_of_Ireland_numberplate_%282013-%29.svg.png",
+            "IT": "https://cdn.skoda-storyboard.com/2019/06/Italy-license-plate-english.jpg",
+            "KZ": "https://upload.wikimedia.org/wikipedia/commons/f/fe/License_plate_Kazakhstan_2012.png",
+            "KO": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Kosovo_car_registration_plate_labels.svg/320px-Kosovo_car_registration_plate_labels.svg.png",
+            "KG": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Plak_shakhsi-KG.png/800px-Plak_shakhsi-KG.png",
+            "LT": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Lithuanian_license_plate.svg/1280px-Lithuanian_license_plate.svg.png",
+            "MD": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Moldova_MD_license_plate_ABC012_2015.svg/1024px-Moldova_MD_license_plate_ABC012_2015.svg.png",
+            "ME": "https://upload.wikimedia.org/wikipedia/commons/f/f6/License_plate_Montenegro.jpg",
+            "NO": "https://upload.wikimedia.org/wikipedia/commons/3/33/Skilt_elbil.jpg",
+            "PL": "https://cdn.skoda-storyboard.com/2019/08/poland-number-plates-infographics-english-1920x1288.jpg",
+            "RO": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Romanian_license_plate.svg/1024px-Romanian_license_plate.svg.png",
+            "RU": "https://cdn.skoda-storyboard.com/2019/04/Russian-license-plate-english.jpg",
+            "SK": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Slovak_car_registration_plate_2023.jpg",
+            "SI": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Tablica_KR_-_Kranj.jpg/1920px-Tablica_KR_-_Kranj.jpg",
+            "SE": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Sweden_licenseplate_EU.JPG/1920px-Sweden_licenseplate_EU.JPG",
+            "CH": "https://cdn.skoda-storyboard.com/2019/10/switzerland-number-plate-english-1920x1751.jpg",
+            "TR": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Foreigners_with_temporary_residence_permit_vehicle_license_plate_of_Turkey.svg/1024px-Foreigners_with_temporary_residence_permit_vehicle_license_plate_of_Turkey.svg.png",
+            "UA": "https://upload.wikimedia.org/wikipedia/commons/7/77/License_plate_of_Ukraine_2015.png",
+            "UZ": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Uzbekistan_2008_passenger_license_plate_legend.png"
+        };
     </script>
 </head>
 <body>
@@ -116,7 +50,9 @@
                 <i class="fa fa-key" aria-hidden="true"></i>
             </div>
             <div class="col-lg-12 login-title">
-                <select id="countries" name="countries">
+                <img id="countries_image" src="https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA=" class="center">
+                <select name="color" id="countries_list"
+                        onchange="document.getElementById('countries_image').src = colorUrlMap[this.value];" class="center">
                     <option value="None">Choose country</option>
                     <option value="AM">🇦🇲&emsp;Armenia</option>
                     <option value="AU">🇦🇹&emsp;Austria</option>
@@ -153,136 +89,7 @@
                 </select>
             </div>
             <div class="col-lg-12 login-title">
-                <input name="countries">
-                </select>
-            </div>
-            <div id="AM">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Armenia#/media/File:Plak-Shakhsi-AM.png"
-                     alt="Armenia"/>
-            </div>
-            <div id="AU">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Austrian_license_plate.svg/1280px-Austrian_license_plate.svg.png"
-                     alt="Austria"/>
-            </div>
-            <div id="AZ">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Azerbaijan#/media/File:Pelak_shakhsi-AZ.svg"
-                     alt="Azerbaijan"/>
-            </div>
-            <div id="BY">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Belarus_license_plate.png"
-                     alt="Belarus"/>
-            </div>
-            <div id="GB">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_United_Kingdom#/media/File:British_car_registration_plate_labels-UK.svg"
-                     alt="British"/>
-            </div>
-            <div id="BG">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Bulgaria-automobile-license-plate.png"
-                     alt="Bulgaria"/>
-            </div>
-            <div id="HR">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Croatia#/media/File:Registarska_plo%C4%8Dica_Delnice_HR_(2016-).jpg"
-                     alt="Croatia"/>
-            </div>
-            <div id="CZ">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Czech_Republic#/media/File:Czech_Republic_License_Plate_-_Variation_1.png"
-                     alt="Chez republic"/>
-            </div>
-            <div id="EE">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Estonian_license_plate.svg/1280px-Estonian_license_plate.svg.png"
-                     alt="Estonai"/>
-            </div>
-            <div id="FR">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_France#/media/File:License_plate_of_France_AA-229-DB.png"
-                     alt="France"/>
-            </div>
-            <div id="DE">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Germany#/media/File:KFZmod.png"
-                     alt="Deutschland"/>
-            </div>
-            <div id="GR">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Greek_license_plate.svg/1280px-Greek_license_plate.svg.png"
-                     alt="Greece"/>
-            </div>
-            <div id="HU">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Hungarian_license_plate.svg/1280px-Hungarian_license_plate.svg.png"
-                     alt="Hungary"/>
-            </div>
-            <div id="IE">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_the_Republic_of_Ireland#/media/File:Revised_format_Republic_of_Ireland_numberplate_(2013-).svg"
-                     alt="Ireland"/>
-            </div>
-            <div id="IT">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Italy#/media/File:Targa_automobilistica_Italia_1999_CZ%E2%80%A2889_KF_Bolzano-Alto_Adige_posteriore.svg"
-                     alt="Italy"/>
-            </div>
-            <div id="KZ">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/License_plate_Kazakhstan_2012.png"
-                     alt="Kazakhstan"/>
-            </div>
-            <div id="KO">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Kosovo#/media/File:Kosovo_Car_Plates.svg"
-                     alt="Kosovo"/>
-            </div>
-            <div id="KG">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Kyrgyzstan#/media/File:Pelak_shakhsi_Kyrgyzstan_2009.png"
-                     alt="Kyrgyzstan"/>
-            </div>
-            <div id="LT">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Lithuanian_license_plate.svg/1280px-Lithuanian_license_plate.svg.png"
-                     alt="Lithuania"/>
-            </div>
-            <div id="MD">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Moldova_MD_license_plate_ABC012_2015.svg/1024px-Moldova_MD_license_plate_ABC012_2015.svg.png"
-                     alt="Moldova"/>
-            </div>
-            <div id="ME">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Montenegro#/media/File:License_plate_of_Montenegro_since_2008.jpg"
-                     alt="Montenegro"/>
-            </div>
-            <div id="NO">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Norway_licenseplate_green_new.JPG"
-                     alt="Norway"/>
-            </div>
-            <div id="PL">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Poland#/media/File:Tablica_rejestracyjna_grawerunki_laserowe.jpg"
-                     alt="Poland"/>
-            </div>
-            <div id="RO">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Romanian_license_plate.svg/1024px-Romanian_license_plate.svg.png"
-                     alt="Romania"/>
-            </div>
-            <div id="RU">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Russia#/media/File:Russian_license_plate_(EN).png"
-                     alt="Russia"/>
-            </div>
-            <div id="SK">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Slovak_car_registration_plate_2023.jpg"
-                     alt="Slovakia"/>
-            </div>
-            <div id="SI">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Slovenian_License_Plates_CoA_CUT.png"
-                     alt="Slovenia"/>
-            </div>
-            <div id="SE">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Swedish_euro_license_plate.jpg"
-                     alt="Sweden"/>
-            </div>
-            <div id="CH">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Switzerland#/media/File:Switzerland_licence_plate_2007_from_Sankt_Gallen_canton.jpg"
-                     alt="Switzerland"/>
-            </div>
-            <div id="TR">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Turkey#/media/File:Private_vehicle_license_plate_of_Turkey.svg"
-                     alt="Turkey"/>
-            </div>
-            <div id="UK">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Ukraine#/media/File:License_plate_of_Ukraine_2015.png"
-                     alt="Ukraine"/>
-            </div>
-            <div id="UZ">
-                <img src="https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Uzbekistan#/media/File:Uzbekistan_2008_passenger_license_plate_legend.png"
-                     alt="Uzbekistan"/>
+                <input name="countries" class="center">
             </div>
         </div>
     </div>
