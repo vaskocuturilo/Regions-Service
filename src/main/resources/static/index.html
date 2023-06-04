@@ -1,18 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#countries').on('change', function () {
-                if (['AM', 'AU', 'AZ', 'BY', 'GB', 'BG', 'HR', 'CZ', 'EE', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'KZ', 'KO', 'KG', 'LT', 'MD', 'ME', 'NO', 'PL', 'RO', 'RU', 'SK', 'SI', 'SE', 'CH', 'TR', 'UA', 'UZ'].indexOf(this.value) > -1) {
-                    $("#image").show();
-                } else {
-                    $("#image").hide();
-                }
-            }).change();
-        });
+        let colorUrlMap = {
+            "None": "https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA=",
+            "AM": "https://www.plateshack.com/y2k/Armenia/armenia21sc221.jpg",
+            "AU": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Austrian_license_plate.svg/1280px-Austrian_license_plate.svg.png",
+            "AZ": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Azerbaijan_licence_plate_format.svg/1024px-Azerbaijan_licence_plate_format.svg.png",
+            "BY": "https://upload.wikimedia.org/wikipedia/commons/7/78/Belarus_license_plate.png",
+            "GB": "https://www.thecarexpert.co.uk/wp-content/uploads/2019/03/GB-number-plate-example.jpg",
+            "BG": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Bulgaria-automobile-license-plate.png",
+            "HR": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Registarska_plo%C4%8Dica_Delnice_HR_%282016-%29.jpg/1920px-Registarska_plo%C4%8Dica_Delnice_HR_%282016-%29.jpg",
+            "CZ": "https://cdn.skoda-storyboard.com/2019/01/license-plate-infographics-en.jpg",
+            "EE": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Estonian_license_plate.svg/1280px-Estonian_license_plate.svg.png",
+            "FR": "https://cdn.skoda-storyboard.com/2019/07/France-license-plate-english.jpg",
+            "DE": "https://cdn.skoda-storyboard.com/2019/04/germany-license-plate-english-infographic.jpg",
+            "GR": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Greek_license_plate.svg/1280px-Greek_license_plate.svg.png",
+            "HU": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Hungarian_license_plate.svg/1280px-Hungarian_license_plate.svg.png",
+            "IE": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Revised_format_Republic_of_Ireland_numberplate_%282013-%29.svg/1920px-Revised_format_Republic_of_Ireland_numberplate_%282013-%29.svg.png",
+            "IT": "https://cdn.skoda-storyboard.com/2019/06/Italy-license-plate-english.jpg",
+            "KZ": "https://upload.wikimedia.org/wikipedia/commons/f/fe/License_plate_Kazakhstan_2012.png",
+            "KO": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Kosovo_car_registration_plate_labels.svg/320px-Kosovo_car_registration_plate_labels.svg.png",
+            "KG": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Plak_shakhsi-KG.png/800px-Plak_shakhsi-KG.png",
+            "LT": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Lithuanian_license_plate.svg/1280px-Lithuanian_license_plate.svg.png",
+            "MD": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Moldova_MD_license_plate_ABC012_2015.svg/1024px-Moldova_MD_license_plate_ABC012_2015.svg.png",
+            "ME": "https://upload.wikimedia.org/wikipedia/commons/f/f6/License_plate_Montenegro.jpg",
+            "NO": "https://upload.wikimedia.org/wikipedia/commons/3/33/Skilt_elbil.jpg",
+            "PL": "https://cdn.skoda-storyboard.com/2019/08/poland-number-plates-infographics-english-1920x1288.jpg",
+            "RO": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Romanian_license_plate.svg/1024px-Romanian_license_plate.svg.png",
+            "RU": "https://cdn.skoda-storyboard.com/2019/04/Russian-license-plate-english.jpg",
+            "SK": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Slovak_car_registration_plate_2023.jpg",
+            "SI": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Tablica_KR_-_Kranj.jpg/1920px-Tablica_KR_-_Kranj.jpg",
+            "SE": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Sweden_licenseplate_EU.JPG/1920px-Sweden_licenseplate_EU.JPG",
+            "CH": "https://cdn.skoda-storyboard.com/2019/10/switzerland-number-plate-english-1920x1751.jpg",
+            "TR": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Foreigners_with_temporary_residence_permit_vehicle_license_plate_of_Turkey.svg/1024px-Foreigners_with_temporary_residence_permit_vehicle_license_plate_of_Turkey.svg.png",
+            "UA": "https://upload.wikimedia.org/wikipedia/commons/7/77/License_plate_of_Ukraine_2015.png",
+            "UZ": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Uzbekistan_2008_passenger_license_plate_legend.png"
+        };
     </script>
 </head>
 <body>
@@ -24,7 +50,9 @@
                 <i class="fa fa-key" aria-hidden="true"></i>
             </div>
             <div class="col-lg-12 login-title">
-                <select id="countries" name="countries">
+                <img id="countries_image" src="https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA=" class="center">
+                <select name="color" id="countries_list"
+                        onchange="document.getElementById('countries_image').src = colorUrlMap[this.value];" class="center">
                     <option value="None">Choose country</option>
                     <option value="AM">🇦🇲&emsp;Armenia</option>
                     <option value="AU">🇦🇹&emsp;Austria</option>
@@ -61,12 +89,7 @@
                 </select>
             </div>
             <div class="col-lg-12 login-title">
-                <input name="countries">
-                </select>
-            </div>
-            <div id="image">
-                <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQijmYaWonPS_ckwz9WLIrMpDPWCQDOTe8D7O_RIjEVcyMKr7NwZQ"
-                     alt="some image"/>
+                <input name="countries" class="center">
             </div>
         </div>
     </div>
