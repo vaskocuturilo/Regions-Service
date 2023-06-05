@@ -4,13 +4,10 @@ import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.exception.RegionsNotFoundException;
 import com.regions.simpleRegions.service.GermanyService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/germany")
 public class GermanyController {
 
     GermanyService germanyService;
@@ -19,10 +16,10 @@ public class GermanyController {
         this.germanyService = germanyService;
     }
 
-    @GetMapping("/germany")
-    public ResponseEntity getGermanRegionByNumber(@RequestParam String region) {
+    @GetMapping("/region/{region}")
+    public ResponseEntity getGermanRegionByNumber(@PathVariable String region) {
         try {
-            return ResponseEntity.ok(germanyService.getOne(region));
+            return ResponseEntity.ok(germanyService.getRegionByNumber(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -30,7 +27,18 @@ public class GermanyController {
         }
     }
 
-    @GetMapping("/germany/all")
+    @GetMapping("/description/{description}")
+    public ResponseEntity getGermanRegionByDescription(@PathVariable String description) {
+        try {
+            return ResponseEntity.ok(germanyService.getRegionByDescription(description));
+        } catch (RegionNotFoundException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/all")
     public ResponseEntity getAllGermanRegions() {
         try {
             return ResponseEntity.ok(germanyService.getAllRegions());
