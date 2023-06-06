@@ -48,7 +48,7 @@ class SimpleIntegrationGermanyTest {
     }
 
     @Test
-    void getRegionHandle_whenGetRussiaByDescriptionContains_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetGermanyByDescriptionContains_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/Berlin")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -59,7 +59,7 @@ class SimpleIntegrationGermanyTest {
     }
 
     @Test
-    void getRegionHandle_whenGetRussiaWithoutDescription_thenStatus404() throws Exception {
+    void getRegionHandle_whenGetGermanyWithoutDescription_thenStatus404() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -68,7 +68,7 @@ class SimpleIntegrationGermanyTest {
     }
 
     @Test
-    void getRegionHandle_whenGetRussiaWithoutRegion_thenStatus404() throws Exception {
+    void getRegionHandle_whenGetGermanyWithoutRegion_thenStatus404() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/")
                         .contentType(MediaType.APPLICATION_JSON)
