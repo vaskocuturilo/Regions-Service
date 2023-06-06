@@ -88,7 +88,7 @@ class SimpleIntegrationBritishTest {
     }
 
     @Test
-    void getRegionHandle_whenExceptionBritishByRegion_thenStatus400() throws Exception {
+    void getRegionHandle_whenExceptionBritishByRegion_thenStatus404() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/AAA1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ class SimpleIntegrationBritishTest {
     }
 
     @Test
-    void getRegionHandle_whenGetBritishWithoutDescription_thenStatus400() throws Exception {
+    void getRegionHandle_whenGetBritishWithoutDescription_thenStatus404() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/")
                         .contentType(MediaType.APPLICATION_JSON)
