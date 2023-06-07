@@ -78,7 +78,17 @@ These endpoints allow you to handle Stripe subscriptions for Publish and Analyze
 
 ## GET
 
-`official client only` [http://localhost:8080/api/russia?region=29](#get-)<br/>
+`official client only` [http://localhost:8080/api/v1/russia/region/29](#get-)<br/>
+
+```
+{
+    "description": "Архангельская область",
+    "region": "29"
+}
+```
+## GET
+
+`official client only` [http://localhost:8080/api/v1/russia/description/Архангельская область](#get-)<br/>
 
 ```
 {
@@ -89,7 +99,7 @@ These endpoints allow you to handle Stripe subscriptions for Publish and Analyze
 
 ## GET
 
-`official client only` [http://localhost:8080/api/allRussia](#get-)<br/>
+`official client only` [http://localhost:8080/api/v1/all](#get-)<br/>
 
 ```
    [
@@ -108,15 +118,4 @@ These endpoints allow you to handle Stripe subscriptions for Publish and Analyze
         "description": "Республика Башкортостан",
         "id": 3
     },
-```
-
-## POST
-
-`official client only` [http://localhost:8080/api/russia?description=Архангельская область](#post-) <br/>
-
-```
-{
-    "description": "Архангельская область",
-    "region": "29"
-}
 ```
