@@ -3,7 +3,8 @@ package com.regions.simpleRegions.service;
 import com.regions.simpleRegions.entity.BritishAgeEntity;
 import com.regions.simpleRegions.entity.BritishEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
-import com.regions.simpleRegions.model.BritishModel;
+import com.regions.simpleRegions.model.BritishDescriptionModel;
+import com.regions.simpleRegions.model.BritishRegionModel;
 import com.regions.simpleRegions.respository.BritishAgeRepo;
 import com.regions.simpleRegions.respository.BritishRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class BritishService {
         this.britishAgeRepo = britishAgeRepo;
     }
 
-    public BritishModel getByRegion(String region) throws RegionNotFoundException {
+    public BritishRegionModel getByRegion(String region) throws RegionNotFoundException {
         String city = getFirstTwoSymbols(region);
         String code = getLastTwoSymbols(region);
 
@@ -38,20 +39,20 @@ public class BritishService {
             throw new RegionNotFoundException("Region not found.");
         }
 
-        return BritishModel.toModelRegion(britishRegion, britishAgeEntity);
+        return BritishRegionModel.toModelRegion(britishRegion, britishAgeEntity);
     }
 
-    public List<BritishModel> getByDescription(String description) throws RegionNotFoundException {
-        List<BritishModel> britishModels = new ArrayList<>();
+    public List<BritishDescriptionModel> getByDescription(String description) throws RegionNotFoundException {
+        List<BritishDescriptionModel> britishDescriptionModels = new ArrayList<>();
         List<BritishEntity> britishRegion = britishRepo.findByDescription(description);
         if (britishRegion.isEmpty()) {
             throw new RegionNotFoundException("Region not found.");
         }
 
         for (BritishEntity britishEntity : britishRegion) {
-            britishModels.add(BritishModel.toModelDescription(britishEntity));
+            britishDescriptionModels.add(BritishDescriptionModel.toModelDescription(britishEntity));
         }
-        return britishModels;
+        return britishDescriptionModels;
     }
 
     public Iterable<BritishEntity> getAllRegions() {
