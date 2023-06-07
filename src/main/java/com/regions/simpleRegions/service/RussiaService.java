@@ -21,11 +21,11 @@ public class RussiaService {
     }
 
     public RussiaModel getRegionNumber(String region) throws RegionNotFoundException {
-        RussiaEntity russiaDescription = russiaRepo.findByRegion(region);
-        if (russiaDescription == null) {
+        RussiaEntity russiaRegion = russiaRepo.findByRegion(region);
+        if (russiaRegion == null) {
             throw new RegionNotFoundException("Region not found.");
         }
-        return RussiaModel.toModelRegion(russiaDescription);
+        return RussiaModel.toModelRegion(russiaRegion);
     }
 
     public List<RussiaModel> getDescription(String description) throws RegionNotFoundException {
