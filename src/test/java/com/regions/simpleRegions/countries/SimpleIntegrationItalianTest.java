@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class SimpleIntegrationItalyTest {
+class SimpleIntegrationItalianTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -102,7 +102,7 @@ class SimpleIntegrationItalyTest {
     @Test
     void getRegionHandle_whenExceptionItalianByDescription_thenStatus400() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get(PATH + "/description/Стамбул")
+                        .get(PATH + "/description/WWWWWWW")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
