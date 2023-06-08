@@ -1,28 +1,14 @@
 package com.regions.simpleRegions.model;
 
 import com.regions.simpleRegions.entity.GermanyEntity;
+import lombok.Data;
 
 import java.util.Optional;
 
+@Data
 public class GermanyModel {
     private String region;
     private String description;
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public static GermanyModel toModelRegion(Optional<GermanyEntity> entity) {
         GermanyModel model = new GermanyModel();
