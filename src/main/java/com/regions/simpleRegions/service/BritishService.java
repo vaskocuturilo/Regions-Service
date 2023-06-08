@@ -7,51 +7,48 @@ import com.regions.simpleRegions.model.BritishDescriptionModel;
 import com.regions.simpleRegions.model.BritishRegionModel;
 import com.regions.simpleRegions.respository.BritishAgeRepo;
 import com.regions.simpleRegions.respository.BritishRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Data
 @Service
 public class BritishService {
     private final BritishRepo britishRepo;
     private final BritishAgeRepo britishAgeRepo;
-
-    @Autowired
-    public BritishService(BritishRepo britishRepo, BritishAgeRepo britishAgeRepo) {
-        this.britishRepo = britishRepo;
-        this.britishAgeRepo = britishAgeRepo;
-    }
+    @Value("${notification.message}")
+    private String REGION_NOT_FOUND;
 
     public BritishRegionModel getByRegion(String region) throws RegionNotFoundException {
         String city = getFirstTwoSymbols(region);
         String code = getLastTwoSymbols(region);
 
-        BritishEntity britishRegion = britishRepo.findByRegion(city);
-        BritishAgeEntity britishAgeEntity = britishAgeRepo.findByCode(code);
+        Optional<BritishEntity> britishRegion = britishRepo.findByRegion(city);
+        Optional<BritishAgeEntity> britishAgeEntity = britishAgeRepo.findByCode(code);
 
-        if (britishRegion == null) {
-            throw new RegionNotFoundException("Region not found.");
+        if (!britishRegion.isPresent()) {
+            throw new RegionNotFoundException(REGION_NOT_FOUND);
         }
 
-        if (britishAgeEntity == null) {
-            throw new RegionNotFoundException("Region not found.");
+        if (!britishAgeEntity.isPresent()) {
+            throw new RegionNotFoundException(REGION_NOT_FOUND);
         }
 
         return BritishRegionModel.toModelRegion(britishRegion, britishAgeEntity);
     }
 
     public List<BritishDescriptionModel> getByDescription(String description) throws RegionNotFoundException {
-        List<BritishDescriptionModel> britishDescriptionModels = new ArrayList<>();
-        List<BritishEntity> britishRegion = britishRepo.findByDescription(description);
-        if (britishRegion.isEmpty()) {
+        List<BritishDescriptionModel> britishDescriptionModels;
+        List<BritishEntity> britishEntities = britishRepo.findByDescription(description);
+        if (britishEntities.isEmpty()) {
             throw new RegionNotFoundException("Region not found.");
         }
 
-        for (BritishEntity britishEntity : britishRegion) {
-            britishDescriptionModels.add(BritishDescriptionModel.toModelDescription(britishEntity));
-        }
+        britishDescriptionModels = britishEntities.stream().map(BritishDescriptionModel::toModelDescription).collect(Collectors.toList());
         return britishDescriptionModels;
     }
 

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class PolandService {
     private final PolandRepo polandRepo;
 
-    public PolandModel getRegionByNumber(String region) throws RegionNotFoundException {
+    public PolandModel getRegionByNumber(final String region) throws RegionNotFoundException {
         Optional<PolandEntity> polandRegion = polandRepo.findByRegion(region);
         if (!polandRegion.isPresent()) {
             throw new RegionNotFoundException("Region not found.");
@@ -24,16 +24,15 @@ public class PolandService {
         return PolandModel.toModel(polandRegion);
     }
 
-    public List<PolandModel> getByDescription(String description) throws RegionNotFoundException {
+    public List<PolandModel> getByDescription(final String description) throws RegionNotFoundException {
         List<PolandModel> entityList;
 
         List<PolandEntity> polandEntityList = polandRepo.findByDescription(description);
         if (polandEntityList.isEmpty()) {
             throw new RegionNotFoundException("Region not found.");
         }
-        entityList = polandEntityList.stream().map(PolandModel::toDescription).collect(Collectors.toList());
 
-        return entityList;
+        return polandEntityList.stream().map(PolandModel::toDescription).collect(Collectors.toList());
     }
 
     public Iterable<PolandEntity> getAllRegions() {

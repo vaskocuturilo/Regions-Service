@@ -4,43 +4,38 @@ import com.regions.simpleRegions.entity.GermanyEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.GermanyModel;
 import com.regions.simpleRegions.respository.GermanyRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@Data
 public class GermanyService {
 
-    GermanyRepo germanyRepo;
+    private final GermanyRepo germanyRepo;
+    @Value("${notification.message}")
+    private String regionNotFound;
 
-    @Autowired
-    public GermanyService(GermanyRepo germanyRepo) {
-        this.germanyRepo = germanyRepo;
-    }
-
-    public GermanyModel getRegionByNumber(String region) throws RegionNotFoundException {
+    public GermanyModel getRegionByNumber(final String region) throws RegionNotFoundException {
         Optional<GermanyEntity> germanRegion = germanyRepo.findByRegion(region);
         if (!germanRegion.isPresent()) {
-            throw new RegionNotFoundException("Region not found.");
+            throw new RegionNotFoundException(regionNotFound);
         }
         return GermanyModel.toModelRegion(germanRegion);
     }
 
-    public List<GermanyModel> getRegionByDescription(String region) throws RegionNotFoundException {
-        List<GermanyModel> entityList = new ArrayList<>();
+    public List<GermanyModel> getRegionByDescription(final String region) throws RegionNotFoundException {
         List<GermanyEntity> germanRegion = germanyRepo.findByDescription(region);
+
         if (germanRegion.isEmpty()) {
-            throw new RegionNotFoundException("Region not found.");
+            throw new RegionNotFoundException(regionNotFound);
         }
 
-        for (GermanyEntity germanyEntity : germanRegion) {
-            entityList.add(GermanyModel.toModelDescription(germanyEntity));
-        }
-
-        return entityList;
+        return germanRegion.stream().map(GermanyModel::toModelDescription).collect(Collectors.toList());
     }
 
     public Iterable<GermanyEntity> getAllRegions() {

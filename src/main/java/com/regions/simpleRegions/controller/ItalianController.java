@@ -3,18 +3,15 @@ package com.regions.simpleRegions.controller;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.exception.RegionsNotFoundException;
 import com.regions.simpleRegions.service.ItalianService;
+import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/italian")
+@Data
 public class ItalianController {
-
-    ItalianService italianService;
-
-    public ItalianController(ItalianService italianService) {
-        this.italianService = italianService;
-    }
+    private final ItalianService italianService;
 
     @GetMapping("/region/{region}")
     public ResponseEntity getItalianRegionByNumber(@PathVariable String region) {

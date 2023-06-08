@@ -3,6 +3,8 @@ package com.regions.simpleRegions.model;
 import com.regions.simpleRegions.entity.ItalianEntity;
 import lombok.Data;
 
+import java.util.Optional;
+
 @Data
 public class ItalianModel {
 
@@ -10,10 +12,10 @@ public class ItalianModel {
 
     private String region;
 
-    public static ItalianModel toModel(ItalianEntity entity) {
+    public static ItalianModel toModel(Optional<ItalianEntity> entity) {
         ItalianModel model = new ItalianModel();
-        model.setDescription(entity.getDescription());
-        model.setRegion(entity.getRegion());
+        model.setDescription(entity.get().getDescription());
+        model.setRegion(entity.get().getRegion());
 
         return model;
     }

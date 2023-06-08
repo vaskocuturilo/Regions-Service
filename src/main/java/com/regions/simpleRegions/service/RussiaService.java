@@ -4,41 +4,37 @@ import com.regions.simpleRegions.entity.RussiaEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.RussiaModel;
 import com.regions.simpleRegions.respository.RussiaRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@Data
 public class RussiaService {
 
-    RussiaRepo russiaRepo;
+    private final RussiaRepo russiaRepo;
+    @Value("${notification.message}")
+    private String regionNotFound;
 
-    @Autowired
-    public RussiaService(RussiaRepo russiaRepo) {
-        this.russiaRepo = russiaRepo;
-    }
-
-    public RussiaModel getRegionNumber(String region) throws RegionNotFoundException {
-        RussiaEntity russiaRegion = russiaRepo.findByRegion(region);
-        if (russiaRegion == null) {
-            throw new RegionNotFoundException("Region not found.");
+    public RussiaModel getRegionNumber(final String region) throws RegionNotFoundException {
+        Optional<RussiaEntity> russiaRegion = russiaRepo.findByRegion(region);
+        if (!russiaRegion.isPresent()) {
+            throw new RegionNotFoundException(regionNotFound);
         }
         return RussiaModel.toModelRegion(russiaRegion);
     }
 
-    public List<RussiaModel> getDescription(String description) throws RegionNotFoundException {
-        List<RussiaModel> userModel = new ArrayList<>();
-        List<RussiaEntity> russiaRegion = russiaRepo.findByDescription(description);
-        if (russiaRegion.isEmpty()) {
-            throw new RegionNotFoundException("Region not found.");
+    public List<RussiaModel> getDescription(final String description) throws RegionNotFoundException {
+        List<RussiaEntity> russiaEntityList = russiaRepo.findByDescription(description);
+        if (russiaEntityList.isEmpty()) {
+            throw new RegionNotFoundException(regionNotFound);
         }
 
-        for (RussiaEntity russiaEntity : russiaRegion) {
-            userModel.add(RussiaModel.toModelDescription(russiaEntity));
-        }
-        return userModel;
+        return russiaEntityList.stream().map(RussiaModel::toModelDescription).collect(Collectors.toList());
     }
 
     public Iterable<RussiaEntity> getAllRegions() {
