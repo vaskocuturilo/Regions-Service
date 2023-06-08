@@ -24,11 +24,8 @@ public class BritishService {
     private String REGION_NOT_FOUND;
 
     public BritishRegionModel getByRegion(String region) throws RegionNotFoundException {
-        String city = getFirstTwoSymbols(region);
-        String code = getLastTwoSymbols(region);
-
-        Optional<BritishEntity> britishRegion = britishRepo.findByRegion(city);
-        Optional<BritishAgeEntity> britishAgeEntity = britishAgeRepo.findByCode(code);
+        Optional<BritishEntity> britishRegion = britishRepo.findByRegion(getFirstTwoSymbols(region));
+        Optional<BritishAgeEntity> britishAgeEntity = britishAgeRepo.findByCode(getLastTwoSymbols(region));
 
         if (!britishRegion.isPresent()) {
             throw new RegionNotFoundException(REGION_NOT_FOUND);

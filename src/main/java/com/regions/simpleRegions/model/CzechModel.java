@@ -1,22 +1,26 @@
 package com.regions.simpleRegions.model;
 
 import com.regions.simpleRegions.entity.CzechEntity;
+import lombok.Data;
 
+import java.util.Optional;
+
+@Data
 public class CzechModel {
-
     private String description;
+    private String region;
 
-    public String getDescription() {
-        return description;
+    public static CzechModel toModelRegion(Optional<CzechEntity> entity) {
+        CzechModel model = new CzechModel();
+        model.setDescription(entity.get().getDescription());
+        model.setRegion(entity.get().getRegion());
+        return model;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public static CzechModel toModel(CzechEntity entity) {
+    public static CzechModel toModelDescription(CzechEntity entity) {
         CzechModel model = new CzechModel();
         model.setDescription(entity.getDescription());
+        model.setRegion(entity.getRegion());
 
         return model;
     }
