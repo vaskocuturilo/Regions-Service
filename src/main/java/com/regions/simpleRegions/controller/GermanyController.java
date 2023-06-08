@@ -3,18 +3,16 @@ package com.regions.simpleRegions.controller;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.exception.RegionsNotFoundException;
 import com.regions.simpleRegions.service.GermanyService;
+import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Data
 @RestController
 @RequestMapping("/api/v1/germany")
 public class GermanyController {
 
-    GermanyService germanyService;
-
-    public GermanyController(GermanyService germanyService) {
-        this.germanyService = germanyService;
-    }
+    private final GermanyService germanyService;
 
     @GetMapping("/region/{region}")
     public ResponseEntity getGermanRegionByNumber(@PathVariable String region) {

@@ -2,6 +2,8 @@ package com.regions.simpleRegions.model;
 
 import com.regions.simpleRegions.entity.FranceEntity;
 
+import java.util.Optional;
+
 public class FranceModel {
 
     private String description;
@@ -23,10 +25,10 @@ public class FranceModel {
         this.region = region;
     }
 
-    public static FranceModel toModel(FranceEntity entity) {
+    public static FranceModel toModel(Optional<FranceEntity> entity) {
         FranceModel model = new FranceModel();
-        model.setDescription(entity.getDescription());
-        model.setRegion(entity.getRegion());
+        model.setDescription(entity.get().getDescription());
+        model.setRegion(entity.get().getRegion());
 
         return model;
     }

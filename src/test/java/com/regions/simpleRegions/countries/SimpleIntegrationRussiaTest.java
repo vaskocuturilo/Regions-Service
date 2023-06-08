@@ -17,10 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class SimpleIntegrationRussiaTest {
-
     @Autowired
     private MockMvc mockMvc;
-
     private String PATH = "/api/v1/russia/";
 
     @Test

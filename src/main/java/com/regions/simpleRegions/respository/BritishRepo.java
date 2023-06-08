@@ -6,11 +6,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BritishRepo extends CrudRepository<BritishEntity, Long> {
 
-    BritishEntity findByRegion(String region);
+    Optional<BritishEntity> findByRegion(String region);
     @Query("select british from BritishEntity british WHERE british.description LIKE CONCAT('%',:description,'%')")
     List<BritishEntity> findByDescription(String description);
 }
