@@ -3,6 +3,9 @@ HELP.md
 .env
 gradlew
 build/
+node_modules
+dist
+.parcel-cache
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
