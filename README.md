@@ -34,7 +34,8 @@ You will need the following technologies available to try it out:
 - Will be adding functionality for search by region name, city, district.
 - Will be adding functionality for parsing a car plate from an image.
 - Migrate Database for MySQL -> PostgreSQL.
-- Win be adding V2 (one controller, one service, one repository for all countries)
+- Will be adding validation fields.
+- Will be adding V2 (one controller, one service, one repository for all countries)
 - Will be adding UI (Countries field) :heavy_check_mark:
 - Will be adding JWT.
 - Will be adding one time password.
