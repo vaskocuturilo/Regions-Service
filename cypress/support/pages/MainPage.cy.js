@@ -1,7 +1,4 @@
 /// <reference types ="cypress"/>
-
-const items = []
-
 const todosTitles = [
 "Choose country", 
 "🇦🇲 Armenia", 
@@ -42,25 +39,31 @@ export class MainPage {
         title : () => cy.title(),
         mainImage: () => cy.get('#countries_image').should('be.visible'),
         countryDropDown : () => cy.get('#countries_list').should('be.visible'),
-        inputCountries: () => cy.get('[name="countries"]').should('be.visible')
+        inputCountries: () => cy.get('[name="countries"]').should('be.visible'),
+        inputCountries: () => cy.get('[for="file-input"]').should('be.visible'),
+        
     } 
 
-    
-
-    checkMainPageElementsIsAppers() {
+    checkMainPageElementsAppears() {
         this.elements.title().should('eq','The application regions');
         this.elements.mainImage();
         this.elements.countryDropDown();
         this.elements.inputCountries();
-    
-        cy
-        .get('#countries_list option').each( (item, index) => {
-    
-          cy
-            .wrap(item)
-            .should('have.text', todosTitles[index])
-            
-        })
+    }
+
+    checkAppersCountriesInDropDown() {
+        cy.get('#countries_list option').each( (item, index) => {
+            cy.wrap(item).should('have.text', todosTitles[index])
+            })
+    }
+
+    checkUploadImageFunctionality() {
+        cy.get('#file-input').selectFile('cypress/fixtures/upload.jpg', {force: true});
+
+        cy.get('#countries_image').should('have.attr', 'src').should('include','blob:http://localhost:8080/')
+        cy.get('#countries_image').should('be.visible').and(($img) => {
+        expect($img[0].naturalWidth).to.be.greaterThan(0)
+        });
     }
 }
 
