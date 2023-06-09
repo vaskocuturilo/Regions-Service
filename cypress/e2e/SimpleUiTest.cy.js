@@ -10,7 +10,8 @@ describe('Testing main page for application regions', () => {
   })
   
   it ('This is simple test for check main page', ()=> {
-    mainPage.checkMainPageElementsIsAppers();
-
+    mainPage.checkMainPageElementsAppears();
+    mainPage.checkAppersCountriesInDropDown();
+    mainPage.checkUploadImageFunctionality();
   })
 }) 
