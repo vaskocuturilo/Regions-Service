@@ -40,7 +40,7 @@ export class MainPage {
         mainImage: () => cy.get('#countries_image').should('be.visible'),
         countryDropDown : () => cy.get('#countries_list').should('be.visible'),
         inputCountries: () => cy.get('[name="countries"]').should('be.visible'),
-        inputCountries: () => cy.get('[for="file-input"]').should('be.visible'),
+        uploadImage: () => cy.get('[for="file-input"]').should('be.visible'),
         
     } 
 
@@ -49,6 +49,7 @@ export class MainPage {
         this.elements.mainImage();
         this.elements.countryDropDown();
         this.elements.inputCountries();
+        this.elements.uploadImage();
     }
 
     checkAppersCountriesInDropDown() {
@@ -65,6 +66,12 @@ export class MainPage {
         expect($img[0].naturalWidth).to.be.greaterThan(0)
         });
     }
+
+    checkImageByCountry(country, imageUrl) {
+        this.elements.countryDropDown().select(country);
+        cy.get('#countries_image').should('have.attr', 'src').should('include', imageUrl);
+    }
+
 }
 
 export const mainPage = new MainPage();
