@@ -13,5 +13,6 @@ describe('Testing main page for application regions', () => {
     mainPage.checkMainPageElementsAppears();
     mainPage.checkAppersCountriesInDropDown();
     mainPage.checkUploadImageFunctionality();
+    mainPage.checkImageByCountry("GB", "GB");
   })
 }) 
