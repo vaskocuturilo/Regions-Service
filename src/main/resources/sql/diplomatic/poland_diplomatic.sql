@@ -1,13 +1,13 @@
-DROP TABLE IF EXISTS `poland_dip_entity`;
-CREATE TABLE `poland_dip_entity` (
+DROP TABLE IF EXISTS `poland_diplomatic_entity`;
+CREATE TABLE `poland_diplomatic_entity` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
   `region` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-LOCK TABLES `poland_dip_entity` WRITE;
-INSERT INTO `poland_dip_entity` VALUES
+LOCK TABLES `poland_diplomatic_entity` WRITE;
+INSERT INTO `poland_diplomatic_entity` VALUES
 (1,'United States','001'),
 (2,'United Kingdom','002'),
 (3,'France','003'),

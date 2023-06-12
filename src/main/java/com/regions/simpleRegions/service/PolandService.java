@@ -25,8 +25,6 @@ public class PolandService {
     }
 
     public List<PolandModel> getByDescription(final String description) throws RegionNotFoundException {
-        List<PolandModel> entityList;
-
         List<PolandEntity> polandEntityList = polandRepo.findByDescription(description);
         if (polandEntityList.isEmpty()) {
             throw new RegionNotFoundException("Region not found.");
