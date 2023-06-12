@@ -13,6 +13,7 @@ describe('Testing main page for application regions', () => {
     mainPage.checkMainPageElementsAppears();
     mainPage.checkAppersCountriesInDropDown();
     mainPage.checkUploadImageFunctionality();
-    mainPage.checkImageByCountry("GB", "GB");
+    mainPage.checkImageByCountry("GB", "GB-license-plate-infographics-en.jpg");
+    mainPage.checkImageDiplomaticByCountry("PL", "poland-dyplomatyczn.png");
   })
 }) 

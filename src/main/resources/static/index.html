@@ -4,7 +4,11 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        let colorUrlMap = {
+        let diplomaticImage = {
+            "None": "https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA=",
+            "PL": "/img/poland-dyplomatyczn.png"
+        };
+        let countryImage = {
             "None": "https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA=",
             "AM": "https://www.plateshack.com/y2k/Armenia/armenia21sc221.jpg",
             "AU": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Austrian_license_plate.svg/1280px-Austrian_license_plate.svg.png",
@@ -54,8 +58,9 @@
                 <img id="countries_image"
                      src="https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA="
                      class="center">
-                <select name="color" id="countries_list"
-                        onchange="document.getElementById('countries_image').src = colorUrlMap[this.value];"
+                <p class="center">Countries:</p>
+                <select name="countries_plates" id="countries_list"
+                        onchange="document.getElementById('countries_image').src = countryImage[this.value];"
                         class="form__input center">
                     <option value="None">Choose country</option>
                     <option value="AM">🇦🇲&emsp;Armenia</option>
@@ -92,8 +97,17 @@
                     <option value="UZ">🇺🇿&emsp;Uzbekistan</option>
                 </select>
             </div>
+            <p class="center">Diplomatic:</p>
+            <select name="diplomatic_plates" id="countries_diplomatic_list"
+                    onchange="document.getElementById('countries_image').src = diplomaticImage[this.value];"
+                    class="form__input center">
+                <option value="None">Choose country</option>
+                <option value="PL">🇵🇱&emsp;Poland</option>
+            </select>
+            <br>
+            <br>
             <div class="col-lg-12 login-title">
-                <input name="countries" class="form__input form__input--to center">
+                <input name="countries" class="form__input center">
             </div>
         </div>
     </div>

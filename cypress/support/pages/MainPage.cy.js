@@ -39,6 +39,7 @@ export class MainPage {
         title : () => cy.title(),
         mainImage: () => cy.get('#countries_image').should('be.visible'),
         countryDropDown : () => cy.get('#countries_list').should('be.visible'),
+        diplomaticCountryDropDown : () => cy.get('#countries_diplomatic_list').should('be.visible'),
         inputCountries: () => cy.get('[name="countries"]').should('be.visible'),
         uploadImage: () => cy.get('[for="file-input"]').should('be.visible'),
         
@@ -48,6 +49,7 @@ export class MainPage {
         this.elements.title().should('eq','The application regions');
         this.elements.mainImage();
         this.elements.countryDropDown();
+        this.elements.diplomaticCountryDropDown();
         this.elements.inputCountries();
         this.elements.uploadImage();
     }
@@ -69,6 +71,11 @@ export class MainPage {
 
     checkImageByCountry(country, imageUrl) {
         this.elements.countryDropDown().select(country);
+        cy.get('#countries_image').should('have.attr', 'src').should('include', imageUrl);
+    }
+
+    checkImageDiplomaticByCountry(country, imageUrl) {
+        this.elements.diplomaticCountryDropDown().select(country);
         cy.get('#countries_image').should('have.attr', 'src').should('include', imageUrl);
     }
 
