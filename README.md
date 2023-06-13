@@ -45,6 +45,7 @@ You will need the following technologies available to try it out:
 - Will be fixing British country.
 - Will be adding functionality for deploy to AWS.
 - Will be adding React or Angular frameworks.
+- Will be adding functionality for search diplomatic plates.
 
 ### Actuator
 
