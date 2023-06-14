@@ -4,25 +4,32 @@ import com.regions.simpleRegions.entity.AustriaEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.AustriaModel;
 import com.regions.simpleRegions.respository.AustriaRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Data
 @Service
 public class AustriaService {
+    private final AustriaRepo austriaRepo;
 
-    AustriaRepo austriaRepo;
-
-    @Autowired
-    public AustriaService(AustriaRepo austriaRepo) {
-        this.austriaRepo = austriaRepo;
-    }
-
-    public AustriaModel getOne(String region) throws RegionNotFoundException {
-        AustriaEntity austriaRegion = austriaRepo.findByRegion(region);
-        if (austriaRegion == null) {
+    public AustriaModel getRegionByNumber(String region) throws RegionNotFoundException {
+        Optional<AustriaEntity> austriaRegion = austriaRepo.findByRegion(region);
+        if (!austriaRegion.isPresent()) {
             throw new RegionNotFoundException("Region not found.");
         }
-        return AustriaModel.toModel(austriaRegion);
+        return AustriaModel.toModelRegion(austriaRegion);
+    }
+
+    public List<AustriaModel> getRegionByDescription(String description) throws RegionNotFoundException {
+        List<AustriaEntity> austriaRegions = austriaRepo.findByDescription(description);
+        if (austriaRegions.isEmpty()) {
+            throw new RegionNotFoundException("Region not found.");
+        }
+        return austriaRegions.stream().map(AustriaModel::toModelDescription).collect(Collectors.toList());
     }
 
     public Iterable<AustriaEntity> getAllRegions() {
