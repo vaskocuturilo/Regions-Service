@@ -26,14 +26,16 @@ class SimpleIntegrationPolandDiplomaticTest {
     @Test
     void getRegionHandle_whenGetPolandByRegion_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get(PATH + "/region/001")
+                        .get(PATH + "/region/083077")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.region").isNotEmpty())
                 .andExpect(jsonPath("$.description").isNotEmpty())
-                .andExpect(jsonPath("$.region", equalTo("001")))
-                .andExpect(jsonPath("$.description", equalTo("United States")));
+                .andExpect(jsonPath("$.destinationCode").isNotEmpty())
+                .andExpect(jsonPath("$.region", equalTo("083")))
+                .andExpect(jsonPath("$.destinationCode", equalTo("PRIVATE_VEHICLES")))
+                .andExpect(jsonPath("$.description", equalTo("Ukraine")));
     }
 
     @Test

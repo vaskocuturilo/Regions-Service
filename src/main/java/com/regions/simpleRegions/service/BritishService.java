@@ -53,11 +53,11 @@ public class BritishService {
         return britishRepo.findAll();
     }
 
-    public String getFirstTwoSymbols(String text) {
+    private String getFirstTwoSymbols(String text) {
         return text.length() < 2 ? text : text.substring(0, 2);
     }
 
-    public String getLastTwoSymbols(String text) {
+    private String getLastTwoSymbols(String text) {
         return text.substring(Math.max(text.length() - 2, 0));
     }
 }
