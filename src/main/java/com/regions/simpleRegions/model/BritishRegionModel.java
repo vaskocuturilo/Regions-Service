@@ -12,7 +12,6 @@ public class BritishRegionModel {
     private String description;
     private String region;
     private String date;
-
     private String code;
 
     public static BritishRegionModel toModelRegion(Optional<BritishEntity> city, Optional<BritishAgeEntity> code) {
