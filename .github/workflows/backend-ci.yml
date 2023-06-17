@@ -7,7 +7,6 @@ on:
 
 jobs:
   cypress-test:
-    needs: springboot
     strategy:
       matrix:
         node-version: [ 15.x ]
