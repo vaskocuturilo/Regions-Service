@@ -4,27 +4,37 @@ import com.regions.simpleRegions.entity.AzerbaijanEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.AzerbaijanModel;
 import com.regions.simpleRegions.respository.AzerbaijanRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Data
 @Service
 public class AzerbaijanService {
 
-    AzerbaijanRepo azerbaijanRepo;
+    private final AzerbaijanRepo azerbaijanRepo;
 
-    @Autowired
-    public AzerbaijanService(AzerbaijanRepo azerbaijanRepo) {
-        this.azerbaijanRepo = azerbaijanRepo;
-    }
+    @Value("${notification.message}")
+    private String REGION_NOT_FOUND;
 
-    public AzerbaijanModel getOne(String region) throws RegionNotFoundException {
-        AzerbaijanEntity azerbaijanRegion = azerbaijanRepo.findByRegion(region);
-        if (azerbaijanRegion == null) {
-            throw new RegionNotFoundException("Region not found.");
+    public AzerbaijanModel getRegionByNumber(String region) throws RegionNotFoundException {
+        Optional<AzerbaijanEntity> azerbaijanRegion = azerbaijanRepo.findByRegion(region);
+        if (!azerbaijanRegion.isPresent()) {
+            throw new RegionNotFoundException(REGION_NOT_FOUND);
         }
         return AzerbaijanModel.toModel(azerbaijanRegion);
+    }
+
+    public List<AzerbaijanModel> getRegionByDescription(String region) throws RegionNotFoundException {
+        List<AzerbaijanEntity> azerbaijanEntities = azerbaijanRepo.findByDescription(region);
+        if (azerbaijanEntities.isEmpty()) {
+            throw new RegionNotFoundException(REGION_NOT_FOUND);
+        }
+        return azerbaijanEntities.stream().map(AzerbaijanModel::toModelDescription).collect(Collectors.toList());
     }
 
     public Iterable<AzerbaijanEntity> getAllRegions() {
