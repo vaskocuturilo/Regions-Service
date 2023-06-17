@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  init:
+  springboot:
     runs-on: ubuntu-latest
     services:
       mariadb:
@@ -46,14 +46,11 @@ jobs:
           gradle-version: 7.1.1
 
       - name: Build project.
-        run: gradle bootRun &
-
-      - name: Build project.
         run: gradle clean build test
 
 
-  cypress-Test:
-    needs: init
+  cypress-test:
+    needs: springboot
     strategy:
       matrix:
         node-version: [ 15.x ]
@@ -63,6 +60,29 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      # Setting up the Java environment
+      - uses: actions/checkout@v3
+      - name: Setup Java 11.*
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: adopt
+          cache: 'gradle'
+
+      # Setting up the Gradle version 7.*
+      - name: Setup Gradle 7.*
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.1.1
+
+      - name: Build project.
+        run: gradle bootRun &
+
+      - name: Sleep for 30 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '30s'
+
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
