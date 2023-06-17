@@ -2,9 +2,9 @@ name: Cypress Tests.
 
 on:
   workflow_run:
-    workflows: [ "CI - Build Backend" ]
-    types:
-      - completed
+    workflows: [ CI - Build Backend ]
+    branches: [ main ]
+    types: [ completed ]
 
 jobs:
   Cypress-Test:
