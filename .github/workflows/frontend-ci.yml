@@ -1,11 +1,11 @@
-name: Cypress Tests for Split bill application
+name: Cypress Tests.
 
 on:
   workflow_run:
-    workflows: ["CI backend"]
+    workflows: ["backend-ci"]
     types:
       - completed
-
+      -
 jobs:
   Cypress-Test:
     strategy:
