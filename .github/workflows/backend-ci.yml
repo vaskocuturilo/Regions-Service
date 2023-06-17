@@ -6,15 +6,8 @@ on:
       - main
 
 jobs:
-  cypress-test:
-    strategy:
-      matrix:
-        node-version: [ 15.x ]
-        os: [ ubuntu-latest ]
-        browser: [ chrome, firefox ]
-
-    runs-on: ${{ matrix.os }}
-
+  springboot:
+    runs-on: ubuntu-latest
     services:
       mariadb:
         image: mariadb:10.8.2
@@ -27,7 +20,6 @@ jobs:
           MYSQL_ROOT_PASSWORD: qwerty123456
 
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
-
 
     steps:
       - uses: actions/checkout@v1
@@ -54,21 +46,11 @@ jobs:
           gradle-version: 7.1.1
 
       - name: Build project.
-        run: gradle bootRun &
+        run: gradle clean build test
 
-      - name: Sleep for 30 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: '30s'
+      - uses: actions/checkout@v2
+      - name: Build the docker_compose
+        run: docker-compose up -d --build
 
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci --force
-
-      - name: Run Cypress Test
-        uses: cypress-io/github-action@v4
-        with:
-          command: npm run cypress:run:test -- --browser ${{ matrix.browser }}
+      - name: Build the application
+        run: docker-compose exec -T counter_app npm run cypress:run:test
