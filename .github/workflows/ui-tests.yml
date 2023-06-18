@@ -23,10 +23,10 @@ jobs:
         ports:
           - 3306:3306
         env:
-          MYSQL_USER: ${{ vars.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ vars.MYSQL_PASSWORD }}
-          MYSQL_DATABASE: ${{ vars.MYSQL_DATABASE }}
-          MYSQL_ROOT_PASSWORD: ${{ vars.MYSQL_ROOT_PASSWORD }}
+          MYSQL_USER: '${{ env.MYSQL_USER }}'
+          MYSQL_PASSWORD: '${{ env.MYSQL_PASSWORD }}'
+          MYSQL_DATABASE: '${{ env.MYSQL_DATABASE }}'
+          MYSQL_ROOT_PASSWORD: '${{ env.MYSQL_ROOT_PASSWORD }}'
 
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
