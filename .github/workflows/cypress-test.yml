@@ -6,8 +6,6 @@ on:
     types:
       - completed
 
-  workflow_dispatch:
-
 jobs:
   cypress-test:
     strategy:
