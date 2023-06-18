@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+
   workflow_dispatch:
 
 jobs:
@@ -14,7 +15,6 @@ jobs:
         os: [ ubuntu-latest ]
         browser: [ chrome, firefox ]
 
-      runs-on: ${{ matrix.os }}
     services:
       mariadb:
         image: mariadb:10.8.2
@@ -27,6 +27,8 @@ jobs:
           MYSQL_ROOT_PASSWORD: qwerty123456
 
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v1
