@@ -1,13 +1,20 @@
-name: CI - Build Backend
+name: CI-UI tests.
 
 on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  springboot:
-    runs-on: ubuntu-latest
+  cypress-test:
+    strategy:
+      matrix:
+        node-version: [ 15.x ]
+        os: [ ubuntu-latest ]
+        browser: [ chrome, firefox ]
+
+      runs-on: ${{ matrix.os }}
     services:
       mariadb:
         image: mariadb:10.8.2
@@ -45,12 +52,20 @@ jobs:
         with:
           gradle-version: 7.1.1
 
-      - name: Build project.
-        run: gradle clean build test
+      - name: Setup Spring Boot App
+        run: |
+          cd backend/MeetApp
+          gradle clean bootRun &
+          for attempt in {1..20}; do sleep 1; if <test-command>; then echo ready; break; fi; echo waiting...; done
 
-      - uses: actions/checkout@v2
-      - name: Build the docker_compose
-        run: docker-compose up -d --build
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci --force
 
-      - name: Build the application
-        run: docker-compose exec -T counter_app npm run cypress:run:test
+      - name: Run Cypress Test
+        uses: cypress-io/github-action@v4
+        with:
+          command: npm run cypress:run:test -- --browser ${{ matrix.browser }}
