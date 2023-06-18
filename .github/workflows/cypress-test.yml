@@ -2,7 +2,7 @@ name: CI-UI tests.
 
 on:
   workflow_run:
-    workflows: [ "CI - Build Backend" ]
+    workflows: [ CI - Build Backend ]
     types:
       - completed
 
