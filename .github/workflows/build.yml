@@ -1,14 +1,15 @@
-name: CI - Build Backend
+name: CI - Build Backend.
 
 on:
   pull_request:
     branches:
       - main
 
-jobs:
-  init:
-    runs-on: ubuntu-latest
+  workflow_dispatch:
 
+jobs:
+  springboot:
+    runs-on: ubuntu-latest
     services:
       mariadb:
         image: mariadb:10.8.2
@@ -30,7 +31,7 @@ jobs:
         run: |
           while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
             sleep 1
-          done          
+          done
       # Setting up the Java environment
       - uses: actions/checkout@v3
       - name: Setup Java 11.*

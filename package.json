@@ -171,13 +171,7 @@
     "yauzl": "^2.10.0"
   },
   "scripts": {
-    "live": "live-server --port=8080",
-    "cypress:run:prod": "cypress run --e2e --browser chrome --env master=1",
-    "cypress:run:local": "cypress run --e2e --browser chrome",
-    "cypress:run:test": "cypress run --e2e",
-    "cypress:open": "cypress open",
-    "start": "parcel src/index.html",
-    "build": "parcel build src/index.html --dist-dir ./dist"
+    "cypress:run:test": "cypress run --e2e"
   },
   "author": "",
   "license": "ISC"
