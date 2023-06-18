@@ -3,7 +3,9 @@ name: CI-UI tests.
 on:
   workflow_run:
     workflows: [ "CI - Build Backend" ]
-    types: [ completed ]
+    branches: [ main ]
+    types:
+      - completed
 
 jobs:
   cypress-test:
