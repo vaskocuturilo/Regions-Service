@@ -6,6 +6,8 @@
     <script>
         let diplomaticImage = {
             "None": "https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA=",
+            "AU": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Austria_diplomatic_license_plate_WD-14021.jpg/1024px-Austria_diplomatic_license_plate_WD-14021.jpg",
+            "DE": "https://www.tuningblog.eu/wp-content/uploads/2020/07/diplomatenkennzeichen-deutschland-17-CD-147-1.jpg",
             "PL": "/img/poland-dyplomatyczn.png"
         };
         let countryImage = {
@@ -102,6 +104,8 @@
                     onchange="document.getElementById('countries_image').src = diplomaticImage[this.value];"
                     class="form__input center">
                 <option value="None">Choose country</option>
+                <option value="AU">🇦🇹&emsp;Austria</option>
+                <option value="DE">🇩🇪&emsp;Germany</option>
                 <option value="PL">🇵🇱&emsp;Poland</option>
             </select>
             <br>
