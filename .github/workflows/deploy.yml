@@ -56,7 +56,6 @@ jobs:
 
       - name: Setup Spring Boot App
         run: |
-          cd backend/MeetApp
           gradle clean bootRun &
           for attempt in {1..20}; do sleep 1; if <test-command>; then echo ready; break; fi; echo waiting...; done
 
