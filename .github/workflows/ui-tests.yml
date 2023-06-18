@@ -3,7 +3,6 @@ name: CI-UI tests.
 on:
   workflow_run:
     workflows: [ CI - Build Backend ]
-    branches: [ main ]
     types:
       - completed
 
@@ -29,7 +28,6 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
     runs-on: ${{ matrix.os }}
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - uses: actions/checkout@v1
