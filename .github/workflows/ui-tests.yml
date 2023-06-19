@@ -1,16 +1,12 @@
 name: CI-UI tests.
 
 on:
-  pull_request:
-    branches:
-      - main
-
-  workflow_run:
-    workflows: [ "CI - Build Backend" ]
-    branches: [ main ]
-    types: [ completed ]
-
-    workflow_dispatch:
+  on:
+    workflow_run:
+      workflows:
+        - CI - Build Backend
+      types:
+        - completed
 
 jobs:
   cypress-test:
