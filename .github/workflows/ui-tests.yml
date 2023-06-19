@@ -3,7 +3,7 @@ name: CI-UI tests.
 on:
   # the 1st condition
   workflow_run:
-    workflows: [ "springboot" ]
+    workflows: [ "CI - Build Backend" ]
     branches: [ main ]
     types:
       - completed
@@ -23,10 +23,10 @@ jobs:
         ports:
           - 3306:3306
         env:
-          MYSQL_USER: vasko
-          MYSQL_PASSWORD: qwerty123456
-          MYSQL_DATABASE: regions
-          MYSQL_ROOT_PASSWORD: qwerty123456
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
 
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
