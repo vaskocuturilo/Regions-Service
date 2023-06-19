@@ -3,14 +3,13 @@ name: CI-UI tests.
 on:
   # the 1st condition
   workflow_run:
-    workflows: [ "springboot" ]
+    workflows: [ "Build Backend" ]
     branches: [ main ]
     types:
       - completed
 
 jobs:
   cypress-test:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     strategy:
       matrix:
         node-version: [ 15.x ]
