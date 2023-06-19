@@ -3,7 +3,7 @@ name: CI-UI tests.
 on:
   # the 1st condition
   workflow_run:
-    workflows: [ "springboot" ]
+    workflows: [ "CI - Build Backend" ]
     branches: [ main ]
     types:
       - completed
