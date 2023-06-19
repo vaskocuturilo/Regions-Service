@@ -1,4 +1,4 @@
-name: CI - Build Backend
+name: Build Backend
 
 on:
   pull_request:
