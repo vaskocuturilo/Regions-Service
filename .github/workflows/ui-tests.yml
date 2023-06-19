@@ -1,16 +1,12 @@
 name: CI-UI tests.
 
 on:
-  # the 1st condition
   workflow_run:
     workflows: [ "CI - Build Backend" ]
-    branches: [ main ]
-    types:
-      - completed
+    types: [ completed ]
 
 jobs:
   cypress-test:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     strategy:
       matrix:
         node-version: [ 15.x ]
@@ -31,6 +27,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
     runs-on: ${{ matrix.os }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - uses: actions/checkout@v1
