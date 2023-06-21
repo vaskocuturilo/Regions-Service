@@ -30,22 +30,24 @@ You will need the following technologies available to try it out:
 
 
 ## TO-DO list (ASAP):
-- Will be add functionality for search by region code.
-- Will be adding functionality for search by region name, city, district.
+- Will be adding functionality for search by region code.
+- Will be adding functionality for search by region name, city, and district.
 - Will be adding functionality for parsing a car plate from an image.
 - Migrate Database for MySQL -> PostgreSQL.
 - Will be adding validation fields.
 - Will be adding V2 (one controller, one service, one repository for all countries)
 - Will be adding UI (Countries field) :heavy_check_mark:
 - Will be adding JWT.
-- Will be adding one time password.
+- Will be adding a one-time password.
 - Will be adding docker-compose :heavy_check_mark:
 - Will be adding unit tests. :heavy_check_mark:
 - Will be fixing Germany country.
-- Will be fixing British country.
-- Will be adding functionality for deploy to AWS.
+- Will be fixing British country. :heavy_check_mark:
+- Will be adding functionality for deployment to AWS.
 - Will be adding React or Angular frameworks.
 - Will be adding functionality for search diplomatic plates.
+- Will be adding UI (diplomatic field) :heavy_check_mark:
+- Will be adding UI automation scripts :heavy_check_mark: 
 
 ### Actuator
 
