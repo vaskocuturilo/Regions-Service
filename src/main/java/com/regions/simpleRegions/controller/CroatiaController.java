@@ -1,36 +1,39 @@
 package com.regions.simpleRegions.controller;
 
-import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.exception.RegionsNotFoundException;
 import com.regions.simpleRegions.service.CroatiaService;
+import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Data
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/croatia")
 public class CroatiaController {
+    private final CroatiaService croatiaService;
 
-    CroatiaService croatiaService;
-
-    public CroatiaController(CroatiaService croatiaService) {
-        this.croatiaService = croatiaService;
-    }
-
-    @GetMapping("/croatia")
-    public ResponseEntity getCroatiaRegionByNumber(@RequestParam String region) {
+    @GetMapping("/region/{region}")
+    public ResponseEntity getCroatiaRegionByNumber(@PathVariable String region) {
         try {
-            return ResponseEntity.ok(croatiaService.getOne(region));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
+            return ResponseEntity.ok(croatiaService.getRegionByName(region));
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
-    @GetMapping("/croatia/all")
+    @GetMapping("/description/{description}")
+    public ResponseEntity getCroatiaRegionByDescription(@PathVariable String description) {
+        try {
+            return ResponseEntity.ok(croatiaService.getRegionByDescription(description));
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/all")
     public ResponseEntity getAllCroatiaRegions() {
         try {
             return ResponseEntity.ok(croatiaService.getAllRegions());
