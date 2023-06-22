@@ -1,22 +1,27 @@
 package com.regions.simpleRegions.model;
 
 import com.regions.simpleRegions.entity.CroatiaEntity;
+import lombok.Data;
 
+import java.util.Optional;
+
+@Data
 public class CroatiaModel {
-
     private String description;
+    private String region;
 
-    public String getDescription() {
-        return description;
+    public static CroatiaModel toModelRegion(Optional<CroatiaEntity> entity) {
+        CroatiaModel model = new CroatiaModel();
+        model.setDescription(entity.get().getDescription());
+        model.setRegion(entity.get().getRegion());
+
+        return model;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public static CroatiaModel toModel(CroatiaEntity entity) {
+    public static CroatiaModel toModelDescription(CroatiaEntity entity) {
         CroatiaModel model = new CroatiaModel();
         model.setDescription(entity.getDescription());
+        model.setRegion(entity.getRegion());
 
         return model;
     }
