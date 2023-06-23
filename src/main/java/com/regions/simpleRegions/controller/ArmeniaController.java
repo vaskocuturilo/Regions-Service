@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/armenia")
 public class ArmeniaController {
 
-    ArmeniaService armeniaService;
+    private final ArmeniaService armeniaService;
 
     public ArmeniaController(ArmeniaService armeniaService) {
         this.armeniaService = armeniaService;
     }
 
-    @GetMapping("region/{region}")
+    @GetMapping("/region/{region}")
     public ResponseEntity getArmeniaRegionByNumber(@PathVariable String region) {
         try {
             return ResponseEntity.ok(armeniaService.getRegionNumber(region));
@@ -27,7 +27,7 @@ public class ArmeniaController {
         }
     }
 
-    @GetMapping("description/{description}")
+    @GetMapping("/description/{description}")
     public ResponseEntity getRussiaRegionByDescription(@PathVariable String description) {
         try {
             return ResponseEntity.ok(armeniaService.getDescription(description));
