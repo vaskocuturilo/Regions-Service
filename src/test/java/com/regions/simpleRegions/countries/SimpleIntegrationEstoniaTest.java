@@ -20,23 +20,38 @@ class SimpleIntegrationEstoniaTest {
 
     @Autowired
     private MockMvc mockMvc;
+    private String PATH = "/api/v1/estonia";
 
     @Test
-    void getRegionHandle_whenGetEstonia_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetEstoniaByRegion_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/estonia")
-                        .param("region", "A")
+                        .get(PATH + "/region/A")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.region").isNotEmpty())
+                .andExpect(jsonPath("$.region", equalTo("A")))
                 .andExpect(jsonPath("$.description").isNotEmpty())
                 .andExpect(jsonPath("$.description", equalTo("Tallinn")));
     }
 
     @Test
+    void getRegionHandle_whenGetEstoniaByDescription_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/description/Tallinn")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*]").isNotEmpty())
+                .andExpect(jsonPath("$[*].region").isNotEmpty())
+                .andExpect(jsonPath("$[*].description").isNotEmpty())
+                .andExpect(jsonPath("$[*]", hasSize(3)));
+    }
+
+    @Test
     void getRegionHandle_whenGetAllEstoniaRegions_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/estonia/all")
+                        .get(PATH + "/all")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -45,13 +60,51 @@ class SimpleIntegrationEstoniaTest {
     }
 
     @Test
-    void getRegionHandle_whenExceptionEstonia_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetEstoniaByDescriptionContains_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/estonia")
-                        .param("region", "AAA")
+                        .get(PATH + "/description/Tal")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].region", equalTo("A")))
+                .andExpect(jsonPath("$[0].description", equalTo("Tallinn")));
+    }
+
+    @Test
+    void getRegionHandle_whenGetEstoniaWithoutDescription_thenStatus404() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/description/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getRegionHandle_whenGetEstoniaWithoutRegion_thenStatus404() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/region/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getRegionHandle_whenExceptionEstoniaByRegion_thenStatus400() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/region/600")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.content().string("Region not found."));
+                .andExpect(MockMvcResultMatchers.content().string("Region with number 600 not found."));
+    }
+
+    @Test
+    void getRegionHandle_whenExceptionEstoniaByDescription_thenStatus400() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/description/AAAA")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().string("Description with name AAAA not found."));
     }
 }
