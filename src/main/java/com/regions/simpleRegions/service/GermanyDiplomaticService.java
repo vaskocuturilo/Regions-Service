@@ -1,10 +1,8 @@
 package com.regions.simpleRegions.service;
 
 import com.regions.simpleRegions.entity.GermanyDiplomaticEntity;
-import com.regions.simpleRegions.entity.GermanyEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.GermanyDiplomaticModel;
-import com.regions.simpleRegions.model.GermanyModel;
 import com.regions.simpleRegions.respository.GermanyDiplomaticRepo;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,25 +17,36 @@ import java.util.stream.Collectors;
 public class GermanyDiplomaticService {
 
     private final GermanyDiplomaticRepo germanyDiplomaticRepo;
-    @Value("${notification.message}")
+
+    @Value("${notification.region.message}")
     private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
 
     public GermanyDiplomaticModel getRegionByNumber(final String region) throws RegionNotFoundException {
         Optional<GermanyDiplomaticEntity> germanRegion = germanyDiplomaticRepo.findByRegion(region);
-        if (!germanRegion.isPresent()) {
-            throw new RegionNotFoundException(regionNotFound);
-        }
+        germanRegion.stream().filter(germanyDiplomaticEntity -> germanyDiplomaticEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+
+            return regionNotFoundException;
+        });
         return GermanyDiplomaticModel.toModelRegion(germanRegion);
     }
 
-    public List<GermanyDiplomaticModel> getRegionByDescription(final String region) throws RegionNotFoundException {
-        List<GermanyDiplomaticEntity> germanRegion = germanyDiplomaticRepo.findByDescription(region);
+    public List<GermanyDiplomaticModel> getRegionByDescription(final String description) throws RegionNotFoundException {
+        List<GermanyDiplomaticEntity> germanyDiplomaticEntityList = germanyDiplomaticRepo.findByDescription(description);
 
-        if (germanRegion.isEmpty()) {
-            throw new RegionNotFoundException(regionNotFound);
-        }
+        germanyDiplomaticEntityList.stream().findAny().map(germanyDiplomaticEntity -> germanyDiplomaticEntity
+                        .getDescription()
+                        .equalsIgnoreCase(description))
+                .orElseThrow(() -> {
+                    RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
 
-        return germanRegion.stream().map(GermanyDiplomaticModel::toModelDescription).collect(Collectors.toList());
+                    return regionNotFoundException;
+                });
+
+        return germanyDiplomaticEntityList.stream().map(GermanyDiplomaticModel::toModelDescription).collect(Collectors.toList());
     }
 
     public Iterable<GermanyDiplomaticEntity> getAllRegions() {

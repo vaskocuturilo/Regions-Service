@@ -4,40 +4,44 @@ import com.regions.simpleRegions.entity.ArmeniaEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.ArmeniaModel;
 import com.regions.simpleRegions.respository.ArmeniaRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Data
 @Service
 public class ArmeniaService {
-    ArmeniaRepo armeniaRepo;
 
-    @Autowired
-    public ArmeniaService(ArmeniaRepo armeniaRepo) {
-        this.armeniaRepo = armeniaRepo;
-    }
+    private final ArmeniaRepo armeniaRepo;
+
+    @Value("${notification.region.message}")
+    private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
 
     public ArmeniaModel getRegionNumber(String region) throws RegionNotFoundException {
-        ArmeniaEntity armeniaRegion = armeniaRepo.findByRegion(region);
-        if (armeniaRegion == null) {
-            throw new RegionNotFoundException("Region not found.");
-        }
-        return ArmeniaModel.toModel(armeniaRegion);
+        Optional<ArmeniaEntity> armeniaRegion = armeniaRepo.findByRegion(region);
+        armeniaRegion.stream().filter(armeniaEntity -> armeniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+
+            return regionNotFoundException;
+        });
+        return ArmeniaModel.toModelRegion(armeniaRegion);
     }
 
     public List<ArmeniaModel> getDescription(String description) throws RegionNotFoundException {
-        List<ArmeniaModel> userModel = new ArrayList<>();
-        List<ArmeniaEntity> armeniaRegion = armeniaRepo.findByDescription(description);
-        if (armeniaRegion.isEmpty()) {
-            throw new RegionNotFoundException("Region not found.");
-        }
+        List<ArmeniaEntity> armeniaEntityList = armeniaRepo.findByDescription(description);
+        armeniaEntityList.stream().findAny().map(armeniaEntity -> armeniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
 
-        for (ArmeniaEntity armeniaEntity : armeniaRegion) {
-            userModel.add(ArmeniaModel.toModelDescription(armeniaEntity));
-        }
-        return userModel;
+            return regionNotFoundException;
+        });
+        return armeniaEntityList.stream().map(ArmeniaModel::toModelDescription).collect(Collectors.toList());
     }
 
     public Iterable<ArmeniaEntity> getAllRegions() {

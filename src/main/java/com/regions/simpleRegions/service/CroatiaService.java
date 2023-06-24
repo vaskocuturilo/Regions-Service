@@ -5,6 +5,7 @@ import com.regions.simpleRegions.exception.RegionsNotFoundException;
 import com.regions.simpleRegions.model.CroatiaModel;
 import com.regions.simpleRegions.respository.CroatiaRepo;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,11 +17,17 @@ import java.util.stream.Collectors;
 public class CroatiaService {
     private final CroatiaRepo croatiaRepo;
 
+    @Value("${notification.region.message}")
+    private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
+
     public CroatiaModel getRegionByName(String region) {
         Optional<CroatiaEntity> croatiaRegion = croatiaRepo.findByRegion(region);
         croatiaRegion.stream().filter(croatiaEntity -> croatiaEntity.getRegion().equals(region)).findFirst().orElseThrow(
                 () -> {
-                    RegionsNotFoundException regionsNotFoundException = new RegionsNotFoundException(String.format("Region with %s not found in database.", region));
+                    RegionsNotFoundException regionsNotFoundException = new RegionsNotFoundException(String.format(regionNotFound, region));
                     return regionsNotFoundException;
                 });
 
@@ -30,9 +37,11 @@ public class CroatiaService {
     public List<CroatiaModel> getRegionByDescription(String description) throws RegionsNotFoundException {
         List<CroatiaEntity> croatiaEntities = croatiaRepo.findByDescription(description);
 
-        if (croatiaEntities.isEmpty())
-            throw new RegionsNotFoundException("Description with " + description + " not found in database.");
-
+        croatiaEntities.stream().findAny().map(croatiaEntity -> croatiaEntity.getDescription()).orElseThrow(
+                () -> {
+                    RegionsNotFoundException regionsNotFoundException = new RegionsNotFoundException(String.format(descriptionNotFound, description));
+                    return regionsNotFoundException;
+                });
         return croatiaEntities.stream().map(CroatiaModel::toModelDescription).collect(Collectors.toList());
     }
 

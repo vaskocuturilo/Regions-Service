@@ -6,11 +6,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ArmeniaRepo extends CrudRepository<ArmeniaEntity, Long> {
-    ArmeniaEntity findByRegion(String region);
-
+    Optional<ArmeniaEntity> findByRegion(String region);
     @Query("select armenia from ArmeniaEntity armenia WHERE armenia.description LIKE CONCAT('%',:description,'%')")
     List<ArmeniaEntity> findByDescription(String description);
 }

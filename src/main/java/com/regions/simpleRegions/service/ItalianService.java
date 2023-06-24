@@ -16,24 +16,32 @@ import java.util.stream.Collectors;
 @Data
 public class ItalianService {
     private final ItalianRepo italianRepo;
-    @Value("${notification.message}")
+
+    @Value("${notification.region.message}")
     private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
 
     public ItalianModel getRegionByNumber(final String region) throws RegionNotFoundException {
         Optional<ItalianEntity> italianRegion = italianRepo.findByRegion(region);
-        if (!italianRegion.isPresent()) {
-            throw new RegionNotFoundException(regionNotFound);
-        }
+        italianRegion.stream().filter(italianEntity -> italianEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+
+            return regionNotFoundException;
+        });
         return ItalianModel.toModel(italianRegion);
     }
 
-    public List<ItalianModel> getRegionByDescription(final String region) throws RegionNotFoundException {
-        List<ItalianEntity> italianEntities = italianRepo.findByDescription(region);
-        if (italianEntities.isEmpty()) {
-            throw new RegionNotFoundException(regionNotFound);
-        }
+    public List<ItalianModel> getRegionByDescription(final String description) throws RegionNotFoundException {
+        List<ItalianEntity> italianEntityList = italianRepo.findByDescription(description);
+        italianEntityList.stream().findAny().map(italianEntity -> italianEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
 
-        return italianEntities.stream().map(ItalianModel::toDescription).collect(Collectors.toList());
+            return regionNotFoundException;
+        });
+
+        return italianEntityList.stream().map(ItalianModel::toDescription).collect(Collectors.toList());
     }
 
     public Iterable<ItalianEntity> getAllRegions() {

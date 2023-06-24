@@ -17,23 +17,37 @@ import java.util.stream.Collectors;
 public class AustriaDiplomaticService {
     private final AustriaDiplomaticRepo austriaDiplomaticRepo;
 
-    @Value("${notification.message}")
-    private String REGION_NOT_FOUND;
+    @Value("${notification.region.message}")
+    private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
 
     public AustriaDiplomaticModel getRegionByNumber(String region) throws RegionNotFoundException {
         Optional<AustriaDiplomaticEntity> austriaRegion = austriaDiplomaticRepo.findByRegion(region);
-        if (!austriaRegion.isPresent()) {
-            throw new RegionNotFoundException(REGION_NOT_FOUND);
-        }
+        austriaRegion.stream().filter(austriaDiplomaticEntity -> austriaDiplomaticEntity
+                        .getRegion()
+                        .equalsIgnoreCase(region))
+                .findFirst()
+                .orElseThrow(() -> {
+                    RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+                    return regionNotFoundException;
+                });
         return AustriaDiplomaticModel.toModelRegion(austriaRegion);
     }
 
     public List<AustriaDiplomaticModel> getRegionByDescription(String description) throws RegionNotFoundException {
-        List<AustriaDiplomaticEntity> austriaRegions = austriaDiplomaticRepo.findByDescription(description);
-        if (austriaRegions.isEmpty()) {
-            throw new RegionNotFoundException(REGION_NOT_FOUND);
-        }
-        return austriaRegions.stream().map(AustriaDiplomaticModel::toModelDescription).collect(Collectors.toList());
+        List<AustriaDiplomaticEntity> austriaDiplomaticEntityList = austriaDiplomaticRepo.findByDescription(description);
+
+        austriaDiplomaticEntityList.stream().findAny().map(austriaDiplomaticEntity -> austriaDiplomaticEntity
+                        .getRegion()
+                        .equalsIgnoreCase(description))
+                .orElseThrow(() -> {
+                    RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+                    return regionNotFoundException;
+                });
+
+        return austriaDiplomaticEntityList.stream().map(AustriaDiplomaticModel::toModelDescription).collect(Collectors.toList());
     }
 
     public Iterable<AustriaDiplomaticEntity> getAllRegions() {

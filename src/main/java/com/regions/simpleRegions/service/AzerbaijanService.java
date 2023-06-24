@@ -18,22 +18,36 @@ public class AzerbaijanService {
 
     private final AzerbaijanRepo azerbaijanRepo;
 
-    @Value("${notification.message}")
-    private String REGION_NOT_FOUND;
+    @Value("${notification.region.message}")
+    private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
 
     public AzerbaijanModel getRegionByNumber(String region) throws RegionNotFoundException {
         Optional<AzerbaijanEntity> azerbaijanRegion = azerbaijanRepo.findByRegion(region);
-        if (!azerbaijanRegion.isPresent()) {
-            throw new RegionNotFoundException(REGION_NOT_FOUND);
-        }
+        azerbaijanRegion.stream().filter(azerbaijanEntity -> azerbaijanEntity
+                        .getRegion()
+                        .equalsIgnoreCase(region))
+                .findFirst().orElseThrow(() -> {
+                    RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+
+                    return regionNotFoundException;
+                });
         return AzerbaijanModel.toModel(azerbaijanRegion);
     }
 
-    public List<AzerbaijanModel> getRegionByDescription(String region) throws RegionNotFoundException {
-        List<AzerbaijanEntity> azerbaijanEntities = azerbaijanRepo.findByDescription(region);
-        if (azerbaijanEntities.isEmpty()) {
-            throw new RegionNotFoundException(REGION_NOT_FOUND);
-        }
+    public List<AzerbaijanModel> getRegionByDescription(String description) throws RegionNotFoundException {
+        List<AzerbaijanEntity> azerbaijanEntities = azerbaijanRepo.findByDescription(description);
+
+        azerbaijanEntities.stream().findAny().map(azerbaijanEntity -> azerbaijanEntity
+                .getDescription()
+                .equalsIgnoreCase(description)).orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+
+            return regionNotFoundException;
+
+        });
         return azerbaijanEntities.stream().map(AzerbaijanModel::toModelDescription).collect(Collectors.toList());
     }
 

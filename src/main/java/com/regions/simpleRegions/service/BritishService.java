@@ -19,34 +19,41 @@ import java.util.stream.Collectors;
 @Service
 public class BritishService {
     private final BritishRepo britishRepo;
+
     private final BritishAgeRepo britishAgeRepo;
-    @Value("${notification.message}")
-    private String REGION_NOT_FOUND;
+
+    @Value("${notification.region.message}")
+    private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
 
     public BritishRegionModel getByRegion(String region) throws RegionNotFoundException {
         Optional<BritishEntity> britishRegion = britishRepo.findByRegion(getFirstTwoSymbols(region));
         Optional<BritishAgeEntity> britishAgeEntity = britishAgeRepo.findByCode(getLastTwoSymbols(region));
 
         if (!britishRegion.isPresent()) {
-            throw new RegionNotFoundException(REGION_NOT_FOUND);
+            throw new RegionNotFoundException(String.format(regionNotFound, region));
         }
 
         if (!britishAgeEntity.isPresent()) {
-            throw new RegionNotFoundException(REGION_NOT_FOUND);
+            throw new RegionNotFoundException(String.format(regionNotFound, region));
         }
 
         return BritishRegionModel.toModelRegion(britishRegion, britishAgeEntity);
     }
 
     public List<BritishDescriptionModel> getByDescription(String description) throws RegionNotFoundException {
-        List<BritishDescriptionModel> britishDescriptionModels;
         List<BritishEntity> britishEntities = britishRepo.findByDescription(description);
-        if (britishEntities.isEmpty()) {
-            throw new RegionNotFoundException("Region not found.");
-        }
 
-        britishDescriptionModels = britishEntities.stream().map(BritishDescriptionModel::toModelDescription).collect(Collectors.toList());
-        return britishDescriptionModels;
+        britishEntities.stream().findAny().map(britishEntity -> britishEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+
+            return regionNotFoundException;
+        });
+
+
+        return britishEntities.stream().map(BritishDescriptionModel::toModelDescription).collect(Collectors.toList());
     }
 
     public Iterable<BritishEntity> getAllRegions() {

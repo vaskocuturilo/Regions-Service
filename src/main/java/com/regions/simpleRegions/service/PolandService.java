@@ -5,6 +5,7 @@ import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.PolandModel;
 import com.regions.simpleRegions.respository.PolandRepo;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,21 +15,32 @@ import java.util.stream.Collectors;
 @Data
 @Service
 public class PolandService {
+
     private final PolandRepo polandRepo;
+
+    @Value("${notification.region.message}")
+    private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
 
     public PolandModel getRegionByNumber(final String region) throws RegionNotFoundException {
         Optional<PolandEntity> polandRegion = polandRepo.findByRegion(region);
-        if (!polandRegion.isPresent()) {
-            throw new RegionNotFoundException("Region not found.");
-        }
+        polandRegion.stream().filter(polandEntity -> polandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+
+            return regionNotFoundException;
+        });
         return PolandModel.toModel(polandRegion);
     }
 
     public List<PolandModel> getByDescription(final String description) throws RegionNotFoundException {
         List<PolandEntity> polandEntityList = polandRepo.findByDescription(description);
-        if (polandEntityList.isEmpty()) {
-            throw new RegionNotFoundException("Region not found.");
-        }
+        polandEntityList.stream().findAny().map(polandEntity -> polandEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+
+            return regionNotFoundException;
+        });
 
         return polandEntityList.stream().map(PolandModel::toDescription).collect(Collectors.toList());
     }
