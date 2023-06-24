@@ -14,6 +14,8 @@ public class BelarusController {
 
     private final BelarusService belarusService;
 
+
+
     @GetMapping("/region/{region}")
     public ResponseEntity getBelarusRegionByNumber(@PathVariable String region) {
         try {

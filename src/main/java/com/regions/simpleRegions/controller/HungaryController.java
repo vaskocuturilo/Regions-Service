@@ -4,26 +4,21 @@ package com.regions.simpleRegions.controller;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.exception.RegionsNotFoundException;
 import com.regions.simpleRegions.service.HungaryService;
+import lombok.Data;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@Data
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/hungary")
 public class HungaryController {
 
-    HungaryService hungaryService;
+    private final HungaryService hungaryService;
 
-    public HungaryController(HungaryService hungaryService) {
-        this.hungaryService = hungaryService;
-    }
-
-    @GetMapping("/hungary")
-    public ResponseEntity getHungaryRegionByNumber(@RequestParam String region) {
+    @GetMapping("/region/{region}")
+    public ResponseEntity getHungaryRegionByNumber(@PathVariable String region) {
         try {
-            return ResponseEntity.ok(hungaryService.getOne(region));
+            return ResponseEntity.ok(hungaryService.getRegionByNumber(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -31,7 +26,19 @@ public class HungaryController {
         }
     }
 
-    @GetMapping("/hungary/all")
+
+    @GetMapping("/description/{description}")
+    public ResponseEntity getHungaryRegionByDescription(@PathVariable String description) {
+        try {
+            return ResponseEntity.ok(hungaryService.getRegionByDescription(description));
+        } catch (RegionNotFoundException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/all")
     public ResponseEntity getAllHungaryRegions() {
         try {
             return ResponseEntity.ok(hungaryService.getAllRegions());

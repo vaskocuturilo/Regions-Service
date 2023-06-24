@@ -17,23 +17,33 @@ import java.util.stream.Collectors;
 public class AustriaService {
     private final AustriaRepo austriaRepo;
 
-    @Value("${notification.message}")
-    private String REGION_NOT_FOUND;
+    @Value("${notification.region.message}")
+    private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
 
     public AustriaModel getRegionByNumber(String region) throws RegionNotFoundException {
         Optional<AustriaEntity> austriaRegion = austriaRepo.findByRegion(region);
-        if (!austriaRegion.isPresent()) {
-            throw new RegionNotFoundException(REGION_NOT_FOUND);
-        }
+
+        austriaRegion.stream().filter(austriaEntity -> austriaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+            return regionNotFoundException;
+        });
+
         return AustriaModel.toModelRegion(austriaRegion);
     }
 
     public List<AustriaModel> getRegionByDescription(String description) throws RegionNotFoundException {
-        List<AustriaEntity> austriaRegions = austriaRepo.findByDescription(description);
-        if (austriaRegions.isEmpty()) {
-            throw new RegionNotFoundException(REGION_NOT_FOUND);
-        }
-        return austriaRegions.stream().map(AustriaModel::toModelDescription).collect(Collectors.toList());
+        List<AustriaEntity> austriaEntityList = austriaRepo.findByDescription(description);
+
+        austriaEntityList.stream().findAny().map(austriaEntity -> austriaEntity.getDescription()).orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+
+            return regionNotFoundException;
+        });
+
+        return austriaEntityList.stream().map(AustriaModel::toModelDescription).collect(Collectors.toList());
     }
 
     public Iterable<AustriaEntity> getAllRegions() {

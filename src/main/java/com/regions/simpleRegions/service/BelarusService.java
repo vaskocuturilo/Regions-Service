@@ -17,24 +17,32 @@ import java.util.stream.Collectors;
 public class BelarusService {
 
     private final BelarusRepo belarusRepo;
-    @Value("${notification.message}")
-    private String REGION_NOT_FOUND;
+
+    @Value("${notification.region.message}")
+    private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
 
     public BelarusModel getRegionByNumber(String region) throws RegionNotFoundException {
         Optional<BelarusEntity> belarusRegion = belarusRepo.findByRegion(region);
-        if (!belarusRegion.isPresent()) {
-            throw new RegionNotFoundException(REGION_NOT_FOUND);
-        }
+        belarusRegion.stream().filter(belarusEntity -> belarusEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+
+            return regionNotFoundException;
+        });
         return BelarusModel.toModel(belarusRegion);
     }
 
     public List<BelarusModel> getRegionByDescription(String description) throws RegionNotFoundException {
-        List<BelarusEntity> belarusRegion = belarusRepo.findByDescription(description);
-        if (belarusRegion.isEmpty()) {
-            throw new RegionNotFoundException(REGION_NOT_FOUND);
-        }
+        List<BelarusEntity> belarusEntityList = belarusRepo.findByDescription(description);
 
-        return belarusRegion.stream().map(BelarusModel::toDescription).collect(Collectors.toList());
+        belarusEntityList.stream().findAny().map(belarusEntity -> belarusEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+
+            return regionNotFoundException;
+        });
+        return belarusEntityList.stream().map(BelarusModel::toDescription).collect(Collectors.toList());
     }
 
     public Iterable<BelarusEntity> getAllRegions() {

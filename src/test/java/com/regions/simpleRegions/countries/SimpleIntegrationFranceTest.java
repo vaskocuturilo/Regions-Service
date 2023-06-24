@@ -2,6 +2,7 @@ package com.regions.simpleRegions.countries;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -17,12 +18,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class SimpleIntegrationFranceTest {
-
     @Autowired
     private MockMvc mockMvc;
-
     private String PATH = "/api/v1/france/";
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
 
+    @Value("${notification.region.message}")
+    private String regionNotFound;
 
     @Test
     void getRegionHandle_whenGetFranceByRegion_thenStatus200() throws Exception {
@@ -73,6 +76,7 @@ class SimpleIntegrationFranceTest {
                 .andExpect(jsonPath("$[*].description").isNotEmpty())
                 .andExpect(jsonPath("$[0].description", equalTo("Paris,Paris,Île-de-France")));
     }
+
     @Test
     void getRegionHandle_whenGetFranceWithoutDescription_thenStatus404() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
@@ -93,21 +97,23 @@ class SimpleIntegrationFranceTest {
 
     @Test
     void getRegionHandle_whenExceptionFranceByRegion_thenStatus400() throws Exception {
+        String region = "070";
         mockMvc.perform(MockMvcRequestBuilders
-                        .get(PATH + "/region/070")
+                        .get(PATH + "/region/" + region)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.content().string("Region not found."));
+                .andExpect(MockMvcResultMatchers.content().string(String.format(regionNotFound, region)));
     }
 
     @Test
     void getRegionHandle_whenExceptionFranceByDescription_thenStatus400() throws Exception {
+        String description = "Bavaria";
         mockMvc.perform(MockMvcRequestBuilders
-                        .get(PATH + "/description/Bavaria")
+                        .get(PATH + "/description/" + description)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.content().string("Region not found."));
+                .andExpect(MockMvcResultMatchers.content().string(String.format(descriptionNotFound, description)));
     }
 }

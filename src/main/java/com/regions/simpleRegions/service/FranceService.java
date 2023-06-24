@@ -17,24 +17,33 @@ import java.util.stream.Collectors;
 public class FranceService {
 
     private final FranceRepo franceRepo;
-    @Value("${notification.message}")
+
+    @Value("${notification.region.message}")
     private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
 
     public FranceModel getByRegion(final String region) throws RegionNotFoundException {
         Optional<FranceEntity> franceRegion = franceRepo.findByRegion(region);
-        if (!franceRegion.isPresent()) {
-            throw new RegionNotFoundException(regionNotFound);
-        }
+        franceRegion.stream().filter(franceEntity -> franceEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+
+            return regionNotFoundException;
+        });
         return FranceModel.toModel(franceRegion);
     }
 
     public List<FranceModel> getByDescription(final String description) throws RegionNotFoundException {
-        List<FranceEntity> franceEntities = franceRepo.findByDescription(description);
-        if (franceEntities.isEmpty()) {
-            throw new RegionNotFoundException(regionNotFound);
-        }
+        List<FranceEntity> franceEntityList = franceRepo.findByDescription(description);
 
-        return franceEntities.stream().map(FranceModel::toModelDescription).collect(Collectors.toList());
+        franceEntityList.stream().findAny().map(franceEntity -> franceEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+
+            return regionNotFoundException;
+        });
+
+        return franceEntityList.stream().map(FranceModel::toModelDescription).collect(Collectors.toList());
     }
 
     public Iterable<FranceEntity> getAllRegions() {

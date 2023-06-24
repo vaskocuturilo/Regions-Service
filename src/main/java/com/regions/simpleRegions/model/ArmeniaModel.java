@@ -1,31 +1,20 @@
 package com.regions.simpleRegions.model;
 
 import com.regions.simpleRegions.entity.ArmeniaEntity;
+import lombok.Data;
 
+import java.util.Optional;
+
+@Data
 public class ArmeniaModel {
     private String description;
+
     private String region;
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public static ArmeniaModel toModel(ArmeniaEntity entity) {
+    public static ArmeniaModel toModelRegion(Optional<ArmeniaEntity> entity) {
         ArmeniaModel model = new ArmeniaModel();
-        model.setDescription(entity.getDescription());
-
+        model.setDescription(entity.get().getDescription());
+        model.setRegion(entity.get().getRegion());
         return model;
     }
 

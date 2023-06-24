@@ -17,22 +17,31 @@ import java.util.stream.Collectors;
 public class RussiaService {
 
     private final RussiaRepo russiaRepo;
-    @Value("${notification.message}")
+
+    @Value("${notification.region.message}")
     private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
 
     public RussiaModel getRegionNumber(final String region) throws RegionNotFoundException {
         Optional<RussiaEntity> russiaRegion = russiaRepo.findByRegion(region);
-        if (!russiaRegion.isPresent()) {
-            throw new RegionNotFoundException(regionNotFound);
-        }
+        russiaRegion.stream().filter(russiaEntity -> russiaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+
+            return regionNotFoundException;
+        });
         return RussiaModel.toModelRegion(russiaRegion);
     }
 
     public List<RussiaModel> getDescription(final String description) throws RegionNotFoundException {
         List<RussiaEntity> russiaEntityList = russiaRepo.findByDescription(description);
-        if (russiaEntityList.isEmpty()) {
-            throw new RegionNotFoundException(regionNotFound);
-        }
+
+        russiaEntityList.stream().findAny().map(russiaEntity -> russiaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+
+            return regionNotFoundException;
+        });
 
         return russiaEntityList.stream().map(RussiaModel::toModelDescription).collect(Collectors.toList());
     }
