@@ -45,7 +45,7 @@ class SimpleIntegrationHungaryTest {
 
 
     @Test
-    void getRegionHandle_whenGetRussiaByDescription_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetHungaryByDescription_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/1990")
                         .contentType(MediaType.APPLICATION_JSON)
