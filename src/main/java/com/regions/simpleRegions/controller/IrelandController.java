@@ -3,27 +3,21 @@ package com.regions.simpleRegions.controller;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.exception.RegionsNotFoundException;
 import com.regions.simpleRegions.service.IrelandService;
+import lombok.Data;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@Data
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/ireland/plates")
 public class IrelandController {
 
-    IrelandService irelandService;
+    private final IrelandService irelandService;
 
-
-    public IrelandController(IrelandService irelandService) {
-        this.irelandService = irelandService;
-    }
-
-    @GetMapping("/ireland")
-    public ResponseEntity getIrelandRegionByNumber(@RequestParam String region) {
+    @GetMapping("/region/{region}")
+    public ResponseEntity getIrelandPlatesByRegion(@PathVariable String region) {
         try {
-            return ResponseEntity.ok(irelandService.getOne(region));
+            return ResponseEntity.ok(irelandService.getPlatesByRegion(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -31,7 +25,18 @@ public class IrelandController {
         }
     }
 
-    @GetMapping("/ireland/all")
+    @GetMapping("/description/{description}")
+    public ResponseEntity getIrelandPlatesByDescription(@PathVariable String description) {
+        try {
+            return ResponseEntity.ok(irelandService.getPlatesByDescription(description));
+        } catch (RegionNotFoundException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/all")
     public ResponseEntity getAllIrelandRegions() {
         try {
             return ResponseEntity.ok(irelandService.getAllRegions());
