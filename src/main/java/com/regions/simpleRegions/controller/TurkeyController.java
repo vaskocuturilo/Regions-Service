@@ -3,26 +3,20 @@ package com.regions.simpleRegions.controller;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.exception.RegionsNotFoundException;
 import com.regions.simpleRegions.service.TurkeyService;
+import lombok.Data;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@Data
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/turkey/plates")
 public class TurkeyController {
+    private final TurkeyService turkeyService;
 
-    TurkeyService turkeyService;
-
-    public TurkeyController(TurkeyService turkeyService) {
-        this.turkeyService = turkeyService;
-    }
-
-    @GetMapping("/turkey")
-    public ResponseEntity getTurkeyRegionByNumber(@RequestParam String region) {
+    @GetMapping("/region/{region}")
+    public ResponseEntity getTurkeyPlatesByRegion(@PathVariable String region) {
         try {
-            return ResponseEntity.ok(turkeyService.getOne(region));
+            return ResponseEntity.ok(turkeyService.getTurkeyPlatesByRegion(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -30,7 +24,18 @@ public class TurkeyController {
         }
     }
 
-    @GetMapping("/turkey/all")
+    @GetMapping("/description/{description}")
+    public ResponseEntity getTurkeyPlatesByDescription(@PathVariable String description) {
+        try {
+            return ResponseEntity.ok(turkeyService.getTurkeyPlatesByDescription(description));
+        } catch (RegionNotFoundException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/all")
     public ResponseEntity getAllTurkeyRegionsByNumber() {
         try {
             return ResponseEntity.ok(turkeyService.getAllRegions());
