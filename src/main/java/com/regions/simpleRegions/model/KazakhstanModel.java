@@ -1,22 +1,29 @@
 package com.regions.simpleRegions.model;
 
 import com.regions.simpleRegions.entity.KazakhstanEntity;
+import lombok.Data;
 
+import java.util.Optional;
+
+@Data
 public class KazakhstanModel {
 
     private String description;
 
-    public String getDescription() {
-        return description;
+    private String region;
+
+    public static KazakhstanModel toModelRegion(Optional<KazakhstanEntity> entity) {
+        KazakhstanModel model = new KazakhstanModel();
+        model.setDescription(entity.get().getDescription());
+        model.setRegion(entity.get().getRegion());
+
+        return model;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public static KazakhstanModel toModel(KazakhstanEntity entity) {
+    public static KazakhstanModel toModelDescription(KazakhstanEntity entity) {
         KazakhstanModel model = new KazakhstanModel();
         model.setDescription(entity.getDescription());
+        model.setRegion(entity.getRegion());
 
         return model;
     }
