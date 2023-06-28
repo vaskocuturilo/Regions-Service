@@ -57,7 +57,7 @@ class SimpleIntegrationKazakhstanTest {
     }
 
     @Test
-    void getRegionHandle_whenGetItalianByDescriptionContains_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetKazakhstanByDescriptionContains_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/Нур")
                         .contentType(MediaType.APPLICATION_JSON)
