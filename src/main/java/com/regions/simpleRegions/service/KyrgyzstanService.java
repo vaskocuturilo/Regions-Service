@@ -4,25 +4,48 @@ import com.regions.simpleRegions.entity.KyrgyzstanEntity;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.model.KyrgyzstanModel;
 import com.regions.simpleRegions.respository.KyrgyzstanRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Data
 @Service
 public class KyrgyzstanService {
 
-    KyrgyzstanRepo kyrgyzstanRepo;
+    private final KyrgyzstanRepo kyrgyzstanRepo;
 
-    @Autowired
-    public KyrgyzstanService(KyrgyzstanRepo kyrgyzstanRepo) {
-        this.kyrgyzstanRepo = kyrgyzstanRepo;
+    @Value("${notification.region.message}")
+    private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
+
+    public KyrgyzstanModel getKyrgyzstanPlatesByRegion(String region) throws RegionNotFoundException {
+        Optional<KyrgyzstanEntity> kyrgyzstanRegion = kyrgyzstanRepo.findByRegion(region);
+
+        kyrgyzstanRegion.stream().filter(kyrgyzstanEntity -> kyrgyzstanEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+
+            return regionNotFoundException;
+        });
+
+        return KyrgyzstanModel.toModelByRegion(kyrgyzstanRegion);
     }
 
-    public KyrgyzstanModel getOne(String region) throws RegionNotFoundException {
-        KyrgyzstanEntity kyrgyzstanRegion = kyrgyzstanRepo.findByRegion(region);
-        if (kyrgyzstanRegion == null) {
-            throw new RegionNotFoundException("Region not found.");
-        }
-        return KyrgyzstanModel.toModel(kyrgyzstanRegion);
+    public List<KyrgyzstanModel> getKyrgyzstanPlatesByDescription(String description) throws RegionNotFoundException {
+        List<KyrgyzstanEntity> kyrgyzstanEntityList = kyrgyzstanRepo.findByDescription(description);
+
+        kyrgyzstanEntityList.stream().findAny().map(kyrgyzstanEntity -> kyrgyzstanEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
+            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+
+            return regionNotFoundException;
+        });
+
+        return kyrgyzstanEntityList.stream().map(KyrgyzstanModel::toModelByDescription).collect(Collectors.toList());
     }
 
     public Iterable<KyrgyzstanEntity> getAllRegions() {
