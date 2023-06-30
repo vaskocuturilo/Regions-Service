@@ -117,5 +117,4 @@ class SimpleIntegrationKyrgyzstanTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.content().string(String.format(descriptionNotFound, description)));
     }
-
 }
