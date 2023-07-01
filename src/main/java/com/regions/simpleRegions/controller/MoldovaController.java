@@ -1,28 +1,24 @@
 package com.regions.simpleRegions.controller;
 
+import com.regions.simpleRegions.exception.DescriptionNotFoundException;
 import com.regions.simpleRegions.exception.RegionNotFoundException;
 import com.regions.simpleRegions.exception.RegionsNotFoundException;
 import com.regions.simpleRegions.service.MoldovaService;
+import lombok.Data;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@Data
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/moldova/plates")
 public class MoldovaController {
 
-    MoldovaService moldovaService;
+    private final MoldovaService moldovaService;
 
-    public MoldovaController(MoldovaService moldovaService) {
-        this.moldovaService = moldovaService;
-    }
-
-    @GetMapping("/moldova")
-    public ResponseEntity getMoldovaRegionByNumber(@RequestParam String region) {
+    @GetMapping("/region/{region}")
+    public ResponseEntity getMoldovaPlatesByRegion(@PathVariable String region) {
         try {
-            return ResponseEntity.ok(moldovaService.getOne(region));
+            return ResponseEntity.ok(moldovaService.getMoldovaPlatesByRegion(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -30,7 +26,18 @@ public class MoldovaController {
         }
     }
 
-    @GetMapping("/moldova/all")
+    @GetMapping("/description/{description}")
+    public ResponseEntity getMoldovaPlatesByDescription(@PathVariable String description) {
+        try {
+            return ResponseEntity.ok(moldovaService.getMoldovaPlatesByDescription(description));
+        } catch (DescriptionNotFoundException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        } catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
+    @GetMapping("/all")
     public ResponseEntity getAllMoldovaRegions() {
         try {
             return ResponseEntity.ok(moldovaService.getAllRegions());
