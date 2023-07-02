@@ -50,6 +50,20 @@ jobs:
       - name: Build project.
         run: gradle clean build test
 
+  sonarCloudTrigger:
+    needs: build
+    name: SonarCloud Trigger
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@master
+
+      - name: Analyze with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   cypress-test:
     needs: build
     strategy:
@@ -113,3 +127,11 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           command: npm run cypress:run:test -- --browser ${{ matrix.browser }}
+          parallel: true
+
+      - name: Archive test screenshots
+        uses: actions/upload-artifact@v1
+        with:
+          name: screenshots
+          path: cypress/screenshots
+        if: ${{ failure() }}
