@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.5.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
-    id 'org.sonarqube' version '3.0'
+    id("org.sonarqube") version "4.2.1.3168"
 }
 
 group = 'com.regions'
@@ -42,23 +42,10 @@ test {
 }
 targetCompatibility = JavaVersion.VERSION_1_9
 
-sonarqube {
+sonar {
     properties {
-        property "sonar.host.url", "https://sonarcloud.io/"
-        property "sonar.login", "vaskocuturilo@github - 35867c1595fbd76aaf6e7e8d48b45a4d9cf4ba1f"
-
-        property "sonar.projectName", "Regions-Service"
-        property "sonar.projectKey", "vaskocuturilo_Regions-Service"
-
-        property "sonar.coverage.jacoco.xmlReportPaths", "$buildDir/reports/jacoco/test/jacocoTestReport.xml"
-        property "sonar.junit.reportPaths", "$buildDir/test-results/test/"
-        property "sonar.exclusions", "**/xmldefs/**,**/spec/api.json"
-        property "sonar.cpd.exclusions", ", **/persistence/entity/**"
-        property "sonar.dynamicAnalysis", "reuseReports"
-        property "sonar.clover.reportPaths", "**/build/clover/clover.xml"
-        property "sonar.java.coveragePlugin", "clover"
-        property "sonar.sources", "src/main/kotlin"
-        property "sonar.tests", "."
-        property "sonar.test.inclusions", "**/*Test*/**"
+        property("sonar.projectKey", "vaskocuturilo")
+        property("sonar.organization", "Vasko Cuturilo")
+        property("sonar.host.url", "https://sonarcloud.io/project/overview?id=vaskocuturilo_Regions-Service")
     }
 }
