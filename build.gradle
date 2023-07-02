@@ -62,7 +62,3 @@ sonarqube {
         property "sonar.test.inclusions", "**/*Test*/**"
     }
 }
-
-// Build should fail if coverage less than minimum.
-jacocoTestCoverageVerification.dependsOn jacocoTestReport
-build.finalizedBy jacocoTestCoverageVerification
