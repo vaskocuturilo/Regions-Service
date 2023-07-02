@@ -25,7 +25,7 @@ describe('Testing main page for application regions', () => {
         mainPage.checkImageDiplomaticByCountry("NO", "Norway_diplomatic_license");
         mainPage.checkImageDiplomaticByCountry("RO", "Romania_diplomatic_number");
         mainPage.checkImageDiplomaticByCountry("SE", "Sweden_diplomatic_license_plate");
-        mainPage.checkImageDiplomaticByCountry("CH", "Switzerland_CD_Diplomatic_license_plate");
+        mainPage.checkImageDiplomaticByCountry("TEST", "Switzerland_CD_Diplomatic_license_plate");
 
     })
 }) 
