@@ -20,7 +20,7 @@ public class MontenegroController {
     private final MontenegroService montenegroService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getMontenegroPlatesByRegion(@PathVariable String region) throws RegionNotFoundException {
+    public ResponseEntity getMontenegroPlatesByRegion(@PathVariable String region) {
         try {
             return ResponseEntity.ok(montenegroService.getMontenegroPlatesByRegion(region));
         } catch (RegionNotFoundException | RuntimeException exception) {

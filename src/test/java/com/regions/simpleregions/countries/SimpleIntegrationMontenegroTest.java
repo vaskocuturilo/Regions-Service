@@ -43,6 +43,30 @@ class SimpleIntegrationMontenegroTest {
     }
 
     @Test
+    void getRegionHandle_whenGetMontenegroPlatesByDescription_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/description/Andrijevica")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*]").isNotEmpty())
+                .andExpect(jsonPath("$[*].region").isNotEmpty())
+                .andExpect(jsonPath("$[*].description").isNotEmpty())
+                .andExpect(jsonPath("$[*]", hasSize(1)));
+    }
+
+    @Test
+    void getRegionHandle_whenGetMontenegroPlatesByDescriptionContains_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/description/An")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].region", equalTo("AN")))
+                .andExpect(jsonPath("$[0].description", equalTo("Andrijevica")));
+    }
+
+    @Test
     void getRegionHandle_whenGetAllMontenegroPlatesRegions_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/all")

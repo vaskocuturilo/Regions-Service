@@ -59,7 +59,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Analyze with SonarCloud
-        uses: sonarsource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -127,17 +127,11 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           command: npm run cypress:run:test -- --browser ${{ matrix.browser }}
+          parallel: true
 
-      - uses: actions/checkout@v2
-      - uses: cypress-io/github-action@v4
-      - uses: actions/upload-artifact@v2
-        if: failure()
+      - name: Archive test screenshots
+        uses: actions/upload-artifact@v1
         with:
-          name: cypress-screenshots
-          path: ./cypress/screenshots
-
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: cypress-videos
-          path: ./cypress/videos
+          name: screenshots
+          path: cypress/screenshots
+        if: ${{ failure() }}
