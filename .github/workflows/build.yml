@@ -128,15 +128,16 @@ jobs:
         with:
           command: npm run cypress:run:test -- --browser ${{ matrix.browser }}
 
-      - name: Cypress Artifacts
-        uses: actions/upload-artifact@v3
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v4
+      - uses: actions/upload-artifact@v2
+        if: failure()
         with:
           name: cypress-screenshots
-          path: cypress/screenshots
-          if-no-files-found: ignore
+          path: ./cypress/screenshots
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v2
+        if: failure()
         with:
           name: cypress-videos
-          path: cypress/videos
-          if-no-files-found: ignore
+          path: ./cypress/videos
