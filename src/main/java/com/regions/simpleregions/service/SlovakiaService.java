@@ -28,10 +28,11 @@ public class SlovakiaService {
     public SlovakiaModel getSlovakiaPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<SlovakiaEntity> slovakiaRegion = slovakiaRepo.findByRegion(region);
 
-        slovakiaRegion
+        Optional.ofNullable(slovakiaRegion
                 .stream()
-                .filter(slovakiaEntity -> slovakiaEntity.getRegion().equalsIgnoreCase(region))
-                .findFirst().orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region)));
+                .filter(romaniaEntity -> romaniaEntity.getRegion().equalsIgnoreCase(region))
+                .findFirst()
+                .orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return SlovakiaModel.toModelByRegion(slovakiaRegion);
     }
