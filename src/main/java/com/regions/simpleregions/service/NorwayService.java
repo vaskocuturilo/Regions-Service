@@ -4,28 +4,50 @@ import com.regions.simpleregions.entity.NorwayEntity;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.NorwayModel;
 import com.regions.simpleregions.respository.NorwayRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Data
 @Service
 public class NorwayService {
 
-    NorwayRepo norwayRepo;
+    private final NorwayRepo norwayRepo;
 
-    @Autowired
-    public NorwayService(NorwayRepo norwayRepo) {
-        this.norwayRepo = norwayRepo;
+    @Value("${notification.region.message}")
+    private String regionNotFound;
+
+    @Value("${notification.description.message}")
+    private String descriptionNotFound;
+
+    public NorwayModel getNorwayPlatesByRegion(final String region) throws RegionNotFoundException {
+        Optional<NorwayEntity> norwayRegion = norwayRepo.findByRegion(region);
+
+        Optional.ofNullable(norwayRegion
+                .stream()
+                .filter(norwayEntity -> norwayEntity.getRegion().equalsIgnoreCase(region))
+                .findFirst()
+                .orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region))));
+
+        return NorwayModel.toModelByRegion(norwayRegion);
     }
 
-    public NorwayModel getOne(String region) throws RegionNotFoundException {
-        NorwayEntity norwayRegion = norwayRepo.findByRegion(region);
-        if (norwayRegion == null) {
-            throw new RegionNotFoundException("Region not found.");
-        }
-        return NorwayModel.toModel(norwayRegion);
+    public List<NorwayModel> getNorwayPlatesByDescription(final String description) throws RegionNotFoundException {
+        List<NorwayEntity> norwayEntityList = norwayRepo.findByDescription(description);
+
+        norwayEntityList
+                .stream()
+                .map(norwayEntity -> norwayEntity.getDescription().equalsIgnoreCase(description))
+                .findAny().orElseThrow(() -> new RegionNotFoundException(String.format(descriptionNotFound, description)));
+
+        return norwayEntityList.stream().map(NorwayModel::toModelByDescription).collect(Collectors.toList());
     }
 
-    public Iterable<NorwayEntity> getAllRegions(){
+    public Iterable<NorwayEntity> getAllRegions() {
         return norwayRepo.findAll();
     }
 }
