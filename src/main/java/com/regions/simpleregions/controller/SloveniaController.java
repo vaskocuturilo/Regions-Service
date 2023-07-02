@@ -1,43 +1,42 @@
 package com.regions.simpleregions.controller;
 
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
-import com.regions.simpleregions.exception.RegionsNotFoundException;
 import com.regions.simpleregions.service.SloveniaService;
+import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Data
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/slovenia/plates")
 public class SloveniaController {
 
-    SloveniaService sloveniaService;
+    private final SloveniaService sloveniaService;
 
-    public SloveniaController(SloveniaService sloveniaService) {
-        this.sloveniaService = sloveniaService;
-    }
-
-    @GetMapping("/slovenia")
-    public ResponseEntity getSloveniaRegionByNumber(@RequestParam String region) {
+    @GetMapping("/region/{region}")
+    public ResponseEntity getSloveniaRegionByNumber(final @PathVariable String region) {
         try {
-            return ResponseEntity.ok(sloveniaService.getOne(region));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+            return ResponseEntity.ok(sloveniaService.getSlovakiaPlatesByRegion(region));
+        } catch (RegionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
-    @GetMapping("/slovenia/all")
-    public ResponseEntity getAllSloveniaRegions() {
+    @GetMapping("/description/{description}")
+    public ResponseEntity getSloveniaRegionByDescription(final @PathVariable String description) {
         try {
-            return ResponseEntity.ok(sloveniaService.getAllRegions());
-        } catch (RegionsNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+            return ResponseEntity.ok(sloveniaService.getSlovakiaPlatesByDescription(description));
+        } catch (DescriptionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Iterable> getAllSloveniaRegions() {
+        return ResponseEntity.ok(sloveniaService.getAllRegions());
     }
 }
