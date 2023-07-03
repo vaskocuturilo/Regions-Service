@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Data
 @RestController
-@RequestMapping("/api/v1/croatia")
+@RequestMapping("/api/v1/croatia/plates")
 public class CroatiaController {
     private final CroatiaService croatiaService;
 

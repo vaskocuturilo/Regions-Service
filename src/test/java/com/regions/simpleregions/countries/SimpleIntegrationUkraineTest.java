@@ -21,7 +21,7 @@ public class SimpleIntegrationUkraineTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String PATH = "/api/v1/ukraine/";
+    private String PATH = "/api/v1/ukraine/plates";
 
     @Value("${notification.description.message}")
     private String descriptionNotFound;

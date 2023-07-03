@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Data
 @RestController
-@RequestMapping("/api/v1/austria/diplomatic")
+@RequestMapping("/api/v1/austria/diplomatic/plates")
 public class AustriaDiplomaticController {
     private final AustriaDiplomaticService austriaDiplomaticService;
 

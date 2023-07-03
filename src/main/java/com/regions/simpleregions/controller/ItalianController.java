@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/italian")
+@RequestMapping("/api/v1/italian/plates")
 @Data
 public class ItalianController {
     private final ItalianService italianService;
