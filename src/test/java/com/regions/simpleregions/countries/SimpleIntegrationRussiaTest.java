@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class SimpleIntegrationRussiaTest {
     @Autowired
     private MockMvc mockMvc;
-    private String PATH = "/api/v1/russia/";
+    private String PATH = "/api/v1/russia/plates";
 
     @Value("${notification.description.message}")
     private String descriptionNotFound;

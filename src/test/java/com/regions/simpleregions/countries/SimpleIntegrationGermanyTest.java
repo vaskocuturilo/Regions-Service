@@ -22,7 +22,7 @@ class SimpleIntegrationGermanyTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String PATH = "/api/v1/germany/";
+    private String PATH = "/api/v1/germany/plates";
 
     @Value("${notification.description.message}")
     private String descriptionNotFound;

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Data
 @RestController
-@RequestMapping("/api/v1/greece")
+@RequestMapping("/api/v1/greece/plates")
 public class GreeceController {
     private final GreeceService greeceService;
 

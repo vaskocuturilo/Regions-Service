@@ -22,7 +22,7 @@ class SimpleIntegrationAustriaDiplomaticTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String PATH = "/api/v1/austria/diplomatic";
+    private String PATH = "/api/v1/austria/diplomatic/plates";
 
     @Value("${notification.region.message}")
     private String regionNotFound;

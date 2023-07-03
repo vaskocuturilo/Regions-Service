@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Data
 @RestController
-@RequestMapping("/api/v1/austria")
+@RequestMapping("/api/v1/austria/plates")
 public class AustriaController {
     private final AustriaService austriaService;
 
