@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.KazakhstanEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.KazakhstanModel;
 import com.regions.simpleregions.respository.KazakhstanRepo;
@@ -26,22 +27,17 @@ public class KazakhstanService {
     public KazakhstanModel getPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<KazakhstanEntity> kazakhstanRegion = kazakhstanRepo.findByRegion(region);
 
-        kazakhstanRegion.stream().filter(kazakhstanEntity -> kazakhstanEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
-
-            return regionNotFoundException;
-        });
+        kazakhstanRegion.stream().filter(kazakhstanEntity -> kazakhstanEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return KazakhstanModel.toModelRegion(kazakhstanRegion);
     }
 
-    public List<KazakhstanModel> getPlatesByDescription(final String description) throws RegionNotFoundException {
+    public List<KazakhstanModel> getPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<KazakhstanEntity> kazakhstanEntityList = kazakhstanRepo.findByDescription(description);
-        kazakhstanEntityList.stream().findAny().map(kazakhstanEntity -> kazakhstanEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+        kazakhstanEntityList.stream().findAny().map(kazakhstanEntity -> kazakhstanEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+                new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-            return regionNotFoundException;
-        });
         return kazakhstanEntityList.stream().map(KazakhstanModel::toModelDescription).collect(Collectors.toList());
     }
 

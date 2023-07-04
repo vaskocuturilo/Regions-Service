@@ -1,11 +1,14 @@
 package com.regions.simpleregions.controller;
 
+import com.regions.simpleregions.entity.EstoniaEntity;
 import com.regions.simpleregions.exception.RegionNotFoundException;
-import com.regions.simpleregions.exception.RegionsNotFoundException;
 import com.regions.simpleregions.service.EstoniaService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Data
 @RestController
@@ -14,9 +17,9 @@ public class EstoniaController {
     private final EstoniaService estoniaService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getEstoniaRegionByNumber(@PathVariable String region) {
+    public ResponseEntity getEstoniaPlatesByRegion(final @PathVariable String region) {
         try {
-            return ResponseEntity.ok(estoniaService.getRegionByNumber(region));
+            return ResponseEntity.ok(estoniaService.getEstoniaPlatesByRegion(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -25,9 +28,9 @@ public class EstoniaController {
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getEstoniaRegionByDescription(@PathVariable String description) {
+    public ResponseEntity getEstoniaPlatesRegionByDescription(final @PathVariable String description) {
         try {
-            return ResponseEntity.ok(estoniaService.getRegionByDescription(description));
+            return ResponseEntity.ok(estoniaService.getEstoniaPlatesRegionByDescription(description));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -36,13 +39,7 @@ public class EstoniaController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity getAllEstoniaRegions() {
-        try {
-            return ResponseEntity.ok(estoniaService.getAllRegions());
-        } catch (RegionsNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        }
+    public ResponseEntity<Iterable<EstoniaEntity>> getAllEstoniaRegions() {
+        return ResponseEntity.ok(estoniaService.getAllRegions());
     }
 }

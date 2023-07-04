@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.ItalianEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.ItalianModel;
 import com.regions.simpleregions.respository.ItalianRepo;
@@ -23,23 +24,18 @@ public class ItalianService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public ItalianModel getRegionByNumber(final String region) throws RegionNotFoundException {
+    public ItalianModel getItalianPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<ItalianEntity> italianRegion = italianRepo.findByRegion(region);
-        italianRegion.stream().filter(italianEntity -> italianEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+        italianRegion.stream().filter(italianEntity -> italianEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
-            return regionNotFoundException;
-        });
         return ItalianModel.toModel(italianRegion);
     }
 
-    public List<ItalianModel> getRegionByDescription(final String description) throws RegionNotFoundException {
+    public List<ItalianModel> getItalianPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<ItalianEntity> italianEntityList = italianRepo.findByDescription(description);
-        italianEntityList.stream().findAny().map(italianEntity -> italianEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
-
-            return regionNotFoundException;
-        });
+        italianEntityList.stream().findAny().map(italianEntity -> italianEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+                new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
         return italianEntityList.stream().map(ItalianModel::toDescription).collect(Collectors.toList());
     }

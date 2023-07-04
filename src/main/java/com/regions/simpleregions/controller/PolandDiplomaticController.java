@@ -1,5 +1,6 @@
 package com.regions.simpleregions.controller;
 
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.exception.RegionsNotFoundException;
 import com.regions.simpleregions.service.PolandDiplomaticService;
@@ -18,9 +19,9 @@ public class PolandDiplomaticController {
     private final PolandDiplomaticService polandDiplomaticService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getPolandRegionByNumber(@PathVariable String region) {
+    public ResponseEntity getPolandPlatesByRegion(final @PathVariable String region) {
         try {
-            return ResponseEntity.ok(polandDiplomaticService.getRegionByNumber(region));
+            return ResponseEntity.ok(polandDiplomaticService.getPolandPlatesByRegion(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -29,10 +30,10 @@ public class PolandDiplomaticController {
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getPolandRegionByDescription(@PathVariable String description) {
+    public ResponseEntity getPolandRegionByDescription(final @PathVariable String description) {
         try {
-            return ResponseEntity.ok(polandDiplomaticService.getByDescription(description));
-        } catch (RegionNotFoundException exception) {
+            return ResponseEntity.ok(polandDiplomaticService.getPolandRegionByDescription(description));
+        } catch (DescriptionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());

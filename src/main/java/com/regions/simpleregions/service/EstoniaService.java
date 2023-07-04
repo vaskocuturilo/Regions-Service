@@ -24,25 +24,21 @@ public class EstoniaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public EstoniaModel getRegionByNumber(String region) throws RegionNotFoundException {
+    public EstoniaModel getEstoniaPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<EstoniaEntity> estoniaRegion = estoniaRepo.findByRegion(region);
 
-        estoniaRegion.stream().filter(estoniaEntity -> estoniaEntity.getRegion().equals(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
-            return regionNotFoundException;
-        });
-
+        estoniaRegion.stream().filter(estoniaEntity -> estoniaEntity.getRegion().equals(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return EstoniaModel.toModelByRegion(estoniaRegion);
     }
 
-    public List<EstoniaModel> getRegionByDescription(String description) throws RegionNotFoundException {
+    public List<EstoniaModel> getEstoniaPlatesRegionByDescription(final String description) throws RegionNotFoundException {
         List<EstoniaEntity> estoniaEntityList = estoniaRepo.findByDescription(description);
-        estoniaEntityList.stream().findAny().map(estoniaEntity -> estoniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
 
-            return regionNotFoundException;
-        });
+        estoniaEntityList.stream().findAny().map(estoniaEntity -> estoniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+                new RegionNotFoundException(String.format(descriptionNotFound, description)));
+
         return estoniaEntityList.stream().map(EstoniaModel::toModelByDescription).collect(Collectors.toList());
     }
 

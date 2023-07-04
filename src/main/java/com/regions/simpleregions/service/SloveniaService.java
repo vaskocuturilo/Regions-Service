@@ -25,7 +25,7 @@ public class SloveniaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public SloveniaModel getSlovakiaPlatesByRegion(final String region) throws RegionNotFoundException {
+    public SloveniaModel getSloveniaPlatesRegionByNumber(final String region) throws RegionNotFoundException {
         Optional<SloveniaEntity> sloveniaRegion = sloveniaRepo.findByRegion(region);
 
         Optional.ofNullable(sloveniaRegion
@@ -37,7 +37,7 @@ public class SloveniaService {
         return SloveniaModel.toModelByRegion(sloveniaRegion);
     }
 
-    public List<SloveniaModel> getSlovakiaPlatesByDescription(final String description) throws DescriptionNotFoundException {
+    public List<SloveniaModel> getSloveniaRegionByDescription(final String description) throws DescriptionNotFoundException {
         List<SloveniaEntity> sloveniaEntityList = sloveniaRepo.findByDescription(description);
 
         sloveniaEntityList

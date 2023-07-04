@@ -1,12 +1,16 @@
 package com.regions.simpleregions.controller;
 
 
+import com.regions.simpleregions.entity.KazakhstanEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
-import com.regions.simpleregions.exception.RegionsNotFoundException;
 import com.regions.simpleregions.service.KazakhstanService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Data
 @RestController
@@ -16,7 +20,7 @@ public class KazakhstanController {
     private final KazakhstanService kazakhstanService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getKazakhstanPlatesByRegion(@PathVariable String region) {
+    public ResponseEntity getKazakhstanPlatesByRegion(final @PathVariable String region) {
         try {
             return ResponseEntity.ok(kazakhstanService.getPlatesByRegion(region));
         } catch (RegionNotFoundException exception) {
@@ -27,10 +31,10 @@ public class KazakhstanController {
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getKazakhstanPlatesByDescription(@PathVariable String description) {
+    public ResponseEntity getKazakhstanPlatesByDescription(final @PathVariable String description) {
         try {
             return ResponseEntity.ok(kazakhstanService.getPlatesByDescription(description));
-        } catch (RegionNotFoundException exception) {
+        } catch (DescriptionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
@@ -38,13 +42,7 @@ public class KazakhstanController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity getAllKazakhstanRegions() {
-        try {
-            return ResponseEntity.ok(kazakhstanService.getAllRegions());
-        } catch (RegionsNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        }
+    public ResponseEntity<Iterable<KazakhstanEntity>> getAllKazakhstanRegions() {
+        return ResponseEntity.ok(kazakhstanService.getAllRegions());
     }
 }

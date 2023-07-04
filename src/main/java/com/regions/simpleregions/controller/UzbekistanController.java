@@ -20,7 +20,7 @@ public class UzbekistanController {
     private final UzbekistanService uzbekistanService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getUzbekistanRegionByNumber(final @PathVariable("region") String region) {
+    public ResponseEntity getUzbekistanPlatesByRegion(final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(uzbekistanService.getUzbekistanPlatesByRegion(region));
         } catch (RegionNotFoundException | RuntimeException exception) {

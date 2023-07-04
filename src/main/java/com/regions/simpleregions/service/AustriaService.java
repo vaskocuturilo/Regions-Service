@@ -23,25 +23,20 @@ public class AustriaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public AustriaModel getRegionByNumber(String region) throws RegionNotFoundException {
+    public AustriaModel getAustriaPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<AustriaEntity> austriaRegion = austriaRepo.findByRegion(region);
 
-        austriaRegion.stream().filter(austriaEntity -> austriaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
-            return regionNotFoundException;
-        });
+        austriaRegion.stream().filter(austriaEntity -> austriaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return AustriaModel.toModelRegion(austriaRegion);
     }
 
-    public List<AustriaModel> getRegionByDescription(String description) throws RegionNotFoundException {
+    public List<AustriaModel> getAustriaPlatesByDescription(final String description) throws RegionNotFoundException {
         List<AustriaEntity> austriaEntityList = austriaRepo.findByDescription(description);
 
-        austriaEntityList.stream().findAny().map(austriaEntity -> austriaEntity.getDescription()).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
-
-            return regionNotFoundException;
-        });
+        austriaEntityList.stream().findAny().map(austriaEntity -> austriaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(
+                () -> new RegionNotFoundException(String.format(descriptionNotFound, description)));
 
         return austriaEntityList.stream().map(AustriaModel::toModelDescription).collect(Collectors.toList());
     }

@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.CroatiaEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionsNotFoundException;
 import com.regions.simpleregions.model.CroatiaModel;
 import com.regions.simpleregions.respository.CroatiaRepo;
@@ -23,25 +24,20 @@ public class CroatiaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public CroatiaModel getRegionByName(String region) {
+    public CroatiaModel getCroatiaPlatesByRegion(final String region) {
         Optional<CroatiaEntity> croatiaRegion = croatiaRepo.findByRegion(region);
         croatiaRegion.stream().filter(croatiaEntity -> croatiaEntity.getRegion().equals(region)).findFirst().orElseThrow(
-                () -> {
-                    RegionsNotFoundException regionsNotFoundException = new RegionsNotFoundException(String.format(regionNotFound, region));
-                    return regionsNotFoundException;
-                });
+                () -> new RegionsNotFoundException(String.format(regionNotFound, region)));
 
         return CroatiaModel.toModelRegion(croatiaRegion);
     }
 
-    public List<CroatiaModel> getRegionByDescription(String description) throws RegionsNotFoundException {
+    public List<CroatiaModel> getCroatiaPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<CroatiaEntity> croatiaEntities = croatiaRepo.findByDescription(description);
 
         croatiaEntities.stream().findAny().map(croatiaEntity -> croatiaEntity.getDescription()).orElseThrow(
-                () -> {
-                    RegionsNotFoundException regionsNotFoundException = new RegionsNotFoundException(String.format(descriptionNotFound, description));
-                    return regionsNotFoundException;
-                });
+                () -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
+
         return croatiaEntities.stream().map(CroatiaModel::toModelDescription).collect(Collectors.toList());
     }
 

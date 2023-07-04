@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.LithuaniaEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.LithuaniaModel;
 import com.regions.simpleregions.respository.LithuaniaRepo;
@@ -24,25 +25,20 @@ public class LithuaniaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public LithuaniaModel getLithuaniaPlatesByRegion(String region) throws RegionNotFoundException {
+    public LithuaniaModel getLithuaniaPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<LithuaniaEntity> lithuaniaRegion = lithuaniaRepo.findByRegion(region);
 
-        lithuaniaRegion.stream().filter(lithuaniaEntity -> lithuaniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+        lithuaniaRegion.stream().filter(lithuaniaEntity -> lithuaniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
-            return regionNotFoundException;
-        });
         return LithuaniaModel.toModelByRegion(lithuaniaRegion);
     }
 
-    public List<LithuaniaModel> getLithuaniaPlatesByDescription(String description) throws RegionNotFoundException {
+    public List<LithuaniaModel> getLithuaniaPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<LithuaniaEntity> lithuaniaEntityList = lithuaniaRepo.findByDescription(description);
 
-        lithuaniaEntityList.stream().findAny().map(lithuaniaEntity -> lithuaniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
-
-            return regionNotFoundException;
-        });
+        lithuaniaEntityList.stream().findAny().map(lithuaniaEntity -> lithuaniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+                new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
         return lithuaniaEntityList.stream().map(LithuaniaModel::toModelByDescription).collect(Collectors.toList());
     }
 
