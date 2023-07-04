@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.CzechEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.CzechModel;
 import com.regions.simpleregions.respository.CzechRepo;
@@ -24,24 +25,20 @@ public class CzechService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public CzechModel getRegionByNumber(String region) throws RegionNotFoundException {
+    public CzechModel getCzechPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<CzechEntity> czechRegion = czechRepo.findByRegion(region);
-        czechRegion.stream().filter(czechEntity -> czechEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+        czechRegion.stream().filter(czechEntity -> czechEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
-            return regionNotFoundException;
-        });
         return CzechModel.toModelRegion(czechRegion);
     }
 
-    public List<CzechModel> getRegionByDescription(String description) throws RegionNotFoundException {
+    public List<CzechModel> getCzechPlatesRegionByDescription(final String description) throws DescriptionNotFoundException {
         List<CzechEntity> czechEntityList = czechRepo.findByDescription(description);
 
-        czechEntityList.stream().findAny().map(czechEntity -> czechEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+        czechEntityList.stream().findAny().map(czechEntity -> czechEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+                new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-            return regionNotFoundException;
-        });
         return czechEntityList.stream().map(CzechModel::toModelDescription).collect(Collectors.toList());
     }
 

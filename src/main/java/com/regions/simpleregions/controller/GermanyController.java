@@ -1,11 +1,14 @@
 package com.regions.simpleregions.controller;
 
+import com.regions.simpleregions.entity.GermanyEntity;
 import com.regions.simpleregions.exception.RegionNotFoundException;
-import com.regions.simpleregions.exception.RegionsNotFoundException;
 import com.regions.simpleregions.service.GermanyService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Data
 @RestController
@@ -15,9 +18,9 @@ public class GermanyController {
     private final GermanyService germanyService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getGermanRegionByNumber(@PathVariable String region) {
+    public ResponseEntity getGermanPlatesByRegion(final @PathVariable String region) {
         try {
-            return ResponseEntity.ok(germanyService.getRegionByNumber(region));
+            return ResponseEntity.ok(germanyService.getGermanPlatesByRegion(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -26,9 +29,9 @@ public class GermanyController {
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getGermanRegionByDescription(@PathVariable String description) {
+    public ResponseEntity getGermanPlatesByDescription(final @PathVariable String description) {
         try {
-            return ResponseEntity.ok(germanyService.getRegionByDescription(description));
+            return ResponseEntity.ok(germanyService.getGermanPlatesByDescription(description));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -37,13 +40,7 @@ public class GermanyController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity getAllGermanRegions() {
-        try {
-            return ResponseEntity.ok(germanyService.getAllRegions());
-        } catch (RegionsNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        }
+    public ResponseEntity<Iterable<GermanyEntity>> getAllGermanRegions() {
+        return ResponseEntity.ok(germanyService.getAllRegions());
     }
 }

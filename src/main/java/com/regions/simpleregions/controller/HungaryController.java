@@ -1,8 +1,9 @@
 package com.regions.simpleregions.controller;
 
 
+import com.regions.simpleregions.entity.HungaryEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
-import com.regions.simpleregions.exception.RegionsNotFoundException;
 import com.regions.simpleregions.service.HungaryService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,9 @@ public class HungaryController {
     private final HungaryService hungaryService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getHungaryRegionByNumber(@PathVariable String region) {
+    public ResponseEntity getHungaryPlatesByRegion(final @PathVariable String region) {
         try {
-            return ResponseEntity.ok(hungaryService.getRegionByNumber(region));
+            return ResponseEntity.ok(hungaryService.getHungaryPlatesByRegion(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -28,10 +29,10 @@ public class HungaryController {
 
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getHungaryRegionByDescription(@PathVariable String description) {
+    public ResponseEntity getHungaryPlatesByDescription(final @PathVariable String description) {
         try {
-            return ResponseEntity.ok(hungaryService.getRegionByDescription(description));
-        } catch (RegionNotFoundException exception) {
+            return ResponseEntity.ok(hungaryService.getHungaryPlatesByDescription(description));
+        } catch (DescriptionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
@@ -39,13 +40,7 @@ public class HungaryController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity getAllHungaryRegions() {
-        try {
-            return ResponseEntity.ok(hungaryService.getAllRegions());
-        } catch (RegionsNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        }
+    public ResponseEntity<Iterable<HungaryEntity>> getAllHungaryRegions() {
+        return ResponseEntity.ok(hungaryService.getAllRegions());
     }
 }

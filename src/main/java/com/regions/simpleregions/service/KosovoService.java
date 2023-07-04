@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.KosovoEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.KosovoModel;
 import com.regions.simpleregions.respository.KosovoRepo;
@@ -24,26 +25,20 @@ public class KosovoService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public KosovoModel getKosovoPlatesByRegion(String region) throws RegionNotFoundException {
+    public KosovoModel getKosovoPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<KosovoEntity> kosovoRegion = kosovoRepo.findByRegion(region);
 
-        kosovoRegion.stream().filter(kosovoEntity -> kosovoEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
-
-            return regionNotFoundException;
-        });
+        kosovoRegion.stream().filter(kosovoEntity -> kosovoEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return KosovoModel.toModelByRegion(kosovoRegion);
     }
 
-    public List<KosovoModel> getKosovoPlatesByDescription(String description) throws RegionNotFoundException {
+    public List<KosovoModel> getKosovoPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<KosovoEntity> kosovoEntityList = kosovoRepo.findByDescription(description);
 
-        kosovoEntityList.stream().findAny().map(kosovoEntity -> kosovoEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
-
-            return regionNotFoundException;
-        });
+        kosovoEntityList.stream().findAny().map(kosovoEntity -> kosovoEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+                new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
         return kosovoEntityList.stream().map(KosovoModel::toModelByDescription).collect(Collectors.toList());
     }

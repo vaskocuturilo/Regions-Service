@@ -1,7 +1,7 @@
 package com.regions.simpleregions.controller;
 
+import com.regions.simpleregions.entity.AustriaEntity;
 import com.regions.simpleregions.exception.RegionNotFoundException;
-import com.regions.simpleregions.exception.RegionsNotFoundException;
 import com.regions.simpleregions.service.AustriaService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +17,9 @@ public class AustriaController {
     private final AustriaService austriaService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity<?> getAustriaRegionByNumber(@PathVariable String region) {
+    public ResponseEntity<?> getAustriaPlatesByRegion(final @PathVariable String region) {
         try {
-            return ResponseEntity.ok(austriaService.getRegionByNumber(region));
+            return ResponseEntity.ok(austriaService.getAustriaPlatesByRegion(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -28,9 +28,9 @@ public class AustriaController {
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity<?> getAustriaRegionByDescription(@PathVariable String description) {
+    public ResponseEntity<?> getAustriaPlatesByDescription(@PathVariable String description) {
         try {
-            return ResponseEntity.ok(austriaService.getRegionByDescription(description));
+            return ResponseEntity.ok(austriaService.getAustriaPlatesByDescription(description));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -39,13 +39,7 @@ public class AustriaController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity getAllAustriaRegions() {
-        try {
-            return ResponseEntity.ok(austriaService.getAllRegions());
-        } catch (RegionsNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        }
+    public ResponseEntity<Iterable<AustriaEntity>> getAllAustriaRegions() {
+        return ResponseEntity.ok(austriaService.getAllRegions());
     }
 }

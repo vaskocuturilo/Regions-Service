@@ -1,5 +1,6 @@
 package com.regions.simpleregions.controller;
 
+import com.regions.simpleregions.entity.BelarusEntity;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.exception.RegionsNotFoundException;
 import com.regions.simpleregions.service.BelarusService;
@@ -14,12 +15,10 @@ public class BelarusController {
 
     private final BelarusService belarusService;
 
-
-
     @GetMapping("/region/{region}")
-    public ResponseEntity getBelarusRegionByNumber(@PathVariable String region) {
+    public ResponseEntity getBelarusPlatesByRegion(final @PathVariable String region) {
         try {
-            return ResponseEntity.ok(belarusService.getRegionByNumber(region));
+            return ResponseEntity.ok(belarusService.getBelarusPlatesByRegion(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -28,9 +27,9 @@ public class BelarusController {
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getBelarusRegionByDescription(@PathVariable String description) {
+    public ResponseEntity getBelarusPlatesByDescription(final @PathVariable String description) {
         try {
-            return ResponseEntity.ok(belarusService.getRegionByDescription(description));
+            return ResponseEntity.ok(belarusService.getBelarusPlatesByDescription(description));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -39,13 +38,7 @@ public class BelarusController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity getAllBelarusRegions() {
-        try {
-            return ResponseEntity.ok(belarusService.getAllRegions());
-        } catch (RegionsNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        }
+    public ResponseEntity<Iterable<BelarusEntity>> getAllBelarusRegions() {
+        return ResponseEntity.ok(belarusService.getAllRegions());
     }
 }

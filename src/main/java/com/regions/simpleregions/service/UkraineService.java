@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.UkraineEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.UkraineModel;
 import com.regions.simpleregions.respository.UkraineRepo;
@@ -26,21 +27,17 @@ public class UkraineService {
 
     public UkraineModel getRegionByNumber(final String region) throws RegionNotFoundException {
         Optional<UkraineEntity> ukraineRegion = ukraineRepo.findByRegion(region);
-        ukraineRegion.stream().filter(ukraineEntity -> ukraineEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+        ukraineRegion.stream().filter(ukraineEntity -> ukraineEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
-            return regionNotFoundException;
-        });
         return UkraineModel.toModel(ukraineRegion);
     }
 
-    public List<UkraineModel> getRegionByDescription(final String description) throws RegionNotFoundException {
+    public List<UkraineModel> getRegionByDescription(final String description) throws DescriptionNotFoundException {
         List<UkraineEntity> ukraineEntityList = ukraineRepo.findByDescription(description);
-        ukraineEntityList.stream().findAny().map(ukraineEntity -> ukraineEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+        ukraineEntityList.stream().findAny().map(ukraineEntity -> ukraineEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+                new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-            return regionNotFoundException;
-        });
         return ukraineEntityList.stream().map(UkraineModel::toModelDescription).collect(Collectors.toList());
     }
 

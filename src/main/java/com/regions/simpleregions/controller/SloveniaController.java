@@ -18,9 +18,9 @@ public class SloveniaController {
     private final SloveniaService sloveniaService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getSloveniaRegionByNumber(final @PathVariable String region) {
+    public ResponseEntity getSloveniaPlatesRegionByNumber(final @PathVariable String region) {
         try {
-            return ResponseEntity.ok(sloveniaService.getSlovakiaPlatesByRegion(region));
+            return ResponseEntity.ok(sloveniaService.getSloveniaPlatesRegionByNumber(region));
         } catch (RegionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
@@ -29,7 +29,7 @@ public class SloveniaController {
     @GetMapping("/description/{description}")
     public ResponseEntity getSloveniaRegionByDescription(final @PathVariable String description) {
         try {
-            return ResponseEntity.ok(sloveniaService.getSlovakiaPlatesByDescription(description));
+            return ResponseEntity.ok(sloveniaService.getSloveniaRegionByDescription(description));
         } catch (DescriptionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }

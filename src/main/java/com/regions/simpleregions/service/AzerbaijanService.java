@@ -24,30 +24,23 @@ public class AzerbaijanService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public AzerbaijanModel getRegionByNumber(String region) throws RegionNotFoundException {
+    public AzerbaijanModel getAzerbaijanPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<AzerbaijanEntity> azerbaijanRegion = azerbaijanRepo.findByRegion(region);
         azerbaijanRegion.stream().filter(azerbaijanEntity -> azerbaijanEntity
                         .getRegion()
                         .equalsIgnoreCase(region))
-                .findFirst().orElseThrow(() -> {
-                    RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+                .findFirst().orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region)));
 
-                    return regionNotFoundException;
-                });
         return AzerbaijanModel.toModel(azerbaijanRegion);
     }
 
-    public List<AzerbaijanModel> getRegionByDescription(String description) throws RegionNotFoundException {
+    public List<AzerbaijanModel> getAzerbaijanPlatesByDescription(final String description) throws RegionNotFoundException {
         List<AzerbaijanEntity> azerbaijanEntities = azerbaijanRepo.findByDescription(description);
 
         azerbaijanEntities.stream().findAny().map(azerbaijanEntity -> azerbaijanEntity
                 .getDescription()
-                .equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+                .equalsIgnoreCase(description)).orElseThrow(() -> new RegionNotFoundException(String.format(descriptionNotFound, description)));
 
-            return regionNotFoundException;
-
-        });
         return azerbaijanEntities.stream().map(AzerbaijanModel::toModelDescription).collect(Collectors.toList());
     }
 

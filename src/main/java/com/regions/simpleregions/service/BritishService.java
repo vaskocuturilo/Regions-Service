@@ -2,6 +2,7 @@ package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.BritishAgeEntity;
 import com.regions.simpleregions.entity.BritishEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.BritishDescriptionModel;
 import com.regions.simpleregions.model.BritishRegionModel;
@@ -28,7 +29,7 @@ public class BritishService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public BritishRegionModel getByRegion(String region) throws RegionNotFoundException {
+    public BritishRegionModel getBritishPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<BritishEntity> britishRegion = britishRepo.findByRegion(getFirstTwoSymbols(region));
         Optional<BritishAgeEntity> britishAgeEntity = britishAgeRepo.findByCode(getLastTwoSymbols(region));
 
@@ -43,15 +44,11 @@ public class BritishService {
         return BritishRegionModel.toModelRegion(britishRegion, britishAgeEntity);
     }
 
-    public List<BritishDescriptionModel> getByDescription(String description) throws RegionNotFoundException {
+    public List<BritishDescriptionModel> getBritishPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<BritishEntity> britishEntities = britishRepo.findByDescription(description);
 
-        britishEntities.stream().findAny().map(britishEntity -> britishEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
-
-            return regionNotFoundException;
-        });
-
+        britishEntities.stream().findAny().map(britishEntity -> britishEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+                new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
         return britishEntities.stream().map(BritishDescriptionModel::toModelDescription).collect(Collectors.toList());
     }

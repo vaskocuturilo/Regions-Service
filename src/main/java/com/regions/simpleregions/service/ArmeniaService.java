@@ -24,23 +24,19 @@ public class ArmeniaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public ArmeniaModel getRegionNumber(String region) throws RegionNotFoundException {
+    public ArmeniaModel getArmeniaPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<ArmeniaEntity> armeniaRegion = armeniaRepo.findByRegion(region);
-        armeniaRegion.stream().filter(armeniaEntity -> armeniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+        armeniaRegion.stream().filter(armeniaEntity -> armeniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
-            return regionNotFoundException;
-        });
         return ArmeniaModel.toModelRegion(armeniaRegion);
     }
 
-    public List<ArmeniaModel> getDescription(String description) throws RegionNotFoundException {
+    public List<ArmeniaModel> getArmeniaPlatesByDescription(final String description) throws RegionNotFoundException {
         List<ArmeniaEntity> armeniaEntityList = armeniaRepo.findByDescription(description);
-        armeniaEntityList.stream().findAny().map(armeniaEntity -> armeniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+        armeniaEntityList.stream().findAny().map(armeniaEntity -> armeniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+                new RegionNotFoundException(String.format(descriptionNotFound, description)));
 
-            return regionNotFoundException;
-        });
         return armeniaEntityList.stream().map(ArmeniaModel::toModelDescription).collect(Collectors.toList());
     }
 

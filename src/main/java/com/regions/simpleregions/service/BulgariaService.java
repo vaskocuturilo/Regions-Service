@@ -24,24 +24,20 @@ public class BulgariaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public BulgariaModel getRegionByNumber(String region) throws RegionNotFoundException {
+    public BulgariaModel getBulgariaPlatesByRegion(String region) throws RegionNotFoundException {
         Optional<BulgariaEntity> bulgariaRegion = bulgariaRepo.findByRegion(region);
-        bulgariaRegion.stream().filter(bulgariaEntity -> bulgariaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+        bulgariaRegion.stream().filter(bulgariaEntity -> bulgariaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
-            return regionNotFoundException;
-        });
         return BulgariaModel.toModelRegion(bulgariaRegion);
     }
 
-    public List<BulgariaModel> getRegionByDescription(String description) throws RegionNotFoundException {
+    public List<BulgariaModel> getBulgariaPlatesByDescription(String description) throws RegionNotFoundException {
         List<BulgariaEntity> bulgariaEntityList = bulgariaRepo.findByDescription(description);
 
-        bulgariaEntityList.stream().findAny().map(bulgariaEntity -> bulgariaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
+        bulgariaEntityList.stream().findAny().map(bulgariaEntity -> bulgariaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+                new RegionNotFoundException(String.format(descriptionNotFound, description)));
 
-            return regionNotFoundException;
-        });
         return bulgariaEntityList.stream().map(BulgariaModel::toModelDescription).collect(Collectors.toList());
     }
 

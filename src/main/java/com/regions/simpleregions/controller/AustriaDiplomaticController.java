@@ -1,7 +1,7 @@
 package com.regions.simpleregions.controller;
 
+import com.regions.simpleregions.entity.AustriaDiplomaticEntity;
 import com.regions.simpleregions.exception.RegionNotFoundException;
-import com.regions.simpleregions.exception.RegionsNotFoundException;
 import com.regions.simpleregions.service.AustriaDiplomaticService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +17,9 @@ public class AustriaDiplomaticController {
     private final AustriaDiplomaticService austriaDiplomaticService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity<?> getAustriaRegionByNumber(@PathVariable String region) {
+    public ResponseEntity<?> getAustriaPlatesByRegion(final @PathVariable String region) {
         try {
-            return ResponseEntity.ok(austriaDiplomaticService.getRegionByNumber(region));
+            return ResponseEntity.ok(austriaDiplomaticService.getAustriaPlatesByRegion(region));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -28,9 +28,9 @@ public class AustriaDiplomaticController {
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity<?> getAustriaRegionByDescription(@PathVariable String description) {
+    public ResponseEntity<?> getAustriaPlatesByDescription(final @PathVariable String description) {
         try {
-            return ResponseEntity.ok(austriaDiplomaticService.getRegionByDescription(description));
+            return ResponseEntity.ok(austriaDiplomaticService.getAustriaPlatesByDescription(description));
         } catch (RegionNotFoundException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
@@ -39,13 +39,7 @@ public class AustriaDiplomaticController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity getAllAustriaRegions() {
-        try {
-            return ResponseEntity.ok(austriaDiplomaticService.getAllRegions());
-        } catch (RegionsNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        }
+    public ResponseEntity<Iterable<AustriaDiplomaticEntity>> getAllAustriaRegions() {
+        return ResponseEntity.ok(austriaDiplomaticService.getAllRegions());
     }
 }

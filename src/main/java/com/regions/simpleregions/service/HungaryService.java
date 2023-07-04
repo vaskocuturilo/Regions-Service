@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.HungaryEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.HungaryModel;
 import com.regions.simpleregions.respository.HungaryRepo;
@@ -24,23 +25,20 @@ public class HungaryService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public HungaryModel getRegionByNumber(final String region) throws RegionNotFoundException {
+    public HungaryModel getHungaryPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<HungaryEntity> hungaryRegion = hungaryRepo.findByRegion(region);
-        hungaryRegion.stream().filter(hungaryEntity -> hungaryEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
-            return regionNotFoundException;
-        });
+
+        hungaryRegion.stream().filter(hungaryEntity -> hungaryEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return HungaryModel.toModelByRegion(hungaryRegion);
     }
 
-    public List<HungaryModel> getRegionByDescription(final String description) throws RegionNotFoundException {
+    public List<HungaryModel> getHungaryPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<HungaryEntity> hungaryEntities = hungaryRepo.findByDescription(description);
 
-        hungaryEntities.stream().findAny().map(hungaryEntity -> hungaryEntity.getDescription()).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(String.format(descriptionNotFound, description)));
-            return regionNotFoundException;
-        });
+        hungaryEntities.stream().findAny().map(hungaryEntity -> hungaryEntity.getDescription()).orElseThrow(() ->
+                new DescriptionNotFoundException(String.format(String.format(descriptionNotFound, description))));
 
         return hungaryEntities.stream().map(HungaryModel::toModelByDescription).collect(Collectors.toList());
     }

@@ -23,29 +23,24 @@ public class AustriaDiplomaticService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public AustriaDiplomaticModel getRegionByNumber(String region) throws RegionNotFoundException {
+    public AustriaDiplomaticModel getAustriaPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<AustriaDiplomaticEntity> austriaRegion = austriaDiplomaticRepo.findByRegion(region);
         austriaRegion.stream().filter(austriaDiplomaticEntity -> austriaDiplomaticEntity
                         .getRegion()
                         .equalsIgnoreCase(region))
                 .findFirst()
-                .orElseThrow(() -> {
-                    RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
-                    return regionNotFoundException;
-                });
+                .orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region)));
+
         return AustriaDiplomaticModel.toModelRegion(austriaRegion);
     }
 
-    public List<AustriaDiplomaticModel> getRegionByDescription(String description) throws RegionNotFoundException {
+    public List<AustriaDiplomaticModel> getAustriaPlatesByDescription(final String description) throws RegionNotFoundException {
         List<AustriaDiplomaticEntity> austriaDiplomaticEntityList = austriaDiplomaticRepo.findByDescription(description);
 
         austriaDiplomaticEntityList.stream().findAny().map(austriaDiplomaticEntity -> austriaDiplomaticEntity
                         .getRegion()
                         .equalsIgnoreCase(description))
-                .orElseThrow(() -> {
-                    RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
-                    return regionNotFoundException;
-                });
+                .orElseThrow(() -> new RegionNotFoundException(String.format(descriptionNotFound, description)));
 
         return austriaDiplomaticEntityList.stream().map(AustriaDiplomaticModel::toModelDescription).collect(Collectors.toList());
     }

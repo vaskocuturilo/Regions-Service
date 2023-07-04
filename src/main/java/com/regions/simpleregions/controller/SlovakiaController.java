@@ -19,7 +19,7 @@ public class SlovakiaController {
     private final SlovakiaService slovakiaService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getSlovakiaRegionByNumber(final @PathVariable("region") String region) {
+    public ResponseEntity getSlovakiaPlatesByRegion(final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(slovakiaService.getSlovakiaPlatesByRegion(region));
         } catch (RegionNotFoundException | RuntimeException exception) {

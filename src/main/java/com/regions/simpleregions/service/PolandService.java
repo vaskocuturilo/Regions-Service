@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.PolandEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.PolandModel;
 import com.regions.simpleregions.respository.PolandRepo;
@@ -24,23 +25,18 @@ public class PolandService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public PolandModel getRegionByNumber(final String region) throws RegionNotFoundException {
+    public PolandModel getPolandPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<PolandEntity> polandRegion = polandRepo.findByRegion(region);
-        polandRegion.stream().filter(polandEntity -> polandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+        polandRegion.stream().filter(polandEntity -> polandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
-            return regionNotFoundException;
-        });
         return PolandModel.toModel(polandRegion);
     }
 
-    public List<PolandModel> getByDescription(final String description) throws RegionNotFoundException {
+    public List<PolandModel> getPolandPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<PolandEntity> polandEntityList = polandRepo.findByDescription(description);
-        polandEntityList.stream().findAny().map(polandEntity -> polandEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
-
-            return regionNotFoundException;
-        });
+        polandEntityList.stream().findAny().map(polandEntity -> polandEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+                new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
         return polandEntityList.stream().map(PolandModel::toDescription).collect(Collectors.toList());
     }

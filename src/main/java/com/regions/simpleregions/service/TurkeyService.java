@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.TurkeyEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.TurkeyModel;
 import com.regions.simpleregions.respository.TurkeyRepo;
@@ -27,24 +28,17 @@ public class TurkeyService {
     public TurkeyModel getTurkeyPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<TurkeyEntity> turkeyRegion = turkeyRepo.findByRegion(region);
 
-        turkeyRegion.stream().filter(turkeyEntity -> turkeyEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
-
-            return regionNotFoundException;
-        });
-
+        turkeyRegion.stream().filter(turkeyEntity -> turkeyEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return TurkeyModel.toModelByRegion(turkeyRegion);
     }
 
-    public List<TurkeyModel> getTurkeyPlatesByDescription(final String description) throws RegionNotFoundException {
+    public List<TurkeyModel> getTurkeyPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<TurkeyEntity> turkeyEntityList = turkeyRepo.findByDescription(description);
 
-        turkeyEntityList.stream().findAny().map(turkeyEntity -> turkeyEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
-
-            return regionNotFoundException;
-        });
+        turkeyEntityList.stream().findAny().map(turkeyEntity -> turkeyEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+                new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
         return turkeyEntityList.stream().map(TurkeyModel::toModelByDescription).collect(Collectors.toList());
     }

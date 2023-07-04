@@ -25,27 +25,21 @@ public class MoldovaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public MoldovaModel getMoldovaPlatesByRegion(String region) throws RegionNotFoundException {
+    public MoldovaModel getMoldovaPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<MoldovaEntity> moldovaRegion = moldovaRepo.findByRegion(region);
 
-        Optional.ofNullable(moldovaRegion.stream().filter(moldovaEntity -> moldovaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, region));
+        Optional.ofNullable(moldovaRegion.stream().filter(moldovaEntity -> moldovaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
 
-            return regionNotFoundException;
-        }));
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return MoldovaModel.toModelByRegion(moldovaRegion);
     }
 
-    public List<MoldovaModel> getMoldovaPlatesByDescription(String description) throws DescriptionNotFoundException {
+    public List<MoldovaModel> getMoldovaPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<MoldovaEntity> moldovaEntityList = moldovaRepo.findByDescription(description);
 
-        moldovaEntityList.stream().map(moldovaEntity -> moldovaEntity.getDescription().equalsIgnoreCase(description)).findAny().orElseThrow(() -> {
-            DescriptionNotFoundException descriptionNotFoundException = new DescriptionNotFoundException(String.format(descriptionNotFound, description));
-
-            return descriptionNotFoundException;
-        });
-
+        moldovaEntityList.stream().map(moldovaEntity -> moldovaEntity.getDescription().equalsIgnoreCase(description)).findAny().orElseThrow(() ->
+                new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
         return moldovaEntityList.stream().map(MoldovaModel::toModelByDescription).collect(Collectors.toList());
     }

@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.PolandDiplomaticEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.PolandDiplomaticDescriptionModel;
 import com.regions.simpleregions.model.PolandDiplomaticModel;
@@ -28,26 +29,20 @@ public class PolandDiplomaticService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public PolandDiplomaticModel getRegionByNumber(final String region) throws RegionNotFoundException {
+    public PolandDiplomaticModel getPolandPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<PolandDiplomaticEntity> polandDiplomaticRegion = polandDiplomaticRepo.findByRegion(getFirstThreeSymbols(region));
 
-        polandDiplomaticRegion.stream().filter(polandDiplomaticEntity -> polandDiplomaticEntity.getRegion().equalsIgnoreCase(getFirstThreeSymbols(region))).findFirst().orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(regionNotFound, getFirstThreeSymbols(region)));
+        polandDiplomaticRegion.stream().filter(polandDiplomaticEntity -> polandDiplomaticEntity.getRegion().equalsIgnoreCase(getFirstThreeSymbols(region))).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, getFirstThreeSymbols(region))));
 
-            return regionNotFoundException;
-        });
         return PolandDiplomaticModel.toModel(polandDiplomaticRegion, analyzingDestinationCode(region));
     }
 
-    public List<PolandDiplomaticDescriptionModel> getByDescription(final String description) throws RegionNotFoundException {
+    public List<PolandDiplomaticDescriptionModel> getPolandRegionByDescription(final String description) throws DescriptionNotFoundException {
         List<PolandDiplomaticEntity> polandEntityList = polandDiplomaticRepo.findByDescription(description);
         polandEntityList.stream().findAny().map(polandDiplomaticEntity -> polandDiplomaticEntity
                 .getDescription()
-                .equalsIgnoreCase(description)).orElseThrow(() -> {
-            RegionNotFoundException regionNotFoundException = new RegionNotFoundException(String.format(descriptionNotFound, description));
-
-            return regionNotFoundException;
-        });
+                .equalsIgnoreCase(description)).orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
         return polandEntityList.stream().map(PolandDiplomaticDescriptionModel::toDescription).collect(Collectors.toList());
     }
