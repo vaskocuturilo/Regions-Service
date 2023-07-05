@@ -19,23 +19,19 @@ public class GermanyDiplomaticController {
     private final GermanyDiplomaticService germanyDiplomaticService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getGermanPlatesByRegion(final @PathVariable String region) {
+    public ResponseEntity getGermanPlatesByRegion(final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(germanyDiplomaticService.getGermanPlatesByRegion(region));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (RegionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getGermanPlatesByDescription(final @PathVariable String description) {
+    public ResponseEntity getGermanPlatesByDescription(final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(germanyDiplomaticService.getGermanPlatesByDescription(description));
-        } catch (DescriptionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (DescriptionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }

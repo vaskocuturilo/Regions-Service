@@ -1,6 +1,8 @@
 package com.regions.simpleregions.controller;
 
 import com.regions.simpleregions.entity.CroatiaEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
+import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.service.CroatiaService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
@@ -17,19 +19,19 @@ public class CroatiaController {
     private final CroatiaService croatiaService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getCroatiaPlatesByRegion(final @PathVariable String region) {
+    public ResponseEntity getCroatiaPlatesByRegion(final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(croatiaService.getCroatiaPlatesByRegion(region));
-        } catch (Exception exception) {
+        } catch (RegionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getCroatiaPlatesByDescription(final @PathVariable String description) {
+    public ResponseEntity getCroatiaPlatesByDescription(final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(croatiaService.getCroatiaPlatesByDescription(description));
-        } catch (Exception exception) {
+        } catch (DescriptionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }

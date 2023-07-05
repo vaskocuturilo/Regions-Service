@@ -1,12 +1,15 @@
 package com.regions.simpleregions.controller;
 
 import com.regions.simpleregions.entity.BelarusEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
-import com.regions.simpleregions.exception.RegionsNotFoundException;
 import com.regions.simpleregions.service.BelarusService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Data
 @RestController
@@ -16,23 +19,19 @@ public class BelarusController {
     private final BelarusService belarusService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getBelarusPlatesByRegion(final @PathVariable String region) {
+    public ResponseEntity getBelarusPlatesByRegion(final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(belarusService.getBelarusPlatesByRegion(region));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (RegionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getBelarusPlatesByDescription(final @PathVariable String description) {
+    public ResponseEntity getBelarusPlatesByDescription(final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(belarusService.getBelarusPlatesByDescription(description));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (DescriptionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }

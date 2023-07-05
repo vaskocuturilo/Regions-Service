@@ -1,6 +1,7 @@
 package com.regions.simpleregions.controller;
 
 import com.regions.simpleregions.entity.ArmeniaEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.service.ArmeniaService;
 import lombok.Data;
@@ -18,23 +19,19 @@ public class ArmeniaController {
     private final ArmeniaService armeniaService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getArmeniaPlatesByRegion(final @PathVariable String region) {
+    public ResponseEntity getArmeniaPlatesByRegion(final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(armeniaService.getArmeniaPlatesByRegion(region));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (RegionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getArmeniaPlatesByDescription(final @PathVariable String description) {
+    public ResponseEntity getArmeniaPlatesByDescription(final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(armeniaService.getArmeniaPlatesByDescription(description));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (DescriptionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }

@@ -1,6 +1,7 @@
 package com.regions.simpleregions.controller;
 
 import com.regions.simpleregions.entity.EstoniaEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.service.EstoniaService;
 import lombok.Data;
@@ -17,21 +18,19 @@ public class EstoniaController {
     private final EstoniaService estoniaService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getEstoniaPlatesByRegion(final @PathVariable String region) {
+    public ResponseEntity getEstoniaPlatesByRegion(final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(estoniaService.getEstoniaPlatesByRegion(region));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (RegionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getEstoniaPlatesRegionByDescription(final @PathVariable String description) {
+    public ResponseEntity getEstoniaPlatesRegionByDescription(final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(estoniaService.getEstoniaPlatesRegionByDescription(description));
-        } catch (RegionNotFoundException exception) {
+        } catch (DescriptionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());

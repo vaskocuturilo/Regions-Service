@@ -1,6 +1,7 @@
 package com.regions.simpleregions.controller;
 
 import com.regions.simpleregions.entity.GermanyEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.service.GermanyService;
 import lombok.Data;
@@ -18,23 +19,19 @@ public class GermanyController {
     private final GermanyService germanyService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getGermanPlatesByRegion(final @PathVariable String region) {
+    public ResponseEntity getGermanPlatesByRegion(final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(germanyService.getGermanPlatesByRegion(region));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (RegionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getGermanPlatesByDescription(final @PathVariable String description) {
+    public ResponseEntity getGermanPlatesByDescription(final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(germanyService.getGermanPlatesByDescription(description));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (DescriptionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }

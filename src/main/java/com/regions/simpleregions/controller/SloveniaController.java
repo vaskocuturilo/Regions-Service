@@ -18,7 +18,7 @@ public class SloveniaController {
     private final SloveniaService sloveniaService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getSloveniaPlatesRegionByNumber(final @PathVariable String region) {
+    public ResponseEntity getSloveniaPlatesRegionByNumber(final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(sloveniaService.getSloveniaPlatesRegionByNumber(region));
         } catch (RegionNotFoundException | RuntimeException exception) {
@@ -27,7 +27,7 @@ public class SloveniaController {
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getSloveniaRegionByDescription(final @PathVariable String description) {
+    public ResponseEntity getSloveniaRegionByDescription(final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(sloveniaService.getSloveniaRegionByDescription(description));
         } catch (DescriptionNotFoundException | RuntimeException exception) {

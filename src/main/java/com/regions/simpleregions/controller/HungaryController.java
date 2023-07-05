@@ -17,24 +17,20 @@ public class HungaryController {
     private final HungaryService hungaryService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getHungaryPlatesByRegion(final @PathVariable String region) {
+    public ResponseEntity getHungaryPlatesByRegion(final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(hungaryService.getHungaryPlatesByRegion(region));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (RegionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getHungaryPlatesByDescription(final @PathVariable String description) {
+    public ResponseEntity getHungaryPlatesByDescription(final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(hungaryService.getHungaryPlatesByDescription(description));
-        } catch (DescriptionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (DescriptionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
