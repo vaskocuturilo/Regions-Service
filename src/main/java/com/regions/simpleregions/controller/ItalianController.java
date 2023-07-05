@@ -18,23 +18,19 @@ public class ItalianController {
     private final ItalianService italianService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getItalianPlatesByRegion(final @PathVariable String region) {
+    public ResponseEntity getItalianPlatesByRegion(final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(italianService.getItalianPlatesByRegion(region));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (RegionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getItalianPlatesByDescription(final @PathVariable String description) {
+    public ResponseEntity getItalianPlatesByDescription(final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(italianService.getItalianPlatesByDescription(description));
-        } catch (DescriptionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (DescriptionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }

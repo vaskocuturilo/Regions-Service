@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.AzerbaijanEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.AzerbaijanModel;
 import com.regions.simpleregions.respository.AzerbaijanRepo;
@@ -34,12 +35,12 @@ public class AzerbaijanService {
         return AzerbaijanModel.toModel(azerbaijanRegion);
     }
 
-    public List<AzerbaijanModel> getAzerbaijanPlatesByDescription(final String description) throws RegionNotFoundException {
+    public List<AzerbaijanModel> getAzerbaijanPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<AzerbaijanEntity> azerbaijanEntities = azerbaijanRepo.findByDescription(description);
 
         azerbaijanEntities.stream().findAny().map(azerbaijanEntity -> azerbaijanEntity
                 .getDescription()
-                .equalsIgnoreCase(description)).orElseThrow(() -> new RegionNotFoundException(String.format(descriptionNotFound, description)));
+                .equalsIgnoreCase(description)).orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
         return azerbaijanEntities.stream().map(AzerbaijanModel::toModelDescription).collect(Collectors.toList());
     }

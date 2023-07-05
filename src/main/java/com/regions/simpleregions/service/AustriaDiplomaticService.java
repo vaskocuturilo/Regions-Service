@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.AustriaDiplomaticEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.AustriaDiplomaticModel;
 import com.regions.simpleregions.respository.AustriaDiplomaticRepo;
@@ -34,13 +35,13 @@ public class AustriaDiplomaticService {
         return AustriaDiplomaticModel.toModelRegion(austriaRegion);
     }
 
-    public List<AustriaDiplomaticModel> getAustriaPlatesByDescription(final String description) throws RegionNotFoundException {
+    public List<AustriaDiplomaticModel> getAustriaPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<AustriaDiplomaticEntity> austriaDiplomaticEntityList = austriaDiplomaticRepo.findByDescription(description);
 
         austriaDiplomaticEntityList.stream().findAny().map(austriaDiplomaticEntity -> austriaDiplomaticEntity
                         .getRegion()
                         .equalsIgnoreCase(description))
-                .orElseThrow(() -> new RegionNotFoundException(String.format(descriptionNotFound, description)));
+                .orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
         return austriaDiplomaticEntityList.stream().map(AustriaDiplomaticModel::toModelDescription).collect(Collectors.toList());
     }

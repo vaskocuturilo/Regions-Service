@@ -19,23 +19,19 @@ public class RussiaController {
     private final RussiaService russiaService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getRussiaPlatesByRegion(final @PathVariable String region) {
+    public ResponseEntity getRussiaPlatesByRegion(final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(russiaService.getRussiaPlatesByRegion(region));
-        } catch (RegionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (RegionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 
     @GetMapping("description/{description}")
-    public ResponseEntity getRussiaPlatesByDescription(final @PathVariable String description) {
+    public ResponseEntity getRussiaPlatesByDescription(final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(russiaService.getRussiaPlatesByDescription(description));
-        } catch (DescriptionNotFoundException exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        } catch (Exception exception) {
+        } catch (DescriptionNotFoundException | RuntimeException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }

@@ -1,6 +1,7 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.GermanyEntity;
+import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.GermanyModel;
 import com.regions.simpleregions.respository.GermanyRepo;
@@ -32,11 +33,11 @@ public class GermanyService {
         return GermanyModel.toModelRegion(germanRegion);
     }
 
-    public List<GermanyModel> getGermanPlatesByDescription(final String description) throws RegionNotFoundException {
+    public List<GermanyModel> getGermanPlatesByDescription(final String description) throws DescriptionNotFoundException {
         List<GermanyEntity> germanyEntityList = germanyRepo.findByDescription(description);
 
         germanyEntityList.stream().findAny().map(germanyEntity -> germanyEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
-                new RegionNotFoundException(String.format(descriptionNotFound, description)));
+                new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
         return germanyEntityList.stream().map(GermanyModel::toModelDescription).collect(Collectors.toList());
     }

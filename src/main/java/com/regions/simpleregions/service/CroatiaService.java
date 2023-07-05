@@ -2,6 +2,7 @@ package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.CroatiaEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
+import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.exception.RegionsNotFoundException;
 import com.regions.simpleregions.model.CroatiaModel;
 import com.regions.simpleregions.respository.CroatiaRepo;
@@ -24,10 +25,10 @@ public class CroatiaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public CroatiaModel getCroatiaPlatesByRegion(final String region) {
+    public CroatiaModel getCroatiaPlatesByRegion(final String region) throws RegionNotFoundException {
         Optional<CroatiaEntity> croatiaRegion = croatiaRepo.findByRegion(region);
         croatiaRegion.stream().filter(croatiaEntity -> croatiaEntity.getRegion().equals(region)).findFirst().orElseThrow(
-                () -> new RegionsNotFoundException(String.format(regionNotFound, region)));
+                () -> new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return CroatiaModel.toModelRegion(croatiaRegion);
     }
