@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class EstoniaDipEntity {
+public class EstoniaDiplomaticEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

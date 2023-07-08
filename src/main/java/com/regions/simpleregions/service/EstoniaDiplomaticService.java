@@ -1,10 +1,12 @@
 package com.regions.simpleregions.service;
 
+import com.regions.simpleregions.entity.EstoniaDiplomaticEntity;
 import com.regions.simpleregions.entity.EstoniaEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
+import com.regions.simpleregions.model.EstoniaDiplomaticModel;
 import com.regions.simpleregions.model.EstoniaModel;
-import com.regions.simpleregions.respository.EstoniaRepo;
+import com.regions.simpleregions.respository.EstoniaDiplomaticRepo;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,9 @@ import java.util.stream.Collectors;
 
 @Data
 @Service
-public class EstoniaService {
+public class EstoniaDiplomaticService {
 
-    private final EstoniaRepo estoniaRepo;
+    private final EstoniaDiplomaticRepo estoniaDiplomaticRepo;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -25,25 +27,25 @@ public class EstoniaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public EstoniaModel getEstoniaDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
-        Optional<EstoniaEntity> estoniaRegion = estoniaRepo.findByRegion(region);
+    public EstoniaDiplomaticModel getEstoniaDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
+        Optional<EstoniaDiplomaticEntity> estoniaRegion = estoniaDiplomaticRepo.findByRegion(region);
 
         estoniaRegion.stream().filter(estoniaEntity -> estoniaEntity.getRegion().equals(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
-        return EstoniaModel.toModelByRegion(estoniaRegion);
+        return EstoniaDiplomaticModel.toModelByRegion(estoniaRegion);
     }
 
-    public List<EstoniaModel> getEstoniaDiplomaticPlatesRegionByDescription(final String description) throws DescriptionNotFoundException {
-        List<EstoniaEntity> estoniaEntityList = estoniaRepo.findByDescription(description);
+    public List<EstoniaDiplomaticModel> getEstoniaDiplomaticPlatesRegionByDescription(final String description) throws DescriptionNotFoundException {
+        List<EstoniaDiplomaticEntity> estoniaEntityList = estoniaDiplomaticRepo.findByDescription(description);
 
         estoniaEntityList.stream().findAny().map(estoniaEntity -> estoniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return estoniaEntityList.stream().map(EstoniaModel::toModelByDescription).collect(Collectors.toList());
+        return estoniaEntityList.stream().map(EstoniaDiplomaticModel::toModelByDescription).collect(Collectors.toList());
     }
 
-    public Iterable<EstoniaEntity> getAllRegions() {
-        return estoniaRepo.findAll();
+    public Iterable<EstoniaDiplomaticEntity> getAllEstoniaDiplomaticRegions() {
+        return estoniaDiplomaticRepo.findAll();
     }
 }
