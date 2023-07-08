@@ -1,7 +1,6 @@
 package com.regions.simpleregions.controller;
 
 import com.regions.simpleregions.entity.CroatiaDiplomaticEntity;
-import com.regions.simpleregions.entity.CroatiaEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.service.CroatiaDiplomaticService;
@@ -39,6 +38,6 @@ public class CroatiaDiplomaticController {
 
     @GetMapping("/all")
     public ResponseEntity<Iterable<CroatiaDiplomaticEntity>> getAllCroatiaDiplomaticRegions() {
-        return ResponseEntity.ok(croatiaDiplomaticService.getAllRegions());
+        return ResponseEntity.ok(croatiaDiplomaticService.getAllCroatiaDiplomaticRegions());
     }
 }

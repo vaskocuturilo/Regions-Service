@@ -41,7 +41,7 @@ public class CroatiaDiplomaticService {
         return croatiaEntities.stream().map(CroatiaDiplomaticModel::toModelDescription).collect(Collectors.toList());
     }
 
-    public Iterable<CroatiaDiplomaticEntity> getAllRegions() {
+    public Iterable<CroatiaDiplomaticEntity> getAllCroatiaDiplomaticRegions() {
         return croatiaDiplomaticRepo.findAll();
     }
 }
