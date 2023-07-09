@@ -7,8 +7,11 @@ services:
       - "3307:3306"
     networks:
       - demo_springboot-mysql-net
-    env_file:
-      - .env
+    environment:
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: regions
+      MYSQL_ROOT_PASSWORD: password
 
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
