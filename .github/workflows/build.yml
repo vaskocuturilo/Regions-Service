@@ -65,6 +65,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   cypress-test:
+    needs: build
     timeout-minutes: 10
     strategy:
       matrix:
