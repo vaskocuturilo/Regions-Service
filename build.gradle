@@ -40,3 +40,7 @@ test {
     useJUnitPlatform()
 }
 targetCompatibility = JavaVersion.VERSION_1_9
+
+test {
+    systemProperty 'spring.profiles.active', 'dev'
+}
