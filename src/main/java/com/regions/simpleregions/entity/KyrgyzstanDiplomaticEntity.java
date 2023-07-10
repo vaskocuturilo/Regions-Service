@@ -10,7 +10,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 
-public class KyrgyzstanDipEntity {
+public class KyrgyzstanDiplomaticEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

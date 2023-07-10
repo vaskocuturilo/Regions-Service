@@ -1,13 +1,13 @@
-DROP TABLE IF EXISTS `kyrgyzstan_dip_entity`;
-CREATE TABLE `kyrgyzstan_dip_entity` (
+DROP TABLE IF EXISTS `kyrgyzstan_diplomatic_entity`;
+CREATE TABLE `kyrgyzstan_diplomatic_entity` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
   `region` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-LOCK TABLES `kyrgyzstan_dip_entity` WRITE;
-INSERT INTO `kyrgyzstan_dip_entity` VALUES
+LOCK TABLES `kyrgyzstan_diplomatic_entity` WRITE;
+INSERT INTO `kyrgyzstan_diplomatic_entity` VALUES
 (1,'Turkey','01'),
 (2,'United States','02'),
 (3,'China','03'),
