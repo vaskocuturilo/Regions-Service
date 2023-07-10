@@ -48,7 +48,7 @@ jobs:
           gradle-version: 7.1.1
 
       - name: Build project.
-        run: gradle clean build test
+        run: gradle clean test
 
   sonarCloudTrigger:
     needs: build

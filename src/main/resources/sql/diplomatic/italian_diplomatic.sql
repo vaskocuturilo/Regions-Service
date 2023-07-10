@@ -1,13 +1,13 @@
-DROP TABLE IF EXISTS `italian_dip_entity`;
-CREATE TABLE `italian_dip_entity` (
+DROP TABLE IF EXISTS `italian_diplomatic_entity`;
+CREATE TABLE `italian_diplomatic_entity` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
   `region` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-LOCK TABLES `italian_dip_entity` WRITE;
-INSERT INTO `italian_dip_entity` VALUES
+LOCK TABLES `italian_diplomatic_entity` WRITE;
+INSERT INTO `italian_diplomatic_entity` VALUES
 (1,'Albania','AA'),
 (2,'Austria','AC'),
 (3,'Belgium','AE'),
