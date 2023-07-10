@@ -65,24 +65,12 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   cypress-test:
+    timeout-minutes: 10
     strategy:
       matrix:
         node-version: [ 15.x ]
         os: [ ubuntu-latest ]
         browser: [ chrome, firefox ]
-
-    services:
-      mariadb:
-        image: mariadb:10.8.2
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
     runs-on: ${{ matrix.os }}
 
