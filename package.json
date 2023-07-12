@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "cypress": "^12.14.0",
+    "allure": "2.23.0",
     "@shelex/cypress-allure-plugin": "2.40.0"
   },
   "name": "regions-service",
