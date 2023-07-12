@@ -54,7 +54,7 @@ export class MainPage {
         this.elements.uploadImage();
     }
 
-    checkAppersCountriesInDropDown() {
+    checkAppearsCountriesInDropDown() {
         cy.get('#countries_list option').each( (item, index) => {
             cy.wrap(item).should('have.text', todosTitles[index])
             })

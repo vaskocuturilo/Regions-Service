@@ -40,12 +40,17 @@ jobs:
           command: npm run cypress:run:test -- --browser ${{ matrix.browser }}
           parallel: true
 
+      - name: Generate Allure report
+        uses: cypress-io/github-action@v4
+        with:
+          command: npm run cypress:run:allure:report
+
       - name: Archive test screenshots
         uses: actions/upload-artifact@v1
         with:
           name: screenshots
-          path: cypress/screenshots
-        if: ${{ failure() }}
+          path: allure-report
+        if: always()
 
       - name: Stop containers
         if: always()

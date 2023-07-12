@@ -9,7 +9,7 @@ describe('Testing main page for application regions', () => {
 
     it('This is simple test for check main page', () => {
         mainPage.checkMainPageElementsAppears();
-        mainPage.checkAppersCountriesInDropDown();
+        mainPage.checkAppearsCountriesInDropDown();
         mainPage.checkUploadImageFunctionality();
         mainPage.checkImageByCountry("GB", "GB-license-plate-infographics-en.jpg");
         mainPage.checkImageDiplomaticByCountry("AU", "Austria");
