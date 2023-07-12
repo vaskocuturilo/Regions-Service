@@ -49,7 +49,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: screenshots
-          path: cypress/screenshots
+          path: allure-report
         if: always()
 
       - name: Stop containers
