@@ -171,7 +171,8 @@
     "yauzl": "^2.10.0"
   },
   "scripts": {
-    "cypress:run:test": "cypress run --e2e"
+    "cypress:run:test": "cypress run --e2e --env allure=true",
+    "cypress:run:allure:report": "allure generate"
   },
   "author": "",
   "license": "ISC"
