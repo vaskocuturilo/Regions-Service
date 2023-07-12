@@ -1,0 +1,52 @@
+name: Build Frontend
+
+on:
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  cypress-test:
+    strategy:
+      matrix:
+        node-version: [ 15.x ]
+        os: [ ubuntu-latest ]
+        browser: [ chrome, firefox ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker-compose build --no-cache --force
+
+      - name: Start containers
+        run: |
+          docker-compose -f "docker-compose.yml" up -d
+          for attempt in {1..20}; do sleep 1; if exit 0; then echo ready; break; fi; echo waiting...; done
+
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci --force
+
+      - name: Run Cypress Test
+        uses: cypress-io/github-action@v4
+        with:
+          command: npm run cypress:run:test -- --browser ${{ matrix.browser }}
+          parallel: true
+
+      - name: Archive test screenshots
+        uses: actions/upload-artifact@v1
+        with:
+          name: screenshots
+          path: cypress/screenshots
+        if: ${{ failure() }}
+
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "docker-compose.yml" down
