@@ -40,28 +40,17 @@ jobs:
           command: npm run cypress:run:test -- --browser ${{ matrix.browser }}
           parallel: true
 
-      - name: Get Allure history
-        uses: actions/checkout@v3
-        if: always()
-        continue-on-error: true
+      - name: Generate Allure report
+        uses: cypress-io/github-action@v4
         with:
-          ref: allure
-          path: allure
+          command: npm run cypress:run:allure:report
 
-      - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@master
-        if: always()
+      - name: Archive test screenshots
+        uses: actions/upload-artifact@v1
         with:
-          allure_results: allure-results
-          gh_pages: allure
-
-      - name: Deploy report to Github Pages
+          name: screenshots
+          path: allure-report
         if: always()
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: allure
-          publish_dir: allure-history
 
       - name: Stop containers
         if: always()
