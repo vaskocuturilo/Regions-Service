@@ -1,6 +1,6 @@
 /// <reference types ="cypress"/>
 
-import {mainPage} from "../support/pages/MainPage.cy"
+import {mainPage} from "../../support/pages/MainPage.cy"
 
 describe('Testing main page for application regions', () => {
     beforeEach(() => {
@@ -26,6 +26,5 @@ describe('Testing main page for application regions', () => {
         mainPage.checkImageDiplomaticByCountry("RO", "Romania_diplomatic_number");
         mainPage.checkImageDiplomaticByCountry("SE", "Sweden_diplomatic_license_plate");
         mainPage.checkImageDiplomaticByCountry("CH", "Switzerland_CD_Diplomatic_license_plate");
-
     })
 }) 
