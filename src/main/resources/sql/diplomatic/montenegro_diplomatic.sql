@@ -1,13 +1,13 @@
-DROP TABLE IF EXISTS `montenegro_dip_entity`;
-CREATE TABLE `montenegro_dip_entity` (
+DROP TABLE IF EXISTS `montenegro_diplomatic_entity`;
+CREATE TABLE `montenegro_diplomatic_entity` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
   `region` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-LOCK TABLES `montenegro_dip_entity` WRITE;
-INSERT INTO `montenegro_dip_entity` VALUES
+LOCK TABLES `montenegro_diplomatic_entity` WRITE;
+INSERT INTO `montenegro_diplomatic_entity` VALUES
 (1,'Russia','10'),
 (2,'Turkey','11'),
 (3,'Albania','12'),
