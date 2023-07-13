@@ -173,7 +173,8 @@
     "yauzl": "^2.10.0"
   },
   "scripts": {
-    "cypress:run:test": "cypress run --e2e --env allure=true",
+    "cypress:run:smoke:test": "cypress run --spec cypress/e2e/smoke/*.js --e2e --env allure=true",
+    "cypress:run:sanity:test": "cypress run --spec cypress/e2e/sanity/*.js --e2e --env allure=true",
     "cypress:run:allure:report": "allure generate",
     "allure:report": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report",

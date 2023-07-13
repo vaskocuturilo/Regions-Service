@@ -1,12 +1,10 @@
 name: Build Frontend
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - main
-
-  workflow_dispatch:
-
 jobs:
   cypress-test:
     strategy:
@@ -34,10 +32,16 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci --force
 
-      - name: Run Cypress Test
+      - name: Run Cypress Smoke Tests
         uses: cypress-io/github-action@v4
         with:
-          command: npm run cypress:run:test -- --browser ${{ matrix.browser }}
+          command: npm run cypress:run:smoke:test -- --browser ${{ matrix.browser }}
+          parallel: true
+
+      - name: Run Cypress Sanity Tests
+        uses: cypress-io/github-action@v4
+        with:
+          command: npm run cypress:run:sanity:test -- --browser ${{ matrix.browser }}
           parallel: true
 
       - name: Generate Allure Report
