@@ -1,13 +1,13 @@
-DROP TABLE IF EXISTS `sweden_dip_entity`;
-CREATE TABLE `sweden_dip_entity` (
+DROP TABLE IF EXISTS `sweden_diplomatic_entity`;
+CREATE TABLE `sweden_diplomatic_entity` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `description` varchar(255) DEFAULT NULL,
   `region` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-LOCK TABLES `sweden_dip_entity` WRITE;
-INSERT INTO `sweden_dip_entity` VALUES
+LOCK TABLES `sweden_diplomatic_entity` WRITE;
+INSERT INTO `sweden_diplomatic_entity` VALUES
 (1,'South Africa','AA'),
 (2,'Albania','AB'),
 (3,'Algeria','AC'),
