@@ -73,9 +73,9 @@ You will need the following technologies available to try it out:
 
 ![](https://c.radikal.ru/c08/2108/48/e78d3e2723cc.png)
 
-### Ho w to run.
+### How to run.
 
-``` docker-compose up```
+``` docker-compose -f "docker-compose.yml" up --detach --build```
 
 # API endpoints
 
