@@ -50,6 +50,7 @@ You will need the following technologies available to try it out:
 - Will be adding UI (diplomatic field) :heavy_check_mark:
 - Will be adding positive UI automation scripts (Smoke and Sanity) :heavy_check_mark: 
 - Will be adding negative UI automation scripts (Smoke and Sanity)
+- Will be adding migrate from Spring boot v2.5.3 to v3.1.* 
 
 ### Actuator
 
