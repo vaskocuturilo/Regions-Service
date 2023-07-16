@@ -10,6 +10,8 @@ COPY . .
 RUN gradle clean build -x test --no-daemon || return 0
 
 FROM eclipse-temurin:17-jdk-alpine
+RUN apk --no-cache add curl jq
+
 ENV ARTIFACT_NAME=simpleRegions-0.0.1-SNAPSHOT.jar
 ENV APP_HOME=/usr/app
 
