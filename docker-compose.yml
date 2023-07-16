@@ -29,7 +29,7 @@ services:
       - "8090:8090"
 
     healthcheck:
-      test: curl -m 5 --silent --fail --request GET http://localhost:8090/actuator/health | jq --exit-status -n 'inputs | if has("status") then .status=="UP" else false end' > /dev/null || exit 1
+      test: [ "CMD", "curl", "-f", "http://localhost:8090/actuator/health" ]
       interval: 10s
       timeout: 2s
       retries: 10
