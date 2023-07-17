@@ -1,3 +1,3 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Mon Jul 17 17:29:19 GMT 2023","Mon Jul 17 17:29:21 GMT 2023","1695","","Testing main page for application regions","","","","This is simple test for check main page",""
-"passed","Mon Jul 17 17:29:43 GMT 2023","Mon Jul 17 17:29:46 GMT 2023","3586","","Testing main page for application regions","","","","This is simple sanity test for check main page",""
+"passed","Mon Jul 17 17:30:02 GMT 2023","Mon Jul 17 17:30:06 GMT 2023","4116","","Testing main page for application regions","","","","This is simple sanity test for check main page",""
+"passed","Mon Jul 17 17:29:35 GMT 2023","Mon Jul 17 17:29:37 GMT 2023","2201","","Testing main page for application regions","","","","This is simple test for check main page",""
