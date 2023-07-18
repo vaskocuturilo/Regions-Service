@@ -6,6 +6,7 @@ import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.IrelandModel;
 import com.regions.simpleregions.respository.IrelandRepo;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Data
 @Service
 public class IrelandService {
@@ -25,6 +27,7 @@ public class IrelandService {
     private String descriptionNotFound;
 
     public IrelandModel getPlatesByRegion(final String region) throws RegionNotFoundException {
+        log.info("Start method getPlatesByRegion");
         Optional<IrelandEntity> irelandRegion = irelandRepo.findByRegion(region);
 
         irelandRegion.stream().filter(irelandEntity -> irelandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
@@ -34,6 +37,7 @@ public class IrelandService {
     }
 
     public List<IrelandModel> getPlatesByDescription(final String description) throws DescriptionNotFoundException {
+        log.info("Start method getPlatesByDescription");
         List<IrelandEntity> irelandEntityList = irelandRepo.findByDescription(description);
 
         irelandEntityList.stream().findAny().map(irelandEntity -> irelandEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
@@ -43,6 +47,7 @@ public class IrelandService {
     }
 
     public Iterable<IrelandEntity> getAllRegions() {
+        log.info("Start method getAllRegions");
         return irelandRepo.findAll();
     }
 }

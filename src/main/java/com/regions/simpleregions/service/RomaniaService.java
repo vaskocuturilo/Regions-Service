@@ -6,6 +6,7 @@ import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.RomaniaModel;
 import com.regions.simpleregions.respository.RomaniaRepo;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Data
 @Service
 public class RomaniaService {
@@ -26,6 +28,7 @@ public class RomaniaService {
     private String descriptionNotFound;
 
     public RomaniaModel getRomaniaPlatesByRegion(final String region) throws RegionNotFoundException {
+        log.info("Start method getRomaniaPlatesByRegion");
         Optional<RomaniaEntity> romaniaRegion = romaniaRepo.findByRegion(region);
 
         Optional.ofNullable(romaniaRegion
@@ -38,6 +41,7 @@ public class RomaniaService {
     }
 
     public List<RomaniaModel> getRomaniaPlatesByDescription(final String description) throws DescriptionNotFoundException {
+        log.info("Start method getRomaniaPlatesByDescription");
         List<RomaniaEntity> romaniaEntityList = romaniaRepo.findByDescription(description);
 
         romaniaEntityList.stream().map(romaniaEntity -> romaniaEntity.getDescription().equalsIgnoreCase(description)).findAny()
@@ -48,6 +52,7 @@ public class RomaniaService {
     }
 
     public Iterable<RomaniaEntity> getAllRegions() {
+        log.info("Start method getAllRegions");
         return romaniaRepo.findAll();
     }
 }

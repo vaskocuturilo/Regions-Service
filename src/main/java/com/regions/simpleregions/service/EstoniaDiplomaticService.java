@@ -1,13 +1,12 @@
 package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.EstoniaDiplomaticEntity;
-import com.regions.simpleregions.entity.EstoniaEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.EstoniaDiplomaticModel;
-import com.regions.simpleregions.model.EstoniaModel;
 import com.regions.simpleregions.respository.EstoniaDiplomaticRepo;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Data
 @Service
 public class EstoniaDiplomaticService {
@@ -28,6 +28,7 @@ public class EstoniaDiplomaticService {
     private String descriptionNotFound;
 
     public EstoniaDiplomaticModel getEstoniaDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
+        log.info("Start method getEstoniaDiplomaticPlatesByRegion");
         Optional<EstoniaDiplomaticEntity> estoniaRegion = estoniaDiplomaticRepo.findByRegion(region);
 
         estoniaRegion.stream().filter(estoniaEntity -> estoniaEntity.getRegion().equals(region)).findFirst().orElseThrow(() ->
@@ -37,6 +38,7 @@ public class EstoniaDiplomaticService {
     }
 
     public List<EstoniaDiplomaticModel> getEstoniaDiplomaticPlatesRegionByDescription(final String description) throws DescriptionNotFoundException {
+        log.info("Start method getEstoniaDiplomaticPlatesRegionByDescription");
         List<EstoniaDiplomaticEntity> estoniaEntityList = estoniaDiplomaticRepo.findByDescription(description);
 
         estoniaEntityList.stream().findAny().map(estoniaEntity -> estoniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
@@ -46,6 +48,7 @@ public class EstoniaDiplomaticService {
     }
 
     public Iterable<EstoniaDiplomaticEntity> getAllEstoniaDiplomaticRegions() {
+        log.info("Start method getAllEstoniaDiplomaticRegions");
         return estoniaDiplomaticRepo.findAll();
     }
 }

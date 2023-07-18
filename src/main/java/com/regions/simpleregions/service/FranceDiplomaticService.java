@@ -6,6 +6,7 @@ import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.FranceDiplomaticModel;
 import com.regions.simpleregions.respository.FranceDiplomaticRepo;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Service
 @Data
 public class FranceDiplomaticService {
@@ -26,6 +28,7 @@ public class FranceDiplomaticService {
     private String descriptionNotFound;
 
     public FranceDiplomaticModel getFranceDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
+        log.info("Start method getFranceDiplomaticPlatesByRegion");
         Optional<FranceDiplomaticEntity> franceRegion = franceDiplomaticRepo.findByRegion(region);
         franceRegion.stream().filter(franceEntity -> franceEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
@@ -33,6 +36,7 @@ public class FranceDiplomaticService {
     }
 
     public List<FranceDiplomaticModel> getFranceDiplomaticPlatesByDescription(final String description) throws DescriptionNotFoundException {
+        log.info("Start method getFranceDiplomaticPlatesByDescription");
         List<FranceDiplomaticEntity> franceEntityList = franceDiplomaticRepo.findByDescription(description);
 
         franceEntityList.stream().findAny().map(franceEntity -> franceEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
@@ -42,6 +46,7 @@ public class FranceDiplomaticService {
     }
 
     public Iterable<FranceDiplomaticEntity> getAllDiplomaticRegions() {
+        log.info("Start method getAllDiplomaticRegions");
         return franceDiplomaticRepo.findAll();
     }
 }
