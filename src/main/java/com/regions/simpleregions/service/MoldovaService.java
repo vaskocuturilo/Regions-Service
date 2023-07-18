@@ -6,6 +6,7 @@ import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.MoldovaModel;
 import com.regions.simpleregions.respository.MoldovaRepo;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Data
 @Service
 public class MoldovaService {
@@ -26,6 +28,7 @@ public class MoldovaService {
     private String descriptionNotFound;
 
     public MoldovaModel getMoldovaPlatesByRegion(final String region) throws RegionNotFoundException {
+        log.info("Start method getMoldovaPlatesByRegion");
         Optional<MoldovaEntity> moldovaRegion = moldovaRepo.findByRegion(region);
 
         Optional.ofNullable(moldovaRegion.stream().filter(moldovaEntity -> moldovaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
@@ -36,6 +39,7 @@ public class MoldovaService {
     }
 
     public List<MoldovaModel> getMoldovaPlatesByDescription(final String description) throws DescriptionNotFoundException {
+        log.info("Start method getMoldovaPlatesByDescription");
         List<MoldovaEntity> moldovaEntityList = moldovaRepo.findByDescription(description);
 
         moldovaEntityList.stream().map(moldovaEntity -> moldovaEntity.getDescription().equalsIgnoreCase(description)).findAny().orElseThrow(() ->
@@ -45,6 +49,7 @@ public class MoldovaService {
     }
 
     public Iterable<MoldovaEntity> getAllRegions() {
+        log.info("Start method getAllRegions");
         return moldovaRepo.findAll();
     }
 }

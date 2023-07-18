@@ -6,6 +6,7 @@ import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.BulgariaModel;
 import com.regions.simpleregions.respository.BulgariaRepo;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Data
 @Service
 public class BulgariaService {
@@ -26,6 +28,7 @@ public class BulgariaService {
     private String descriptionNotFound;
 
     public BulgariaModel getBulgariaPlatesByRegion(String region) throws RegionNotFoundException {
+        log.info("Start method getBulgariaPlatesByRegion");
         Optional<BulgariaEntity> bulgariaRegion = bulgariaRepo.findByRegion(region);
         bulgariaRegion.stream().filter(bulgariaEntity -> bulgariaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
@@ -34,6 +37,7 @@ public class BulgariaService {
     }
 
     public List<BulgariaModel> getBulgariaPlatesByDescription(String description) throws DescriptionNotFoundException {
+        log.info("Start method getBulgariaPlatesByDescription");
         List<BulgariaEntity> bulgariaEntityList = bulgariaRepo.findByDescription(description);
 
         bulgariaEntityList.stream().findAny().map(bulgariaEntity -> bulgariaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
@@ -43,6 +47,7 @@ public class BulgariaService {
     }
 
     public Iterable<BulgariaEntity> getAllRegions() {
+        log.info("Start method getAllRegions");
         return bulgariaRepo.findAll();
     }
 }

@@ -6,6 +6,7 @@ import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.UzbekistanModel;
 import com.regions.simpleregions.respository.UzbekistanRepo;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Data
 @Service
 public class UzbekistanService {
@@ -25,6 +27,7 @@ public class UzbekistanService {
     private String descriptionNotFound;
 
     public UzbekistanModel getUzbekistanPlatesByRegion(final String region) throws RegionNotFoundException {
+        log.info("Start method getUzbekistanPlatesByRegion");
         Optional<UzbekistanEntity> uzbekistanRegion = uzbekistanRepo.findByRegion(region);
 
         uzbekistanRegion
@@ -36,6 +39,7 @@ public class UzbekistanService {
     }
 
     public List<UzbekistanModel> getUzbekistanPlatesByDescription(final String description) throws DescriptionNotFoundException {
+        log.info("Start method getUzbekistanPlatesByDescription");
         List<UzbekistanEntity> uzbekistanEntityList = uzbekistanRepo.findByDescription(description);
 
         uzbekistanEntityList
@@ -47,6 +51,7 @@ public class UzbekistanService {
     }
 
     public Iterable<UzbekistanEntity> getAllRegions() {
+        log.info("Start method getAllRegions");
         return uzbekistanRepo.findAll();
     }
 }

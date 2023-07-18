@@ -6,6 +6,7 @@ import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.MontenegroModel;
 import com.regions.simpleregions.respository.MontenegroRepo;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Data
 @Service
 public class MontenegroService {
@@ -26,6 +28,7 @@ public class MontenegroService {
     private String descriptionNotFound;
 
     public MontenegroModel getMontenegroPlatesByRegion(final String region) throws RegionNotFoundException {
+        log.info("Start method getMontenegroPlatesByRegion");
         Optional<MontenegroEntity> montenegroRegion = montenegroRepo.findByRegion(region);
 
         Optional.ofNullable(montenegroRegion.stream().filter(montenegroEntity -> montenegroEntity.getRegion().equalsIgnoreCase(region))
@@ -36,6 +39,7 @@ public class MontenegroService {
     }
 
     public List<MontenegroModel> getMontenegroPlatesByDescription(final String description) throws DescriptionNotFoundException {
+        log.info("Start method getMontenegroPlatesByDescription");
         List<MontenegroEntity> montenegroEntityList = montenegroRepo.findByDescription(description);
 
         montenegroEntityList.stream().map(montenegroEntity -> montenegroEntity
@@ -48,6 +52,7 @@ public class MontenegroService {
     }
 
     public Iterable<MontenegroEntity> getAllRegions() {
+        log.info("Start method getAllRegions");
         return montenegroRepo.findAll();
     }
 }

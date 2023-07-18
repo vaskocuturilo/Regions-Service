@@ -6,6 +6,7 @@ import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.AustriaModel;
 import com.regions.simpleregions.respository.AustriaRepo;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Data
 @Service
 public class AustriaService {
@@ -25,6 +27,7 @@ public class AustriaService {
     private String descriptionNotFound;
 
     public AustriaModel getAustriaPlatesByRegion(final String region) throws RegionNotFoundException {
+        log.info("Start method getAustriaPlatesByRegion");
         Optional<AustriaEntity> austriaRegion = austriaRepo.findByRegion(region);
 
         austriaRegion.stream().filter(austriaEntity -> austriaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
@@ -34,6 +37,7 @@ public class AustriaService {
     }
 
     public List<AustriaModel> getAustriaPlatesByDescription(final String description) throws DescriptionNotFoundException {
+        log.info("Start method getAustriaPlatesByDescription");
         List<AustriaEntity> austriaEntityList = austriaRepo.findByDescription(description);
 
         austriaEntityList.stream().findAny().map(austriaEntity -> austriaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(
@@ -43,6 +47,7 @@ public class AustriaService {
     }
 
     public Iterable<AustriaEntity> getAllRegions() {
+        log.info("Start method getAllRegions");
         return austriaRepo.findAll();
     }
 }

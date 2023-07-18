@@ -6,6 +6,7 @@ import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.AzerbaijanModel;
 import com.regions.simpleregions.respository.AzerbaijanRepo;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Data
 @Service
 public class AzerbaijanService {
@@ -26,6 +28,7 @@ public class AzerbaijanService {
     private String descriptionNotFound;
 
     public AzerbaijanModel getAzerbaijanPlatesByRegion(final String region) throws RegionNotFoundException {
+        log.info("Start method getAzerbaijanPlatesByRegion");
         Optional<AzerbaijanEntity> azerbaijanRegion = azerbaijanRepo.findByRegion(region);
         azerbaijanRegion.stream().filter(azerbaijanEntity -> azerbaijanEntity
                         .getRegion()
@@ -36,6 +39,7 @@ public class AzerbaijanService {
     }
 
     public List<AzerbaijanModel> getAzerbaijanPlatesByDescription(final String description) throws DescriptionNotFoundException {
+        log.info("Start method getAzerbaijanPlatesByDescription");
         List<AzerbaijanEntity> azerbaijanEntities = azerbaijanRepo.findByDescription(description);
 
         azerbaijanEntities.stream().findAny().map(azerbaijanEntity -> azerbaijanEntity
@@ -46,6 +50,7 @@ public class AzerbaijanService {
     }
 
     public Iterable<AzerbaijanEntity> getAllRegions() {
+        log.info("Start method getAllRegions");
         return azerbaijanRepo.findAll();
     }
 }

@@ -6,6 +6,7 @@ import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.RomaniaDiplomaticModel;
 import com.regions.simpleregions.respository.RomaniaDiplomaticRepo;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Data
 @Service
 public class RomaniaDiplomaticService {
@@ -26,6 +28,7 @@ public class RomaniaDiplomaticService {
     private String descriptionNotFound;
 
     public RomaniaDiplomaticModel getRomaniaDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
+        log.info("Start method getRomaniaDiplomaticPlatesByRegion");
         Optional<RomaniaDiplomaticEntity> romaniaRegion = romaniaDiplomaticRepo.findByRegion(region);
 
         Optional.ofNullable(romaniaRegion
@@ -38,6 +41,7 @@ public class RomaniaDiplomaticService {
     }
 
     public List<RomaniaDiplomaticModel> getRomaniaDiplomaticPlatesByDescription(final String description) throws DescriptionNotFoundException {
+        log.info("Start method getRomaniaDiplomaticPlatesByDescription");
         List<RomaniaDiplomaticEntity> romaniaEntityList = romaniaDiplomaticRepo.findByDescription(description);
 
         romaniaEntityList.stream().map(romaniaEntity -> romaniaEntity.getDescription().equalsIgnoreCase(description)).findAny()
@@ -48,6 +52,7 @@ public class RomaniaDiplomaticService {
     }
 
     public Iterable<RomaniaDiplomaticEntity> getAllRomaniaDiplomaticRegions() {
+        log.info("Start method getAllRomaniaDiplomaticRegions");
         return romaniaDiplomaticRepo.findAll();
     }
 }

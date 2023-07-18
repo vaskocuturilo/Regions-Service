@@ -8,6 +8,7 @@ import com.regions.simpleregions.model.PolandDiplomaticModel;
 import com.regions.simpleregions.respository.PolandDiplomaticRepo;
 import com.regions.simpleregions.util.DestinationCodePolandDiplomatic;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 import static com.regions.simpleregions.util.DestinationCodePolandDiplomatic.*;
 
+@Log4j2
 @Data
 @Service
 public class PolandDiplomaticService {
@@ -30,6 +32,7 @@ public class PolandDiplomaticService {
     private String descriptionNotFound;
 
     public PolandDiplomaticModel getPolandPlatesByRegion(final String region) throws RegionNotFoundException {
+        log.info("Start method getPolandPlatesByRegion");
         Optional<PolandDiplomaticEntity> polandDiplomaticRegion = polandDiplomaticRepo.findByRegion(getFirstThreeSymbols(region));
 
         polandDiplomaticRegion.stream().filter(polandDiplomaticEntity -> polandDiplomaticEntity.getRegion().equalsIgnoreCase(getFirstThreeSymbols(region))).findFirst().orElseThrow(() ->
@@ -39,6 +42,7 @@ public class PolandDiplomaticService {
     }
 
     public List<PolandDiplomaticDescriptionModel> getPolandRegionByDescription(final String description) throws DescriptionNotFoundException {
+        log.info("Start method getPolandRegionByDescription");
         List<PolandDiplomaticEntity> polandEntityList = polandDiplomaticRepo.findByDescription(description);
         polandEntityList.stream().findAny().map(polandDiplomaticEntity -> polandDiplomaticEntity
                 .getDescription()
@@ -48,6 +52,7 @@ public class PolandDiplomaticService {
     }
 
     public Iterable<PolandDiplomaticEntity> getAllRegions() {
+        log.info("Start method getAllRegions");
         return polandDiplomaticRepo.findAll();
     }
 

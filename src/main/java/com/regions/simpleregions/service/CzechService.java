@@ -6,6 +6,7 @@ import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.CzechModel;
 import com.regions.simpleregions.respository.CzechRepo;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Service
 @Data
 public class CzechService {
@@ -26,6 +28,7 @@ public class CzechService {
     private String descriptionNotFound;
 
     public CzechModel getCzechPlatesByRegion(final String region) throws RegionNotFoundException {
+        log.info("Start method getCzechPlatesByRegion");
         Optional<CzechEntity> czechRegion = czechRepo.findByRegion(region);
         czechRegion.stream().filter(czechEntity -> czechEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
@@ -34,6 +37,7 @@ public class CzechService {
     }
 
     public List<CzechModel> getCzechPlatesRegionByDescription(final String description) throws DescriptionNotFoundException {
+        log.info("Start method getCzechPlatesRegionByDescription");
         List<CzechEntity> czechEntityList = czechRepo.findByDescription(description);
 
         czechEntityList.stream().findAny().map(czechEntity -> czechEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
@@ -43,6 +47,7 @@ public class CzechService {
     }
 
     public Iterable<CzechEntity> getAllRegions() {
+        log.info("Start method getAllRegions");
         return czechRepo.findAll();
     }
 }
