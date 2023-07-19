@@ -7,13 +7,13 @@ import com.regions.simpleregions.exception.UserException;
 import com.regions.simpleregions.model.CredentialsDto;
 import com.regions.simpleregions.model.UserMapper;
 import com.regions.simpleregions.respository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor
+@Data
 @Service
 public class UserService {
 
