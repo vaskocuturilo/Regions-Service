@@ -43,7 +43,7 @@ jobs:
       - name: Setup Gradle 7.*
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 7.1.1
+          gradle-version: 7.4.2
 
       - name: Build project.
         run: gradle clean test
