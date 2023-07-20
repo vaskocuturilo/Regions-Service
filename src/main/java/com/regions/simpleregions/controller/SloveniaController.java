@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @Log4j2
 @Data
 @RestController
@@ -20,7 +22,7 @@ public class SloveniaController {
     private final SloveniaService sloveniaService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getSloveniaPlatesRegionByNumber(final @PathVariable("region") String region) {
+    public ResponseEntity getSloveniaPlatesRegionByNumber(@Valid final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(sloveniaService.getSloveniaPlatesRegionByNumber(region));
         } catch (RegionNotFoundException | RuntimeException exception) {
@@ -30,7 +32,7 @@ public class SloveniaController {
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getSloveniaRegionByDescription(final @PathVariable("description") String description) {
+    public ResponseEntity getSloveniaRegionByDescription(@Valid final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(sloveniaService.getSloveniaRegionByDescription(description));
         } catch (DescriptionNotFoundException | RuntimeException exception) {

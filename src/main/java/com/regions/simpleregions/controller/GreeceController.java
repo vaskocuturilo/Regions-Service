@@ -9,6 +9,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Log4j2
 @Data
 @RestController
@@ -18,7 +20,7 @@ public class GreeceController {
     private final GreeceService greeceService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getGreecePlatesByRegion(final @PathVariable("region") String region) {
+    public ResponseEntity getGreecePlatesByRegion(@Valid final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(greeceService.getGreecePlatesByRegion(region));
         } catch (RegionNotFoundException | RuntimeException exception) {
@@ -28,7 +30,7 @@ public class GreeceController {
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getGreecePlatesByDescription(final @PathVariable("description") String description) {
+    public ResponseEntity getGreecePlatesByDescription(@Valid final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(greeceService.getGreecePlatesByDescription(description));
         } catch (DescriptionNotFoundException | RuntimeException exception) {
