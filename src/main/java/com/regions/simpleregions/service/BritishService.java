@@ -1,6 +1,5 @@
 package com.regions.simpleregions.service;
 
-import com.regions.simpleregions.util.Utils;
 import com.regions.simpleregions.entity.BritishAgeEntity;
 import com.regions.simpleregions.entity.BritishEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
@@ -17,6 +16,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.regions.simpleregions.util.Utils.getFirstTwoSymbols;
+import static com.regions.simpleregions.util.Utils.getLastTwoSymbols;
+
 @Log4j2
 @Data
 @Service
@@ -24,8 +26,6 @@ public class BritishService {
     private final BritishRepo britishRepo;
 
     private final BritishAgeRepo britishAgeRepo;
-
-    private Utils utils;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -35,14 +35,14 @@ public class BritishService {
 
     public BritishRegionModel getBritishPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getBritishPlatesByRegion");
-        Optional<BritishEntity> britishRegion = britishRepo.findByRegion(utils.getFirstTwoSymbols(region));
-        Optional<BritishAgeEntity> britishAgeEntity = britishAgeRepo.findByCode(utils.getLastTwoSymbols(region));
+        Optional<BritishEntity> britishRegion = britishRepo.findByRegion(getFirstTwoSymbols(region));
+        Optional<BritishAgeEntity> britishAgeEntity = britishAgeRepo.findByCode(getLastTwoSymbols(region));
 
-        if (!britishRegion.isPresent()) {
+        if (britishRegion.isEmpty()) {
             throw new RegionNotFoundException(String.format(regionNotFound, region));
         }
 
-        if (!britishAgeEntity.isPresent()) {
+        if (britishAgeEntity.isEmpty()) {
             throw new RegionNotFoundException(String.format(regionNotFound, region));
         }
 
