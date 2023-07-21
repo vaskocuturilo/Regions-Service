@@ -1,5 +1,6 @@
 package com.regions.simpleregions.service;
 
+import com.regions.simpleregions.util.Utils;
 import com.regions.simpleregions.entity.BritishAgeEntity;
 import com.regions.simpleregions.entity.BritishEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -25,6 +25,8 @@ public class BritishService {
 
     private final BritishAgeRepo britishAgeRepo;
 
+    private Utils utils;
+
     @Value("${notification.region.message}")
     private String regionNotFound;
 
@@ -33,8 +35,8 @@ public class BritishService {
 
     public BritishRegionModel getBritishPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getBritishPlatesByRegion");
-        Optional<BritishEntity> britishRegion = britishRepo.findByRegion(getFirstTwoSymbols(region));
-        Optional<BritishAgeEntity> britishAgeEntity = britishAgeRepo.findByCode(getLastTwoSymbols(region));
+        Optional<BritishEntity> britishRegion = britishRepo.findByRegion(utils.getFirstTwoSymbols(region));
+        Optional<BritishAgeEntity> britishAgeEntity = britishAgeRepo.findByCode(utils.getLastTwoSymbols(region));
 
         if (!britishRegion.isPresent()) {
             throw new RegionNotFoundException(String.format(regionNotFound, region));
@@ -54,19 +56,11 @@ public class BritishService {
         britishEntities.stream().findAny().map(britishEntity -> britishEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return britishEntities.stream().map(BritishDescriptionModel::toModelDescription).collect(Collectors.toList());
+        return britishEntities.stream().map(BritishDescriptionModel::toModelDescription).toList();
     }
 
     public Iterable<BritishEntity> getAllRegions() {
         log.info("Start method getAllRegions");
         return britishRepo.findAll();
-    }
-
-    private String getFirstTwoSymbols(String text) {
-        return text.length() < 2 ? text : text.substring(0, 2);
-    }
-
-    private String getLastTwoSymbols(String text) {
-        return text.substring(Math.max(text.length() - 2, 0));
     }
 }
