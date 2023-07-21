@@ -1,10 +1,11 @@
 package com.regions.simpleregions.util;
 
-import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.MissingFormatArgumentException;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,26 +22,10 @@ class DestinationCodeTest {
         assertThat(actualResult).isEqualTo(expectedResult);
     }
 
-    @Test
-    void checkEmptyDestinationCodeException() {
-        String destinationCode = "";
-        assertThrows(IllegalStateException.class, () -> {
-            this.destinationCode.getDestinationCode(destinationCode);
-        });
-    }
-
-    @Test
-    void checkBigNumbersDestinationCodeException() {
-        String destinationCode = "1234567890";
-        assertThrows(IllegalStateException.class, () -> {
-            this.destinationCode.getDestinationCode(destinationCode);
-        });
-    }
-
-    @Test
-    void checkSmallNumbersDestinationCodeException() {
-        String destinationCode = "12345";
-        assertThrows(IllegalStateException.class, () -> {
+    @ParameterizedTest
+    @ValueSource(strings = {"", "1234567890", "12345"})
+    void getLastThreeSymbolsExceptionsTest(String destinationCode) {
+        assertThrows(MissingFormatArgumentException.class, () -> {
             this.destinationCode.getDestinationCode(destinationCode);
         });
     }

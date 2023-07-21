@@ -3,13 +3,12 @@ package com.regions.simpleregions.util;
 import lombok.experimental.UtilityClass;
 
 import static com.regions.simpleregions.util.DestinationCodePolandDiplomatic.*;
+import static com.regions.simpleregions.util.Utils.getLastThreeSymbols;
 
 @UtilityClass
 public class DestinationCode {
-    private Utils utils;
-
-    public String getDestinationCode(String destinationCode) {
-        Integer number = Integer.parseInt(utils.getLastThreeSymbols(destinationCode));
+    public static String getDestinationCode(String destinationCode) {
+        Integer number = Integer.parseInt(getLastThreeSymbols(destinationCode));
         switch (DestinationCodePolandDiplomatic.from(number)) {
             case PRIVATE_VEHICLES:
                 destinationCode = PRIVATE_VEHICLES.toString();

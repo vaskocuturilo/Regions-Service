@@ -6,8 +6,6 @@ import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.PolandDiplomaticDescriptionModel;
 import com.regions.simpleregions.model.PolandDiplomaticModel;
 import com.regions.simpleregions.respository.PolandDiplomaticRepo;
-import com.regions.simpleregions.util.DestinationCode;
-import com.regions.simpleregions.util.Utils;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,16 +14,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.regions.simpleregions.util.DestinationCode.getDestinationCode;
+import static com.regions.simpleregions.util.Utils.getFirstThreeSymbols;
+
 @Log4j2
 @Data
 @Service
 public class PolandDiplomaticService {
 
     private final PolandDiplomaticRepo polandDiplomaticRepo;
-
-    private Utils utils;
-
-    private DestinationCode destinationCode;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -36,16 +33,16 @@ public class PolandDiplomaticService {
     public PolandDiplomaticModel getPolandPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getPolandPlatesByRegion");
 
-        Optional<PolandDiplomaticEntity> polandDiplomaticRegion = polandDiplomaticRepo.findByRegion(utils.getFirstThreeSymbols(region));
+        Optional<PolandDiplomaticEntity> polandDiplomaticRegion = polandDiplomaticRepo.findByRegion(getFirstThreeSymbols(region));
 
         polandDiplomaticRegion.stream().filter(polandDiplomaticEntity -> polandDiplomaticEntity
                         .getRegion()
-                        .equalsIgnoreCase(utils.getFirstThreeSymbols(region)))
+                        .equalsIgnoreCase(getFirstThreeSymbols(region)))
                 .findFirst()
                 .orElseThrow(() ->
                         new RegionNotFoundException(String.format(regionNotFound, region)));
 
-        final String test = destinationCode.getDestinationCode(region);
+        final String test = getDestinationCode(region);
 
         return PolandDiplomaticModel.toModel(polandDiplomaticRegion, test);
     }

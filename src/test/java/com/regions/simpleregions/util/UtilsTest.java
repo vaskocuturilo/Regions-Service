@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.MissingFormatArgumentException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -20,7 +22,7 @@ class UtilsTest {
     @ParameterizedTest
     @ValueSource(strings = {"", "123", "123456"})
     void getFirstSymbolsExceptionsTest(String testValue) {
-        assertThrows(IllegalStateException.class, () -> {
+        assertThrows(MissingFormatArgumentException.class, () -> {
             utils.getFirstTwoSymbols(testValue);
         });
     }
@@ -35,7 +37,7 @@ class UtilsTest {
     @ParameterizedTest
     @ValueSource(strings = {"", "123", "123456"})
     void getLastSymbolsExceptionsTest(String testValue) {
-        assertThrows(IllegalStateException.class, () -> {
+        assertThrows(MissingFormatArgumentException.class, () -> {
             utils.getLastTwoSymbols(testValue);
         });
     }
@@ -50,7 +52,7 @@ class UtilsTest {
     @ParameterizedTest
     @ValueSource(strings = {"", "07614", "0761401"})
     void getFirstThreeSymbolsExceptionsTest(String testValue) {
-        assertThrows(IllegalStateException.class, () -> {
+        assertThrows(MissingFormatArgumentException.class, () -> {
             utils.getFirstThreeSymbols(testValue);
         });
     }
@@ -65,7 +67,7 @@ class UtilsTest {
     @ParameterizedTest
     @ValueSource(strings = {"", "07614", "0761401"})
     void getLastThreeSymbolsExceptionsTest(String testValue) {
-        assertThrows(IllegalStateException.class, () -> {
+        assertThrows(MissingFormatArgumentException.class, () -> {
             utils.getLastThreeSymbols(testValue);
         });
     }
