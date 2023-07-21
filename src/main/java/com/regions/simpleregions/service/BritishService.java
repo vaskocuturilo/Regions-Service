@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import static com.regions.simpleregions.util.Utils.getFirstTwoSymbols;
+import static com.regions.simpleregions.util.Utils.getLastTwoSymbols;
 
 @Log4j2
 @Data
@@ -36,11 +38,11 @@ public class BritishService {
         Optional<BritishEntity> britishRegion = britishRepo.findByRegion(getFirstTwoSymbols(region));
         Optional<BritishAgeEntity> britishAgeEntity = britishAgeRepo.findByCode(getLastTwoSymbols(region));
 
-        if (!britishRegion.isPresent()) {
+        if (britishRegion.isEmpty()) {
             throw new RegionNotFoundException(String.format(regionNotFound, region));
         }
 
-        if (!britishAgeEntity.isPresent()) {
+        if (britishAgeEntity.isEmpty()) {
             throw new RegionNotFoundException(String.format(regionNotFound, region));
         }
 
@@ -54,19 +56,11 @@ public class BritishService {
         britishEntities.stream().findAny().map(britishEntity -> britishEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return britishEntities.stream().map(BritishDescriptionModel::toModelDescription).collect(Collectors.toList());
+        return britishEntities.stream().map(BritishDescriptionModel::toModelDescription).toList();
     }
 
     public Iterable<BritishEntity> getAllRegions() {
         log.info("Start method getAllRegions");
         return britishRepo.findAll();
-    }
-
-    private String getFirstTwoSymbols(String text) {
-        return text.length() < 2 ? text : text.substring(0, 2);
-    }
-
-    private String getLastTwoSymbols(String text) {
-        return text.substring(Math.max(text.length() - 2, 0));
     }
 }

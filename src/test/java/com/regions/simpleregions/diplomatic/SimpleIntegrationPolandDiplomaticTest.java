@@ -101,7 +101,7 @@ class SimpleIntegrationPolandDiplomaticTest {
 
     @Test
     void getRegionHandle_whenExceptionPolandByRegion_thenStatus400() throws Exception {
-        String region = "600";
+        String region = "600001";
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/" + region)
                         .contentType(MediaType.APPLICATION_JSON)
