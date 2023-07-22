@@ -1,7 +1,57 @@
 import logo from './img/logo.jpg';
 import './App.css';
+import apiClient from "./http-common"
+import React, { useRef, useState } from "react";
 
 function App() {
+  const get_region = useRef(null);
+  const [getResult, setGetResult] = useState(null);
+
+  const fortmatResponse = (res) => {
+    return JSON.stringify(res, null, 2);
+  };
+
+  async function getAllData() {
+    try {
+      const res = await apiClient.get("/russia/plates/all");
+
+      const result = {
+        status: res.status + "-" + res.statusText,
+        headers: res.headers,
+        data: res.data,
+      };
+
+      setGetResult(fortmatResponse(result));
+    } catch (err) {
+      setGetResult(fortmatResponse(err.response?.data || err));
+    }
+  }
+
+  async function getDataByRegion() {
+    const region = get_region.current.value;
+
+    if (region) {
+      try {
+        const res = await apiClient.get(`/russia/plates/${region}`);
+
+        const result = {
+          data: res.data,
+          status: res.status,
+          statusText: res.statusText,
+          headers: res.headers,
+        };
+
+        setGetResult(fortmatResponse(result));
+      } catch (err) {
+        setGetResult(fortmatResponse(err.response?.data || err));
+      }
+    }
+  }
+
+  const clearGetOutput = () => {
+    setGetResult(null);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -68,14 +118,15 @@ function App() {
                 <option value="SE">🇸🇪&emsp;Sweden</option>
                 <option value="CH">🇨🇭&emsp;Switzerland</option>
             </select>
-            <div>
-          <label htmlFor="region">Region</label>
-          <input type="text" id="region" />
-
-          <label htmlFor="description">Description</label>
-          <input type="text" id="description" />
-        </div>
-
+            <div className="input-group input-group-sm">
+            <button className="btn btn-sm btn-primary" onClick={getAllData}>Get all regions</button>
+          </div>
+          <input type="text" ref={get_region} className="form-control ml-2" placeholder="region" />
+            <div className="input-group-append">
+              <button className="btn btn-sm btn-primary" onClick={getDataByRegion}>Get by region</button>
+            </div> 
+            <button className="btn btn-sm btn-warning ml-2" onClick={clearGetOutput}>Clear</button>
+            { getResult && <div className="alert alert-secondary mt-2" role="alert"><pre>{getResult}</pre></div> }  
       </form>
     </div>
   );
