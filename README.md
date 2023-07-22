@@ -34,14 +34,14 @@ You will need the following technologies available to try it out:
 - Will be adding functionality for search by region name, city, and district. :heavy_check_mark:
 - Will be adding functionality for parsing a car plate from an image.
 - Migrate Database for MySQL -> PostgreSQL.
-- Will be adding validation fields.
+- Will be adding validation fields. :heavy_check_mark:
 - Will be adding V2 (one controller, one service, one repository for all countries)
 - Will be adding UI (Countries field) :heavy_check_mark:
 - Will be adding JWT.
 - Will be adding a one-time password.
 - Will be adding docker-compose :heavy_check_mark:
 - Will be adding integration tests for each country. :heavy_check_mark:
-- Will be adding unit tests. 
+- Will be adding unit tests. :heavy_check_mark: 
 - Will be fixing Germany country. 
 - Will be fixing British country. :heavy_check_mark:
 - Will be adding functionality for deployment to AWS.
@@ -51,7 +51,7 @@ You will need the following technologies available to try it out:
 - Will be adding positive UI automation scripts (Smoke and Sanity) :heavy_check_mark: 
 - Will be adding negative UI automation scripts (Smoke and Sanity)
 - Will be adding migration from Spring boot v2.5.3 to v3.1.*
--  Will be adding Logging
+-  Will be adding Logging. :heavy_check_mark:
 
 ### Actuator
 
