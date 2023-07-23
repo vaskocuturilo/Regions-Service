@@ -32,11 +32,17 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: |
           npm ci --force
-          npm run build --if-present
-          npm test
+
+      - uses: actions/checkout@v1
+      - name: Setup react app.
+        working-directory: ./frontend
+        run: |
+          npm start & npx wait-on http://localhost:3000
 
       - name: Run Cypress Smoke Tests
         uses: cypress-io/github-action@v4
+        working-directory: .
+        run: |
         with:
           command: npm run cypress:run:smoke:test -- --browser ${{ matrix.browser }}
           parallel: true
