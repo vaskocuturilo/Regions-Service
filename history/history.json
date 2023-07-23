@@ -1,1 +1,1 @@
-{"9bb934e9670bfe36f850a36cf4c1c2bf":{"statistic":{"failed":1,"broken":0,"skipped":0,"passed":0,"unknown":0,"total":1},"items":[{"uid":"3fb0b5c5deaee6e","reportUrl":"https://vaskocuturilo.github.io/Regions-Service/45//#testresult/3fb0b5c5deaee6e","status":"failed","statusDetails":"Timed out retrying after 4000ms: Expected to find element: `[data-cy=\"region_plates_input\"]`, but never found it.","time":{"start":1690138464763,"stop":1690138469145,"duration":4382}}]}}
+{}
