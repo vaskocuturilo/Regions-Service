@@ -39,15 +39,14 @@ jobs:
         run: |
           npm start & npx wait-on http://localhost:3000
 
+      - uses: cypress-io/github-action@v4
       - name: Run Cypress Smoke Tests
-        uses: cypress-io/github-action@v4
         working-directory: .
         run: |
           npm run cypress:run:smoke:test -- --browser ${{ matrix.browser }}
-          parallel: true
 
       - name: Run Cypress Sanity Tests
-        uses: cypress-io/github-action@v4
+      - uses: cypress-io/github-action@v4
         with:
           command: npm run cypress:run:sanity:test -- --browser ${{ matrix.browser }}
           parallel: true
