@@ -30,7 +30,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci --force
+        run: |
+          npm ci --force
+          npm start & npx wait-on http://localhost:3000
 
       - name: Run Cypress Smoke Tests
         uses: cypress-io/github-action@v4

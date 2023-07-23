@@ -40,9 +40,21 @@ export class MainPage {
         mainImage: () => cy.get('#countries_image').should('be.visible'),
         countryDropDown : () => cy.get('#countries_list').should('be.visible'),
         diplomaticCountryDropDown : () => cy.get('#countries_diplomatic_list').should('be.visible'),
-        inputCountries: () => cy.get('[name="countries"]').should('be.visible'),
-        uploadImage: () => cy.get('[for="file-input"]').should('be.visible'),
         
+        inputRegion: () => cy.get('[data-cy="region_plates_input"]').should('be.visible'),
+        inputDescription: () => cy.get('[data-cy="description_plates_input"]').should('be.visible'),
+        getAllRegionsButton: () => cy.get('[data-cy="get_all_plates_by_coutry_button"]').should('be.visible'),
+        getByRegionButton: () => cy.get('[data-cy="get_plates_by_region_button"]').should('be.visible'),
+        getByDescriptionButton: () => cy.get('[data-cy="get_plates_by_description_button"]').should('be.visible'),
+        
+        inputDiplomaticRegion: () => cy.get('[data-cy="region_diplomatic_plates_input"]').should('be.visible'),
+        inputDiplomaticDescription: () => cy.get('[data-cy="get_by_diplomatic_description_input"]').should('be.visible'),
+        getAllDiplomaticPlatesButton: () => cy.get('[data-cy="get_all_diplomatic_plates_by_coutry_button"]').should('be.visible'),
+        getDiplomaticByRegionButton: () => cy.get('[data-cy="get_diplomatic_plates_by_region_button"]').should('be.visible'),
+        getDiplomaticByDescriptionButton: () => cy.get('[data-cy="get_diplomatic_plates_by_description"]').should('be.visible'),
+        
+        clearButton: () => cy.get('[data-cy="clear_button"]').should('be.visible'),
+        uploadImage: () => cy.get('[for="file-input"]').should('be.visible')
     } 
 
     checkMainPageElementsAppears() {
@@ -50,8 +62,17 @@ export class MainPage {
         this.elements.mainImage();
         this.elements.countryDropDown();
         this.elements.diplomaticCountryDropDown();
-        this.elements.inputCountries();
-        this.elements.uploadImage();
+        this.elements.inputRegion();
+        this.elements.inputDescription();
+        this.elements.getAllRegionsButton();
+        this.elements.getByRegionButton();
+        this.elements.getByDescriptionButton();
+
+        this.elements.inputDiplomaticRegion();
+        this.elements.inputDiplomaticDescription();
+        this.elements.getAllDiplomaticPlatesButton();
+        this.elements.getDiplomaticByRegionButton();
+        this.elements.getDiplomaticByDescriptionButton();
     }
 
     checkAppearsCountriesInDropDown() {

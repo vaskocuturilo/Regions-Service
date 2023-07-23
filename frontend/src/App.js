@@ -84,7 +84,7 @@ let diplomaticImages = {
     return JSON.stringify(res, null, 2);
   };
 
-  async function getAllSimplePlates() {
+  async function getAllPlates() {
     try {
       const res = await apiClient.get(`/${plates}/plates/all`);
 
@@ -124,7 +124,7 @@ let diplomaticImages = {
     }
   }
 
-  async function getSimplePlatesByRegion() {
+  async function getPlatesByRegion() {
     const region = get_by_region.current.value;
 
     if (region) {
@@ -174,7 +174,7 @@ let diplomaticImages = {
     }
   }
 
-  async function getSimplePlatesByDescription() {
+  async function getPlatesByDescription() {
     const description = get_by_description.current.value;
 
     if (description) {
@@ -309,16 +309,16 @@ let diplomaticImages = {
       <div className="card">
         <div className="card-body">
           <div className="input-group input-group-sm">
-            <button className="btn btn-sm btn-primary" onClick={getAllSimplePlates} data-cy="get_all_plates_by_coutry_button">Get all plates by country</button>
+            <button className="btn btn-sm btn-primary" onClick={getAllPlates} data-cy="get_all_plates_by_coutry_button">Get all plates by country</button>
             <input type="text" ref={get_by_region} className="form-control ml-2" placeholder="Region" data-cy="region_plates_input"/>
             <br/>
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" onClick={getSimplePlatesByRegion} data-cy="get_plates_by_region_button">Get country by region</button>
+              <button className="btn btn-sm btn-primary" onClick={getPlatesByRegion} data-cy="get_plates_by_region_button">Get country by region</button>
             </div>
             <br/>
             <input type="text" ref={get_by_description} className="form-control ml-2" placeholder="Description" data-cy="description_plates_input"/>
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" onClick={getSimplePlatesByDescription} data-cy="get_plates_by_description_button">Get country by description</button>
+              <button className="btn btn-sm btn-primary" onClick={getPlatesByDescription} data-cy="get_plates_by_description_button">Get country by description</button>
             </div>
             <br/>
             <button className="btn btn-sm btn-warning ml-2" onClick={clearGetOutput} data-cy="clear_button">Clear</button>
