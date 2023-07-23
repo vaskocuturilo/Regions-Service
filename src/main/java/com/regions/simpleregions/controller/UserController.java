@@ -6,13 +6,14 @@ import com.regions.simpleregions.model.CredentialsDto;
 import com.regions.simpleregions.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.net.URI;
-
+@CrossOrigin("http://localhost:3000/")
 @RequiredArgsConstructor
 @RestController
 public class UserController {
