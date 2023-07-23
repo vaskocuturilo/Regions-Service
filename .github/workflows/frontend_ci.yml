@@ -43,8 +43,7 @@ jobs:
         uses: cypress-io/github-action@v4
         working-directory: .
         run: |
-        with:
-          command: npm run cypress:run:smoke:test -- --browser ${{ matrix.browser }}
+          npm run cypress:run:smoke:test -- --browser ${{ matrix.browser }}
           parallel: true
 
       - name: Run Cypress Sanity Tests
