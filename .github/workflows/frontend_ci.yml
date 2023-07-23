@@ -32,7 +32,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: |
           npm ci --force
-          npm start & npx wait-on http://localhost:3000
+          npm start 
+          npx wait-on http://127.0.0.1:3000
 
       - name: Run Cypress Smoke Tests
         uses: cypress-io/github-action@v4
