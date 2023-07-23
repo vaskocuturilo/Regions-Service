@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"failed","Sun Jul 23 18:54:24 GMT 2023","Sun Jul 23 18:54:29 GMT 2023","4382","","Testing main page for application regions","","","","This is simple test for check main page",""
