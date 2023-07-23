@@ -34,9 +34,9 @@ jobs:
           npm ci --force
 
       - uses: actions/checkout@v1
-      - name: Setup react app.
-        working-directory: ./frontend
+      - name: Setup react app
         run: |
+        working-directory: ./frontend
           npm start & npx wait-on http://localhost:3000
 
       - name: Run Cypress Smoke Tests
