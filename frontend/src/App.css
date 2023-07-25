@@ -70,4 +70,14 @@ h3, label {
   transition: all 0.3s;
 }
 
+.text-area {
+  resize: none;
+  overflow: hidden;
+  min-height: 30px;
+}
+
+#app {
+  max-width: 600px;
+}
+
 

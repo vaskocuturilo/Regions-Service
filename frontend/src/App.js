@@ -1,4 +1,3 @@
-import logo from './img/logo.jpg';
 import './App.css';
 import React, { useRef, useState } from "react";
 import apiClient from "./http-common";
@@ -83,46 +82,6 @@ let diplomaticImages = {
   const fortmatResponse = (res) => {
     return JSON.stringify(res, null, 2);
   };
-
-  async function getAllPlates() {
-    try {
-      const res = await apiClient.get(`/${plates}/plates/all`);
-
-      const result = {
-        status: res.status + "-" + res.statusText,
-        headers: res.headers,
-        data: res.data,
-      };
-
-      setGetResult(fortmatResponse(result));
-    } catch (err) {
-      if (!err?.response) {
-       alert("No Server Response");
-       return;
-    }
-      setGetResult(fortmatResponse(err.response?.data || err));
-    }
-  }
-
-  async function getAllDiplomaticPlates() {
-    try {
-      const res = await apiClient.get(`/${diplomatic}/diplomatic/plates/all`);
-
-      const result = {
-        status: res.status + "-" + res.statusText,
-        headers: res.headers,
-        data: res.data,
-      };
-
-      setGetResult(fortmatResponse(result));
-    } catch (err) {
-      if (!err?.response) {
-       alert("No Server Response");
-       return;
-    }
-      setGetResult(fortmatResponse(err.response?.data || err));
-    }
-  }
 
   async function getPlatesByRegion() {
     const region = get_by_region.current.value;
@@ -239,12 +198,12 @@ let diplomaticImages = {
     document.getElementById('countries_image').src = diplomaticImages[element.value];
     setDiplomatic(e.target.value);
   };
-   
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} id="countries_image" data-cy="main_image"/>
-      </header>
+      <img id="countries_image"
+                     src="https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA="
+                     class="center"/>
       <div class="col-lg-12 login-title">
                 <p class="center">Countries:</p>
                 <select value= {plates} name="countries_plates" id="countries_list"
@@ -305,50 +264,56 @@ let diplomaticImages = {
                 <option value="sweden">🇸🇪&emsp;Sweden</option>
                 <option value="switzerland">🇨🇭&emsp;Switzerland</option>
             </select>
+            <br/>
+            <br/>
+            <br/>
       <div id="app" className="container">
       <div className="card">
+      <div className="card-header">Countries:</div>
         <div className="card-body">
           <div className="input-group input-group-sm">
-            <button className="btn btn-sm btn-primary" onClick={getAllPlates} data-cy="get_all_plates_by_coutry_button">Get all plates by country</button>
             <input type="text" ref={get_by_region} className="form-control ml-2" placeholder="Region" data-cy="region_plates_input"/>
-            <br/>
+
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" onClick={getPlatesByRegion} data-cy="get_plates_by_region_button">Get country by region</button>
-            </div>
-            <br/>
+              <button className="btn btn-sm btn-primary" onClick={getPlatesByRegion} data-cy="get_plates_by_region_button">By Region</button>
+              </div>
+      
             <input type="text" ref={get_by_description} className="form-control ml-2" placeholder="Description" data-cy="description_plates_input"/>
+            
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" onClick={getPlatesByDescription} data-cy="get_plates_by_description_button">Get country by description</button>
+              <button className="btn btn-sm btn-primary" onClick={getPlatesByDescription} data-cy="get_plates_by_description_button">By description</button>
             </div>
-            <br/>
-            <button className="btn btn-sm btn-warning ml-2" onClick={clearGetOutput} data-cy="clear_button">Clear</button>
+            
           </div>   
-          { getResult && <div className="alert alert-secondary mt-2" role="alert" data-cy="add_result_for_plates"><pre>{getResult}</pre></div> }
         </div>
+        <button className="btn btn-sm btn-warning ml-2" onClick={clearGetOutput} data-cy="clear_button">Clear</button>
       </div>
-    </div>
+      { getResult && <div className="alert alert-secondary mt-2" role="alert"><pre>{getResult}</pre></div> }
     <br/>
     <br/>
     <div className="card">
+    <div className="card-header">Diplomatic:</div>
         <div className="card-body">
           <div className="input-group input-group-sm">
-            <button className="btn btn-sm btn-primary" onClick={getAllDiplomaticPlates} data-cy="get_all_diplomatic_plates_by_coutry_button">Get all diplomatic plates by country</button>
             <input type="text" ref={get_by_diplomatic_region} className="form-control ml-2" placeholder="Region" data-cy="region_diplomatic_plates_input"/>
             <br/>
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" onClick={getDiplomaticPlatesByRegion} data-cy="get_diplomatic_plates_by_region_button">Get diplomatic plates in country by region</button>
+              <button className="btn btn-sm btn-primary" onClick={getDiplomaticPlatesByRegion} data-cy="get_diplomatic_plates_by_region_button">By region</button>
             </div>
             <br/>
             <input type="text" ref={get_by_diplomatic_description} className="form-control ml-2" placeholder="Description" data-cy="get_by_diplomatic_description_input"/>
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" onClick={getDiplomaticPlatesByDescription} data-cy="get_diplomatic_plates_by_description">Get diplomatic plates in country by description</button>
+              <button className="btn btn-sm btn-primary" onClick={getDiplomaticPlatesByDescription} data-cy="get_diplomatic_plates_by_description">By description</button>
             </div>
             <br/>
           </div>   
         </div>
+        <button className="btn btn-sm btn-warning ml-2" onClick={clearGetOutput} data-cy="clear_button">Clear</button>
       </div>
-    </div>
-  );
+      { getResult && <div className="alert alert-secondary mt-2" role="alert"><pre>{getResult}</pre></div> }
+    </div>        
+ </div>
+ );
 }
 
 export default App;

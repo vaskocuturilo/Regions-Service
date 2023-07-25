@@ -64,13 +64,13 @@ export class MainPage {
         this.elements.diplomaticCountryDropDown();
         this.elements.inputRegion();
         this.elements.inputDescription();
-        this.elements.getAllRegionsButton();
+       
         this.elements.getByRegionButton();
         this.elements.getByDescriptionButton();
 
         this.elements.inputDiplomaticRegion();
         this.elements.inputDiplomaticDescription();
-        this.elements.getAllDiplomaticPlatesButton();
+       
         this.elements.getDiplomaticByRegionButton();
         this.elements.getDiplomaticByDescriptionButton();
     }
