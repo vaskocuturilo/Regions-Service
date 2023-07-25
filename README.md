@@ -51,7 +51,8 @@ You will need the following technologies available to try it out:
 - Will be adding positive UI automation scripts (Smoke and Sanity) :heavy_check_mark: 
 - Will be adding negative UI automation scripts (Smoke and Sanity)
 - Will be adding migration from Spring boot v2.5.3 to v3.1.*
--  Will be adding Logging. :heavy_check_mark:
+- Will be adding Logging. :heavy_check_mark:
+- Will be adding user controller :heavy_check_mark:
 
 ### Actuator
 
