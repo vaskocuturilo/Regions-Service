@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -31,7 +30,7 @@ public class LithuaniaDiplomaticService {
         log.info("Start method getLithuaniaDiplomaticPlatesByRegion");
         Optional<LithuaniaDiplomaticEntity> lithuaniaRegion = lithuaniaDiplomaticRepo.findByRegion(region);
 
-        lithuaniaRegion.stream().filter(lithuaniaEntity -> lithuaniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        lithuaniaRegion.stream().parallel().filter(lithuaniaEntity -> lithuaniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return LithuaniaDiplomaticModel.toModelByRegion(lithuaniaRegion);
@@ -41,9 +40,9 @@ public class LithuaniaDiplomaticService {
         log.info("Start method getLithuaniaDiplomaticPlatesByDescription");
         List<LithuaniaDiplomaticEntity> lithuaniaEntityList = lithuaniaDiplomaticRepo.findByDescription(description);
 
-        lithuaniaEntityList.stream().findAny().map(lithuaniaEntity -> lithuaniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        lithuaniaEntityList.stream().parallel().findAny().map(lithuaniaEntity -> lithuaniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
-        return lithuaniaEntityList.stream().map(LithuaniaDiplomaticModel::toModelByDescription).collect(Collectors.toList());
+        return lithuaniaEntityList.stream().map(LithuaniaDiplomaticModel::toModelByDescription).toList();
     }
 
     public Iterable<LithuaniaDiplomaticEntity> getAllLithuaniaDiplomaticRegions() {

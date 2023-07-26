@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -31,7 +30,7 @@ public class HungaryService {
         log.info("Start method getHungaryPlatesByRegion");
         Optional<HungaryEntity> hungaryRegion = hungaryRepo.findByRegion(region);
 
-        hungaryRegion.stream().filter(hungaryEntity -> hungaryEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        hungaryRegion.stream().parallel().filter(hungaryEntity -> hungaryEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return HungaryModel.toModelByRegion(hungaryRegion);
@@ -41,10 +40,10 @@ public class HungaryService {
         log.info("Start method getHungaryPlatesByDescription");
         List<HungaryEntity> hungaryEntities = hungaryRepo.findByDescription(description);
 
-        hungaryEntities.stream().findAny().map(hungaryEntity -> hungaryEntity.getDescription()).orElseThrow(() ->
+        hungaryEntities.stream().parallel().findAny().map(hungaryEntity -> hungaryEntity.getDescription()).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(String.format(descriptionNotFound, description))));
 
-        return hungaryEntities.stream().map(HungaryModel::toModelByDescription).collect(Collectors.toList());
+        return hungaryEntities.stream().map(HungaryModel::toModelByDescription).toList();
     }
 
     public Iterable<HungaryEntity> getAllRegions() {

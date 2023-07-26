@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -31,7 +30,7 @@ public class TurkeyService {
         log.info("Start method getTurkeyPlatesByRegion");
         Optional<TurkeyEntity> turkeyRegion = turkeyRepo.findByRegion(region);
 
-        turkeyRegion.stream().filter(turkeyEntity -> turkeyEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        turkeyRegion.stream().parallel().filter(turkeyEntity -> turkeyEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return TurkeyModel.toModelByRegion(turkeyRegion);
@@ -41,10 +40,10 @@ public class TurkeyService {
         log.info("Start method getTurkeyPlatesByDescription");
         List<TurkeyEntity> turkeyEntityList = turkeyRepo.findByDescription(description);
 
-        turkeyEntityList.stream().findAny().map(turkeyEntity -> turkeyEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        turkeyEntityList.stream().parallel().findAny().map(turkeyEntity -> turkeyEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return turkeyEntityList.stream().map(TurkeyModel::toModelByDescription).collect(Collectors.toList());
+        return turkeyEntityList.stream().map(TurkeyModel::toModelByDescription).toList();
     }
 
     public Iterable<TurkeyEntity> getAllRegions() {

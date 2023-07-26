@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -30,7 +29,7 @@ public class GreeceService {
         log.info("Start method getGreecePlatesByRegion");
         Optional<GreeceEntity> greeceRegionExist = greeceRepo.findByRegion(region);
 
-        greeceRegionExist.stream().filter(greeceEntity -> greeceEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        greeceRegionExist.stream().parallel().filter(greeceEntity -> greeceEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return GreeceModel.toModelByRegion(greeceRegionExist);
@@ -40,11 +39,11 @@ public class GreeceService {
         log.info("Start method getGreecePlatesByDescription");
         List<GreeceEntity> greeceEntityList = greeceRepo.findByDescription(description);
 
-        greeceEntityList.stream().findAny().map(greeceEntity -> greeceEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        greeceEntityList.stream().parallel().findAny().map(greeceEntity -> greeceEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
 
-        return greeceEntityList.stream().map(GreeceModel::toModelByDescription).collect(Collectors.toList());
+        return greeceEntityList.stream().map(GreeceModel::toModelByDescription).toList();
     }
 
     public Iterable<GreeceEntity> getAllRegions() {

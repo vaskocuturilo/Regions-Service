@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -29,7 +28,7 @@ public class ItalianDiplomaticService {
     public ItalianDiplomaticModel getItalianDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getItalianDiplomaticPlatesByRegion");
         Optional<ItalianDiplomaticEntity> italianRegion = italianDiplomaticRepo.findByRegion(region);
-        italianRegion.stream().filter(italianEntity -> italianEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        italianRegion.stream().parallel().filter(italianEntity -> italianEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return ItalianDiplomaticModel.toModel(italianRegion);
@@ -38,10 +37,10 @@ public class ItalianDiplomaticService {
     public List<ItalianDiplomaticModel> getItalianDiplomaticPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getItalianDiplomaticPlatesByDescription");
         List<ItalianDiplomaticEntity> italianEntityList = italianDiplomaticRepo.findByDescription(description);
-        italianEntityList.stream().findAny().map(italianEntity -> italianEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        italianEntityList.stream().parallel().findAny().map(italianEntity -> italianEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return italianEntityList.stream().map(ItalianDiplomaticModel::toDescription).collect(Collectors.toList());
+        return italianEntityList.stream().map(ItalianDiplomaticModel::toDescription).toList();
     }
 
     public Iterable<ItalianDiplomaticEntity> getAllRegions() {

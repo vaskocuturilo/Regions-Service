@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -31,7 +30,7 @@ public class UzbekistanService {
         Optional<UzbekistanEntity> uzbekistanRegion = uzbekistanRepo.findByRegion(region);
 
         uzbekistanRegion
-                .stream()
+                .stream().parallel()
                 .filter(uzbekistanEntity -> uzbekistanEntity.getRegion().equalsIgnoreCase(region))
                 .findFirst().orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region)));
 
@@ -43,11 +42,11 @@ public class UzbekistanService {
         List<UzbekistanEntity> uzbekistanEntityList = uzbekistanRepo.findByDescription(description);
 
         uzbekistanEntityList
-                .stream()
+                .stream().parallel()
                 .map(uzbekistanEntity -> uzbekistanEntity.getDescription().equalsIgnoreCase(description))
                 .findAny().orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return uzbekistanEntityList.stream().map(UzbekistanModel::toModelByDescription).collect(Collectors.toList());
+        return uzbekistanEntityList.stream().map(UzbekistanModel::toModelByDescription).toList();
     }
 
     public Iterable<UzbekistanEntity> getAllRegions() {

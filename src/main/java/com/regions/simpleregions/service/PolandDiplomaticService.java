@@ -35,7 +35,7 @@ public class PolandDiplomaticService {
 
         Optional<PolandDiplomaticEntity> polandDiplomaticRegion = polandDiplomaticRepo.findByRegion(getFirstThreeSymbols(region));
 
-        polandDiplomaticRegion.stream().filter(polandDiplomaticEntity -> polandDiplomaticEntity
+        polandDiplomaticRegion.stream().parallel().filter(polandDiplomaticEntity -> polandDiplomaticEntity
                         .getRegion()
                         .equalsIgnoreCase(getFirstThreeSymbols(region)))
                 .findFirst()
@@ -50,7 +50,7 @@ public class PolandDiplomaticService {
     public List<PolandDiplomaticDescriptionModel> getPolandRegionByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getPolandRegionByDescription");
         List<PolandDiplomaticEntity> polandEntityList = polandDiplomaticRepo.findByDescription(description);
-        polandEntityList.stream().findAny().map(polandDiplomaticEntity -> polandDiplomaticEntity
+        polandEntityList.stream().parallel().findAny().map(polandDiplomaticEntity -> polandDiplomaticEntity
                 .getDescription()
                 .equalsIgnoreCase(description)).orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 

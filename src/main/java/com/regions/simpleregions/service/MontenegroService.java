@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -31,7 +30,7 @@ public class MontenegroService {
         log.info("Start method getMontenegroPlatesByRegion");
         Optional<MontenegroEntity> montenegroRegion = montenegroRepo.findByRegion(region);
 
-        Optional.ofNullable(montenegroRegion.stream().filter(montenegroEntity -> montenegroEntity.getRegion().equalsIgnoreCase(region))
+        Optional.ofNullable(montenegroRegion.stream().parallel().filter(montenegroEntity -> montenegroEntity.getRegion().equalsIgnoreCase(region))
                 .findFirst()
                 .orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region))));
 
@@ -42,13 +41,13 @@ public class MontenegroService {
         log.info("Start method getMontenegroPlatesByDescription");
         List<MontenegroEntity> montenegroEntityList = montenegroRepo.findByDescription(description);
 
-        montenegroEntityList.stream().map(montenegroEntity -> montenegroEntity
+        montenegroEntityList.stream().parallel().map(montenegroEntity -> montenegroEntity
                         .getDescription()
                         .equalsIgnoreCase(description))
                 .findAny()
                 .orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return montenegroEntityList.stream().map(MontenegroModel::toModelByDescription).collect(Collectors.toList());
+        return montenegroEntityList.stream().map(MontenegroModel::toModelByDescription).toList();
     }
 
     public Iterable<MontenegroEntity> getAllRegions() {

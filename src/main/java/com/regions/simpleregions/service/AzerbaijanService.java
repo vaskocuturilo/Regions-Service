@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -30,7 +29,7 @@ public class AzerbaijanService {
     public AzerbaijanModel getAzerbaijanPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getAzerbaijanPlatesByRegion");
         Optional<AzerbaijanEntity> azerbaijanRegion = azerbaijanRepo.findByRegion(region);
-        azerbaijanRegion.stream().filter(azerbaijanEntity -> azerbaijanEntity
+        azerbaijanRegion.stream().parallel().filter(azerbaijanEntity -> azerbaijanEntity
                         .getRegion()
                         .equalsIgnoreCase(region))
                 .findFirst().orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region)));
@@ -42,11 +41,11 @@ public class AzerbaijanService {
         log.info("Start method getAzerbaijanPlatesByDescription");
         List<AzerbaijanEntity> azerbaijanEntities = azerbaijanRepo.findByDescription(description);
 
-        azerbaijanEntities.stream().findAny().map(azerbaijanEntity -> azerbaijanEntity
+        azerbaijanEntities.stream().parallel().findAny().map(azerbaijanEntity -> azerbaijanEntity
                 .getDescription()
                 .equalsIgnoreCase(description)).orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return azerbaijanEntities.stream().map(AzerbaijanModel::toModelDescription).collect(Collectors.toList());
+        return azerbaijanEntities.stream().map(AzerbaijanModel::toModelDescription).toList();
     }
 
     public Iterable<AzerbaijanEntity> getAllRegions() {

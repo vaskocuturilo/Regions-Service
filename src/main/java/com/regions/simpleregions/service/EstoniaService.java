@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -31,7 +30,7 @@ public class EstoniaService {
         log.info("Start method getEstoniaDiplomaticPlatesByRegion");
         Optional<EstoniaEntity> estoniaRegion = estoniaRepo.findByRegion(region);
 
-        estoniaRegion.stream().filter(estoniaEntity -> estoniaEntity.getRegion().equals(region)).findFirst().orElseThrow(() ->
+        estoniaRegion.stream().parallel().filter(estoniaEntity -> estoniaEntity.getRegion().equals(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return EstoniaModel.toModelByRegion(estoniaRegion);
@@ -41,10 +40,10 @@ public class EstoniaService {
         log.info("Start method getEstoniaDiplomaticPlatesRegionByDescription");
         List<EstoniaEntity> estoniaEntityList = estoniaRepo.findByDescription(description);
 
-        estoniaEntityList.stream().findAny().map(estoniaEntity -> estoniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        estoniaEntityList.stream().parallel().findAny().map(estoniaEntity -> estoniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return estoniaEntityList.stream().map(EstoniaModel::toModelByDescription).collect(Collectors.toList());
+        return estoniaEntityList.stream().map(EstoniaModel::toModelByDescription).toList();
     }
 
     public Iterable<EstoniaEntity> getAllRegions() {

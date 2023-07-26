@@ -53,7 +53,7 @@ public class BritishService {
         log.info("Start method getBritishPlatesByDescription");
         List<BritishEntity> britishEntities = britishRepo.findByDescription(description);
 
-        britishEntities.stream().findAny().map(britishEntity -> britishEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        britishEntities.parallelStream().findAny().map(britishEntity -> britishEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
         return britishEntities.stream().map(BritishDescriptionModel::toModelDescription).toList();

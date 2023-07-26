@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -29,7 +28,7 @@ public class AustriaDiplomaticService {
     public AustriaDiplomaticModel getAustriaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getAustriaPlatesByRegion");
         Optional<AustriaDiplomaticEntity> austriaRegion = austriaDiplomaticRepo.findByRegion(region);
-        austriaRegion.stream().filter(austriaDiplomaticEntity -> austriaDiplomaticEntity
+        austriaRegion.stream().parallel().filter(austriaDiplomaticEntity -> austriaDiplomaticEntity
                         .getRegion()
                         .equalsIgnoreCase(region))
                 .findFirst()
@@ -47,7 +46,7 @@ public class AustriaDiplomaticService {
                         .equalsIgnoreCase(description))
                 .orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return austriaDiplomaticEntityList.stream().map(AustriaDiplomaticModel::toModelDescription).collect(Collectors.toList());
+        return austriaDiplomaticEntityList.stream().parallel().map(AustriaDiplomaticModel::toModelDescription).toList();
     }
 
     public Iterable<AustriaDiplomaticEntity> getAllRegions() {

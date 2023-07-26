@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -30,7 +29,7 @@ public class ArmeniaService {
     public ArmeniaModel getArmeniaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getArmeniaPlatesByRegion");
         Optional<ArmeniaEntity> armeniaRegion = armeniaRepo.findByRegion(region);
-        armeniaRegion.stream().filter(armeniaEntity -> armeniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        armeniaRegion.stream().parallel().filter(armeniaEntity -> armeniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return ArmeniaModel.toModelRegion(armeniaRegion);
@@ -39,10 +38,10 @@ public class ArmeniaService {
     public List<ArmeniaModel> getArmeniaPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getArmeniaPlatesByDescription");
         List<ArmeniaEntity> armeniaEntityList = armeniaRepo.findByDescription(description);
-        armeniaEntityList.stream().findAny().map(armeniaEntity -> armeniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        armeniaEntityList.stream().parallel().findAny().map(armeniaEntity -> armeniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return armeniaEntityList.stream().map(ArmeniaModel::toModelDescription).collect(Collectors.toList());
+        return armeniaEntityList.stream().map(ArmeniaModel::toModelDescription).toList();
     }
 
     public Iterable<ArmeniaEntity> getAllRegions() {
