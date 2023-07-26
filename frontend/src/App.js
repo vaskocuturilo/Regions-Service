@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useRef, useState } from "react";
 import apiClient from "./http-common";
+import logo from './img/upload.png'
 
 function App() {
 
@@ -44,7 +45,7 @@ let diplomaticImages = {
   "None": "https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA=",
   "austria": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Austria_diplomatic_license_plate_WD-14021.jpg/1024px-Austria_diplomatic_license_plate_WD-14021.jpg",
   "germany": "https://www.tuningblog.eu/wp-content/uploads/2020/07/diplomatenkennzeichen-deutschland-17-CD-147-1.jpg",
-  "poland": "/img/poland-dyplomatyczn.png",
+  "poland": "./img/poland-dyplomatyczn.png",
   "croatia": "https://licenseplatemania.com/fotos/kroatie/kroatie36.jpg",
   "estonia": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Estonia_diplomatic_license_plate_CD_European_standard.jpg",
   "france": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/French_diplomatic_license_plate.jpg/1024px-French_diplomatic_license_plate.jpg",
@@ -199,13 +200,44 @@ let diplomaticImages = {
     setDiplomatic(e.target.value);
   };
 
+  window.addEventListener('load', function () {
+    document.querySelector('input[type="file"]').addEventListener('change', function () {
+        if (this?.files && this?.files[0]) {
+            let img = document.querySelector('img');
+            img.onload = () => {
+                URL.revokeObjectURL(img.src);
+            }
+            img.src = URL.createObjectURL(this.files[0]);
+        }
+    });
+});
+
   return (
     <div className="App">
+      <div>
+    <nav role='navigation'>
+        <div id="menuToggle">
+            <input type="checkbox"/>
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul id="menu">
+                <a href="/logout">
+                    <li>Logout</li>
+                </a>
+                <a href="/api/v1/users/all">
+                    <li>Admin</li>
+                </a>
+            </ul>
+        </div>
+    </nav>
+</div>
       <img id="countries_image"
                      src="https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA="
                      class="center"/>
       <div class="col-lg-12 login-title">
-                <p class="center">Countries:</p>
+      <div role="alert" class="center alert alert-info mt-2"> Please choose any country first </div>
+                <p class="center">Plates:</p>
                 <select value= {plates} name="countries_plates" id="countries_list"
                         onChange={simplePlates}
                         class="form__input center" ref={ref} data-cy="countries_drop_down">
@@ -244,7 +276,7 @@ let diplomaticImages = {
                     <option value="uzbekistan">🇺🇿&emsp;Uzbekistan</option>
                 </select>
             </div>
-            <p class="center">Diplomatic:</p>
+            <p class="center">Diplomatic plates:</p>
             <select value= {diplomatic} name="diplomatic_plates" id="countries_diplomatic_list"
             onChange={diplomaticPlates}
                     class="form__input center" ref={dip} data-cy="diplomatic_drop_down">
@@ -269,49 +301,56 @@ let diplomaticImages = {
             <br/>
       <div id="app" className="container">
       <div className="card">
-      <div className="card-header">Countries:</div>
+      <div className="card-header">Plates:</div>
         <div className="card-body">
           <div className="input-group input-group-sm">
             <input type="text" ref={get_by_region} className="form-control ml-2" placeholder="Region" data-cy="region_plates_input"/>
 
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" onClick={getPlatesByRegion} data-cy="get_plates_by_region_button">By Region</button>
+              <button className="btn btn-sm btn-primary" disabled = "disabled" onClick={getPlatesByRegion} data-cy="get_plates_by_region_button">By Region</button>
               </div>
       
             <input type="text" ref={get_by_description} className="form-control ml-2" placeholder="Description" data-cy="description_plates_input"/>
             
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" onClick={getPlatesByDescription} data-cy="get_plates_by_description_button">By description</button>
+              <button className="btn btn-sm btn-primary" disabled = "disabled" onClick={getPlatesByDescription} data-cy="get_plates_by_description_button">By description</button>
             </div>
             
           </div>   
         </div>
-        <button className="btn btn-sm btn-warning ml-2" onClick={clearGetOutput} data-cy="clear_button">Clear</button>
+        <button className="btn btn-primary" onClick={clearGetOutput} data-cy="clear_button">Clear</button>
       </div>
       { getResult && <div className="alert alert-secondary mt-2" role="alert"><pre>{getResult}</pre></div> }
     <br/>
     <br/>
     <div className="card">
-    <div className="card-header">Diplomatic:</div>
+    <div className="card-header">Diplomatic plates:</div>
         <div className="card-body">
           <div className="input-group input-group-sm">
             <input type="text" ref={get_by_diplomatic_region} className="form-control ml-2" placeholder="Region" data-cy="region_diplomatic_plates_input"/>
             <br/>
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" onClick={getDiplomaticPlatesByRegion} data-cy="get_diplomatic_plates_by_region_button">By region</button>
+              <button className="btn btn-sm btn-primary" disabled = "disabled" onClick={getDiplomaticPlatesByRegion} data-cy="get_diplomatic_plates_by_region_button">By region</button>
             </div>
             <br/>
             <input type="text" ref={get_by_diplomatic_description} className="form-control ml-2" placeholder="Description" data-cy="get_by_diplomatic_description_input"/>
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" onClick={getDiplomaticPlatesByDescription} data-cy="get_diplomatic_plates_by_description">By description</button>
+              <button className="btn btn-sm btn-primary" disabled = "disabled" onClick={getDiplomaticPlatesByDescription} data-cy="get_diplomatic_plates_by_description">By description</button>
             </div>
             <br/>
           </div>   
         </div>
-        <button className="btn btn-sm btn-warning ml-2" onClick={clearGetOutput} data-cy="clear_button">Clear</button>
+        <button className="btn btn-primary" onClick={clearGetOutput} data-cy="clear_button">Clear</button>
       </div>
-      { getResult && <div className="alert alert-secondary mt-2" role="alert"><pre>{getResult}</pre></div> }
-    </div>        
+      { getResult && <div className="alert alert-info mt-2" role="alert"><pre>{getResult}</pre></div> }
+    </div>
+    <h3>Upload photo with car plate</h3>
+ <div class="image-upload">
+    <label for="file-input">
+    <img src={logo} alt={"logo"}/> 
+    </label>
+    <input id="file-input" type="file"/>
+     </div>    
  </div>
  );
 }
