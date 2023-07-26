@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -31,7 +30,7 @@ public class MoldovaService {
         log.info("Start method getMoldovaPlatesByRegion");
         Optional<MoldovaEntity> moldovaRegion = moldovaRepo.findByRegion(region);
 
-        Optional.ofNullable(moldovaRegion.stream().filter(moldovaEntity -> moldovaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        Optional.ofNullable(moldovaRegion.stream().parallel().filter(moldovaEntity -> moldovaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
 
                 new RegionNotFoundException(String.format(regionNotFound, region))));
 
@@ -42,10 +41,10 @@ public class MoldovaService {
         log.info("Start method getMoldovaPlatesByDescription");
         List<MoldovaEntity> moldovaEntityList = moldovaRepo.findByDescription(description);
 
-        moldovaEntityList.stream().map(moldovaEntity -> moldovaEntity.getDescription().equalsIgnoreCase(description)).findAny().orElseThrow(() ->
+        moldovaEntityList.stream().parallel().map(moldovaEntity -> moldovaEntity.getDescription().equalsIgnoreCase(description)).findAny().orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return moldovaEntityList.stream().map(MoldovaModel::toModelByDescription).collect(Collectors.toList());
+        return moldovaEntityList.stream().map(MoldovaModel::toModelByDescription).toList();
     }
 
     public Iterable<MoldovaEntity> getAllRegions() {

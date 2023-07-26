@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -32,7 +31,7 @@ public class SloveniaService {
         Optional<SloveniaEntity> sloveniaRegion = sloveniaRepo.findByRegion(region);
 
         Optional.ofNullable(sloveniaRegion
-                .stream()
+                .stream().parallel()
                 .filter(romaniaEntity -> romaniaEntity.getRegion().equalsIgnoreCase(region))
                 .findFirst()
                 .orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region))));
@@ -45,12 +44,12 @@ public class SloveniaService {
         List<SloveniaEntity> sloveniaEntityList = sloveniaRepo.findByDescription(description);
 
         sloveniaEntityList
-                .stream()
+                .stream().parallel()
                 .map(sloveniaEntity -> sloveniaEntity.getDescription().equalsIgnoreCase(description))
                 .findAny()
                 .orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return sloveniaEntityList.stream().map(SloveniaModel::toModelByDescription).collect(Collectors.toList());
+        return sloveniaEntityList.stream().map(SloveniaModel::toModelByDescription).toList();
     }
 
     public Iterable<SloveniaEntity> getAllRegions() {

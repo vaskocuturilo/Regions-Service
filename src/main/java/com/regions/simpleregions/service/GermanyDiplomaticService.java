@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -30,7 +29,7 @@ public class GermanyDiplomaticService {
     public GermanyDiplomaticModel getGermanPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getGermanPlatesByRegion");
         Optional<GermanyDiplomaticEntity> germanRegion = germanyDiplomaticRepo.findByRegion(region);
-        germanRegion.stream().filter(germanyDiplomaticEntity -> germanyDiplomaticEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        germanRegion.stream().parallel().filter(germanyDiplomaticEntity -> germanyDiplomaticEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return GermanyDiplomaticModel.toModelRegion(germanRegion);
@@ -40,12 +39,12 @@ public class GermanyDiplomaticService {
         log.info("Start method getGermanPlatesByDescription");
         List<GermanyDiplomaticEntity> germanyDiplomaticEntityList = germanyDiplomaticRepo.findByDescription(description);
 
-        germanyDiplomaticEntityList.stream().findAny().map(germanyDiplomaticEntity -> germanyDiplomaticEntity
+        germanyDiplomaticEntityList.stream().parallel().findAny().map(germanyDiplomaticEntity -> germanyDiplomaticEntity
                         .getDescription()
                         .equalsIgnoreCase(description))
                 .orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return germanyDiplomaticEntityList.stream().map(GermanyDiplomaticModel::toModelDescription).collect(Collectors.toList());
+        return germanyDiplomaticEntityList.stream().map(GermanyDiplomaticModel::toModelDescription).toList();
     }
 
     public Iterable<GermanyDiplomaticEntity> getAllRegions() {

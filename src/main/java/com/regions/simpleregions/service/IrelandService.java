@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -30,7 +29,7 @@ public class IrelandService {
         log.info("Start method getPlatesByRegion");
         Optional<IrelandEntity> irelandRegion = irelandRepo.findByRegion(region);
 
-        irelandRegion.stream().filter(irelandEntity -> irelandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        irelandRegion.stream().parallel().filter(irelandEntity -> irelandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return IrelandModel.toModelByRegion(irelandRegion);
@@ -40,10 +39,10 @@ public class IrelandService {
         log.info("Start method getPlatesByDescription");
         List<IrelandEntity> irelandEntityList = irelandRepo.findByDescription(description);
 
-        irelandEntityList.stream().findAny().map(irelandEntity -> irelandEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        irelandEntityList.stream().parallel().findAny().map(irelandEntity -> irelandEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return irelandEntityList.stream().map(IrelandModel::toModelByDescription).collect(Collectors.toList());
+        return irelandEntityList.stream().map(IrelandModel::toModelByDescription).toList();
     }
 
     public Iterable<IrelandEntity> getAllRegions() {

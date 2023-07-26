@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -30,7 +29,7 @@ public class KazakhstanService {
         log.info("Start method getPlatesByRegion");
         Optional<KazakhstanEntity> kazakhstanRegion = kazakhstanRepo.findByRegion(region);
 
-        kazakhstanRegion.stream().filter(kazakhstanEntity -> kazakhstanEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        kazakhstanRegion.stream().parallel().filter(kazakhstanEntity -> kazakhstanEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return KazakhstanModel.toModelRegion(kazakhstanRegion);
@@ -39,10 +38,10 @@ public class KazakhstanService {
     public List<KazakhstanModel> getPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getPlatesByDescription");
         List<KazakhstanEntity> kazakhstanEntityList = kazakhstanRepo.findByDescription(description);
-        kazakhstanEntityList.stream().findAny().map(kazakhstanEntity -> kazakhstanEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        kazakhstanEntityList.stream().parallel().findAny().map(kazakhstanEntity -> kazakhstanEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return kazakhstanEntityList.stream().map(KazakhstanModel::toModelDescription).collect(Collectors.toList());
+        return kazakhstanEntityList.stream().map(KazakhstanModel::toModelDescription).toList();
     }
 
     public Iterable<KazakhstanEntity> getAllRegions() {

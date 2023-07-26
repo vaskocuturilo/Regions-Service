@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -31,7 +30,7 @@ public class KosovoService {
         log.info("Start method getKosovoPlatesByRegion");
         Optional<KosovoEntity> kosovoRegion = kosovoRepo.findByRegion(region);
 
-        kosovoRegion.stream().filter(kosovoEntity -> kosovoEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        kosovoRegion.stream().parallel().filter(kosovoEntity -> kosovoEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return KosovoModel.toModelByRegion(kosovoRegion);
@@ -41,10 +40,10 @@ public class KosovoService {
         log.info("Start method getKosovoPlatesByDescription");
         List<KosovoEntity> kosovoEntityList = kosovoRepo.findByDescription(description);
 
-        kosovoEntityList.stream().findAny().map(kosovoEntity -> kosovoEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        kosovoEntityList.stream().parallel().findAny().map(kosovoEntity -> kosovoEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return kosovoEntityList.stream().map(KosovoModel::toModelByDescription).collect(Collectors.toList());
+        return kosovoEntityList.stream().map(KosovoModel::toModelByDescription).toList();
     }
 
     public Iterable<KosovoEntity> getAllRegions() {

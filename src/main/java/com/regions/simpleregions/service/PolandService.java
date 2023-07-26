@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -30,7 +29,7 @@ public class PolandService {
     public PolandModel getPolandPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getPolandPlatesByRegion");
         Optional<PolandEntity> polandRegion = polandRepo.findByRegion(region);
-        polandRegion.stream().filter(polandEntity -> polandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        polandRegion.stream().parallel().filter(polandEntity -> polandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return PolandModel.toModel(polandRegion);
@@ -39,10 +38,10 @@ public class PolandService {
     public List<PolandModel> getPolandPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getPolandPlatesByDescription");
         List<PolandEntity> polandEntityList = polandRepo.findByDescription(description);
-        polandEntityList.stream().findAny().map(polandEntity -> polandEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        polandEntityList.stream().parallel().findAny().map(polandEntity -> polandEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return polandEntityList.stream().map(PolandModel::toDescription).collect(Collectors.toList());
+        return polandEntityList.stream().map(PolandModel::toDescription).toList();
     }
 
     public Iterable<PolandEntity> getAllRegions() {

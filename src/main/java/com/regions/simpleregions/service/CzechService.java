@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -30,7 +29,7 @@ public class CzechService {
     public CzechModel getCzechPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getCzechPlatesByRegion");
         Optional<CzechEntity> czechRegion = czechRepo.findByRegion(region);
-        czechRegion.stream().filter(czechEntity -> czechEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        czechRegion.stream().parallel().filter(czechEntity -> czechEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return CzechModel.toModelRegion(czechRegion);
@@ -40,10 +39,10 @@ public class CzechService {
         log.info("Start method getCzechPlatesRegionByDescription");
         List<CzechEntity> czechEntityList = czechRepo.findByDescription(description);
 
-        czechEntityList.stream().findAny().map(czechEntity -> czechEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        czechEntityList.stream().parallel().findAny().map(czechEntity -> czechEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return czechEntityList.stream().map(CzechModel::toModelDescription).collect(Collectors.toList());
+        return czechEntityList.stream().map(CzechModel::toModelDescription).toList();
     }
 
     public Iterable<CzechEntity> getAllRegions() {

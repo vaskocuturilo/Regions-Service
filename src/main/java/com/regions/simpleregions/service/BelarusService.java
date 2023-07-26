@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -30,7 +29,7 @@ public class BelarusService {
     public BelarusModel getBelarusPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getBelarusPlatesByRegion");
         Optional<BelarusEntity> belarusRegion = belarusRepo.findByRegion(region);
-        belarusRegion.stream().filter(belarusEntity -> belarusEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        belarusRegion.stream().parallel().filter(belarusEntity -> belarusEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return BelarusModel.toModel(belarusRegion);
@@ -40,10 +39,10 @@ public class BelarusService {
         log.info("Start method getBelarusPlatesByDescription");
         List<BelarusEntity> belarusEntityList = belarusRepo.findByDescription(description);
 
-        belarusEntityList.stream().findAny().map(belarusEntity -> belarusEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        belarusEntityList.stream().parallel().findAny().map(belarusEntity -> belarusEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return belarusEntityList.stream().map(BelarusModel::toDescription).collect(Collectors.toList());
+        return belarusEntityList.stream().map(BelarusModel::toDescription).toList();
     }
 
     public Iterable<BelarusEntity> getAllRegions() {

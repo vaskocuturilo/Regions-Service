@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Data
@@ -30,7 +29,7 @@ public class AustriaService {
         log.info("Start method getAustriaPlatesByRegion");
         Optional<AustriaEntity> austriaRegion = austriaRepo.findByRegion(region);
 
-        austriaRegion.stream().filter(austriaEntity -> austriaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        austriaRegion.stream().parallel().filter(austriaEntity -> austriaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region)));
 
         return AustriaModel.toModelRegion(austriaRegion);
@@ -40,10 +39,10 @@ public class AustriaService {
         log.info("Start method getAustriaPlatesByDescription");
         List<AustriaEntity> austriaEntityList = austriaRepo.findByDescription(description);
 
-        austriaEntityList.stream().findAny().map(austriaEntity -> austriaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(
+        austriaEntityList.stream().parallel().findAny().map(austriaEntity -> austriaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(
                 () -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return austriaEntityList.stream().map(AustriaModel::toModelDescription).collect(Collectors.toList());
+        return austriaEntityList.stream().map(AustriaModel::toModelDescription).toList();
     }
 
     public Iterable<AustriaEntity> getAllRegions() {
