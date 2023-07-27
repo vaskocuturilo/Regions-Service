@@ -2,6 +2,7 @@ import './App.css';
 import React, { useRef, useState } from "react";
 import apiClient from "./http-common";
 import logo from './img/upload.png'
+import $ from 'jquery';
 
 function App() {
 
@@ -212,7 +213,16 @@ let diplomaticImages = {
     });
 });
 
-  return (
+
+$(document).on("change", "#countries_list", function(e){
+  $('#countries_diplomatic_list').val('None');
+});
+
+$(document).on("change", "#countries_diplomatic_list", function(e){
+    $('#countries_list').val('None');
+});
+
+return (
     <div className="App">
       <div>
     <nav role='navigation'>
@@ -236,8 +246,8 @@ let diplomaticImages = {
                      src="https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA="
                      class="center"/>
       <div class="col-lg-12 login-title">
-      <div role="alert" class="center alert alert-info mt-2"> Please choose any country first </div>
-                <p class="center">Plates:</p>
+      <div role="alert" class="center alert alert-info mt-2"> Please choose any country first </div>    
+            <p class="center">Plates:</p>
                 <select value= {plates} name="countries_plates" id="countries_list"
                         onChange={simplePlates}
                         class="form__input center" ref={ref} data-cy="countries_drop_down">
@@ -307,13 +317,13 @@ let diplomaticImages = {
             <input type="text" ref={get_by_region} className="form-control ml-2" placeholder="Region" data-cy="region_plates_input"/>
 
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" disabled = "disabled" onClick={getPlatesByRegion} data-cy="get_plates_by_region_button">By Region</button>
+              <button className="btn btn-sm btn-primary" id='button1' onClick={getPlatesByRegion} data-cy="get_plates_by_region_button">By Region</button>
               </div>
       
             <input type="text" ref={get_by_description} className="form-control ml-2" placeholder="Description" data-cy="description_plates_input"/>
             
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" disabled = "disabled" onClick={getPlatesByDescription} data-cy="get_plates_by_description_button">By description</button>
+              <button className="btn btn-sm btn-primary" id='button2' onClick={getPlatesByDescription} data-cy="get_plates_by_description_button">By description</button>
             </div>
             
           </div>   
@@ -330,12 +340,12 @@ let diplomaticImages = {
             <input type="text" ref={get_by_diplomatic_region} className="form-control ml-2" placeholder="Region" data-cy="region_diplomatic_plates_input"/>
             <br/>
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" disabled = "disabled" onClick={getDiplomaticPlatesByRegion} data-cy="get_diplomatic_plates_by_region_button">By region</button>
+              <button className="btn btn-sm btn-primary" id='button3' onClick={getDiplomaticPlatesByRegion} data-cy="get_diplomatic_plates_by_region_button">By region</button>
             </div>
             <br/>
             <input type="text" ref={get_by_diplomatic_description} className="form-control ml-2" placeholder="Description" data-cy="get_by_diplomatic_description_input"/>
             <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" disabled = "disabled" onClick={getDiplomaticPlatesByDescription} data-cy="get_diplomatic_plates_by_description">By description</button>
+              <button className="btn btn-sm btn-primary" id='button4' onClick={getDiplomaticPlatesByDescription} data-cy="get_diplomatic_plates_by_description">By description</button>
             </div>
             <br/>
           </div>   

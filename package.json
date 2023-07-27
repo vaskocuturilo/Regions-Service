@@ -1,8 +1,9 @@
 {
   "devDependencies": {
-    "cypress": "^12.14.0",
+    "@shelex/cypress-allure-plugin": "2.40.0",
+    "@types/jquery": "^3.5.16",
     "allure-commandline": "^2.23.0",
-    "@shelex/cypress-allure-plugin": "2.40.0"
+    "cypress": "^12.14.0"
   },
   "name": "regions-service",
   "description": "[![SWUbanner](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://vshymanskyy.github.io/StandWithUkraine/)",
@@ -99,6 +100,7 @@
     "is-unicode-supported": "^0.1.0",
     "isexe": "^2.0.0",
     "isstream": "^0.1.2",
+    "jquery": "^3.7.0",
     "jsbn": "^0.1.1",
     "json-schema": "^0.4.0",
     "json-stringify-safe": "^5.0.1",
