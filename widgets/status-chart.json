@@ -1,1 +1,1 @@
-[]
+[{"uid":"24784edcc25d34d","name":"This is simple test for check main page","time":{"start":1690479701354,"stop":1690479703672,"duration":2318},"status":"passed","severity":"normal"},{"uid":"485b1714b4be338e","name":"This is simple sanity test for check main page","time":{"start":1690479742939,"stop":1690479745494,"duration":2555},"status":"passed","severity":"normal"}]
