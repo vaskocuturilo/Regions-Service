@@ -7,7 +7,11 @@ describe('Testing main page for application regions', () => {
         cy.visit('/')
     })
 
-    it('This is simple sanity test for check main page', () => {
+    it.skip('Check upload image functionality', () => {
+        mainPage.checkUploadImageFunctionality();
+    })
+
+    it('Check countries plates images with drop-down menu.', () => {
         mainPage.checkImageByCountry("armenia", "armenia");
         mainPage.checkImageByCountry("austria", "Austrian");
         mainPage.checkImageByCountry("azerbaijan", "Azerbaijan");
@@ -43,7 +47,7 @@ describe('Testing main page for application regions', () => {
         mainPage.checkImageByCountry("uzbekistan", "Uzbekistan");   
     })
 
-     it('This is simple sanity test for check main page', () => {
+     it('Check diplomatic countries plates images with drop-down menu.', () => {
         mainPage.checkImageDiplomaticByCountry("austria", "Austria");
         mainPage.checkImageDiplomaticByCountry("germany", "deutschland");
         mainPage.checkImageDiplomaticByCountry("poland", "poland-dyplomatyczn.png");

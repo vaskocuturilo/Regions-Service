@@ -60,17 +60,19 @@ export class MainPage {
     checkMainPageElementsAppears() {
         this.elements.title().should('eq','The application regions');
         this.elements.mainImage();
+        this.elements.uploadImage();
+        
         this.elements.countryDropDown();
         this.elements.diplomaticCountryDropDown();
         this.elements.inputRegion();
         this.elements.inputDescription();
-        this.elements.getAllRegionsButton();
+       
         this.elements.getByRegionButton();
         this.elements.getByDescriptionButton();
 
         this.elements.inputDiplomaticRegion();
         this.elements.inputDiplomaticDescription();
-        this.elements.getAllDiplomaticPlatesButton();
+       
         this.elements.getDiplomaticByRegionButton();
         this.elements.getDiplomaticByDescriptionButton();
     }
@@ -84,7 +86,7 @@ export class MainPage {
     checkUploadImageFunctionality() {
         cy.get('#file-input').selectFile('cypress/fixtures/upload.jpg', {force: true});
 
-        cy.get('#countries_image').should('have.attr', 'src').should('include','blob:http://localhost:8080/')
+        cy.get('#countries_image').should('have.attr', 'src').should('include','blob:http://localhost:3000/')
         cy.get('#countries_image').should('be.visible').and(($img) => {
         expect($img[0].naturalWidth).to.be.greaterThan(0)
         });
