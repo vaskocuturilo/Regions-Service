@@ -1,7 +1,8 @@
 import './App.css';
 import React, { useRef, useState } from "react";
 import apiClient from "./http-common";
-import logo from './img/upload.png'
+import upload from './img/upload.png';
+import logo from './img/logo.jpg';
 import $ from 'jquery';
 
 function App() {
@@ -71,6 +72,7 @@ let diplomaticImages = {
 
   const get_by_region = useRef(null);
   const get_by_description = useRef(null);
+  const image = useRef(null);
 
   const get_by_diplomatic_region = useRef(null);
   const get_by_diplomatic_description = useRef(null);
@@ -79,8 +81,8 @@ let diplomaticImages = {
   const [plates, setPlates] = useState(getInitialStateSimplePlates);
   const [diplomatic, setDiplomatic] = useState(getInitialStateDiplomaticPlates);
   const ref = useRef(null); 
-  const dip = useRef(null); 
-
+  const dip = useRef(null);
+  
   const fortmatResponse = (res) => {
     return JSON.stringify(res, null, 2);
   };
@@ -185,8 +187,20 @@ let diplomaticImages = {
     }
   }
 
-  const clearGetOutput = () => {
+  const clearGetOutputPrivatePlates = () => {
+    image.current.src = logo;
     setGetResult(null);
+    setPlates('');
+    get_by_region.current.value = '';
+    get_by_description.current.value = '';
+  };
+
+  const clearGetOutputDiplomaticlates = () => {
+    image.current.src = logo;
+    setGetResult(null);
+    setDiplomatic('');
+    get_by_diplomatic_region.current.value = '';
+    get_by_diplomatic_description.current.value = '';
   };
 
   const simplePlates = (e) => {
@@ -200,19 +214,6 @@ let diplomaticImages = {
     document.getElementById('countries_image').src = diplomaticImages[element.value];
     setDiplomatic(e.target.value);
   };
-
-  window.addEventListener('load', function () {
-    document.querySelector('input[type="file"]').addEventListener('change', function () {
-        if (this?.files && this?.files[0]) {
-            let img = document.querySelector('img');
-            img.onload = () => {
-                URL.revokeObjectURL(img.src);
-            }
-            img.src = URL.createObjectURL(this.files[0]);
-        }
-    });
-});
-
 
 $(document).on("change", "#countries_list", function(e){
   $('#countries_diplomatic_list').val('None');
@@ -243,8 +244,8 @@ return (
     </nav>
 </div>
       <img id="countries_image"
-                     src="https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA="
-                     class="center"/>
+                     src={logo}
+                     class="center" ref={image}/>
       <div class="col-lg-12 login-title">
       <div role="alert" class="center alert alert-info mt-2"> Please choose any country first </div>    
             <p class="center">Plates:</p>
@@ -325,12 +326,11 @@ return (
             <div className="input-group-append">
               <button className="btn btn-sm btn-primary" id='button2' onClick={getPlatesByDescription} data-cy="get_plates_by_description_button">By description</button>
             </div>
-            
           </div>   
         </div>
-        <button className="btn btn-primary" onClick={clearGetOutput} data-cy="clear_button">Clear</button>
+        { getResult && <div className="alert alert-secondary mt-2" role="alert"><pre>{getResult}</pre></div> }
+        <button className="btn btn-primary" onClick={clearGetOutputPrivatePlates} data-cy="clear_button">Clear</button>
       </div>
-      { getResult && <div className="alert alert-secondary mt-2" role="alert"><pre>{getResult}</pre></div> }
     <br/>
     <br/>
     <div className="card">
@@ -350,17 +350,19 @@ return (
             <br/>
           </div>   
         </div>
-        <button className="btn btn-primary" onClick={clearGetOutput} data-cy="clear_button">Clear</button>
+        <button className="btn btn-primary" onClick={clearGetOutputDiplomaticlates} data-cy="clear_button">Clear</button>
       </div>
       { getResult && <div className="alert alert-info mt-2" role="alert"><pre>{getResult}</pre></div> }
     </div>
+    <div>
     <h3>Upload photo with car plate</h3>
- <div class="image-upload">
-    <label for="file-input">
-    <img src={logo} alt={"logo"}/> 
-    </label>
+    <div class="image-upload">
+       <label for="file-input">
+      <img src={upload}/> 
+       </label>
     <input id="file-input" type="file"/>
      </div>    
+    </div>
  </div>
  );
 }

@@ -84,8 +84,12 @@ export class MainPage {
     }
 
     checkUploadImageFunctionality() {
-        cy.get('#file-input').selectFile('cypress/fixtures/upload.jpg', {force: true});
-
+        cy.newUploadBlobFile(
+            "upload.jpg",
+            "jpeg document",
+            '[data-cy="uploadFile"]'
+          );
+     
         cy.get('#countries_image').should('have.attr', 'src').should('include','blob:http://localhost:3000/')
         cy.get('#countries_image').should('be.visible').and(($img) => {
         expect($img[0].naturalWidth).to.be.greaterThan(0)
