@@ -1,0 +1,5 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Sat Jul 29 21:04:54 GMT 2023","Sat Jul 29 21:05:01 GMT 2023","6515","","Testing main page for application regions","","","","Check countries plates images with drop-down menu.",""
+"passed","Sat Jul 29 21:05:01 GMT 2023","Sat Jul 29 21:05:03 GMT 2023","2667","","Testing main page for application regions","","","","Check diplomatic countries plates images with drop-down menu.",""
+"skipped","Sat Jul 29 21:04:54 GMT 2023","Sat Jul 29 21:04:54 GMT 2023","11","","Testing main page for application regions","","","","Check upload image functionality",""
+"passed","Sat Jul 29 21:04:26 GMT 2023","Sat Jul 29 21:04:28 GMT 2023","1602","","Testing main page for application regions","","","","This is simple test for check main page",""
