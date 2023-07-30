@@ -38,6 +38,12 @@ export class MainPage {
     elements = {
         title : () => cy.title(),
         mainImage: () => cy.get('#countries_image').should('be.visible'),
+        alertMessageBlock: () => cy.get('[data-cy="alert_message_block"]').should('be.visible'),
+
+        privatePlatesLabel: () => cy.get('[data-cy="private_label"]').should('be.visible'),
+        diplomaticPlatesLabel: () => cy.get('[data-cy="diplomatic_label"]').should('be.visible'),
+        uploadPhotoLabel: () => cy.get('[data-cy="upload_photo_label"]').should('be.visible'),
+
         countryDropDown : () => cy.get('#countries_list').should('be.visible'),
         diplomaticCountryDropDown : () => cy.get('#countries_diplomatic_list').should('be.visible'),
         
@@ -54,29 +60,59 @@ export class MainPage {
         getDiplomaticByDescriptionButton: () => cy.get('[data-cy="get_diplomatic_plates_by_description"]').should('be.visible'),
         
         clearButton: () => cy.get('[data-cy="clear_button"]').should('be.visible'),
-        uploadImage: () => cy.get('[for="file-input"]').should('be.visible')
+        uploadImage: () => cy.get('[data-cy="upload_photo_image"]').should('be.visible'),
+        uploadPhotoText: () => cy.get('[data-cy="upload_photo_h3_text"]').should('be.visible'),
+        
     } 
 
-    checkMainPageElementsAppears() {
+    checkDefaultMainPageElementsAppears() {
         this.elements.title().should('eq','The application regions');
         this.elements.mainImage();
-        this.elements.uploadImage();
-        
-        this.elements.countryDropDown();
-        this.elements.diplomaticCountryDropDown();
-        this.elements.inputRegion();
-        this.elements.inputDescription();
-       
-        this.elements.getByRegionButton();
-        this.elements.getByDescriptionButton();
+        this.elements.alertMessageBlock().should('have.text', 'Please choose any type of plates');
 
-        this.elements.inputDiplomaticRegion();
-        this.elements.inputDiplomaticDescription();
-       
-        this.elements.getDiplomaticByRegionButton();
-        this.elements.getDiplomaticByDescriptionButton();
+        this.elements.privatePlatesLabel();
+        this.elements.diplomaticPlatesLabel();
+        this.elements.uploadPhotoLabel();
     }
 
+    selectTypeOfPLates(name) {
+        const regExName = name.replace(/\s+/g, "_");
+        console.log(regExName.toLowerCase());
+        cy.get('[type="radio"]').check(regExName.toLowerCase())
+    }
+
+    checkAppearsPrivatePlatesBlock() {
+        this.elements.privatePlatesLabel().click();
+        this.elements.countryDropDown();
+        this.elements.inputRegion();
+        this.elements.inputDescription();
+        this.elements.getByRegionButton();
+        this.elements.getByDescriptionButton();
+        this.elements.clearButton();
+    }
+
+    checkAppearsDiplomaticPlatesBlock() {
+        this.elements.diplomaticPlatesLabel().click();
+        this.elements.diplomaticCountryDropDown();
+        this.elements.inputDiplomaticRegion();
+        this.elements.inputDiplomaticDescription();
+        this.elements.getDiplomaticByRegionButton();
+        this.elements.getDiplomaticByDescriptionButton();
+        this.elements.clearButton();
+
+    }
+
+    checkAppearsUploadPhotoBlock() {
+        this.elements.uploadPhotoLabel().click({ multiple: true });
+        this.elements.uploadPhotoText().should('have.text', 'Upload photo with car plate');
+        this.elements.uploadImage().should('have.attr', 'src').should('include','data:image/png;base64')
+        this.elements.uploadImage().should('be.visible').and(($img) => {
+        expect($img[0].naturalWidth).to.be.greaterThan(0)
+        });
+    }
+    
+    
+    
     checkAppearsCountriesInDropDown() {
         cy.get('#countries_list option').each( (item, index) => {
             cy.wrap(item).should('have.text', todosTitles[index])

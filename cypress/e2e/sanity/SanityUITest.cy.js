@@ -12,6 +12,7 @@ describe('Testing main page for application regions', () => {
     })
 
     it('Check countries plates images with drop-down menu.', () => {
+        mainPage.selectTypeOfPLates('Private plates');
         mainPage.checkImageByCountry("armenia", "armenia");
         mainPage.checkImageByCountry("austria", "Austrian");
         mainPage.checkImageByCountry("azerbaijan", "Azerbaijan");
@@ -48,6 +49,7 @@ describe('Testing main page for application regions', () => {
     })
 
      it('Check diplomatic countries plates images with drop-down menu.', () => {
+        mainPage.selectTypeOfPLates('Diplomatic plates');
         mainPage.checkImageDiplomaticByCountry("austria", "Austria");
         mainPage.checkImageDiplomaticByCountry("germany", "deutschland");
         mainPage.checkImageDiplomaticByCountry("poland", "poland-dyplomatyczn.png");
