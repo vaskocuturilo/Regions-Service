@@ -5,6 +5,9 @@ import upload from './img/upload.png';
 import logo from './img/logo.jpg';
 import $ from 'jquery';
 
+import JSONPretty from 'react-json-pretty';
+
+
 function App() {
 
   let countryImages = {
@@ -70,18 +73,18 @@ let diplomaticImages = {
     return diplomatic;
   };
 
-  const get_by_region = useRef(null);
-  const get_by_description = useRef(null);
+  const getRegion = useRef(null);
+  const getDescription = useRef(null);
   const image = useRef(null);
 
-  const get_by_diplomatic_region = useRef(null);
-  const get_by_diplomatic_description = useRef(null);
+  const getDiplomaticRegion = useRef(null);
+  const getDiplomaticDescription = useRef(null);
 
   const [getResult, setGetResult] = useState(null);
   const [plates, setPlates] = useState(getInitialStateSimplePlates);
   const [diplomatic, setDiplomatic] = useState(getInitialStateDiplomaticPlates);
-  const ref = useRef(null); 
-  const dip = useRef(null);
+  const regionRef = useRef(null); 
+  const diplomaticRef = useRef(null);
 
   const [selected, setSelected] = useState("");
 
@@ -95,7 +98,7 @@ let diplomaticImages = {
   };
 
   async function getPlatesByRegion() {
-    const region = get_by_region.current.value;
+    const region = getRegion.current.value;
 
     if (region) {
       try {
@@ -120,7 +123,7 @@ let diplomaticImages = {
   }
 
   async function getDiplomaticPlatesByRegion() {
-    const region = get_by_diplomatic_region.current.value;
+    const region = getDiplomaticRegion.current.value;
 
     if (region) {
       try {
@@ -145,7 +148,7 @@ let diplomaticImages = {
   }
 
   async function getPlatesByDescription() {
-    const description = get_by_description.current.value;
+    const description = getDescription.current.value;
 
     if (description) {
       try {
@@ -170,7 +173,7 @@ let diplomaticImages = {
   }
 
   async function getDiplomaticPlatesByDescription() {
-    const description = get_by_diplomatic_description.current.value;
+    const description = getDiplomaticDescription.current.value;
 
     if (description) {
       try {
@@ -198,26 +201,26 @@ let diplomaticImages = {
     image.current.src = logo;
     setGetResult(null);
     setPlates('');
-    get_by_region.current.value = '';
-    get_by_description.current.value = '';
+    getRegion.current.value = '';
+    getDescription.current.value = '';
   };
 
   const clearGetOutputDiplomaticlates = () => {
     image.current.src = logo;
     setGetResult(null);
     setDiplomatic('');
-    get_by_diplomatic_region.current.value = '';
-    get_by_diplomatic_description.current.value = '';
+    getDiplomaticRegion.current.value = '';
+    getDiplomaticDescription.current.value = '';
   };
 
   const simplePlates = (e) => {
-    const element = ref.current;
+    const element = regionRef.current;
     document.getElementById('countries_image').src = countryImages[element.value];
     setPlates(e.target.value);
   };
 
   const diplomaticPlates = (e) => {
-    const element = dip.current;
+    const element = diplomaticRef.current;
     document.getElementById('countries_image').src = diplomaticImages[element.value];
     setDiplomatic(e.target.value);
   };
@@ -251,7 +254,7 @@ return (
       <div aria-hidden={selected !== "private_plates" ? true : false}>
       <select value= {plates} name="countries_plates" id="countries_list"
                         onChange={simplePlates}
-                        class="form__input center" ref={ref} data-cy="countries_drop_down">
+                        class="form__input center" ref={regionRef} data-cy="countries_drop_down">
                     <option value="None">Choose country</option>
                     <option value="armenia">🇦🇲&emsp;Armenia</option>
                     <option value="austria">🇦🇹&emsp;Austria</option>
@@ -291,20 +294,20 @@ return (
       <div className="card">
         <div className="card-body">
           <div className="input-group input-group-sm">
-            <input type="text" ref={get_by_region} className="form-control ml-2" placeholder="Region" data-cy="region_plates_input"/>
+            <input type="text" ref={getRegion} className="form-control ml-2" placeholder="Region" data-cy="region_plates_input"/>
 
             <div className="input-group-append">
               <button className="btn btn-sm btn-primary" id='button1' onClick={getPlatesByRegion} data-cy="get_plates_by_region_button">By region</button>
               </div>
       
-            <input type="text" ref={get_by_description} className="form-control ml-2" placeholder="Description" data-cy="description_plates_input"/>
+            <input type="text" ref={getDescription} className="form-control ml-2" placeholder="Description" data-cy="description_plates_input"/>
             
             <div className="input-group-append">
               <button className="btn btn-sm btn-primary" id='button2' onClick={getPlatesByDescription} data-cy="get_plates_by_description_button">By description</button>
             </div>
-          </div>   
+          </div>
+          <JSONPretty id="json-pretty" style={{fontSize: "1.1em", textAlign: 'left'}} data={getResult} mainStyle="padding:1em" valueStyle="font-size:1.5em"></JSONPretty>   
         </div>
-        { getResult && <div className="alert alert-secondary mt-2" role="alert"><pre>{getResult}</pre></div> }
         <button className="btn btn-primary" onClick={clearGetOutputPrivatePlates} data-cy="clear_button">Clear</button>
       </div>
       </div>
@@ -322,7 +325,7 @@ return (
       <div aria-hidden={selected !== "diplomatic_plates" ? true : false}>
             <select value= {diplomatic} name="diplomatic_plates" id="countries_diplomatic_list"
             onChange={diplomaticPlates}
-                    class="form__input center" ref={dip} data-cy="diplomatic_drop_down">
+                    class="form__input center" ref={diplomaticRef} data-cy="diplomatic_drop_down">
                 <option value="None">Choose country</option>
                 <option value="austria">🇦🇹&emsp;Austria</option>
                 <option value="germany">🇩🇪&emsp;Germany</option>
@@ -344,13 +347,13 @@ return (
             <div className="card">
         <div className="card-body">
           <div className="input-group input-group-sm">
-            <input type="text" ref={get_by_diplomatic_region} className="form-control ml-2" placeholder="Region" data-cy="region_diplomatic_plates_input"/>
+            <input type="text" ref={getDiplomaticRegion} className="form-control ml-2" placeholder="Region" data-cy="region_diplomatic_plates_input"/>
             <br/>
             <div className="input-group-append">
               <button className="btn btn-sm btn-primary" id='button3' onClick={getDiplomaticPlatesByRegion} data-cy="get_diplomatic_plates_by_region_button">By region</button>
             </div>
             <br/>
-            <input type="text" ref={get_by_diplomatic_description} className="form-control ml-2" placeholder="Description" data-cy="get_by_diplomatic_description_input"/>
+            <input type="text" ref={getDiplomaticDescription} className="form-control ml-2" placeholder="Description" data-cy="get_by_diplomatic_description_input"/>
             <div className="input-group-append">
               <button className="btn btn-sm btn-primary" id='button4' onClick={getDiplomaticPlatesByDescription} data-cy="get_diplomatic_plates_by_description">By description</button>
             </div>
@@ -359,7 +362,7 @@ return (
         </div>
         <button className="btn btn-primary" onClick={clearGetOutputDiplomaticlates} data-cy="clear_button">Clear</button>
       </div>
-      { getResult && <div className="alert alert-info mt-2" role="alert"><pre>{getResult}</pre></div> }
+      <JSONPretty id="json-pretty" style={{fontSize: "1.1em", textAlign: 'left'}} data={getResult} mainStyle="padding:1em" valueStyle="font-size:1.5em"></JSONPretty>   
          </div>
       </div>
       <input

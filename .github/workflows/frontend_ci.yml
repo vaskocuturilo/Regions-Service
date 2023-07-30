@@ -9,7 +9,7 @@ jobs:
   cypress-test:
     strategy:
       matrix:
-        node-version: [ 15.x ]
+        node-version: [ 16.x ]
         os: [ ubuntu-latest ]
         browser: [ chrome, firefox ]
 
@@ -22,7 +22,7 @@ jobs:
 
       - name: Start containers
         run: |
-          docker-compose -f "docker-compose.yml" up -d
+          docker-compose -f "docker-compose.yml" up --detach --build
           for attempt in {1..20}; do sleep 1; if exit 0; then echo ready; break; fi; echo waiting...; done
 
       - uses: actions/checkout@v3
