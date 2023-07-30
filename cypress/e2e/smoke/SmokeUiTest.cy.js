@@ -8,7 +8,10 @@ describe('Testing main page for application regions', () => {
     })
 
     it('This is simple test for check main page', () => {
-        mainPage.checkMainPageElementsAppears();
+        mainPage.checkDefaultMainPageElementsAppears();
+        mainPage.checkAppearsPrivatePlatesBlock(); 
+        mainPage.checkAppearsDiplomaticPlatesBlock();
+        mainPage.checkAppearsUploadPhotoBlock();
         mainPage.checkAppearsCountriesInDropDown();
     })
 }) 

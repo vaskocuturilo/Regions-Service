@@ -82,6 +82,13 @@ let diplomaticImages = {
   const [diplomatic, setDiplomatic] = useState(getInitialStateDiplomaticPlates);
   const ref = useRef(null); 
   const dip = useRef(null);
+
+  const [selected, setSelected] = useState("");
+
+  const changeHandler = e => {
+    setSelected(e.target.value);
+  };
+
   
   const fortmatResponse = (res) => {
     return JSON.stringify(res, null, 2);
@@ -225,31 +232,24 @@ $(document).on("change", "#countries_diplomatic_list", function(e){
 
 return (
     <div className="App">
-      <div>
-    <nav role='navigation'>
-        <div id="menuToggle">
-            <input type="checkbox"/>
-            <span></span>
-            <span></span>
-            <span></span>
-            <ul id="menu">
-                <a href="/logout">
-                    <li>Logout</li>
-                </a>
-                <a href="/api/v1/users/all">
-                    <li>Admin</li>
-                </a>
-            </ul>
-        </div>
-    </nav>
-</div>
       <img id="countries_image"
                      src={logo}
                      class="center" ref={image}/>
-      <div class="col-lg-12 login-title">
-      <div role="alert" class="center alert alert-info mt-2"> Please choose any country first </div>    
-            <p class="center">Plates:</p>
-                <select value= {plates} name="countries_plates" id="countries_list"
+    
+    <div role="alert" class="center alert alert-info mt-2" data-cy="alert_message_block">Please choose any type of plates</div>    
+      
+      <input
+        type="radio"
+        name="plates"
+        value="private_plates"
+        id="private_plates"
+        checked={selected === "private_plates"}
+        onChange={changeHandler}
+        data-cy="private_radio_button"
+      />
+      <label htmlFor="private_plates" data-cy="private_label">Private plates</label>
+      <div aria-hidden={selected !== "private_plates" ? true : false}>
+      <select value= {plates} name="countries_plates" id="countries_list"
                         onChange={simplePlates}
                         class="form__input center" ref={ref} data-cy="countries_drop_down">
                     <option value="None">Choose country</option>
@@ -286,8 +286,40 @@ return (
                     <option value="ukraine">🇺🇦&emsp;Ukraine</option>
                     <option value="uzbekistan">🇺🇿&emsp;Uzbekistan</option>
                 </select>
+                <br/><br/><br/>
+  <div id="app" className="container">
+      <div className="card">
+        <div className="card-body">
+          <div className="input-group input-group-sm">
+            <input type="text" ref={get_by_region} className="form-control ml-2" placeholder="Region" data-cy="region_plates_input"/>
+
+            <div className="input-group-append">
+              <button className="btn btn-sm btn-primary" id='button1' onClick={getPlatesByRegion} data-cy="get_plates_by_region_button">By region</button>
+              </div>
+      
+            <input type="text" ref={get_by_description} className="form-control ml-2" placeholder="Description" data-cy="description_plates_input"/>
+            
+            <div className="input-group-append">
+              <button className="btn btn-sm btn-primary" id='button2' onClick={getPlatesByDescription} data-cy="get_plates_by_description_button">By description</button>
             </div>
-            <p class="center">Diplomatic plates:</p>
+          </div>   
+        </div>
+        { getResult && <div className="alert alert-secondary mt-2" role="alert"><pre>{getResult}</pre></div> }
+        <button className="btn btn-primary" onClick={clearGetOutputPrivatePlates} data-cy="clear_button">Clear</button>
+      </div>
+      </div>
+  </div>
+      <input
+        type="radio"
+        value="diplomatic_plates"
+        id="diplomatic_plates"
+        checked={selected === "diplomatic_plates"}
+        name="plates"
+        onChange={changeHandler}
+        data-cy="diplomatic_radio_button"
+      />
+      <label htmlFor="diplomatic_plates" data-cy="diplomatic_label">Diplomatic plates</label>
+      <div aria-hidden={selected !== "diplomatic_plates" ? true : false}>
             <select value= {diplomatic} name="diplomatic_plates" id="countries_diplomatic_list"
             onChange={diplomaticPlates}
                     class="form__input center" ref={dip} data-cy="diplomatic_drop_down">
@@ -307,34 +339,9 @@ return (
                 <option value="sweden">🇸🇪&emsp;Sweden</option>
                 <option value="switzerland">🇨🇭&emsp;Switzerland</option>
             </select>
-            <br/>
-            <br/>
-            <br/>
-      <div id="app" className="container">
-      <div className="card">
-      <div className="card-header">Plates:</div>
-        <div className="card-body">
-          <div className="input-group input-group-sm">
-            <input type="text" ref={get_by_region} className="form-control ml-2" placeholder="Region" data-cy="region_plates_input"/>
-
-            <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" id='button1' onClick={getPlatesByRegion} data-cy="get_plates_by_region_button">By Region</button>
-              </div>
-      
-            <input type="text" ref={get_by_description} className="form-control ml-2" placeholder="Description" data-cy="description_plates_input"/>
-            
-            <div className="input-group-append">
-              <button className="btn btn-sm btn-primary" id='button2' onClick={getPlatesByDescription} data-cy="get_plates_by_description_button">By description</button>
-            </div>
-          </div>   
-        </div>
-        { getResult && <div className="alert alert-secondary mt-2" role="alert"><pre>{getResult}</pre></div> }
-        <button className="btn btn-primary" onClick={clearGetOutputPrivatePlates} data-cy="clear_button">Clear</button>
-      </div>
-    <br/>
-    <br/>
-    <div className="card">
-    <div className="card-header">Diplomatic plates:</div>
+            <br/><br/><br/>
+  <div id="app" className="container">
+            <div className="card">
         <div className="card-body">
           <div className="input-group input-group-sm">
             <input type="text" ref={get_by_diplomatic_region} className="form-control ml-2" placeholder="Region" data-cy="region_diplomatic_plates_input"/>
@@ -353,17 +360,28 @@ return (
         <button className="btn btn-primary" onClick={clearGetOutputDiplomaticlates} data-cy="clear_button">Clear</button>
       </div>
       { getResult && <div className="alert alert-info mt-2" role="alert"><pre>{getResult}</pre></div> }
-    </div>
-    <div>
-    <h3>Upload photo with car plate</h3>
+         </div>
+      </div>
+      <input
+        type="radio"
+        name="plates"
+        value="upload_photo"
+        id="upload_photo"
+        checked={selected === "upload_photo"}
+        onChange={changeHandler}
+        data-cy="upload_photo_radio_button"
+      />
+      <label htmlFor="upload_photo" data-cy="upload_photo_label">Upload Photo</label>
+      <div aria-hidden={selected !== "upload_photo" ? true : false}>
+      <h3 data-cy="upload_photo_h3_text">Upload photo with car plate</h3>
     <div class="image-upload">
        <label for="file-input">
-      <img src={upload}/> 
+      <img src={upload} data-cy="upload_photo_image"/> 
        </label>
-    <input id="file-input" type="file"/>
+    <input id="file-input" type="file" data-cy="upload_photo"/>
      </div>    
     </div>
- </div>
+  </div>
  );
 }
 
