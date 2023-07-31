@@ -62,7 +62,7 @@ export class MainPage {
         clearButton: () => cy.get('[data-cy="clear_button"]').should('be.visible'),
         uploadImage: () => cy.get('[data-cy="upload_photo_image"]').should('be.visible'),
         uploadPhotoText: () => cy.get('[data-cy="upload_photo_h3_text"]').should('be.visible'),
-        
+        jsonResultBlock: () => cy.get('div[id="json-pretty"]').should('be.visible')
     } 
 
     checkDefaultMainPageElementsAppears() {
@@ -79,6 +79,39 @@ export class MainPage {
         const regExName = name.replace(/\s+/g, "_");
         console.log(regExName.toLowerCase());
         cy.get('[type="radio"]').check(regExName.toLowerCase())
+    }
+
+    addPrivateRegionPlates(country, region) {
+        this.elements.countryDropDown().select(country);
+        this.elements.inputRegion().type(region);
+        this.elements.getByRegionButton().click();
+        this.elements.jsonResultBlock()
+        .contains("Województwo mazowieckie, Warszawa-Żoliborz");
+    }
+
+    addDiplomaticRegionPlates(country, region) {
+        this.elements.diplomaticCountryDropDown().select(country);
+        this.elements.inputDiplomaticRegion().type(region);
+        this.elements.getDiplomaticByRegionButton().click();
+        this.elements.jsonResultBlock()
+        .contains("Serbia");
+    }
+
+    addDescriptionPlates(country, region) {
+        this.elements.countryDropDown().select(country);
+        this.elements.inputDescription().type(region);
+        this.elements.getByDescriptionButton().click();
+        this.elements.jsonResultBlock()
+        .contains("WX");
+    }
+
+
+    addDiplomaticDescriptionPlates(country, region) {
+        this.elements.diplomaticCountryDropDown().select(country);
+        this.elements.inputDiplomaticDescription().type(region);
+        this.elements.getDiplomaticByDescriptionButton().click();
+        this.elements.jsonResultBlock()
+        .contains("072");
     }
 
     checkAppearsPrivatePlatesBlock() {
@@ -116,7 +149,7 @@ export class MainPage {
     checkAppearsCountriesInDropDown() {
         cy.get('#countries_list option').each( (item, index) => {
             cy.wrap(item).should('have.text', todosTitles[index])
-            })
+        })
     }
 
     checkUploadImageFunctionality() {
