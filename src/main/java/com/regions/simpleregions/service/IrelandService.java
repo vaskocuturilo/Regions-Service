@@ -29,8 +29,8 @@ public class IrelandService {
         log.info("Start method getPlatesByRegion");
         Optional<IrelandEntity> irelandRegion = irelandRepo.findByRegion(region);
 
-        irelandRegion.stream().parallel().filter(irelandEntity -> irelandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+        Optional.ofNullable(irelandRegion.stream().parallel().filter(irelandEntity -> irelandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return IrelandModel.toModelByRegion(irelandRegion);
     }

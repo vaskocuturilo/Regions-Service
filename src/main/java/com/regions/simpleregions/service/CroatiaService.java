@@ -28,8 +28,9 @@ public class CroatiaService {
     public CroatiaModel getCroatiaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getCroatiaPlatesByRegion");
         Optional<CroatiaEntity> croatiaRegion = croatiaRepo.findByRegion(region);
-        croatiaRegion.stream().parallel().filter(croatiaEntity -> croatiaEntity.getRegion().equals(region)).findFirst().orElseThrow(
-                () -> new RegionNotFoundException(String.format(regionNotFound, region)));
+
+        Optional.ofNullable(croatiaRegion.stream().parallel().filter(croatiaEntity -> croatiaEntity.getRegion().equals(region)).findFirst().orElseThrow(
+                () -> new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return CroatiaModel.toModelRegion(croatiaRegion);
     }

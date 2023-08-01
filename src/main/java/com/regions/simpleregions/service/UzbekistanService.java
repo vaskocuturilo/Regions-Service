@@ -29,10 +29,10 @@ public class UzbekistanService {
         log.info("Start method getUzbekistanPlatesByRegion");
         Optional<UzbekistanEntity> uzbekistanRegion = uzbekistanRepo.findByRegion(region);
 
-        uzbekistanRegion
+        Optional.ofNullable(uzbekistanRegion
                 .stream().parallel()
                 .filter(uzbekistanEntity -> uzbekistanEntity.getRegion().equalsIgnoreCase(region))
-                .findFirst().orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region)));
+                .findFirst().orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return UzbekistanModel.toModelByRegion(uzbekistanRegion);
     }

@@ -30,8 +30,8 @@ public class TurkeyService {
         log.info("Start method getTurkeyPlatesByRegion");
         Optional<TurkeyEntity> turkeyRegion = turkeyRepo.findByRegion(region);
 
-        turkeyRegion.stream().parallel().filter(turkeyEntity -> turkeyEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+        Optional.ofNullable(turkeyRegion.stream().parallel().filter(turkeyEntity -> turkeyEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return TurkeyModel.toModelByRegion(turkeyRegion);
     }

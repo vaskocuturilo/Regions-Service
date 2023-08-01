@@ -30,8 +30,8 @@ public class KosovoService {
         log.info("Start method getKosovoPlatesByRegion");
         Optional<KosovoEntity> kosovoRegion = kosovoRepo.findByRegion(region);
 
-        kosovoRegion.stream().parallel().filter(kosovoEntity -> kosovoEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+        Optional.ofNullable(kosovoRegion.stream().parallel().filter(kosovoEntity -> kosovoEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return KosovoModel.toModelByRegion(kosovoRegion);
     }

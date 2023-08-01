@@ -35,12 +35,12 @@ public class PolandDiplomaticService {
 
         Optional<PolandDiplomaticEntity> polandDiplomaticRegion = polandDiplomaticRepo.findByRegion(getFirstThreeSymbols(region));
 
-        polandDiplomaticRegion.stream().parallel().filter(polandDiplomaticEntity -> polandDiplomaticEntity
+        Optional.ofNullable(polandDiplomaticRegion.stream().parallel().filter(polandDiplomaticEntity -> polandDiplomaticEntity
                         .getRegion()
                         .equalsIgnoreCase(getFirstThreeSymbols(region)))
                 .findFirst()
                 .orElseThrow(() ->
-                        new RegionNotFoundException(String.format(regionNotFound, region)));
+                        new RegionNotFoundException(String.format(regionNotFound, region))));
 
         final String test = getDestinationCode(region);
 

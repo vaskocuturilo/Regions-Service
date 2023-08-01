@@ -29,8 +29,9 @@ public class CzechService {
     public CzechModel getCzechPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getCzechPlatesByRegion");
         Optional<CzechEntity> czechRegion = czechRepo.findByRegion(region);
-        czechRegion.stream().parallel().filter(czechEntity -> czechEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+
+        Optional.ofNullable(czechRegion.stream().parallel().filter(czechEntity -> czechEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return CzechModel.toModelRegion(czechRegion);
     }

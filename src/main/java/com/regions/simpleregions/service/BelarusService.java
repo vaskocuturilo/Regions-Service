@@ -29,8 +29,9 @@ public class BelarusService {
     public BelarusModel getBelarusPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getBelarusPlatesByRegion");
         Optional<BelarusEntity> belarusRegion = belarusRepo.findByRegion(region);
-        belarusRegion.stream().parallel().filter(belarusEntity -> belarusEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+
+        Optional.ofNullable(belarusRegion.stream().parallel().filter(belarusEntity -> belarusEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return BelarusModel.toModel(belarusRegion);
     }

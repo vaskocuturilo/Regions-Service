@@ -29,8 +29,9 @@ public class ArmeniaService {
     public ArmeniaModel getArmeniaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getArmeniaPlatesByRegion");
         Optional<ArmeniaEntity> armeniaRegion = armeniaRepo.findByRegion(region);
-        armeniaRegion.stream().parallel().filter(armeniaEntity -> armeniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+
+        Optional.ofNullable(armeniaRegion.stream().parallel().filter(armeniaEntity -> armeniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return ArmeniaModel.toModelRegion(armeniaRegion);
     }

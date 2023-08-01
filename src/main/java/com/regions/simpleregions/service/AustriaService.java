@@ -27,10 +27,11 @@ public class AustriaService {
 
     public AustriaModel getAustriaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getAustriaPlatesByRegion");
+
         Optional<AustriaEntity> austriaRegion = austriaRepo.findByRegion(region);
 
-        austriaRegion.stream().parallel().filter(austriaEntity -> austriaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+        Optional.ofNullable(austriaRegion.stream().parallel().filter(austriaEntity -> austriaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return AustriaModel.toModelRegion(austriaRegion);
     }

@@ -29,8 +29,9 @@ public class BulgariaService {
     public BulgariaModel getBulgariaPlatesByRegion(String region) throws RegionNotFoundException {
         log.info("Start method getBulgariaPlatesByRegion");
         Optional<BulgariaEntity> bulgariaRegion = bulgariaRepo.findByRegion(region);
-        bulgariaRegion.stream().parallel().filter(bulgariaEntity -> bulgariaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+
+        Optional.ofNullable(bulgariaRegion.stream().parallel().filter(bulgariaEntity -> bulgariaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return BulgariaModel.toModelRegion(bulgariaRegion);
     }

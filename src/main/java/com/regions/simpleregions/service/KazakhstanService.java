@@ -29,8 +29,8 @@ public class KazakhstanService {
         log.info("Start method getPlatesByRegion");
         Optional<KazakhstanEntity> kazakhstanRegion = kazakhstanRepo.findByRegion(region);
 
-        kazakhstanRegion.stream().parallel().filter(kazakhstanEntity -> kazakhstanEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+        Optional.ofNullable(kazakhstanRegion.stream().parallel().filter(kazakhstanEntity -> kazakhstanEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return KazakhstanModel.toModelRegion(kazakhstanRegion);
     }
