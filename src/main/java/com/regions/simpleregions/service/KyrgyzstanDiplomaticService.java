@@ -30,8 +30,8 @@ public class KyrgyzstanDiplomaticService {
         log.info("Start method getKyrgyzstanDiplomaticPlatesByRegion");
         Optional<KyrgyzstanDiplomaticEntity> kyrgyzstanRegion = kyrgyzstanDiplomaticRepo.findByRegion(region);
 
-        kyrgyzstanRegion.stream().parallel().filter(kyrgyzstanEntity -> kyrgyzstanEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+        Optional.ofNullable(kyrgyzstanRegion.stream().parallel().filter(kyrgyzstanEntity -> kyrgyzstanEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return KyrgyzstanDiplomaticModel.toModelByRegion(kyrgyzstanRegion);
     }

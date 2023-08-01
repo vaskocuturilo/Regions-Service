@@ -29,6 +29,7 @@ public class SwitzerlandDiplomaticService {
     public SwitzerlandDiplomaticModel getSwitzerlandDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getSwitzerlandDiplomaticPlatesByRegion");
         Optional<SwitzerlandDiplomaticEntity> switzerlandRegion = switzerlandDiplomaticRepo.findByRegion(region);
+
         Optional.ofNullable(
                 switzerlandRegion
                         .stream().parallel()

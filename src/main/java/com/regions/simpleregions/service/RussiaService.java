@@ -29,8 +29,9 @@ public class RussiaService {
     public RussiaModel getRussiaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getRussiaPlatesByRegion");
         Optional<RussiaEntity> russiaRegion = russiaRepo.findByRegion(region);
-        russiaRegion.stream().parallel().filter(russiaEntity -> russiaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+
+        Optional.ofNullable(russiaRegion.stream().parallel().filter(russiaEntity -> russiaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return RussiaModel.toModelRegion(russiaRegion);
     }

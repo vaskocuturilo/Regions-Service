@@ -28,11 +28,12 @@ public class AustriaDiplomaticService {
     public AustriaDiplomaticModel getAustriaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getAustriaPlatesByRegion");
         Optional<AustriaDiplomaticEntity> austriaRegion = austriaDiplomaticRepo.findByRegion(region);
-        austriaRegion.stream().parallel().filter(austriaDiplomaticEntity -> austriaDiplomaticEntity
+
+        Optional.ofNullable(austriaRegion.stream().parallel().filter(austriaDiplomaticEntity -> austriaDiplomaticEntity
                         .getRegion()
                         .equalsIgnoreCase(region))
                 .findFirst()
-                .orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region)));
+                .orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return AustriaDiplomaticModel.toModelRegion(austriaRegion);
     }

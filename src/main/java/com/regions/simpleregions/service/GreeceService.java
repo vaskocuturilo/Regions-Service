@@ -29,8 +29,8 @@ public class GreeceService {
         log.info("Start method getGreecePlatesByRegion");
         Optional<GreeceEntity> greeceRegionExist = greeceRepo.findByRegion(region);
 
-        greeceRegionExist.stream().parallel().filter(greeceEntity -> greeceEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+        Optional.ofNullable(greeceRegionExist.stream().parallel().filter(greeceEntity -> greeceEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return GreeceModel.toModelByRegion(greeceRegionExist);
     }

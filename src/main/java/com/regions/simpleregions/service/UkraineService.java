@@ -29,8 +29,9 @@ public class UkraineService {
     public UkraineModel getUkrainePlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getUkrainePlatesByRegion");
         Optional<UkraineEntity> ukraineRegion = ukraineRepo.findByRegion(region);
-        ukraineRegion.stream().parallel().filter(ukraineEntity -> ukraineEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+
+        Optional.ofNullable(ukraineRegion.stream().parallel().filter(ukraineEntity -> ukraineEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return UkraineModel.toModel(ukraineRegion);
     }

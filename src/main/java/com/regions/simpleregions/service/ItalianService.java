@@ -28,8 +28,9 @@ public class ItalianService {
     public ItalianModel getItalianPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getItalianPlatesByRegion");
         Optional<ItalianEntity> italianRegion = italianRepo.findByRegion(region);
-        italianRegion.stream().parallel().filter(italianEntity -> italianEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+
+        Optional.ofNullable(italianRegion.stream().parallel().filter(italianEntity -> italianEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return ItalianModel.toModel(italianRegion);
     }

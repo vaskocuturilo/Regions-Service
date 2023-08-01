@@ -29,8 +29,10 @@ public class FranceDiplomaticService {
     public FranceDiplomaticModel getFranceDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getFranceDiplomaticPlatesByRegion");
         Optional<FranceDiplomaticEntity> franceRegion = franceDiplomaticRepo.findByRegion(region);
-        franceRegion.stream().parallel().filter(franceEntity -> franceEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+
+        Optional.ofNullable(franceRegion.stream().parallel().filter(franceEntity -> franceEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
+
         return FranceDiplomaticModel.toModel(franceRegion);
     }
 

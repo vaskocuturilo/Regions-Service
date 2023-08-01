@@ -29,8 +29,10 @@ public class FranceService {
     public FranceModel getFrancePlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getFrancePlatesByRegion");
         Optional<FranceEntity> franceRegion = franceRepo.findByRegion(region);
-        franceRegion.stream().parallel().filter(franceEntity -> franceEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+
+        Optional.ofNullable(franceRegion.stream().parallel().filter(franceEntity -> franceEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
+
         return FranceModel.toModel(franceRegion);
     }
 

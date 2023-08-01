@@ -29,10 +29,11 @@ public class AzerbaijanService {
     public AzerbaijanModel getAzerbaijanPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getAzerbaijanPlatesByRegion");
         Optional<AzerbaijanEntity> azerbaijanRegion = azerbaijanRepo.findByRegion(region);
-        azerbaijanRegion.stream().parallel().filter(azerbaijanEntity -> azerbaijanEntity
+
+        Optional.ofNullable(azerbaijanRegion.stream().parallel().filter(azerbaijanEntity -> azerbaijanEntity
                         .getRegion()
                         .equalsIgnoreCase(region))
-                .findFirst().orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region)));
+                .findFirst().orElseThrow(() -> new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return AzerbaijanModel.toModel(azerbaijanRegion);
     }

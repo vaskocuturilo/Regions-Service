@@ -30,8 +30,8 @@ public class EstoniaService {
         log.info("Start method getEstoniaDiplomaticPlatesByRegion");
         Optional<EstoniaEntity> estoniaRegion = estoniaRepo.findByRegion(region);
 
-        estoniaRegion.stream().parallel().filter(estoniaEntity -> estoniaEntity.getRegion().equals(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+        Optional.ofNullable(estoniaRegion.stream().parallel().filter(estoniaEntity -> estoniaEntity.getRegion().equals(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return EstoniaModel.toModelByRegion(estoniaRegion);
     }

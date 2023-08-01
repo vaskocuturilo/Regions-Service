@@ -30,8 +30,8 @@ public class HungaryService {
         log.info("Start method getHungaryPlatesByRegion");
         Optional<HungaryEntity> hungaryRegion = hungaryRepo.findByRegion(region);
 
-        hungaryRegion.stream().parallel().filter(hungaryEntity -> hungaryEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+        Optional.ofNullable(hungaryRegion.stream().parallel().filter(hungaryEntity -> hungaryEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return HungaryModel.toModelByRegion(hungaryRegion);
     }

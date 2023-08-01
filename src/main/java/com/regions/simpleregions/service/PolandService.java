@@ -29,8 +29,9 @@ public class PolandService {
     public PolandModel getPolandPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getPolandPlatesByRegion");
         Optional<PolandEntity> polandRegion = polandRepo.findByRegion(region);
-        polandRegion.stream().parallel().filter(polandEntity -> polandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region)));
+
+        Optional.ofNullable(polandRegion.stream().parallel().filter(polandEntity -> polandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+                new RegionNotFoundException(String.format(regionNotFound, region))));
 
         return PolandModel.toModel(polandRegion);
     }

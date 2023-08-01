@@ -29,6 +29,7 @@ public class SwitzerlandService {
     public SwitzerlandModel getSwitzerlandPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getSwitzerlandPlatesByRegion");
         Optional<SwitzerlandEntity> switzerlandRegion = switzerlandRepo.findByRegion(region);
+
         Optional.ofNullable(
                 switzerlandRegion
                         .stream().parallel()
