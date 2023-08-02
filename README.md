@@ -53,7 +53,9 @@ You will need the following technologies available to try it out:
 - Will be adding migration from Spring boot v2.5.3 to v3.1.*
 - Will be adding Logging. :heavy_check_mark:
 - Will be adding user controller :heavy_check_mark:
-- Fix UI interface 
+- Will be adding Jest unit testing for node JS
+- Fix the UI interface
+  
 
 ### Actuator
 
