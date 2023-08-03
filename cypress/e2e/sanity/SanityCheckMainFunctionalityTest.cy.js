@@ -7,6 +7,16 @@ describe('Testing main page for application regions', () => {
         cy.visit('/')
     })
 
+    it.skip('Check alert message if user did not change any country', () => {
+        mainPage.selectTypeOfPLates('Private plates');
+        mainPage.tapByRegionButton('Choose any country first');
+        mainPage.tapByDescriptionButton('Choose any country first');
+        mainPage.selectTypeOfPLates('Diplomatic plates');
+        mainPage.tapDiplomaticByRegionButton('Choose any country first');
+        mainPage.tapDiplomaticByDescriptionButton('Choose any country first'); 
+    })
+
+
     it('Check main functionality for private plates by region', () => {
         mainPage.selectTypeOfPLates('Private plates');
         mainPage.addPrivateRegionPlates("poland", "WX");

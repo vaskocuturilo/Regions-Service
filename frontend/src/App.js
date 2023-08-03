@@ -4,9 +4,7 @@ import apiClient from "./http-common";
 import upload from './img/upload.png';
 import logo from './img/logo.jpg';
 import $ from 'jquery';
-
 import JSONPretty from 'react-json-pretty';
-
 
 function App() {
 
@@ -100,6 +98,13 @@ let diplomaticImages = {
   async function getPlatesByRegion() {
     const region = getRegion.current.value;
 
+    const selectValue = regionRef.current.value;
+
+    if (selectValue == 'None') {
+    alert('Choose any country first');
+      return;
+    } 
+
     if (region) {
       try {
         const res = await apiClient.get(`/${plates}/plates/region/${region}`);
@@ -124,6 +129,13 @@ let diplomaticImages = {
 
   async function getDiplomaticPlatesByRegion() {
     const region = getDiplomaticRegion.current.value;
+
+    const selectValue = diplomaticRef.current.value;
+
+    if (selectValue == 'None') {
+    alert('Choose any country first');
+      return;
+    } 
 
     if (region) {
       try {
@@ -150,6 +162,13 @@ let diplomaticImages = {
   async function getPlatesByDescription() {
     const description = getDescription.current.value;
 
+    const selectValue = regionRef.current.value;
+
+    if (selectValue == 'None') {
+    alert('Choose any country first');
+      return;
+    } 
+
     if (description) {
       try {
         const res = await apiClient.get(`/${plates}/plates/description/${description}`);
@@ -174,6 +193,13 @@ let diplomaticImages = {
 
   async function getDiplomaticPlatesByDescription() {
     const description = getDiplomaticDescription.current.value;
+
+    const selectValue = diplomaticRef.current.value;
+
+    if (selectValue == 'None') {
+    alert('Choose any country first');
+      return;
+    } 
 
     if (description) {
       try {
