@@ -144,8 +144,6 @@ export class MainPage {
         });
     }
     
-    
-    
     checkAppearsCountriesInDropDown() {
         cy.get('#countries_list option').each( (item, index) => {
             cy.wrap(item).should('have.text', todosTitles[index])
@@ -175,6 +173,37 @@ export class MainPage {
         cy.get('#countries_image').should('have.attr', 'src').should('include', imageUrl);
     }
 
+    checkAlertMessage(text) {
+      const stub = cy.stub()  
+      cy.on ('window:alert', stub)
+      cy.get('button').contains('Click me!').click().then(() => {
+      expect(stub.getCall(0)).to.be.calledWith(text)      
+     })  
+   }
+
+   tapByRegionButton(text) {
+     this.elements.getByRegionButton().click();
+     this.elements.inputRegion().type('11');
+     this.checkAlertMessage(text);
+   }
+
+   tapDiplomaticByRegionButton(text) {
+    this.elements.getDiplomaticByRegionButton().click();
+    this.elements.inputDescription().type('11');
+    this.checkAlertMessage(text);
+  }
+   
+   tapByDescriptionButton(text) {
+     this.elements.getByDescriptionButton().click();
+     this.elements.inputDiplomaticRegion().type('11');
+     this.checkAlertMessage(text);
+   }
+
+   tapDiplomaticByDescriptionButton(text) {
+    this.elements.getDiplomaticByDescriptionButton().click();
+    this.elements.inputDiplomaticDescription().type('11');
+    this.checkAlertMessage(text);  
+  }
 }
 
 export const mainPage = new MainPage();
