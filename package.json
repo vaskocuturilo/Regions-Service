@@ -1,7 +1,7 @@
 {
   "devDependencies": {
     "@shelex/cypress-allure-plugin": "2.40.0",
-    "@types/jquery": "^3.7.0",
+    "@types/jquery": "^3.5.1",
     "allure-commandline": "^2.23.1",
     "cypress": "^12.17.3",
     "cypress-file-upload": "^5.0.8"
