@@ -14,7 +14,7 @@ public class CzechEntity {
     private Long id;
 
     @Column(nullable = false)
-    @Size(min = 2, max = 4, message = "Min 2, Max 4")
+    @Size(min = 3, max = 3, message = "Min 3, Max 3")
     @NotEmpty(message = "Field is mandatory")
     @NotBlank(message = "Field is mandatory")
     private String region;

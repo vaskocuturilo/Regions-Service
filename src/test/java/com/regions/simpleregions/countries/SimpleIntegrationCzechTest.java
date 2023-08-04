@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static com.regions.simpleregions.util.Utils.getSecondSymbol;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -33,7 +34,7 @@ class SimpleIntegrationCzechTest {
     @Test
     void getRegionHandle_whenGetCzech_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get(PATH + "/region/H")
+                        .get(PATH + "/region/4HU")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -99,13 +100,13 @@ class SimpleIntegrationCzechTest {
 
     @Test
     void getRegionHandle_whenExceptionCzechByRegion_thenStatus400() throws Exception {
-        String region = "HHHH";
+        String region = "III";
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/" + region)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.content().string(String.format(regionNotFound, region)));
+                .andExpect(MockMvcResultMatchers.content().string(String.format(regionNotFound, getSecondSymbol(region))));
     }
 
     @Test

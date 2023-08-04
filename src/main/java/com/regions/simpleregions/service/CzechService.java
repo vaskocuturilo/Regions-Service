@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.regions.simpleregions.util.Utils.getSecondSymbol;
+
 @Log4j2
 @Service
 @Data
@@ -28,10 +30,16 @@ public class CzechService {
 
     public CzechModel getCzechPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getCzechPlatesByRegion");
-        Optional<CzechEntity> czechRegion = czechRepo.findByRegion(region);
 
-        Optional.ofNullable(czechRegion.stream().parallel().filter(czechEntity -> czechEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
-                new RegionNotFoundException(String.format(regionNotFound, region))));
+        Optional<CzechEntity> czechRegion = czechRepo.findByRegion(getSecondSymbol(region));
+
+        Optional.ofNullable(czechRegion
+                .stream()
+                .parallel()
+                .filter(czechEntity -> czechEntity.getRegion().equalsIgnoreCase(getSecondSymbol(region)))
+                .findFirst()
+                .orElseThrow(() ->
+                        new RegionNotFoundException(String.format(regionNotFound, getSecondSymbol(region)))));
 
         return CzechModel.toModelRegion(czechRegion);
     }
