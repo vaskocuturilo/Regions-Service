@@ -1,9 +1,9 @@
 {
   "devDependencies": {
     "@shelex/cypress-allure-plugin": "2.40.0",
-    "@types/jquery": "^3.5.16",
-    "allure-commandline": "^2.23.0",
-    "cypress": "^12.14.0",
+    "@types/jquery": "^3.7.0",
+    "allure-commandline": "^2.23.1",
+    "cypress": "^12.17.3",
     "cypress-file-upload": "^5.0.8"
   },
   "name": "regions-service",
@@ -177,8 +177,8 @@
     "yauzl": "^2.10.0"
   },
   "scripts": {
-    "cypress:run:smoke:test": "cypress run --spec cypress/e2e/smoke/*.js --e2e --env allure=true",
-    "cypress:run:sanity:test": "cypress run --spec cypress/e2e/sanity/*.js --e2e --env allure=true",
+    "cypress:run:smoke:test": "cypress run --spec cypress/e2e/smoke/ --e2e --env allure=true",
+    "cypress:run:sanity:test": "cypress run --spec cypress/e2e/sanity/ --e2e --env allure=true",
     "cypress:run:allure:report": "allure generate",
     "allure:report": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report",
