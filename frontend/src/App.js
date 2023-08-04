@@ -100,7 +100,7 @@ let diplomaticImages = {
 
     const selectValue = regionRef.current.value;
 
-    if (selectValue == 'None') {
+    if (selectValue === 'None') {
     alert('Choose any country first');
       return;
     } 
@@ -132,7 +132,7 @@ let diplomaticImages = {
 
     const selectValue = diplomaticRef.current.value;
 
-    if (selectValue == 'None') {
+    if (selectValue === 'None') {
     alert('Choose any country first');
       return;
     } 
@@ -164,7 +164,7 @@ let diplomaticImages = {
 
     const selectValue = regionRef.current.value;
 
-    if (selectValue == 'None') {
+    if (selectValue === 'None') {
     alert('Choose any country first');
       return;
     } 
@@ -196,7 +196,7 @@ let diplomaticImages = {
 
     const selectValue = diplomaticRef.current.value;
 
-    if (selectValue == 'None') {
+    if (selectValue === 'None') {
     alert('Choose any country first');
       return;
     } 
@@ -263,7 +263,7 @@ return (
     <div className="App">
       <img id="countries_image"
                      src={logo}
-                     class="center" ref={image}/>
+                     class="center" ref={image} alt="this is main image"/>
     
     <div role="alert" class="center alert alert-info mt-2" data-cy="alert_message_block">Please choose any type of plates</div>    
       
