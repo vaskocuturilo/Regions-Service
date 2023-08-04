@@ -64,4 +64,17 @@ public class Utils {
         }
         return inputData.substring(Math.max(inputData.length() - 3, 0));
     }
+
+    public static String getSecondSymbol(final String inputData) {
+        if (inputData.isEmpty()) {
+            throw new MissingFormatArgumentException(String.format(IS_EMPTY_DATA, inputData));
+        }
+        if (inputData.length() > 3) {
+            throw new MissingFormatArgumentException(String.format(DATA_SHOULD_BE_EQUALS, inputData, 3));
+        }
+        if (inputData.length() < 3) {
+            throw new MissingFormatArgumentException(String.format(DATA_SHOULD_BE_EQUALS, inputData, 3));
+        }
+        return Character.toString(inputData.charAt(1));
+    }
 }
