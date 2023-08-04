@@ -1,6 +1,8 @@
 version: "3.8"
 services:
   mysqldb:
+    hostname: mysqldb-regions
+    container_name: mysqldb-regions
     image: mysql:8.0
     restart: always
     ports:
@@ -18,8 +20,9 @@ services:
       retries: 10
 
   server:
+    hostname: server-regions
+    container_name: server-regions
     image: myapp
-    container_name: myapp
     restart: always
     build:
       context: .
@@ -36,7 +39,8 @@ services:
       start_period: 40s
 
   frontend:
-    container_name: frontend
+    hostname: frontend-regions
+    container_name: frontend-regions
     build: ./frontend
     volumes:
       - './:/app'
