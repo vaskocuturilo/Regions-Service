@@ -1,7 +1,18 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath "com.github.node-gradle:gradle-node-plugin:5.0.0"
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.5.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "com.github.node-gradle.node" version "5.0.0"
 }
 
 group = 'com.regions'
@@ -11,6 +22,8 @@ sourceCompatibility = "16"
 repositories {
     mavenCentral()
 }
+
+apply plugin: 'com.github.node-gradle.node'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -50,4 +63,57 @@ targetCompatibility = JavaVersion.VERSION_16
 
 test {
     systemProperty 'spring.profiles.active', 'dev'
+}
+
+node {
+    // Whether to download and install a specific Node.js version or not
+    // If false, it will use the globally installed Node.js
+    // If true, it will download node using above parameters
+    // Note that npm is bundled with Node.js
+    download = false
+
+    // Version of node to download and install (only used if download is true)
+    // It will be unpacked in the workDir
+    version = "16.14.0"
+
+    // Version of npm to use
+    // If specified, installs it in the npmWorkDir
+    // If empty, the plugin will use the npm command bundled with Node.js
+    npmVersion = ""
+
+    // Version of Yarn to use
+    // Any Yarn task first installs Yarn in the yarnWorkDir
+    // It uses the specified version if defined and the latest version otherwise (by default)
+    yarnVersion = ""
+
+    // The npm command executed by the npmInstall task
+    // By default it is install but it can be changed to ci
+    npmInstallCommand = "install"
+
+    // The directory where Node.js is unpacked (when download is true)
+    workDir = file("${project.projectDir}/.gradle/nodejs")
+
+    // The directory where npm is installed (when a specific version is defined)
+    npmWorkDir = file("${project.projectDir}/.gradle/npm")
+
+    // The directory where yarn is installed (when a Yarn task is used)
+    yarnWorkDir = file("${project.projectDir}/.gradle/yarn")
+
+    // The Node.js project directory location
+    // This is where the package.json file and node_modules directory are located
+    // By default it is at the root of the current project
+    nodeProjectDir = file("${project.projectDir}/frontend/")
+
+    // Whether the plugin automatically should add the proxy configuration to npm and yarn commands
+    // according the proxy configuration defined for Gradle
+    // Disable this option if you want to configure the proxy for npm or yarn on your own
+    // (in the .npmrc file for instance)
+    nodeProxySettings = ProxySettings.SMART
+}
+npm_run_build {
+}
+
+task copyTask(type: Copy) {
+    from file("${project.projectDir}/frontend/build/")
+    into file("${project.projectDir}/src/main/resources/static")
 }

@@ -105,6 +105,11 @@ let diplomaticImages = {
       return;
     } 
 
+    if (region === '') {
+      alert('Choose region first');
+        return;
+    } 
+
     if (region) {
       try {
         const res = await apiClient.get(`/${plates}/plates/region/${region}`);
@@ -137,6 +142,11 @@ let diplomaticImages = {
       return;
     } 
 
+    if (region === '') {
+      alert('Choose region first');
+        return;
+    } 
+
     if (region) {
       try {
         const res = await apiClient.get(`/${diplomatic}/diplomatic/plates/region/${region}`);
@@ -167,6 +177,12 @@ let diplomaticImages = {
     if (selectValue === 'None') {
     alert('Choose any country first');
       return;
+    }
+    
+    if (description === '') {
+      alert('Choose region first');
+        return;
+
     } 
 
     if (description) {
@@ -199,8 +215,14 @@ let diplomaticImages = {
     if (selectValue === 'None') {
     alert('Choose any country first');
       return;
-    } 
+    }
+    
 
+    if (description === '') {
+      alert('Choose region first');
+        return;
+    } 
+    
     if (description) {
       try {
         const res = await apiClient.get(`/${diplomatic}/diplomatic/plates/description/${description}`);
