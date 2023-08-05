@@ -8,6 +8,13 @@ services:
     ports:
       - "3307:3306"
 
+    logging:
+      #limit logs to 200MB (4rotations of 50M each)
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "4"
+
     environment:
       MYSQL_USER: mysql
       MYSQL_PASSWORD: password
@@ -24,6 +31,12 @@ services:
     container_name: server-regions
     image: myapp
     restart: always
+    logging:
+      #limit logs to 200MB (4rotations of 50M each)
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "4"
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -47,6 +60,14 @@ services:
       - '/app/node_modules'
     ports:
       - "3000:3000"
+
+    logging:
+      #limit logs to 200MB (4rotations of 50M each)
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "4"
+
     stdin_open: true
     environment:
       - CHOKIDAR_USEPOLLING=true
