@@ -122,6 +122,7 @@ let diplomaticImages = {
         };
 
         setGetResult(fortmatResponse(result));
+        getRegion.current.value = '';
       } catch (err) {
         if (!err?.response) {
           alert("No Server Response");
@@ -159,6 +160,7 @@ let diplomaticImages = {
         };
 
         setGetResult(fortmatResponse(result));
+        getDiplomaticRegion.current.value = '';
       } catch (err) {
         if (!err?.response) {
           alert("No Server Response");
@@ -197,6 +199,7 @@ let diplomaticImages = {
         };
 
         setGetResult(fortmatResponse(result));
+        getDescription.current.value = '';
       } catch (err) {
         if (!err?.response) {
           alert("No Server Response");
@@ -235,6 +238,7 @@ let diplomaticImages = {
         };
 
         setGetResult(fortmatResponse(result));
+        getDiplomaticDescription.current.value = '';
       } catch (err) {
         if (!err?.response) {
           alert("No Server Response");

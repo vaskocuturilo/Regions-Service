@@ -22,7 +22,7 @@ class SimpleIntegrationPolandTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String PATH = "/api/v1/poland/plates";
+    private final String PATH = "/api/v1/poland/plates";
 
     @Value("${notification.description.message}")
     private String descriptionNotFound;
@@ -32,7 +32,7 @@ class SimpleIntegrationPolandTest {
 
     @Test
     void getRegionHandle_whenGetPolandByRegion_thenStatus200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/LB")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -45,7 +45,7 @@ class SimpleIntegrationPolandTest {
 
     @Test
     void getRegionHandle_whenGetPolandByDescription_thenStatus200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/Lubelskie")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -58,7 +58,7 @@ class SimpleIntegrationPolandTest {
 
     @Test
     void getRegionHandle_whenGetPolandByDescriptionContains_thenStatus200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/Warszawa")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -70,18 +70,18 @@ class SimpleIntegrationPolandTest {
 
     @Test
     void getRegionHandle_whenGetAllPolandRegions_thenStatus200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/all")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(410)));
+                .andExpect(jsonPath("$[*]", hasSize(411)));
     }
 
     @Test
     void getRegionHandle_whenGetPolandWithoutDescription_thenStatus404() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -90,7 +90,7 @@ class SimpleIntegrationPolandTest {
 
     @Test
     void getRegionHandle_whenGetPolandWithoutRegion_thenStatus404() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -100,7 +100,7 @@ class SimpleIntegrationPolandTest {
     @Test
     void getRegionHandle_whenExceptionPolandByRegion_thenStatus400() throws Exception {
         String region = "600";
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/" + region)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -111,7 +111,7 @@ class SimpleIntegrationPolandTest {
     @Test
     void getRegionHandle_whenExceptionPolandByDescription_thenStatus400() throws Exception {
         String description = "TTTTTTTT";
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/" + description)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
