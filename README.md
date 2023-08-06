@@ -8,15 +8,15 @@ The Spring Boot REST service for region application.
 ## Requirements:
 
 - Use any *object-oriented language*.
-- Use last Spring boot version.
-- Use last MySQL database version.
+- Use the last Spring boot version.
+- Use the last MySQL database version.
 - Create REST API service.
-- Create docker compose for run service.
-- provide code and clear instructions how to run it.
+- Create docker-compose for run service.
+- provide code and clear instructions on how to run it.
 
-**Note**: please put your code in public repository.
+**Note**: please put your code in a public repository.
 
-**Note**: Please send link to this repo when you are done.
+**Note**: Please send a link to this repo when you are done.
 
 You will need the following technologies available to try it out:
 
@@ -132,3 +132,12 @@ These endpoints allow you to handle Stripe subscriptions for Publish and Analyze
         "id": 3
     },
 ```
+## The Web site link is
+
+http://regions-service.us-east-2.elasticbeanstalk.com/
+
+## How it looks
+![](https://i.postimg.cc/tJTGF42w/screenshot-regions-service-us-east-2-elasticbeanstalk-com-2023-08-06-13-58-44.png)
+
+![](https://i.postimg.cc/gkJTD5m9/screenshot-regions-service-us-east-2-elasticbeanstalk-com-2023-08-06-13-59-41.png)
+
