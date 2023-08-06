@@ -17,11 +17,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SimpleIntegrationUkraineTest {
+class SimpleIntegrationUkraineTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String PATH = "/api/v1/ukraine/plates";
+    private final String PATH = "/api/v1/ukraine/plates";
 
     @Value("${notification.description.message}")
     private String descriptionNotFound;
@@ -31,7 +31,7 @@ public class SimpleIntegrationUkraineTest {
 
     @Test
     void getRegionHandle_whenGetUkraineByRegion_thenStatus200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/AA")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -44,7 +44,7 @@ public class SimpleIntegrationUkraineTest {
 
     @Test
     void getRegionHandle_whenGetUkraineByDescription_thenStatus200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/город Киев")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -52,23 +52,23 @@ public class SimpleIntegrationUkraineTest {
                 .andExpect(jsonPath("$[*]").isNotEmpty())
                 .andExpect(jsonPath("$[*].region").isNotEmpty())
                 .andExpect(jsonPath("$[*].description").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(1)));
+                .andExpect(jsonPath("$[*]", hasSize(2)));
     }
 
     @Test
     void getRegionHandle_whenGetAllUkraineRegions_thenStatus200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/all")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(28)));
+                .andExpect(jsonPath("$[*]", hasSize(53)));
     }
 
     @Test
     void getRegionHandle_whenGetUkraineByDescriptionContains_thenStatus200() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/Киев")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -79,7 +79,7 @@ public class SimpleIntegrationUkraineTest {
 
     @Test
     void getRegionHandle_whenGetUkraineWithoutDescription_thenStatus404() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -88,7 +88,7 @@ public class SimpleIntegrationUkraineTest {
 
     @Test
     void getRegionHandle_whenGetUkraineWithoutRegion_thenStatus404() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -98,7 +98,7 @@ public class SimpleIntegrationUkraineTest {
     @Test
     void getRegionHandle_whenExceptionUkraineByRegion_thenStatus400() throws Exception {
         String region = "AAA";
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/" + region)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -109,7 +109,7 @@ public class SimpleIntegrationUkraineTest {
     @Test
     void getRegionHandle_whenExceptionUkraineByDescription_thenStatus400() throws Exception {
         String description = "Stambul";
-        mockMvc.perform(MockMvcRequestBuilders
+        this.mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/" + description)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
