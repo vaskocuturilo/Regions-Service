@@ -23,7 +23,7 @@ public class AzerbaijanController {
     public ResponseEntity getAzerbaijanPlatesByRegion(@Valid final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(azerbaijanService.getAzerbaijanPlatesByRegion(region));
-        } catch (RegionNotFoundException | RuntimeException exception) {
+        } catch (final RegionNotFoundException | RuntimeException exception) {
             log.debug("RegionNotFoundException", exception.getMessage());
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
@@ -33,7 +33,7 @@ public class AzerbaijanController {
     public ResponseEntity getAzerbaijanPlatesByDescription(@Valid final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(azerbaijanService.getAzerbaijanPlatesByDescription(description));
-        } catch (DescriptionNotFoundException | RuntimeException exception) {
+        } catch (final DescriptionNotFoundException | RuntimeException exception) {
             log.debug("DescriptionNotFoundException", exception.getMessage());
             return ResponseEntity.badRequest().body(exception.getMessage());
         }

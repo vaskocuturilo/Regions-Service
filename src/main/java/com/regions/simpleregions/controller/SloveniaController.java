@@ -22,7 +22,7 @@ public class SloveniaController {
     public ResponseEntity getSloveniaPlatesRegionByNumber(@Valid final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(sloveniaService.getSloveniaPlatesRegionByNumber(region));
-        } catch (RegionNotFoundException | RuntimeException exception) {
+        } catch (final RegionNotFoundException | RuntimeException exception) {
             log.debug("RegionNotFoundException", exception.getMessage());
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
@@ -32,7 +32,7 @@ public class SloveniaController {
     public ResponseEntity getSloveniaRegionByDescription(@Valid final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(sloveniaService.getSloveniaRegionByDescription(description));
-        } catch (DescriptionNotFoundException | RuntimeException exception) {
+        } catch (final DescriptionNotFoundException | RuntimeException exception) {
             log.debug("DescriptionNotFoundException", exception.getMessage());
             return ResponseEntity.badRequest().body(exception.getMessage());
         }

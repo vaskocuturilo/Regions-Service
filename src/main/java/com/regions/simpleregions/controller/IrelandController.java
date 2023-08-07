@@ -23,7 +23,7 @@ public class IrelandController {
     public ResponseEntity getIrelandPlatesByRegion(@Valid final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(irelandService.getPlatesByRegion(region));
-        } catch (RegionNotFoundException | RuntimeException exception) {
+        } catch (final RegionNotFoundException | RuntimeException exception) {
             log.debug("RegionNotFoundException", exception.getMessage());
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
@@ -33,7 +33,7 @@ public class IrelandController {
     public ResponseEntity getIrelandPlatesByDescription(@Valid final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(irelandService.getPlatesByDescription(description));
-        } catch (DescriptionNotFoundException | RuntimeException exception) {
+        } catch (final DescriptionNotFoundException | RuntimeException exception) {
             log.debug("DescriptionNotFoundException", exception.getMessage());
             return ResponseEntity.badRequest().body(exception.getMessage());
         }

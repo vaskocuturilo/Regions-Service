@@ -8,6 +8,7 @@ import com.regions.simpleregions.respository.TurkeyRepo;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class TurkeyService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
+    @Cacheable(value = "turkey_region", key = "#region")
     public TurkeyModel getTurkeyPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getTurkeyPlatesByRegion");
         Optional<TurkeyEntity> turkeyRegion = turkeyRepo.findByRegion(region);
@@ -36,6 +38,7 @@ public class TurkeyService {
         return TurkeyModel.toModelByRegion(turkeyRegion);
     }
 
+    @Cacheable(value = "turkey_description", key = "#description")
     public List<TurkeyModel> getTurkeyPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getTurkeyPlatesByDescription");
         List<TurkeyEntity> turkeyEntityList = turkeyRepo.findByDescription(description);

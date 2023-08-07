@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 @CrossOrigin("http://localhost:3000/")
 @Log4j2
 @Data
@@ -23,7 +24,7 @@ public class LithuaniaDiplomaticController {
     public ResponseEntity getLithuaniaDiplomaticPlatesByRegion(@Valid final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(lithuaniaDiplomaticService.getLithuaniaDiplomaticPlatesByRegion(region));
-        } catch (RegionNotFoundException | RuntimeException exception) {
+        } catch (final RegionNotFoundException | RuntimeException exception) {
             log.debug("RegionNotFoundException", exception.getMessage());
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
@@ -33,7 +34,7 @@ public class LithuaniaDiplomaticController {
     public ResponseEntity getLithuaniaDiplomaticPlatesByDescription(@Valid final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(lithuaniaDiplomaticService.getLithuaniaDiplomaticPlatesByDescription(description));
-        } catch (DescriptionNotFoundException | RuntimeException exception) {
+        } catch (final DescriptionNotFoundException | RuntimeException exception) {
             log.debug("DescriptionNotFoundException", exception.getMessage());
             return ResponseEntity.badRequest().body(exception.getMessage());
         }

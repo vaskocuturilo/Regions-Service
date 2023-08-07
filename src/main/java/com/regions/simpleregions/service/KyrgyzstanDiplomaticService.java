@@ -8,6 +8,7 @@ import com.regions.simpleregions.respository.KyrgyzstanDiplomaticRepo;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class KyrgyzstanDiplomaticService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
+    @Cacheable(value = "kyrgyzstan_diplomatic_region", key = "#region")
     public KyrgyzstanDiplomaticModel getKyrgyzstanDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getKyrgyzstanDiplomaticPlatesByRegion");
         Optional<KyrgyzstanDiplomaticEntity> kyrgyzstanRegion = kyrgyzstanDiplomaticRepo.findByRegion(region);
@@ -36,6 +38,7 @@ public class KyrgyzstanDiplomaticService {
         return KyrgyzstanDiplomaticModel.toModelByRegion(kyrgyzstanRegion);
     }
 
+    @Cacheable(value = "kyrgyzstan_diplomatic_description", key = "#description")
     public List<KyrgyzstanDiplomaticModel> getKyrgyzstanDiplomaticPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getKyrgyzstanDiplomaticPlatesByDescription");
         List<KyrgyzstanDiplomaticEntity> kyrgyzstanEntityList = kyrgyzstanDiplomaticRepo.findByDescription(description);
