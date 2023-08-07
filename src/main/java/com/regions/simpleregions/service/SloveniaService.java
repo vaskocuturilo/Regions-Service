@@ -8,6 +8,7 @@ import com.regions.simpleregions.respository.SloveniaRepo;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class SloveniaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
+    @Cacheable(value = "slovenia_region", key = "#region")
     public SloveniaModel getSloveniaPlatesRegionByNumber(final String region) throws RegionNotFoundException {
         log.info("Start method getSloveniaPlatesRegionByNumber");
         Optional<SloveniaEntity> sloveniaRegion = sloveniaRepo.findByRegion(region);
@@ -39,6 +41,7 @@ public class SloveniaService {
         return SloveniaModel.toModelByRegion(sloveniaRegion);
     }
 
+    @Cacheable(value = "slovenia_description", key = "#description")
     public List<SloveniaModel> getSloveniaRegionByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getSloveniaRegionByDescription");
         List<SloveniaEntity> sloveniaEntityList = sloveniaRepo.findByDescription(description);

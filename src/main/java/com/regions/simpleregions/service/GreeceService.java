@@ -8,6 +8,7 @@ import com.regions.simpleregions.respository.GreeceRepo;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class GreeceService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
+    @Cacheable(value = "greece_region", key = "#region")
     public GreeceModel getGreecePlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getGreecePlatesByRegion");
         Optional<GreeceEntity> greeceRegionExist = greeceRepo.findByRegion(region);
@@ -35,6 +37,7 @@ public class GreeceService {
         return GreeceModel.toModelByRegion(greeceRegionExist);
     }
 
+    @Cacheable(value = "greece_description", key = "#description")
     public List<GreeceModel> getGreecePlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getGreecePlatesByDescription");
         List<GreeceEntity> greeceEntityList = greeceRepo.findByDescription(description);

@@ -8,6 +8,7 @@ import com.regions.simpleregions.respository.RomaniaRepo;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class RomaniaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
+    @Cacheable(value = "romania_region", key = "#region")
     public RomaniaModel getRomaniaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getRomaniaPlatesByRegion");
         Optional<RomaniaEntity> romaniaRegion = romaniaRepo.findByRegion(region);
@@ -39,6 +41,7 @@ public class RomaniaService {
         return RomaniaModel.toModelByRegion(romaniaRegion);
     }
 
+    @Cacheable(value = "romania_description", key = "#description")
     public List<RomaniaModel> getRomaniaPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getRomaniaPlatesByDescription");
         List<RomaniaEntity> romaniaEntityList = romaniaRepo.findByDescription(description);

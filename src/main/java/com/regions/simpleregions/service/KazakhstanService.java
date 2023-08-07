@@ -8,6 +8,7 @@ import com.regions.simpleregions.respository.KazakhstanRepo;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public class KazakhstanService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    public KazakhstanModel getPlatesByRegion(final String region) throws RegionNotFoundException {
+    @Cacheable(value = "kazakhstan_region", key = "#region")
+    public KazakhstanModel getKazakhstanPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getPlatesByRegion");
         Optional<KazakhstanEntity> kazakhstanRegion = kazakhstanRepo.findByRegion(region);
 
@@ -35,7 +37,8 @@ public class KazakhstanService {
         return KazakhstanModel.toModelRegion(kazakhstanRegion);
     }
 
-    public List<KazakhstanModel> getPlatesByDescription(final String description) throws DescriptionNotFoundException {
+    @Cacheable(value = "kazakhstan_description", key = "#description")
+    public List<KazakhstanModel> getKazakhstanPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getPlatesByDescription");
         List<KazakhstanEntity> kazakhstanEntityList = kazakhstanRepo.findByDescription(description);
         kazakhstanEntityList.stream().parallel().findAny().map(kazakhstanEntity -> kazakhstanEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->

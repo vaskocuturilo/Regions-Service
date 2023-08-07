@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 @CrossOrigin("http://localhost:3000/")
 @Log4j2
 @Data
@@ -22,8 +23,8 @@ public class KosovoController {
     public ResponseEntity getKosovoPlatesByRegion(@Valid final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(kosovoService.getKosovoPlatesByRegion(region));
-        } catch (RegionNotFoundException | RuntimeException exception) {
-            log.debug("RegionNotFoundException",exception.getMessage());
+        } catch (final RegionNotFoundException | RuntimeException exception) {
+            log.debug("RegionNotFoundException", exception.getMessage());
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
@@ -32,8 +33,8 @@ public class KosovoController {
     public ResponseEntity getKosovoPlatesByDescription(@Valid final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(kosovoService.getKosovoPlatesByDescription(description));
-        } catch (DescriptionNotFoundException | RuntimeException exception) {
-            log.debug("DescriptionNotFoundException",exception.getMessage());
+        } catch (final DescriptionNotFoundException | RuntimeException exception) {
+            log.debug("DescriptionNotFoundException", exception.getMessage());
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }

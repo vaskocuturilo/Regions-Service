@@ -24,7 +24,7 @@ public class ArmeniaController {
     public ResponseEntity getArmeniaPlatesByRegion(@Valid final @PathVariable("region") String region) {
         try {
             return ResponseEntity.ok(armeniaService.getArmeniaPlatesByRegion(region));
-        } catch (RegionNotFoundException | RuntimeException exception) {
+        } catch (final RegionNotFoundException | RuntimeException exception) {
             log.debug("RegionNotFoundException", exception);
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
@@ -34,7 +34,7 @@ public class ArmeniaController {
     public ResponseEntity getArmeniaPlatesByDescription(@Valid final @PathVariable("description") String description) {
         try {
             return ResponseEntity.ok(armeniaService.getArmeniaPlatesByDescription(description));
-        } catch (DescriptionNotFoundException | RuntimeException exception) {
+        } catch (final DescriptionNotFoundException | RuntimeException exception) {
             log.debug("DescriptionNotFoundException", exception);
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
