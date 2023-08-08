@@ -60,3 +60,5 @@ INSERT INTO `lithuania_diplomatic_entity` VALUES
 (50,'European Institute for Gender Equality','88'),
 (51,'NATO Energy Security Centre of Excellence','89');
 UNLOCK TABLES;
+
+ALTER TABLE lithuania_diplomatic_entity ADD INDEX lithuania_diplomatic_index (description, region);

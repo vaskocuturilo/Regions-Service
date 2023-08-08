@@ -109,3 +109,5 @@ INSERT INTO `uzbekistan_entity` VALUES
 (98,'Республика Каракалпакстан','98'),
 (99,'Республика Каракалпакстан','99');
 UNLOCK TABLES;
+
+ALTER TABLE uzbekistan_entity ADD INDEX uzbekistan_index (description, region);

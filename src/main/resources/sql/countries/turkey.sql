@@ -92,3 +92,5 @@ INSERT INTO `turkey_entity` VALUES
 (80,'Osmaniye','80'),
 (81,'Düzce','81');
 UNLOCK TABLES;
+
+ALTER TABLE turkey_entity ADD INDEX turkey_index (description, region);

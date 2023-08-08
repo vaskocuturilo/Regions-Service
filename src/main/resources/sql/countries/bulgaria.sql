@@ -42,4 +42,6 @@ INSERT INTO `bulgaria_entity` VALUES
 (30,'Haskovo Province','X');
 UNLOCK TABLES;
 
+ALTER TABLE bulgaria_entity ADD INDEX bulgaria_index (description, region);
+
 

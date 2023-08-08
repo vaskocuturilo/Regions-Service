@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class SimpleIntegrationFranceDiplomaticTest {
     @Autowired
     private MockMvc mockMvc;
-    private String PATH = "/api/v1/france/diplomatic/plates";
+    private final String PATH = "/api/v1/france/diplomatic/plates";
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
@@ -72,9 +72,9 @@ class SimpleIntegrationFranceDiplomaticTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].region").isNotEmpty())
-                .andExpect(jsonPath("$[0].region", equalTo("415")))
+                .andExpect(jsonPath("$[0].region", equalTo("435")))
                 .andExpect(jsonPath("$[*].description").isNotEmpty())
-                .andExpect(jsonPath("$[0].description", equalTo("European Union")));
+                .andExpect(jsonPath("$[0].description", equalTo("European Molecular Biology Laboratory")));
     }
 
     @Test

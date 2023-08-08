@@ -27,7 +27,7 @@ class SimpleIntegrationRomaniaTest {
     @Value("${notification.region.message}")
     private String regionNotFound;
 
-    private String PATH = "/api/v1/romania/plates";
+    private final String PATH = "/api/v1/romania/plates";
 
     @Test
     void getRegionHandle_whenGetRomania_thenStatus200() throws Exception {
@@ -62,8 +62,8 @@ class SimpleIntegrationRomaniaTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].region", equalTo("AG")))
-                .andExpect(jsonPath("$[0].description", equalTo("Argeș")));
+                .andExpect(jsonPath("$[0].region", equalTo("AR")))
+                .andExpect(jsonPath("$[0].description", equalTo("Arad")));
     }
 
     @Test

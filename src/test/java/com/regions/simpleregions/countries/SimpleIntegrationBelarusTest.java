@@ -22,7 +22,7 @@ class SimpleIntegrationBelarusTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String PATH = "/api/v1/belarus/plates";
+    private final String PATH = "/api/v1/belarus/plates";
 
     @Value("${notification.description.message}")
     private String descriptionNotFound;
@@ -63,8 +63,8 @@ class SimpleIntegrationBelarusTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].region", equalTo("5")))
-                .andExpect(jsonPath("$[0].description", equalTo("Минская область")));
+                .andExpect(jsonPath("$[0].region", equalTo("7")))
+                .andExpect(jsonPath("$[0].description", equalTo("город Минск")));
     }
 
     @Test

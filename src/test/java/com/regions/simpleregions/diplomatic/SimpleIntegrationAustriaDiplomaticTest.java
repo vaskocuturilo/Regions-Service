@@ -22,7 +22,7 @@ class SimpleIntegrationAustriaDiplomaticTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String PATH = "/api/v1/austria/diplomatic/plates";
+    private final String PATH = "/api/v1/austria/diplomatic/plates";
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -61,8 +61,8 @@ class SimpleIntegrationAustriaDiplomaticTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].region", equalTo("1")))
-                .andExpect(jsonPath("$[0].description", equalTo("Vatican City")));
+                .andExpect(jsonPath("$[0].region", equalTo("14")))
+                .andExpect(jsonPath("$[0].description", equalTo("Canada")));
     }
 
     @Test

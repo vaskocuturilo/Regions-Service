@@ -39,3 +39,5 @@ INSERT INTO `estonia_diplomatic_entity` VALUES
 (29,'European Union','49'),
 (30,'Nordic Council','50');
 UNLOCK TABLES;
+
+ALTER TABLE estonia_diplomatic_entity ADD INDEX estonia_diplomatic_index (description, region);

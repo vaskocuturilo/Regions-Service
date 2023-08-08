@@ -113,3 +113,5 @@ INSERT INTO `france_entity` VALUES
 (101,'Réunion,Saint-Denis,Outre-Mer','974'),
 (102,'Mayotte,Mamoudzou,Outre-Mer','976');
 UNLOCK TABLES;
+
+ALTER TABLE france_entity ADD INDEX france_index (description, region);

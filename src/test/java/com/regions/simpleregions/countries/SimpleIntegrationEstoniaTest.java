@@ -21,7 +21,7 @@ class SimpleIntegrationEstoniaTest {
 
     @Autowired
     private MockMvc mockMvc;
-    private String PATH = "/api/v1/estonia/plates";
+    private final String PATH = "/api/v1/estonia/plates";
 
     @Value("${notification.description.message}")
     private String descriptionNotFound;
@@ -73,8 +73,8 @@ class SimpleIntegrationEstoniaTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].region", equalTo("A")))
-                .andExpect(jsonPath("$[0].description", equalTo("Tallinn")));
+                .andExpect(jsonPath("$[0].region", equalTo("M")))
+                .andExpect(jsonPath("$[0].description", equalTo("Harjumaa outside of Tallinn")));
     }
 
     @Test

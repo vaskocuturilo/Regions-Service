@@ -43,3 +43,5 @@ INSERT INTO `kyrgyzstan_diplomatic_entity` VALUES
 (33,'Aga Khan','63'),
 (34,'ISTC','64');
 UNLOCK TABLES;
+
+ALTER TABLE kyrgyzstan_diplomatic_entity ADD INDEX kyrgyzstan_diplomatic_index (description, region);

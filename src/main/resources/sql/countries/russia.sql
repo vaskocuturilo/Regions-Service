@@ -167,3 +167,5 @@ INSERT INTO `russia_entity` VALUES
 (156,'Республика Бурятия','303');
 /*!40000 ALTER TABLE `russia_entity` ENABLE KEYS */;
 UNLOCK TABLES;
+
+ALTER TABLE russia_entity ADD INDEX russia_index (description, region);

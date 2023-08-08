@@ -141,3 +141,5 @@ INSERT INTO `austria_entity` VALUES
 (129,'Zwettl','ZT'),
 (130,'Zollwache (Zollwache merged with federal police)','ZW');
 UNLOCK TABLES;
+
+ALTER TABLE austria_entity ADD INDEX austria_index (description, region);

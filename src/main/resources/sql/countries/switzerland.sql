@@ -37,3 +37,5 @@ INSERT INTO `switzerland_entity` VALUES
 (25,'Zug','ZG'),
 (26,'Zürich','ZH');
 UNLOCK TABLES;
+
+ALTER TABLE switzerland_entity ADD INDEX switzerland_index (description, region);

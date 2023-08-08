@@ -64,3 +64,5 @@ INSERT INTO `ukraine_entity` VALUES
 (52,'город Севастополь','CH'),
 (53,'Общегосударственные номера','II');
 UNLOCK TABLES;
+
+ALTER TABLE ukraine_entity ADD INDEX ukraine_index (description, region);

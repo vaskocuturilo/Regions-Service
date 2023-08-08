@@ -55,3 +55,5 @@ INSERT INTO `norway_diplomatic_entity` VALUES
 (45,'Venezuela','86'),
 (46,'Austria','89');
 UNLOCK TABLES;
+
+ALTER TABLE norway_diplomatic_entity ADD INDEX norway_diplomatic_index (description, region);

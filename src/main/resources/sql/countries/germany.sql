@@ -807,3 +807,5 @@ INSERT INTO `germany_entity` VALUES
 (790,'Zweibrücken, Rhineland Palatinate','ZW'),
 (791,'Zeitz, Saxony Anhalt','ZZ');
 UNLOCK TABLES;
+
+ALTER TABLE germany_entity ADD INDEX germany_index (description, region);

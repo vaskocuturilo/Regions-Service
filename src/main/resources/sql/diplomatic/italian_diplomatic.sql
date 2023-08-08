@@ -175,3 +175,5 @@ INSERT INTO `italian_diplomatic_entity` VALUES
 (165,'New Zealand','ZC'),
 (166,'Philippines','GQ');
 UNLOCK TABLES;
+
+ALTER TABLE italian_diplomatic_entity ADD INDEX italian_diplomatic_index (description, region);

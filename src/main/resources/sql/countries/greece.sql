@@ -231,3 +231,5 @@ INSERT INTO `greece_entity` VALUES
 (219,'Athens prefecture {motorcycles}','XX'),
 (220,'Athens International Airport service vehicles','AIA');
 UNLOCK TABLES;
+
+ALTER TABLE greece_entity ADD INDEX greece_index (description, region);

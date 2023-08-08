@@ -50,3 +50,5 @@ INSERT INTO `croatia_entity` VALUES
 (38,'Požega','SP'),
 (39,'Korenica','TK');
 UNLOCK TABLES;
+
+ALTER TABLE croatia_entity ADD INDEX croatia_index (description, region);

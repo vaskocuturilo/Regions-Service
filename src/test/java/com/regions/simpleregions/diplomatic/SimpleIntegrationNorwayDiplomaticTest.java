@@ -27,7 +27,7 @@ class SimpleIntegrationNorwayDiplomaticTest {
     @Value("${notification.region.message}")
     private String regionNotFound;
 
-    private String PATH = "/api/v1/norway/diplomatic/plates";
+    private final String PATH = "/api/v1/norway/diplomatic/plates";
 
     @Test
     void getRegionHandle_whenGetNorway_thenStatus200() throws Exception {
@@ -62,8 +62,8 @@ class SimpleIntegrationNorwayDiplomaticTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].region", equalTo("10")))
-                .andExpect(jsonPath("$[0].description", equalTo("United States")));
+                .andExpect(jsonPath("$[0].region", equalTo("16")))
+                .andExpect(jsonPath("$[0].description", equalTo("United Kingdom")));
     }
 
     @Test

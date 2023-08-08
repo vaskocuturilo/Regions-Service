@@ -25,3 +25,5 @@ INSERT INTO `czech_entity` VALUES
 (13,'Ústecký kraj (Ústí nad Labem), (Ústí nad Labem)','U'),
 (14,'Zlínský kraj (Zlín), (Zlín)','Z');
 UNLOCK TABLES;
+
+ALTER TABLE czech_entity ADD INDEX czech_index (description, region);

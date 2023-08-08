@@ -88,3 +88,5 @@ INSERT INTO `azerbaijan_entity` VALUES
 (77,'Кенгерлинский район','74'),
 (78,'Нахичеванская Автономная Республика','85');
 UNLOCK TABLES;
+
+ALTER TABLE azerbaijan_entity ADD INDEX azerbaijan_index (description, region);

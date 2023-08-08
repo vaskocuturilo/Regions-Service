@@ -118,3 +118,5 @@ INSERT INTO `italian_entity` VALUES
 (106,'Viterbo','VT'),
 (107,'Vibo Valentia','VV');
 UNLOCK TABLES;
+
+ALTER TABLE italian_entity ADD INDEX italian_index (description, region);

@@ -124,3 +124,5 @@ INSERT INTO `poland_diplomatic_entity` VALUES
 (114,'Montenegro','114'),
 (115,'Senegal','115');
 UNLOCK TABLES;
+
+ALTER TABLE poland_diplomatic_entity ADD INDEX poland_diplomatic_index (description, region);

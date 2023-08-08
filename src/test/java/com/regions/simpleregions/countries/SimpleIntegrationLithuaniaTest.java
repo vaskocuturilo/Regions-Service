@@ -61,8 +61,8 @@ class SimpleIntegrationLithuaniaTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].region", equalTo("J")))
-                .andExpect(jsonPath("$[0].description", equalTo("Tauragė County (but code from first letter of Jurbarkas)")));
+                .andExpect(jsonPath("$[0].region", equalTo("K")))
+                .andExpect(jsonPath("$[0].description", equalTo("Kaunas County")));
     }
 
     @Test

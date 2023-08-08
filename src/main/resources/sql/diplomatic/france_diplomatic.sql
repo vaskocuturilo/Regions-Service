@@ -53,3 +53,5 @@ INSERT INTO `france_diplomatic_entity` VALUES
 (43,'International Bureau of Weights and Measures','434'),
 (44,'European Molecular Biology Laboratory','435');
 UNLOCK TABLES;
+
+ALTER TABLE france_diplomatic_entity ADD INDEX france_diplomatic_index (description, region);

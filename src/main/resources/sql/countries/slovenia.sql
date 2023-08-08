@@ -22,3 +22,5 @@ INSERT INTO `slovenia_entity` VALUES
 (10,'Postojna','PO'),
 (11,'Dravograd, Radlje ob Dravi, Ravne na Koroškem, Slovenj Gradec','SG');
 UNLOCK TABLES;
+
+ALTER TABLE slovenia_entity ADD INDEX slovenia_index (description, region);

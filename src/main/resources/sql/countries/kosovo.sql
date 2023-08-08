@@ -18,3 +18,5 @@ INSERT INTO `kosovo_entity` VALUES
 (6,'Gjilan','06'),
 (7,'Gjakova','07');
 UNLOCK TABLES;
+
+ALTER TABLE kosovo_entity ADD INDEX kosovo_index (description, region);

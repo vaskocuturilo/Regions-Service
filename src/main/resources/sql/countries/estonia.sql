@@ -29,3 +29,5 @@ INSERT INTO `estonia_entity` VALUES
 (18,'Tartumaa','T'),
 (19,'Võrumaa','V');
 UNLOCK TABLES;
+
+ALTER TABLE estonia_entity ADD INDEX estonia_index (description, region);

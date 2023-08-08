@@ -27,7 +27,7 @@ class SimpleIntegrationSlovakiaTest {
     @Value("${notification.region.message}")
     private String regionNotFound;
 
-    private String PATH = "/api/v1/slovakia/plates";
+    private final String PATH = "/api/v1/slovakia/plates";
 
     @Test
     void getRegionHandle_whenGetSlovakiaByRegion_thenStatus200() throws Exception {
@@ -63,8 +63,8 @@ class SimpleIntegrationSlovakiaTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].region", equalTo("BA")))
-                .andExpect(jsonPath("$[0].description", equalTo("Bratislava")));
+                .andExpect(jsonPath("$[0].region", equalTo("BN")))
+                .andExpect(jsonPath("$[0].description", equalTo("Bánovce nad Bebravou")));
     }
 
     @Test

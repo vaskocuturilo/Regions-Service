@@ -429,3 +429,5 @@ INSERT INTO `norway_entity` VALUES
 (418,'autogas/LPG (liquified petroleum gas) or other gas powered vehicles','GA'),
 (419,'Hydrogen powered vehicles','HY');
 UNLOCK TABLES;
+
+ALTER TABLE norway_entity ADD INDEX norway_index (description, region);
