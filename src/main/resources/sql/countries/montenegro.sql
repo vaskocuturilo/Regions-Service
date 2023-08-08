@@ -35,3 +35,5 @@ INSERT INTO `montenegro_entity` VALUES
 (23,'Ulcinj','UL'),
 (24,'Žabljak','ŽB');
 UNLOCK TABLES;
+
+ALTER TABLE montenegro_entity ADD INDEX montenegro_index (description, region);

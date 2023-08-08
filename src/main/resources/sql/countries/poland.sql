@@ -422,3 +422,5 @@ INSERT INTO `poland_entity` VALUES
 (411,'Warsaw (Rembertów district)','WWX'),
 (412,'Wołomin County','WV');
 UNLOCK TABLES;
+
+ALTER TABLE poland_entity ADD INDEX poland_index (description, region);

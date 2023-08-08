@@ -178,3 +178,5 @@ INSERT INTO `germany_diplomatic_entity` VALUES
 (168,'Botswana','205'),
 (169,'Maldives','206');
 UNLOCK TABLES;
+
+ALTER TABLE germany_diplomatic_entity ADD INDEX germany_diplomatic_index (description, region);

@@ -53,3 +53,5 @@ INSERT INTO `sweden_entity` VALUES
 (41,'Västerbottens län','AC'),
 (42,'Norrbottens län','BD');
 UNLOCK TABLES;
+
+ALTER TABLE sweden_entity ADD INDEX sweden_index (description, region);

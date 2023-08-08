@@ -20,3 +20,5 @@ INSERT INTO `kyrgyzstan_entity` VALUES
 (8,'Таласская область','07'),
 (9,'Чуйская область','08');
 UNLOCK TABLES;
+
+ALTER TABLE kyrgyzstan_entity ADD INDEX kyrgyzstan_index (description, region);

@@ -67,3 +67,5 @@ INSERT INTO `romania_diplomatic_entity` VALUES
 (57,'Turkmenistan','226'),
 (58,'Estonia','234');
 UNLOCK TABLES;
+
+ALTER TABLE romania_diplomatic_entity ADD INDEX romania_diplomatic_index (description, region);

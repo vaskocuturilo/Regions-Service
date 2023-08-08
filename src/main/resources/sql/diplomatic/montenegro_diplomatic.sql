@@ -49,3 +49,5 @@ INSERT INTO `montenegro_diplomatic_entity` VALUES
 (39,'OSCE','111'),
 (40,'ICRC','112');
 UNLOCK TABLES;
+
+ALTER TABLE montenegro_diplomatic_entity ADD INDEX montenegro_diplomatic_index (description, region);

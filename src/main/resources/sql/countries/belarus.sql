@@ -20,3 +20,5 @@ INSERT INTO `belarus_entity` VALUES
 (8,'город Минск','7'),
 (9,'Минский автомобильный завод','8');
 UNLOCK TABLES;
+
+ALTER TABLE belarus_entity ADD INDEX belarus_index (description, region);

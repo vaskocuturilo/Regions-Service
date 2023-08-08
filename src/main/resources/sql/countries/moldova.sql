@@ -60,3 +60,5 @@ INSERT INTO `moldova_entity` VALUES
 (48,'Ungheni','UN'),
 (49,'Vulcănești (currently Gagauzia)','VL');
 UNLOCK TABLES;
+
+ALTER TABLE moldova_entity ADD INDEX moldova_index (description, region);

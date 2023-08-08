@@ -22,3 +22,5 @@ INSERT INTO `lithuania_entity` VALUES
 (9,'Utena County','U'),
 (10,'Vilnius County','V');
 UNLOCK TABLES;
+
+ALTER TABLE lithuania_entity ADD INDEX lithuania_index (description, region);

@@ -187,3 +187,5 @@ INSERT INTO `switzerland_diplomatic_entity` VALUES
 (177,'Sierra Leone','178'),
 (178,'South Sudan','179');
 UNLOCK TABLES;
+
+ALTER TABLE switzerland_diplomatic_entity ADD INDEX switzerland_diplomatic_index (description, region);

@@ -29,3 +29,5 @@ INSERT INTO `kazakhstan_entity` VALUES
 (17,'Восточно-Казахстанская область (Семипалатинская область)','16'),
 (18,'Ввезённые из стран ЕАЭС','18');
 UNLOCK TABLES;
+
+ALTER TABLE kazakhstan_entity ADD INDEX kazakhstan_index (description, region);

@@ -53,3 +53,5 @@ INSERT INTO `romania_entity` VALUES
 (41,'Vrancea','VN'),
 (42,'Vaslui','VS');
 UNLOCK TABLES;
+
+ALTER TABLE romania_entity ADD INDEX romania_index (description, region);

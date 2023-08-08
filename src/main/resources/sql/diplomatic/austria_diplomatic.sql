@@ -120,3 +120,5 @@ INSERT INTO `austria_diplomatic_entity` VALUES
 (110,'Cyprus','982'),
 (111,'Bolivia','995');
 UNLOCK TABLES;
+
+ALTER TABLE austria_diplomatic_entity ADD INDEX austria_diplomatic_index (description, region);

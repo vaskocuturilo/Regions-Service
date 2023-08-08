@@ -37,3 +37,5 @@ INSERT INTO `ireland_entity` VALUES
 (25,'Wexford','WX'),
 (26,'Wicklow','WW');
 UNLOCK TABLES;
+
+ALTER TABLE ireland_entity ADD INDEX ireland_index (description, region);

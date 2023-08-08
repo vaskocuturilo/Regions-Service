@@ -111,4 +111,7 @@ INSERT INTO `armenia_entity` VALUES
 (100,'Individual plates not showing province','99');
 UNLOCK TABLES;
 
+ALTER TABLE armenia_entity ADD INDEX armenia_index (description, region);
+
+
 

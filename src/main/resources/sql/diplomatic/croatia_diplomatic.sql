@@ -76,3 +76,5 @@ INSERT INTO `croatia_diplomatic_entity` VALUES
 (66,'Ireland','094'),
 (67,'Iraq','095');
 UNLOCK TABLES;
+
+ALTER TABLE croatia_diplomatic_entity ADD INDEX croatia_diplomatic_index (description, region);

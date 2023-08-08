@@ -488,3 +488,5 @@ INSERT INTO `british_entity` VALUES
 (477,'Yorkshire, Beverley','YX'),
 (478,'Yorkshire, Beverley','YY');
 UNLOCK TABLES;
+
+ALTER TABLE british_entity ADD INDEX british_index (description, region);

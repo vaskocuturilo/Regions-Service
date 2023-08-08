@@ -104,3 +104,5 @@ INSERT INTO `slovakia_entity` VALUES
 (93,'Zlaté Moravce','ZM'),
 (94,'Zvolen','ZV');
 UNLOCK TABLES;
+
+ALTER TABLE slovakia_entity ADD INDEX slovakia_index (description, region);

@@ -126,3 +126,5 @@ INSERT INTO `sweden_diplomatic_entity` VALUES
 (116,'Azerbaijan','FM'),
 (117,'New Zealand','FN');
 UNLOCK TABLES;
+
+ALTER TABLE sweden_diplomatic_entity ADD INDEX sweden_diplomatic_index (description, region);

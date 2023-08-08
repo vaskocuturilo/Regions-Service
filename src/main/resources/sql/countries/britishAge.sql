@@ -67,3 +67,5 @@ INSERT INTO `british_age_entity` VALUES
 (56,'Sept 2028 – Feb 2029','78'),
 (57,'Sept 2029 – Feb 2030','79');
 UNLOCK TABLES;
+
+ALTER TABLE british_age_entity ADD INDEX british_age_index (date, code);

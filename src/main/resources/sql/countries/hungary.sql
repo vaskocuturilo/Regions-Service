@@ -29,3 +29,5 @@ INSERT INTO `hungary_entity` VALUES
 (17,'Jan 2020','S'),
 (18,'Sep 2021','T');
 UNLOCK TABLES;
+
+ALTER TABLE hungary_entity ADD INDEX hungary_index (description, region);
