@@ -22,7 +22,7 @@ class SimpleIntegrationAzerbaijanTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String PATH = "/api/v1/azerbaijan/plates";
+    private final String PATH = "/api/v1/azerbaijan/plates";
 
     @Value("${notification.description.message}")
     private String descriptionNotFound;
@@ -63,8 +63,8 @@ class SimpleIntegrationAzerbaijanTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].region", equalTo("99")))
-                .andExpect(jsonPath("$[0].description", equalTo("Общий код Азербайджана")));
+                .andExpect(jsonPath("$[0].region", equalTo("04")))
+                .andExpect(jsonPath("$[0].description", equalTo("Агджабединский район")));
     }
 
     @Test

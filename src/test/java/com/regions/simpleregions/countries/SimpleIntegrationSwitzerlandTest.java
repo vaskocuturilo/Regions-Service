@@ -26,7 +26,7 @@ class SimpleIntegrationSwitzerlandTest {
 
     @Value("${notification.region.message}")
     private String regionNotFound;
-    private String PATH = "/api/v1/switzerland/plates";
+    private final String PATH = "/api/v1/switzerland/plates";
 
     @Test
     void getRegionHandle_whenGetSwitzerland_thenStatus200() throws Exception {
@@ -61,8 +61,8 @@ class SimpleIntegrationSwitzerlandTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].region", equalTo("AI")))
-                .andExpect(jsonPath("$[0].description", equalTo("Appenzell Innerrhoden")));
+                .andExpect(jsonPath("$[0].region", equalTo("AR")))
+                .andExpect(jsonPath("$[0].description", equalTo("Appenzell Ausserrhoden")));
     }
 
     @Test
