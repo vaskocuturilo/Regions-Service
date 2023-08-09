@@ -52,7 +52,7 @@ describe('Testing main page for application regions', () => {
         mainPage.selectTypeOfPLates('Diplomatic plates');
         mainPage.checkImageDiplomaticByCountry("austria", "Austria");
         mainPage.checkImageDiplomaticByCountry("germany", "deutschland");
-        mainPage.checkImageDiplomaticByCountry("poland", "poland-dyplomatyczn.png");
+        mainPage.checkImageDiplomaticByCountry("poland", "poland-dyplomatic.png");
         mainPage.checkImageDiplomaticByCountry("croatia", "kroatie36.jpg");
         mainPage.checkImageDiplomaticByCountry("estonia", "Estonia_diplomatic");
         mainPage.checkImageDiplomaticByCountry("france", "French_diplomatic_license");

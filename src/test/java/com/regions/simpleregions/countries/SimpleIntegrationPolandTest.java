@@ -53,7 +53,7 @@ class SimpleIntegrationPolandTest {
                 .andExpect(jsonPath("$[*]").isNotEmpty())
                 .andExpect(jsonPath("$[*].region").isNotEmpty())
                 .andExpect(jsonPath("$[*].description").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(37)));
+                .andExpect(jsonPath("$[*]", hasSize(38)));
     }
 
     @Test
@@ -63,8 +63,8 @@ class SimpleIntegrationPolandTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].region", equalTo("WB")))
-                .andExpect(jsonPath("$[0].description", equalTo("Województwo mazowieckie, Warszawa-Bemowo")));
+                .andExpect(jsonPath("$[0].region", equalTo("WW")))
+                .andExpect(jsonPath("$[0].description", equalTo("Warszawa Rembertów, Warszawa Wilanów, Warszawa Włochy")));
     }
 
 
@@ -76,7 +76,7 @@ class SimpleIntegrationPolandTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(411)));
+                .andExpect(jsonPath("$[*]", hasSize(428)));
     }
 
     @Test

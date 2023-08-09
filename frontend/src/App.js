@@ -48,7 +48,7 @@ let diplomaticImages = {
   "None": "https://media.istockphoto.com/id/1154067988/vector/colorful-hand-drawn-vector-map-of-europe-with-countries-names-doodle-style.jpg?s=612x612&w=0&k=20&c=u10GKRTIjHyhwumg3_eArjO4lGL3xFyHsa3N8luTYXA=",
   "austria": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Austria_diplomatic_license_plate_WD-14021.jpg/1024px-Austria_diplomatic_license_plate_WD-14021.jpg",
   "germany": "https://www.tuningblog.eu/wp-content/uploads/2020/07/diplomatenkennzeichen-deutschland-17-CD-147-1.jpg",
-  "poland": "./img/poland-dyplomatyczn.png",
+  "poland": "https://i.postimg.cc/gjby4VRr/poland-dyplomatic.png",
   "croatia": "https://licenseplatemania.com/fotos/kroatie/kroatie36.jpg",
   "estonia": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Estonia_diplomatic_license_plate_CD_European_standard.jpg",
   "france": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/French_diplomatic_license_plate.jpg/1024px-French_diplomatic_license_plate.jpg",
@@ -411,10 +411,11 @@ return (
             </div>
             <br/>
           </div>   
+          <JSONPretty id="json-pretty" style={{fontSize: "1.1em", textAlign: 'left'}} data={getResult} mainStyle="padding:1em" valueStyle="font-size:1.5em"></JSONPretty>   
         </div>
         <button className="btn btn-primary" onClick={clearGetOutputDiplomaticlates} data-cy="clear_button">Clear</button>
       </div>
-      <JSONPretty id="json-pretty" style={{fontSize: "1.1em", textAlign: 'left'}} data={getResult} mainStyle="padding:1em" valueStyle="font-size:1.5em"></JSONPretty>   
+      
          </div>
       </div>
       <input
