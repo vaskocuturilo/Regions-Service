@@ -407,7 +407,8 @@ INSERT INTO `poland_entity` VALUES
 (395,'Województwo warmińsko-mazurskie, Olsztyn powiat','NOL'),
 (396,'Województwo warmińsko-mazurskie, Ostróda','NOS'),
 (397,'Województwo warmińsko-mazurskie, Pisz','NPI'),
-(398,'Warsaw (Włochy district)','WWK'),
+(398,'Warszawa Rembertów, Warszawa Wilanów, Warszawa Włochy','WW'),
+(399,'Warsaw (Włochy district)','WWK'),
 (400,'Warsaw (Włochy district)','WWM'),
 (401,'Warsaw (Włochy district)','WWV'),
 (402,'Warsaw (Włochy district)','WWR'),
@@ -420,7 +421,23 @@ INSERT INTO `poland_entity` VALUES
 (409,'Warsaw (Rembertów district)','WWA'),
 (410,'Warsaw (Rembertów district)','WWC'),
 (411,'Warsaw (Rembertów district)','WWX'),
-(412,'Wołomin County','WV');
+(413,'Wołomin County','WV'),
+(414,'Województwo Podlaskie','B'),
+(415,'Województwo kujawsko-pomorskie','C'),
+(416,'Województwo dolnośląskie','D'),
+(417,'Województwo łódzkie','E'),
+(418,'Województwo lubuskie','F'),
+(419,'Województwo pomorskie','G'),
+(420,'Województwo małopolskie','K'),
+(421,'Województwo lubelskie','L'),
+(422,'Województwo warmińsko-mazurskie','N'),
+(423,'Województwo opolskie','O'),
+(424,'Województwo wielkopolskie','P'),
+(425,'Województwo podkarpackie','R'),
+(426,'Województwo śląskie','S'),
+(427,'Województwo świętokrzyskie','T'),
+(428,'Województwo mazowieckie','W'),
+(429,'Województwo zachodniopomorskie','Z');
 UNLOCK TABLES;
 
 ALTER TABLE poland_entity ADD INDEX poland_index (description, region);
