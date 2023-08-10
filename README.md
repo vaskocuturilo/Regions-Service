@@ -55,6 +55,7 @@ You will need the following technologies available to try it out:
 - Will be adding user controller :heavy_check_mark:
 - Will be adding Jest unit testing for node JS
 - Fix the UI interface
+- Will be adding the Google map. 
   
 
 ### Actuator
@@ -91,46 +92,23 @@ These endpoints allow you to handle Stripe subscriptions for Publish and Analyze
 
 ## GET
 
-`official client only` [http://localhost:8080/api/v1/russia/plates/region/29](#get-)<br/>
+`official client only` [http://localhost:8080/api/v1/poland/plates/region/wx](#get-)<br/>
 
 ```
 {
-    "description": "Архангельская область",
-    "region": "29"
+   "description": "Województwo mazowieckie, Warszawa-Żoliborz",
+    "region": "WX"
 }
 ```
 ## GET
 
-`official client only` [http://localhost:8080/api/v1/russia/plates/description/Архангельская область](#get-)<br/>
+`official client only` [http://localhost:8080/api/v1/poland/plates/description/Warszawa-Żoliborz](#get-)<br/>
 
 ```
 {
-    "description": "Архангельская область",
-    "region": "29"
+   "description": "Województwo mazowieckie, Warszawa-Żoliborz",
+      "region": "WX"
 }
-```
-
-## GET
-
-`official client only` [http://localhost:8080/api/v1/russia/plates/all](#get-)<br/>
-
-```
-   [
-    {
-        "region": "01",
-        "description": "Республика Адыгея",
-        "id": 1
-    },
-    {
-        "region": "02",
-        "description": "Республика Башкортостан",
-        "id": 2
-    },
-    {
-        "region": "102",
-        "description": "Республика Башкортостан",
-        "id": 3
-    },
 ```
 ## The Web site link is
 
