@@ -129,6 +129,7 @@ let diplomaticImages = {
           return;
        }
         setGetResult(fortmatResponse(err.response?.data || err));
+        getRegion.current.value = '';
       }
     }
   }
@@ -167,6 +168,7 @@ let diplomaticImages = {
           return;
        }
         setGetResult(fortmatResponse(err.response?.data || err));
+        getDiplomaticRegion.current.value = '';
       }
     }
   }
@@ -206,6 +208,7 @@ let diplomaticImages = {
           return;
        }
         setGetResult(fortmatResponse(err.response?.data || err));
+        getDescription.current.value = '';
       }
     }
   }
@@ -245,6 +248,7 @@ let diplomaticImages = {
           return;
        }
         setGetResult(fortmatResponse(err.response?.data || err));
+        getDiplomaticDescription.current.value = '';
       }
     }
   }
