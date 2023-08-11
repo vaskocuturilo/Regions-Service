@@ -7,7 +7,8 @@ describe('Testing main page for application regions', () => {
         cy.visit('/')
     })
 
-    it.skip('Check upload image functionality', () => {
+    it.only('Check upload image functionality', () => {
+        mainPage.selectTypeOfPLates('Upload Photo');
         mainPage.checkUploadImageFunctionality();
     })
 

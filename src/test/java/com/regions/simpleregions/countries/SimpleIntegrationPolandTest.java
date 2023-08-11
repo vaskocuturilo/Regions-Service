@@ -64,10 +64,8 @@ class SimpleIntegrationPolandTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].region", equalTo("WW")))
-                .andExpect(jsonPath("$[0].description", equalTo("Warszawa Rembertów, Warszawa Wilanów, Warszawa Włochy")));
+                .andExpect(jsonPath("$[0].description", equalTo("Województwo mazowieckie, Warszawa Rembertów, Warszawa Wilanów, Warszawa Włochy")));
     }
-
-
     @Test
     void getRegionHandle_whenGetAllPolandRegions_thenStatus200() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders

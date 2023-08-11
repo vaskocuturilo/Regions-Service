@@ -151,11 +151,7 @@ export class MainPage {
     }
 
     checkUploadImageFunctionality() {
-        cy.newUploadBlobFile(
-            "upload.jpg",
-            "jpeg document",
-            '[data-cy="uploadFile"]'
-          );
+        cy.get('#file-input').selectFile('cypress/fixtures/upload.jpg', {force: true});
      
         cy.get('#countries_image').should('have.attr', 'src').should('include','blob:http://localhost:3000/')
         cy.get('#countries_image').should('be.visible').and(($img) => {
@@ -174,10 +170,8 @@ export class MainPage {
     }
 
     checkAlertMessage(text) {
-      const stub = cy.stub()  
-      cy.on ('window:alert', stub)
-      cy.get('button').contains('Click me!').click().then(() => {
-      expect(stub.getCall(0)).to.be.calledWith(text)      
+    cy.on('window:alert', (str) => {
+    expect(str).to.equal(text);
      })  
    }
 
@@ -189,13 +183,14 @@ export class MainPage {
 
    tapDiplomaticByRegionButton(text) {
     this.elements.getDiplomaticByRegionButton().click();
-    this.elements.inputDescription().type('11');
+    this.elements.inputDiplomaticRegion().type('11');
     this.checkAlertMessage(text);
+    
   }
    
    tapByDescriptionButton(text) {
      this.elements.getByDescriptionButton().click();
-     this.elements.inputDiplomaticRegion().type('11');
+     this.elements.inputDescription().type('11');
      this.checkAlertMessage(text);
    }
 

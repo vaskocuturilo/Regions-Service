@@ -407,7 +407,7 @@ INSERT INTO `poland_entity` VALUES
 (395,'Województwo warmińsko-mazurskie, Olsztyn powiat','NOL'),
 (396,'Województwo warmińsko-mazurskie, Ostróda','NOS'),
 (397,'Województwo warmińsko-mazurskie, Pisz','NPI'),
-(398,'Warszawa Rembertów, Warszawa Wilanów, Warszawa Włochy','WW'),
+(398,'Województwo mazowieckie, Warszawa Rembertów, Warszawa Wilanów, Warszawa Włochy','WW'),
 (399,'Warsaw (Włochy district)','WWK'),
 (400,'Warsaw (Włochy district)','WWM'),
 (401,'Warsaw (Włochy district)','WWV'),
