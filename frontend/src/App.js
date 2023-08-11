@@ -86,11 +86,12 @@ let diplomaticImages = {
 
   const [selected, setSelected] = useState("");
 
+  const [file, setFile] = useState("");
+
   const changeHandler = e => {
     setSelected(e.target.value);
   };
 
-  
   const fortmatResponse = (res) => {
     return JSON.stringify(res, null, 2);
   };
@@ -115,10 +116,8 @@ let diplomaticImages = {
         const res = await apiClient.get(`/${plates}/plates/region/${region}`);
 
         const result = {
-          data: res.data,
-          status: res.status,
-          statusText: res.statusText,
-          headers: res.headers,
+          region: res.data.region,
+          description: res.data.description,
         };
 
         setGetResult(fortmatResponse(result));
@@ -154,10 +153,8 @@ let diplomaticImages = {
         const res = await apiClient.get(`/${diplomatic}/diplomatic/plates/region/${region}`);
 
         const result = {
-          data: res.data,
-          status: res.status,
-          statusText: res.statusText,
-          headers: res.headers,
+          region: res.data.region,
+          description: res.data.description,
         };
 
         setGetResult(fortmatResponse(result));
@@ -194,10 +191,7 @@ let diplomaticImages = {
         const res = await apiClient.get(`/${plates}/plates/description/${description}`);
 
         const result = {
-          data: res.data,
-          status: res.status,
-          statusText: res.statusText,
-          headers: res.headers,
+          description: res.data
         };
 
         setGetResult(fortmatResponse(result));
@@ -234,10 +228,7 @@ let diplomaticImages = {
         const res = await apiClient.get(`/${diplomatic}/diplomatic/plates/description/${description}`);
 
         const result = {
-          data: res.data,
-          status: res.status,
-          statusText: res.statusText,
-          headers: res.headers,
+          description: res.data,
         };
 
         setGetResult(fortmatResponse(result));
@@ -292,7 +283,7 @@ $(document).on("change", "#countries_diplomatic_list", function(e){
 return (
     <div className="App">
       <img id="countries_image"
-                     src={logo}
+                     src={file ? URL.createObjectURL(file) : logo}
                      class="center" ref={image} alt="this is main image"/>
     
     <div role="alert" class="center alert alert-info mt-2" data-cy="alert_message_block">Please choose any type of plates</div>    
@@ -438,7 +429,7 @@ return (
        <label for="file-input">
       <img src={upload} data-cy="upload_photo_image"/> 
        </label>
-    <input id="file-input" type="file" data-cy="upload_photo"/>
+    <input id="file-input" type="file" onChange={(e) => setFile(e.target.files[0])} data-cy="upload_photo"/>
      </div>    
     </div>
   </div>
