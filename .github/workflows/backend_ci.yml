@@ -45,13 +45,5 @@ jobs:
         with:
           gradle-version: 7.4.2
 
-      - name: Adding secrets
-        run: |
-          export MYSQL_USER =${{ secrets.MYSQL_USER }}
-          echo ${MYSQL_USER}
-          export MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
-          echo ${MYSQL_PASSWORD}
-        shell: bash
-
       - name: Build project.
         run: gradle clean build test
