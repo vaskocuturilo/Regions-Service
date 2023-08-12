@@ -2,8 +2,9 @@ name: Deploy
 
 on:
   workflow_run:
-    workflows: [ frontend_ci ]
-    types: [ completed ]
+    workflows: [ Build Frontend ]
+    types:
+      - completed
 
 jobs:
   deploy:
