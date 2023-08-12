@@ -18,4 +18,4 @@ ENV APP_HOME=/usr/app
 COPY --from=TEMP_BUILD_IMAGE $APP_HOME/build/libs/$ARTIFACT_NAME app.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar","-Dspring.profiles.active=prod", "/app.jar"]
+ENTRYPOINT ["java", "-jar","-Dspring.profiles.active=docker", "/app.jar"]
