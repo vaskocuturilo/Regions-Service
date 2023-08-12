@@ -45,5 +45,9 @@ jobs:
         with:
           gradle-version: 7.4.2
 
+      - uses: actions/checkout@v3
+      - run: echo ${{ env.MYSQL_USER }}
+        shell: bash
+
       - name: Build project.
-        run: gradle clean test
+        run: gradle clean build test
