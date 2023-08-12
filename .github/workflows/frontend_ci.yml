@@ -1,19 +1,10 @@
 name: Build Frontend
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      message:
-        description: 'Deploy'
-
-    # Dependency to a forking workflow
-    workflow_run:
-      workflows: [ "Build Backend" ]
-      type:
-        - complete
 jobs:
   cypress-test:
     strategy:

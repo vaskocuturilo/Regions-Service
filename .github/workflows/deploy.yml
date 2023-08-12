@@ -1,9 +1,6 @@
 name: Deploy
 
 on:
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       message:
@@ -14,6 +11,10 @@ on:
       workflows: [ "Build Frontend" ]
       type:
         - complete
+
+  pull_request:
+    branches:
+      - main
 
 jobs:
   deploy:
