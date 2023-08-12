@@ -1,15 +1,7 @@
 name: '🧬 Deploy'
 
 on:
-  workflow_dispatch:
-    pull_request:
-      branches:
-        - main
-
-    workflow_run:
-      workflows: [ "Build Backend" ]
-      type:
-        - complete
+  - workflow_dispatch
 
 jobs:
   deploy:
@@ -30,7 +22,7 @@ jobs:
         with:
           gradle-version: 7.4.2
 
-      - name:  🏗 Lint & Build project.
+      - name: 🏗 Lint & Build project.
         run: gradle clean npm_run_build copyTask build -x test
 
       - name: '🧳 Upload Artifact'
