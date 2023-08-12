@@ -47,7 +47,7 @@ jobs:
 
       - name: Adding secrets
         run: |
-          export MYSQL_USER =${{ env.MYSQL_USER }}
+          export MYSQL_USER=${{ env.MYSQL_USER }}
           echo ${MYSQL_USER}
           export MYSQL_PASSWORD=${{ env.MYSQL_PASSWORD }}
           echo ${MYSQL_PASSWORD}
