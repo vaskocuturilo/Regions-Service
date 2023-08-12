@@ -1,20 +1,15 @@
-name: Deploy
+name: '🧬 Deploy'
 
 on:
   workflow_dispatch:
-    inputs:
-      message:
-        description: 'Deploy'
+    pull_request:
+      branches:
+        - main
 
-    # Dependency to a forking workflow
     workflow_run:
-      workflows: [ "Build Frontend" ]
+      workflows: [ "Build Backend" ]
       type:
         - complete
-
-  pull_request:
-    branches:
-      - main
 
 jobs:
   deploy:
@@ -35,10 +30,10 @@ jobs:
         with:
           gradle-version: 7.4.2
 
-      - name: Build project.
+      - name:  🏗 Lint & Build project.
         run: gradle clean npm_run_build copyTask build -x test
 
-      - name: Upload JAR
+      - name: '🧳 Upload Artifact'
         uses: actions/upload-artifact@v2
         with:
           #Set artifact name
