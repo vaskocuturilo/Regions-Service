@@ -46,4 +46,7 @@ jobs:
           gradle-version: 7.4.2
 
       - name: Build project.
-        run: gradle clean test
+        env:
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        run: gradle clean build test
