@@ -45,10 +45,8 @@ jobs:
         with:
           gradle-version: 7.4.2
 
-      - run:
-          echo "Value of MY_SECRET1: $MY_SECRET1"
-        env:
-          MY_SECRET1: ${{ secrets.MYSQL_USER }}
-
       - name: Build project.
+        env:
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         run: gradle clean build test
