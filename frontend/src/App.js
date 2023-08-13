@@ -116,8 +116,7 @@ let diplomaticImages = {
         const res = await apiClient.get(`/${plates}/plates/region/${region}`);
 
         const result = {
-          region: res.data.region,
-          description: res.data.description,
+          information: res.data 
         };
 
         setGetResult(fortmatResponse(result));
@@ -153,8 +152,7 @@ let diplomaticImages = {
         const res = await apiClient.get(`/${diplomatic}/diplomatic/plates/region/${region}`);
 
         const result = {
-          region: res.data.region,
-          description: res.data.description,
+          information: res.data 
         };
 
         setGetResult(fortmatResponse(result));
@@ -191,7 +189,7 @@ let diplomaticImages = {
         const res = await apiClient.get(`/${plates}/plates/description/${description}`);
 
         const result = {
-          description: res.data
+          information: res.data 
         };
 
         setGetResult(fortmatResponse(result));
@@ -228,7 +226,7 @@ let diplomaticImages = {
         const res = await apiClient.get(`/${diplomatic}/diplomatic/plates/description/${description}`);
 
         const result = {
-          description: res.data,
+          information: res.data 
         };
 
         setGetResult(fortmatResponse(result));
