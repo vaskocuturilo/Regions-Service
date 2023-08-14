@@ -7,13 +7,16 @@ public class OneTimePasswordHelpService {
 
     private static final Integer LENGTH = 6;
 
-    private SecureRandom random = new SecureRandom();
+    private static final SecureRandom random = new SecureRandom();
 
-    public Supplier<Integer> createRandomOneTimePassword() {
+    private OneTimePasswordHelpService() {
+    }
+
+    public static Supplier<Integer> createRandomOneTimePassword() {
         return () -> {
             StringBuilder oneTimePassword = new StringBuilder();
             for (int i = 0; i < LENGTH; i++) {
-                int randomNumber = this.random.nextInt(10);
+                int randomNumber = random.nextInt(10);
                 oneTimePassword.append(randomNumber);
             }
             return Integer.parseInt(oneTimePassword.toString().trim());
