@@ -5,14 +5,15 @@ import java.util.function.Supplier;
 
 public class OneTimePasswordHelpService {
 
-    private final static Integer LENGTH = 6;
+    private static final Integer LENGTH = 6;
 
-    public static Supplier<Integer> createRandomOneTimePassword() {
+    private Random random = new Random();
+
+    public Supplier<Integer> createRandomOneTimePassword() {
         return () -> {
-            Random random = new Random();
             StringBuilder oneTimePassword = new StringBuilder();
             for (int i = 0; i < LENGTH; i++) {
-                int randomNumber = random.nextInt(10);
+                int randomNumber = this.random.nextInt(10);
                 oneTimePassword.append(randomNumber);
             }
             return Integer.parseInt(oneTimePassword.toString().trim());
