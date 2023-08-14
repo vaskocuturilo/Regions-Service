@@ -1,13 +1,13 @@
 package com.regions.simpleregions.service;
 
-import java.util.Random;
+import java.security.SecureRandom;
 import java.util.function.Supplier;
 
 public class OneTimePasswordHelpService {
 
     private static final Integer LENGTH = 6;
 
-    private Random random = new Random();
+    private SecureRandom random = new SecureRandom();
 
     public Supplier<Integer> createRandomOneTimePassword() {
         return () -> {
