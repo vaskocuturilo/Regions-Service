@@ -24,7 +24,7 @@ function App() {
     "greece": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Greek_license_plate.svg/1280px-Greek_license_plate.svg.png",
     "hungary": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Hungarian_license_plate.svg/1280px-Hungarian_license_plate.svg.png",
     "ireland": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Revised_format_Republic_of_Ireland_numberplate_%282013-%29.svg/1920px-Revised_format_Republic_of_Ireland_numberplate_%282013-%29.svg.png",
-    "italy": "https://cdn.skoda-storyboard.com/2019/06/Italy-license-plate-english.jpg",
+    "italian": "https://cdn.skoda-storyboard.com/2019/06/Italy-license-plate-english.jpg",
     "kazakhstan": "https://upload.wikimedia.org/wikipedia/commons/f/fe/License_plate_Kazakhstan_2012.png",
     "kosovo": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Kosovo_car_registration_plate_labels.svg/320px-Kosovo_car_registration_plate_labels.svg.png",
     "kyrgyzstan": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Plak_shakhsi-KG.png/800px-Plak_shakhsi-KG.png",
@@ -52,7 +52,7 @@ let diplomaticImages = {
   "croatia": "https://licenseplatemania.com/fotos/kroatie/kroatie36.jpg",
   "estonia": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Estonia_diplomatic_license_plate_CD_European_standard.jpg",
   "france": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/French_diplomatic_license_plate.jpg/1024px-French_diplomatic_license_plate.jpg",
-  "italy": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Targa_automobilistica_Italia_1985_CD%E2%80%A20213%E2%80%A2XG_Corpo_Diplomatico_Citt%C3%A0_del_Vaticano.jpg/1024px-Targa_automobilistica_Italia_1985_CD%E2%80%A20213%E2%80%A2XG_Corpo_Diplomatico_Citt%C3%A0_del_Vaticano.jpg",
+  "italian": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Targa_automobilistica_Italia_1985_CD%E2%80%A20213%E2%80%A2XG_Corpo_Diplomatico_Citt%C3%A0_del_Vaticano.jpg/1024px-Targa_automobilistica_Italia_1985_CD%E2%80%A20213%E2%80%A2XG_Corpo_Diplomatico_Citt%C3%A0_del_Vaticano.jpg",
   "kyrgyzstan": "https://upload.wikimedia.org/wikipedia/commons/3/38/Kyrgyzstan_diplomatic_technical_staff_license_plate.png",
   "lithuania": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Lithuanian_diplomatic_license_plate.JPG?20120714185557",
   "montenegro": "https://upload.wikimedia.org/wikipedia/commons/0/08/Montenegro_diplomatic_license_plate_%28Norway%29.jpg",
@@ -315,7 +315,7 @@ return (
                     <option value="greece">🇬🇷&emsp;Greece</option>
                     <option value="hungary">🇭🇺&emsp;Hungary</option>
                     <option value="ireland">🇮🇪&emsp;Ireland</option>
-                    <option value="italy">🇮🇹&emsp;Italy</option>
+                    <option value="italian">🇮🇹&emsp;Italy</option>
                     <option value="kazakhstan">🇰🇿&emsp;Kazakhstan</option>
                     <option value="kosovo">🇽🇰&emsp;Kosovo</option>
                     <option value="kyrgyzstan">🇰🇬&emsp;Kyrgyzstan</option>
@@ -378,7 +378,7 @@ return (
                 <option value="croatia">🇭🇷&emsp;Croatia</option>
                 <option value="estonia">🇪🇪&emsp;Estonia</option>
                 <option value="france">🇫🇷&emsp;France</option>
-                <option value="italy">🇮🇹&emsp;Italy</option>
+                <option value="italian">🇮🇹&emsp;Italy</option>
                 <option value="kyrgyzstan">🇰🇬&emsp;Kyrgyzstan</option>
                 <option value="lithuania">🇱🇹&emsp;Lithuania</option>
                 <option value="montenegro">🇲🇪&emsp;Montenegro</option>
