@@ -81,37 +81,37 @@ export class MainPage {
         cy.get('[type="radio"]').check(regExName.toLowerCase())
     }
 
-    addPrivateRegionPlates(country, region) {
+    addPrivateRegionPlates(country, region, result) {
         this.elements.countryDropDown().select(country);
         this.elements.inputRegion().type(region);
         this.elements.getByRegionButton().click();
         this.elements.jsonResultBlock()
-        .contains("Województwo mazowieckie, Warszawa-Żoliborz");
+        .contains(result);
     }
 
-    addDiplomaticRegionPlates(country, region) {
+    addDiplomaticRegionPlates(country, region, result) {
         this.elements.diplomaticCountryDropDown().select(country);
         this.elements.inputDiplomaticRegion().type(region);
         this.elements.getDiplomaticByRegionButton().click();
         this.elements.jsonResultBlock()
-        .contains("Serbia");
+        .contains(result);
     }
 
-    addDescriptionPlates(country, region) {
+    addDescriptionPlates(country, region, result) {
         this.elements.countryDropDown().select(country);
         this.elements.inputDescription().type(region);
         this.elements.getByDescriptionButton().click();
         this.elements.jsonResultBlock()
-        .contains("WX");
+        .contains(result);
     }
 
 
-    addDiplomaticDescriptionPlates(country, region) {
+    addDiplomaticDescriptionPlates(country, region, result) {
         this.elements.diplomaticCountryDropDown().select(country);
         this.elements.inputDiplomaticDescription().type(region);
         this.elements.getDiplomaticByDescriptionButton().click();
         this.elements.jsonResultBlock()
-        .contains("072");
+        .contains(result);
     }
 
     checkAppearsPrivatePlatesBlock() {
