@@ -97,21 +97,21 @@ export class MainPage {
         .contains(result);
     }
 
-    addDescriptionPlates(country, region) {
+    addDescriptionPlates(country, region, result) {
         this.elements.countryDropDown().select(country);
         this.elements.inputDescription().type(region);
         this.elements.getByDescriptionButton().click();
         this.elements.jsonResultBlock()
-        .contains("WX");
+        .contains(result);
     }
 
 
-    addDiplomaticDescriptionPlates(country, region) {
+    addDiplomaticDescriptionPlates(country, region, result) {
         this.elements.diplomaticCountryDropDown().select(country);
         this.elements.inputDiplomaticDescription().type(region);
         this.elements.getDiplomaticByDescriptionButton().click();
         this.elements.jsonResultBlock()
-        .contains("072");
+        .contains(result);
     }
 
     checkAppearsPrivatePlatesBlock() {
