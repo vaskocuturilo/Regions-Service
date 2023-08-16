@@ -243,6 +243,7 @@ let diplomaticImages = {
   }
 
   const clearGetOutputPrivatePlates = () => {
+    setFile('');
     image.current.src = logo;
     setGetResult(null);
     setPlates('');
@@ -251,6 +252,7 @@ let diplomaticImages = {
   };
 
   const clearGetOutputDiplomaticlates = () => {
+    setFile('');
     image.current.src = logo;
     setGetResult(null);
     setDiplomatic('');
@@ -294,6 +296,7 @@ return (
         checked={selected === "private_plates"}
         onChange={changeHandler}
         data-cy="private_radio_button"
+        onClick={clearGetOutputPrivatePlates}
       />
       <label htmlFor="private_plates" data-cy="private_label">Private plates</label>
       <div aria-hidden={selected !== "private_plates" ? true : false}>
@@ -334,17 +337,15 @@ return (
                     <option value="ukraine">🇺🇦&emsp;Ukraine</option>
                     <option value="uzbekistan">🇺🇿&emsp;Uzbekistan</option>
                 </select>
-                <br/><br/><br/>
+                <br/>
   <div id="app" className="container">
       <div className="card">
         <div className="card-body">
           <div className="input-group input-group-sm">
             <input type="text" ref={getRegion} className="form-control ml-2" placeholder="Region" data-cy="region_plates_input"/>
-
             <div className="input-group-append">
               <button className="btn btn-sm btn-primary" id='button1' onClick={getPlatesByRegion} data-cy="get_plates_by_region_button">By region</button>
               </div>
-      
             <input type="text" ref={getDescription} className="form-control ml-2" placeholder="Description" data-cy="description_plates_input"/>
             
             <div className="input-group-append">
@@ -365,6 +366,7 @@ return (
         name="plates"
         onChange={changeHandler}
         data-cy="diplomatic_radio_button"
+        onClick={clearGetOutputDiplomaticlates}
       />
       <label htmlFor="diplomatic_plates" data-cy="diplomatic_label">Diplomatic plates</label>
       <div aria-hidden={selected !== "diplomatic_plates" ? true : false}>
@@ -387,6 +389,7 @@ return (
                 <option value="sweden">🇸🇪&emsp;Sweden</option>
                 <option value="switzerland">🇨🇭&emsp;Switzerland</option>
             </select>
+            
             <br/><br/><br/>
   <div id="app" className="container">
             <div className="card">

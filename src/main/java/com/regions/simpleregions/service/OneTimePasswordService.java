@@ -12,7 +12,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-
 public class OneTimePasswordService {
     private static final Long EXPIRY_INTERVAL = 5L * 60 * 1000;
 
