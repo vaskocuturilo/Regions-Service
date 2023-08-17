@@ -282,10 +282,10 @@ $(document).on("change", "#countries_diplomatic_list", function(e){
 
 return (
     <div className="App">
+      <div class="zoomdiv">
       <img id="countries_image"
-                     src={file ? URL.createObjectURL(file) : logo}
-                     class="center" ref={image} alt="this is main image"/>
-    
+                     src={file ? URL.createObjectURL(file) : logo} ref={image} alt="this is main image" class="center zoom"/>
+    </div>
     <div role="alert" class="center alert alert-info mt-2" data-cy="alert_message_block">Please choose any type of plates</div>    
       
       <input

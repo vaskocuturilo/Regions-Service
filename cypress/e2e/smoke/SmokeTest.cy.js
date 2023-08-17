@@ -9,6 +9,7 @@ describe('Testing main page for application regions', () => {
 
     it('This is simple test for check main page', () => {
         mainPage.checkDefaultMainPageElementsAppears();
+        mainPage.checkThatMainImageVisibleCorrectly();
         mainPage.checkAppearsPrivatePlatesBlock(); 
         mainPage.checkAppearsDiplomaticPlatesBlock();
         mainPage.checkAppearsUploadPhotoBlock();
