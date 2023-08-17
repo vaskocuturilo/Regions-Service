@@ -7,9 +7,11 @@ describe('Testing main page for application regions', () => {
         cy.visit('/')
     })
 
-    it.only('Check upload image functionality', () => {
+    it('Check upload image functionality', () => {
         mainPage.selectTypeOfPLates('Upload Photo');
         mainPage.checkUploadImageFunctionality();
+        mainPage.selectTypeOfPLates('Private plates');
+        mainPage.checkThatMainImageVisibleCorrectly();
     })
 
     it('Check countries plates images with drop-down menu.', () => {
@@ -29,7 +31,7 @@ describe('Testing main page for application regions', () => {
         mainPage.checkImageByCountry("greece", "Greek");
         mainPage.checkImageByCountry("hungary", "Hungarian");
         mainPage.checkImageByCountry("ireland", "Ireland");
-        mainPage.checkImageByCountry("italy", "Italy");
+        mainPage.checkImageByCountry("italian", "Italy");
         mainPage.checkImageByCountry("kazakhstan", "Kazakhstan");
         mainPage.checkImageByCountry("kosovo", "Kosovo");
         mainPage.checkImageByCountry("kyrgyzstan", "KG");
@@ -57,7 +59,7 @@ describe('Testing main page for application regions', () => {
         mainPage.checkImageDiplomaticByCountry("croatia", "kroatie36.jpg");
         mainPage.checkImageDiplomaticByCountry("estonia", "Estonia_diplomatic");
         mainPage.checkImageDiplomaticByCountry("france", "French_diplomatic_license");
-        mainPage.checkImageDiplomaticByCountry("italy", "Targa_automobilistica_Italia");
+        mainPage.checkImageDiplomaticByCountry("italian", "Targa_automobilistica_Italia");
         mainPage.checkImageDiplomaticByCountry("kyrgyzstan", "Kyrgyzstan_diplomatic");
         mainPage.checkImageDiplomaticByCountry("lithuania", "Lithuanian_diplomatic_license_plate");
         mainPage.checkImageDiplomaticByCountry("montenegro", "Montenegro_diplomatic_license_plate");

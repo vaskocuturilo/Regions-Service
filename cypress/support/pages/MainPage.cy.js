@@ -158,6 +158,14 @@ export class MainPage {
         expect($img[0].naturalWidth).to.be.greaterThan(0)
         });
     }
+    
+    checkThatMainImageVisibleCorrectly(){
+        cy.get('#countries_image').should('have.attr', 'src').should('include','/static/media/logo.2844f41831fc92c34483.jpg')
+        cy.get('#countries_image').should('be.visible').and(($img) => {
+        expect($img[0].naturalWidth).to.be.greaterThan(0)
+      });
+    }
+    
 
     checkImageByCountry(country, imageUrl) {
         this.elements.countryDropDown().select(country);
