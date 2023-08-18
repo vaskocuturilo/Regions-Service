@@ -38,7 +38,7 @@ You will need the following technologies available to try it out:
 - Will be adding V2 (one controller, one service, one repository for all countries)
 - Will be adding UI (Countries field) :heavy_check_mark:
 - Will be adding JWT.
-- Will be adding a one-time password.
+- Will be adding a one-time password. :heavy_check_mark:
 - Will be adding docker-compose :heavy_check_mark:
 - Will be adding integration tests for each country. :heavy_check_mark:
 - Will be adding unit tests. :heavy_check_mark: 
