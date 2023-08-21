@@ -84,6 +84,8 @@ let diplomaticImages = {
   const regionRef = useRef(null); 
   const diplomaticRef = useRef(null);
 
+  const typePlates = useRef(null);
+  
   const [selected, setSelected] = useState("");
 
   const [file, setFile] = useState("");
@@ -249,6 +251,7 @@ let diplomaticImages = {
     setPlates('');
     getRegion.current.value = '';
     getDescription.current.value = '';
+    typePlates.current.classList.remove('hidden');
   };
 
   const clearGetOutputDiplomaticlates = () => {
@@ -258,18 +261,21 @@ let diplomaticImages = {
     setDiplomatic('');
     getDiplomaticRegion.current.value = '';
     getDiplomaticDescription.current.value = '';
+    typePlates.current.classList.remove('hidden');
   };
 
   const simplePlates = (e) => {
     const element = regionRef.current;
     document.getElementById('countries_image').src = countryImages[element.value];
     setPlates(e.target.value);
+    typePlates.current.classList.add('hidden');
   };
 
   const diplomaticPlates = (e) => {
     const element = diplomaticRef.current;
     document.getElementById('countries_image').src = diplomaticImages[element.value];
     setDiplomatic(e.target.value);
+    typePlates.current.classList.add('hidden');
   };
 
 $(document).on("change", "#countries_list", function(e){
@@ -286,8 +292,9 @@ return (
       <img id="countries_image"
                      src={file ? URL.createObjectURL(file) : logo} ref={image} alt="this is main image" class="center zoom"/>
     </div>
-    <div role="alert" class="center alert alert-info mt-2" data-cy="alert_message_block">Please choose any type of plates</div>    
-      
+    
+    <div role="alert" class="center alert alert-info mt-2" data-cy="alert_message_block" ref={typePlates}>Please choose any type of plates</div>    
+
       <input
         type="radio"
         name="plates"

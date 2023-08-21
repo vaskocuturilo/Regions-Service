@@ -214,10 +214,14 @@ h3, label {
   display: none;
 }
 
-  img.zoom{
-  transition: transform .2s;
-  }
-  img.zoom:hover {
-    transform: scale(3.5);
-  }
+img.zoom{
+transition: transform .2s;
+}
+img.zoom:hover {
+transform: scale(3.5);
+}
+
+.hidden {
+  display: none;
+}
 
