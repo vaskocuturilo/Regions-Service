@@ -1,10 +1,11 @@
 import './App.css';
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import apiClient from "./http-common";
 import upload from './img/upload.png';
 import logo from './img/logo.jpg';
 import $ from 'jquery';
 import JSONPretty from 'react-json-pretty';
+import { createWorker } from "tesseract.js";
 
 function App() {
 
@@ -89,6 +90,10 @@ let diplomaticImages = {
   const [selected, setSelected] = useState("");
 
   const [file, setFile] = useState("");
+
+  const [ocr, setOcr] = useState("");
+  
+  const [imageData, setImageData] = useState(null);
 
   const changeHandler = e => {
     setSelected(e.target.value);
@@ -286,15 +291,42 @@ $(document).on("change", "#countries_diplomatic_list", function(e){
     $('#countries_list').val('None');
 });
 
+const convertImageToText = async () => {
+    if (!imageData) return;
+    const worker = await createWorker();
+    await worker.load();  
+    await worker.loadLanguage('eng');
+    await worker.initialize('eng');
+    const {
+      data: { text },
+    } = await worker.recognize(imageData);
+    setOcr(text);
+    console.log(`This is result: ${text}`);
+    await worker.terminate();
+  };
+
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+    if(!file)return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const imageDataUri = reader.result;
+      console.log({ imageDataUri });
+      setImageData(imageDataUri);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  useEffect(() => {
+    convertImageToText();
+  }, [imageData]);
+
 return (
     <div className="App">
       <div class="zoomdiv">
       <img id="countries_image"
-                     src={file ? URL.createObjectURL(file) : logo} ref={image} alt="this is main image" class="center zoom"/>
-    </div>
-    
-    <div role="alert" class="center alert alert-info mt-2" data-cy="alert_message_block" ref={typePlates}>Please choose any type of plates</div>    
-
+                     src={file ? URL.createObjectURL(file) : logo} ref={image} alt="this is main image" class="center zoom"/></div>
+    <div role="alert" class="center alert alert-info mt-2" data-cy="alert_message_block" ref={typePlates}>Please choose any type of plates</div>  
       <input
         type="radio"
         name="plates"
