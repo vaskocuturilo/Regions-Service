@@ -39,6 +39,9 @@ export class MainPage {
         title : () => cy.title(),
         mainImage: () => cy.get('#countries_image').should('be.visible'),
         alertMessageBlock: () => cy.get('[data-cy="alert_message_block"]').should('be.visible'),
+        navBarBottomLine: () => cy.get('[data-cy="nav-bar-bottom"]').should('be.visible'),
+        navBarBottomMenu: () => cy.get('[data-cy="nav-bar-button"]').should('be.visible'),
+
 
         privatePlatesLabel: () => cy.get('[data-cy="private_label"]').should('be.visible'),
         diplomaticPlatesLabel: () => cy.get('[data-cy="diplomatic_label"]').should('be.visible'),
@@ -142,6 +145,11 @@ export class MainPage {
         this.elements.uploadImage().should('be.visible').and(($img) => {
         expect($img[0].naturalWidth).to.be.greaterThan(0)
         });
+    }
+
+    checkAppearsNavBarMenu() {
+        this.elements.navBarBottomLine();
+        this.elements.navBarBottomMenu();
     }
     
     checkAppearsCountriesInDropDown() {

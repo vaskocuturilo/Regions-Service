@@ -14,5 +14,6 @@ describe('Testing main page for application regions', () => {
         mainPage.checkAppearsDiplomaticPlatesBlock();
         mainPage.checkAppearsUploadPhotoBlock();
         mainPage.checkAppearsCountriesInDropDown();
+        mainPage.checkAppearsNavBarMenu();
     })
 }) 

@@ -6,6 +6,9 @@ import logo from './img/logo.jpg';
 import $ from 'jquery';
 import JSONPretty from 'react-json-pretty';
 import { createWorker } from "tesseract.js";
+import 'bootstrap/dist/css/bootstrap.css';
+import Header from './components/Header';
+import '@popperjs/core';
 
 function App() {
 
@@ -323,10 +326,11 @@ const convertImageToText = async () => {
 
 return (
     <div className="App">
+       <Header></Header>
       <div class="zoomdiv">
       <img id="countries_image"
                      src={file ? URL.createObjectURL(file) : logo} ref={image} alt="this is main image" class="center zoom"/></div>
-    <div role="alert" class="center alert alert-info mt-2" data-cy="alert_message_block" ref={typePlates}>Please choose any type of plates</div>  
+    <div class="center alert alert-info mt-2" data-cy="alert_message_block" ref={typePlates}>Please choose any type of plates</div>  
       <input
         type="radio"
         name="plates"

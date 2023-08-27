@@ -225,3 +225,18 @@ transform: scale(3.5);
   display: none;
 }
 
+nav .navbar-collapse {
+  position: fixed;
+  top: 56px;
+  background: #343a40;
+  right: -100%;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  transition: right 0.3s ease;
+}
+
+nav .navbar-collapse.show {
+  right: 0;
+}
+
