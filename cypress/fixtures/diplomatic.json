@@ -1,0 +1,73 @@
+[
+  {
+    "country": "austria",
+    "region": "1",
+    "result": "Vatican City"
+  },
+  {
+    "country": "croatia",
+    "region": "010",
+    "result": "Holy See"
+  },
+  {
+    "country": "estonia",
+    "region": "10",
+    "result": "Sweden"
+  },
+  {
+    "country": "france",
+    "region": "4",
+    "result": "Algeria"
+  },
+  {
+    "country": "germany",
+    "region": "11",
+    "result": "Egypt"
+  },
+  {
+    "country": "italian",
+    "region": "AM",
+    "result": "Cyprus"
+  },
+  {
+    "country": "kyrgyzstan",
+    "region": "03",
+    "result": "China"
+  },
+  {
+    "country": "lithuania",
+    "region": "05",
+    "result": "Denmark"
+  },
+  {
+    "country": "montenegro",
+    "region": "11",
+    "result": "Turkey"
+  },
+  {
+    "country": "norway",
+    "region": "14",
+    "result": "Belgium"
+  },
+  {
+    "country": "poland",
+    "region": "072180",
+    "result": "Serbia"
+  },
+  {
+    "country": "romania",
+    "region": "105",
+    "result": "Austria"
+  },
+  {
+    "country": "sweden",
+    "region": "AB",
+    "result": "Albania"
+  },
+  {
+    "country": "switzerland",
+    "region": "4",
+    "result": "Australia"
+  }
+]
+ 

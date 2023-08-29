@@ -1,0 +1,163 @@
+[
+  {
+    "country": "armenia",
+    "region": "01",
+    "result": "Yerevan (city)"
+  },
+  {
+    "country": "austria",
+    "region": "AM",
+    "result": "Amstetten"
+  },
+  {
+    "country": "azerbaijan",
+    "region": "01",
+    "result": "Апшеронский район"
+  },
+  {
+    "country": "belarus",
+    "region": "7",
+    "result": "город Минск"
+  },
+  {
+    "country": "british",
+    "region": "AA67",
+    "result": "Anglia, Peterborough"
+  },
+  {
+    "country": "bulgaria",
+    "region": "A",
+    "result": "Burgas Province"
+  },
+  {
+    "country": "croatia",
+    "region": "BJ",
+    "result": "Bjelovar, Čazma, Garešnica"
+  },
+  {
+    "country": "czech",
+    "region": "5A3",
+    "result": "Hlavní město Praha, Capital City Prague"
+  },
+  {
+    "country": "estonia",
+    "region": "A",
+    "result": "Tallinn"
+  },
+  {
+    "country": "france",
+    "region": "01",
+    "result": "Ain,LaonBourg-en-Bresse,Auvergne-Rhône-Alpes"
+  },
+  {
+    "country": "germany",
+    "region": "A",
+    "result": "Augsburg, Bavaria"
+  },
+  {
+    "country": "greece",
+    "region": "AZ",
+    "result": "Achaia prefecture - Patras"
+  },
+  {
+    "country": "hungary",
+    "region": "T",
+    "result": "Sep 2021"
+  },
+  {
+    "country": "ireland",
+    "region": "C",
+    "result": "Cork"
+  },
+  {
+    "country": "italian",
+    "region": "AG",
+    "result": "Agrigento"
+  },
+  {
+    "country": "kazakhstan",
+    "region": "01",
+    "result": "Нур-Султан"
+  },
+  {
+    "country": "kosovo",
+    "region": "01",
+    "result": "Pristina"
+  },
+  {
+    "country": "kyrgyzstan",
+    "region": "01",
+    "result": "Бишкек"
+  },
+  {
+    "country": "lithuania",
+    "region": "L",
+    "result": "Klaipėda County"
+  },
+  {
+    "country": "moldova",
+    "region": "BE",
+    "result": "Tighina"
+  },
+  {
+    "country": "montenegro",
+    "region": "BA",
+    "result": "Berane"
+  },
+  {
+    "country": "norway",
+    "region": "KE",
+    "result": "Drammen, Viken"
+  },
+  {
+    "country": "poland",
+    "region": "WX",
+    "result": "Województwo mazowieckie, Warszawa-Żoliborz"
+  },
+  {
+    "country": "romania",
+    "region": "AB",
+    "result": "Alba"
+  },
+  {
+    "country": "russia",
+    "region": "01",
+    "result": "Республика Адыгея"
+  },
+  {
+    "country": "slovakia",
+    "region": "BA",
+    "result": "Bratislava"
+  },
+  {
+    "country": "slovenia",
+    "region": "KK",
+    "result": "Brežice, Krško, Sevnica"
+  },
+  {
+    "country": "sweden",
+    "region": "AB",
+    "result": "City of Stockholm"
+  },
+  {
+    "country": "switzerland",
+    "region": "BE",
+    "result": "Bern"
+  },
+  {
+    "country": "turkey",
+    "region": "03",
+    "result": "Afyonkarahisar"
+  },
+  {
+    "country": "ukraine",
+    "region": "KH",
+    "result": "Донецкая область"
+  },
+  {
+    "country": "uzbekistan",
+    "region": "02",
+    "result": "город Ташкент"
+  }
+]
+ 

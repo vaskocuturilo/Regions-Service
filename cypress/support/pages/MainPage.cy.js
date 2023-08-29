@@ -84,38 +84,50 @@ export class MainPage {
         cy.get('[type="radio"]').check(regExName.toLowerCase())
     }
 
-    addPrivateRegionPlates(country, region, result) {
-        this.elements.countryDropDown().select(country);
-        this.elements.inputRegion().type(region);
-        this.elements.getByRegionButton().click();
-        this.elements.jsonResultBlock()
-        .contains(result);
-    }
+    addPrivateRegionPlates(filename) {
+        cy.fixture(filename).then((data) => {
+            data.forEach((items) => {
+            this.elements.countryDropDown().select(items.country);
+            this.elements.inputRegion().type(items.region);
+            this.elements.getByRegionButton().click();
+            this.elements.jsonResultBlock().contains(items.result);
+        })
+    })
+}
 
-    addDiplomaticRegionPlates(country, region, result) {
-        this.elements.diplomaticCountryDropDown().select(country);
-        this.elements.inputDiplomaticRegion().type(region);
-        this.elements.getDiplomaticByRegionButton().click();
-        this.elements.jsonResultBlock()
-        .contains(result);
-    }
+    addDiplomaticRegionPlates(filename) {
+        cy.fixture(filename).then((data) => {
+            data.forEach((items) => {
+                this.elements.diplomaticCountryDropDown().select(items.country);
+                this.elements.inputDiplomaticRegion().type(items.region);
+                this.elements.getDiplomaticByRegionButton().click();
+                this.elements.jsonResultBlock().contains(items.result);
+        })
+    })
+}
 
-    addDescriptionPlates(country, region, result) {
-        this.elements.countryDropDown().select(country);
-        this.elements.inputDescription().type(region);
-        this.elements.getByDescriptionButton().click();
-        this.elements.jsonResultBlock()
-        .contains(result);
-    }
+    addDescriptionPlates(filename) {
+        cy.fixture(filename).then((data) => {
+            data.forEach((items) => {
+                this.elements.countryDropDown().select(items.country);
+                this.elements.inputDescription().type(items.result);
+                this.elements.getByDescriptionButton().click();
+                this.elements.jsonResultBlock().contains(items.region);
+        })
+    })
+}
 
+    addDiplomaticDescriptionPlates(filename) {
 
-    addDiplomaticDescriptionPlates(country, region, result) {
-        this.elements.diplomaticCountryDropDown().select(country);
-        this.elements.inputDiplomaticDescription().type(region);
-        this.elements.getDiplomaticByDescriptionButton().click();
-        this.elements.jsonResultBlock()
-        .contains(result);
-    }
+        cy.fixture(filename).then((data) => {
+            data.forEach((items) => {
+                this.elements.diplomaticCountryDropDown().select(items.country);
+                this.elements.inputDiplomaticDescription().type(items.result);
+                this.elements.getDiplomaticByDescriptionButton().click();
+                this.elements.jsonResultBlock().contains(items.region);
+        })
+    })
+}
 
     checkAppearsPrivatePlatesBlock() {
         this.elements.privatePlatesLabel().click();
