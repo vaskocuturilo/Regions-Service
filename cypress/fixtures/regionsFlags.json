@@ -1,0 +1,131 @@
+[
+    {
+      "country": "armenia",
+      "imageUrl": "armenia"
+    },
+    {
+        "country": "austria",
+        "imageUrl": "Austrian"
+      },
+      {
+        "country": "azerbaijan",
+        "imageUrl": "Azerbaijan"
+      },
+      {
+        "country": "belarus",
+        "imageUrl": "Belarus"
+      },
+      {
+        "country": "british",
+        "imageUrl": "GB-license-plate-infographics-en.jpg"
+      },
+      {
+        "country": "bulgaria",
+        "imageUrl": "Bulgaria"
+      },
+      {
+        "country": "croatia",
+        "imageUrl": "Delnice_HR"
+      },
+      {
+        "country": "czech",
+        "imageUrl": "license-plate-infographics-en.jpg"
+      },
+      {
+        "country": "estonia",
+        "imageUrl": "Estonian"
+      },
+      {
+        "country": "france",
+        "imageUrl": "France"
+      },
+      {
+        "country": "germany",
+        "imageUrl": "germany"
+      },
+      {
+        "country": "greece",
+        "imageUrl": "Greek"
+      },
+      {
+        "country": "hungary",
+        "imageUrl": "Hungarian"
+      },
+      {
+        "country": "ireland",
+        "imageUrl": "Ireland"
+      },
+      {
+        "country": "italian",
+        "imageUrl": "Italy"
+      },
+      {
+        "country": "kazakhstan",
+        "imageUrl": "Kazakhstan"
+      },
+      {
+        "country": "kosovo",
+        "imageUrl": "Kosovo"
+      },
+      {
+        "country": "kyrgyzstan",
+        "imageUrl": "KG"
+      },
+      {
+        "country": "lithuania",
+        "imageUrl": "Lithuania"
+      },
+      {
+        "country": "moldova",
+        "imageUrl": "Moldova"
+      },
+      {
+        "country": "montenegro",
+        "imageUrl": "Montenegro"
+      },
+      {
+        "country": "norway",
+        "imageUrl": "Skilt_elbil"
+      },
+      {
+        "country": "poland",
+        "imageUrl": "poland"
+      },
+      {
+        "country": "romania",
+        "imageUrl": "Romanian"
+      },
+      {
+        "country": "russia",
+        "imageUrl": "Russian"
+      },
+      {
+        "country": "slovakia",
+        "imageUrl": "Slovak"
+      },
+      {
+        "country": "slovenia",
+        "imageUrl": "Tablica_KR_-_Kranj"
+      },
+      {
+        "country": "sweden",
+        "imageUrl": "Sweden"
+      },
+      {
+        "country": "switzerland",
+        "imageUrl": "switzerland"
+      },
+      {
+        "country": "turkey",
+        "imageUrl": "Turkey"
+      },
+      {
+        "country": "ukraine",
+        "imageUrl": "Ukraine"
+      },
+      {
+        "country": "uzbekistan",
+        "imageUrl": "Uzbekistan"
+      }
+  ]
+   

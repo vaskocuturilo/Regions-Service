@@ -1,0 +1,195 @@
+[
+  {
+    "country": "armenia",
+    "region": "01",
+    "result": "Yerevan (city)",
+    "description": "01"
+  },
+  {
+    "country": "austria",
+    "region": "AM",
+    "result": "Amstetten",
+    "description": "AM"
+  },
+  {
+    "country": "azerbaijan",
+    "region": "01",
+    "result": "Апшеронский район",
+    "description": "01"
+  },
+  {
+    "country": "belarus",
+    "region": "7",
+    "result": "город Минск",
+    "description": "7"
+  },
+  {
+    "country": "british",
+    "region": "AA67",
+    "result": "Anglia, Peterborough",
+    "description": "AA"
+  },
+  {
+    "country": "bulgaria",
+    "region": "A",
+    "result": "Burgas Province",
+    "description": "A"
+  },
+  {
+    "country": "croatia",
+    "region": "BJ",
+    "result": "Bjelovar, Čazma, Garešnica",
+    "description": "BJ"
+  },
+  {
+    "country": "czech",
+    "region": "5A3",
+    "result": "Hlavní město Praha, Capital City Prague",
+    "description": "A"
+  },
+  {
+    "country": "estonia",
+    "region": "A",
+    "result": "Tallinn",
+    "description": "A"
+  },
+  {
+    "country": "france",
+    "region": "01",
+    "result": "Ain,LaonBourg-en-Bresse,Auvergne-Rhône-Alpes",
+    "description": "01"
+  },
+  {
+    "country": "germany",
+    "region": "A",
+    "result": "Augsburg, Bavaria",
+    "description": "A"
+  },
+  {
+    "country": "greece",
+    "region": "AZ",
+    "result": "Achaia prefecture - Patras",
+    "description": "AZ"
+  },
+  {
+    "country": "hungary",
+    "region": "T",
+    "result": "Sep 2021",
+    "description": "T"
+  },
+  {
+    "country": "ireland",
+    "region": "C",
+    "result": "Cork",
+    "description": "C"
+  },
+  {
+    "country": "italian",
+    "region": "AG",
+    "result": "Agrigento",
+    "description": "AG"
+  },
+  {
+    "country": "kazakhstan",
+    "region": "01",
+    "result": "Нур-Султан",
+    "description": "01"
+  },
+  {
+    "country": "kosovo",
+    "region": "01",
+    "result": "Pristina",
+    "description": "01"
+  },
+  {
+    "country": "kyrgyzstan",
+    "region": "01",
+    "result": "Бишкек",
+    "description": "01"
+  },
+  {
+    "country": "lithuania",
+    "region": "L",
+    "result": "Klaipėda County",
+    "description": "L"
+  },
+  {
+    "country": "moldova",
+    "region": "BE",
+    "result": "Tighina",
+    "description": "BE"
+  },
+  {
+    "country": "montenegro",
+    "region": "BA",
+    "result": "Berane",
+    "description": "BA"
+  },
+  {
+    "country": "norway",
+    "region": "KE",
+    "result": "Drammen, Viken",
+    "description": "KE"
+  },
+  {
+    "country": "poland",
+    "region": "WX",
+    "result": "Województwo mazowieckie, Warszawa-Żoliborz",
+    "description": "WX"
+  },
+  {
+    "country": "romania",
+    "region": "AB",
+    "result": "Alba",
+    "description": "AB"
+  },
+  {
+    "country": "russia",
+    "region": "01",
+    "result": "Республика Адыгея",
+    "description": "01"
+  },
+  {
+    "country": "slovakia",
+    "region": "BA",
+    "result": "Bratislava",
+    "description": "BA"
+  },
+  {
+    "country": "slovenia",
+    "region": "KK",
+    "result": "Brežice, Krško, Sevnica",
+    "description": "KK"
+  },
+  {
+    "country": "sweden",
+    "region": "AB",
+    "result": "City of Stockholm",
+    "description": "AB"
+  },
+  {
+    "country": "switzerland",
+    "region": "BE",
+    "result": "Bern",
+    "description": "BE"
+  },
+  {
+    "country": "turkey",
+    "region": "03",
+    "result": "Afyonkarahisar",
+    "description": "03"
+  },
+  {
+    "country": "ukraine",
+    "region": "KH",
+    "result": "Донецкая область",
+    "description": "KH"
+  },
+  {
+    "country": "uzbekistan",
+    "region": "02",
+    "result": "город Ташкент",
+    "description": "02"
+  }
+]
+ 

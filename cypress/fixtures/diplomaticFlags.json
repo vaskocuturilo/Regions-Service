@@ -1,0 +1,59 @@
+[
+    {
+        "country": "austria",
+        "imageUrl": "Austria"
+      },
+      {
+        "country": "germany",
+        "imageUrl": "deutschland"
+      },
+      {
+        "country": "poland",
+        "imageUrl": "poland-dyplomatic.png"
+      },
+      {
+        "country": "croatia",
+        "imageUrl": "kroatie36.jpg"
+      },
+      {
+        "country": "estonia",
+        "imageUrl": "Estonia_diplomatic"
+      },
+      {
+        "country": "france",
+        "imageUrl": "French_diplomatic_license"
+      },
+      {
+        "country": "italian",
+        "imageUrl": "Targa_automobilistica_Italia"
+      },
+      {
+        "country": "kyrgyzstan",
+        "imageUrl": "Kyrgyzstan_diplomatic"
+      },
+      {
+        "country": "lithuania",
+        "imageUrl": "Lithuanian_diplomatic_license_plate"
+      },
+      {
+        "country": "montenegro",
+        "imageUrl": "Montenegro_diplomatic_license_plate"
+      },
+      {
+        "country": "norway",
+        "imageUrl": "Norway_diplomatic_license"
+      },
+      {
+        "country": "romania",
+        "imageUrl": "Romania_diplomatic_number"
+      },
+      {
+        "country": "sweden",
+        "imageUrl": "Sweden_diplomatic_license_plate"
+      },
+      {
+        "country": "switzerland",
+        "imageUrl": "Switzerland_CD_Diplomatic_license_plate"
+      }
+  ]
+   
