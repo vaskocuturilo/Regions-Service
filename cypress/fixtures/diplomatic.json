@@ -2,72 +2,86 @@
   {
     "country": "austria",
     "region": "1",
-    "result": "Vatican City"
+    "result": "Vatican City",
+    "description": "1"
   },
   {
     "country": "croatia",
     "region": "010",
-    "result": "Holy See"
+    "result": "Holy See",
+    "description": "010"
   },
   {
     "country": "estonia",
     "region": "10",
-    "result": "Sweden"
+    "result": "Sweden",
+    "description": "10"
   },
   {
     "country": "france",
     "region": "4",
-    "result": "Algeria"
+    "result": "Algeria",
+    "description": "4"
   },
   {
     "country": "germany",
     "region": "11",
-    "result": "Egypt"
+    "result": "Egypt",
+    "description": "11"
   },
   {
     "country": "italian",
     "region": "AM",
-    "result": "Cyprus"
+    "result": "Cyprus",
+    "description": "AM"
   },
   {
     "country": "kyrgyzstan",
     "region": "03",
-    "result": "China"
+    "result": "China",
+    "description": "03"
   },
   {
     "country": "lithuania",
     "region": "05",
-    "result": "Denmark"
+    "result": "Denmark",
+    "description": "05"
   },
   {
     "country": "montenegro",
     "region": "11",
-    "result": "Turkey"
+    "result": "Turkey",
+    "description": "11"
   },
   {
     "country": "norway",
     "region": "14",
-    "result": "Belgium"
+    "result": "Belgium",
+    "description": "14"
   },
   {
     "country": "poland",
     "region": "072180",
-    "result": "Serbia"
+    "result": "Serbia",
+    "description": "072"
   },
   {
     "country": "romania",
     "region": "105",
-    "result": "Austria"
+    "result": "Austria",
+    "description": "105"
   },
   {
     "country": "sweden",
     "region": "AB",
-    "result": "Albania"
+    "result": "Albania",
+    "description": "AB"
   },
   {
     "country": "switzerland",
     "region": "4",
-    "result": "Australia"
+    "result": "Australia",
+    "description": "4"
   }
 ]
  

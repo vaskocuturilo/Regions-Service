@@ -112,7 +112,7 @@ export class MainPage {
                 this.elements.countryDropDown().select(items.country);
                 this.elements.inputDescription().type(items.result);
                 this.elements.getByDescriptionButton().click();
-                this.elements.jsonResultBlock().contains(items.region);
+                this.elements.jsonResultBlock().contains(items.description);
         })
     })
 }
@@ -124,7 +124,7 @@ export class MainPage {
                 this.elements.diplomaticCountryDropDown().select(items.country);
                 this.elements.inputDiplomaticDescription().type(items.result);
                 this.elements.getDiplomaticByDescriptionButton().click();
-                this.elements.jsonResultBlock().contains(items.region);
+                this.elements.jsonResultBlock().contains(items.description);
         })
     })
 }
@@ -187,14 +187,22 @@ export class MainPage {
     }
     
 
-    checkImageByCountry(country, imageUrl) {
-        this.elements.countryDropDown().select(country);
-        cy.get('#countries_image').should('have.attr', 'src').should('include', imageUrl);
+    checkImageByCountry(filename) {
+        cy.fixture(filename).then((data) => {
+            data.forEach((items) => {
+                this.elements.countryDropDown().select(items.country);
+                cy.get('#countries_image').should('have.attr', 'src').should('include', items.imageUrl);
+        })
+      })
     }
 
-    checkImageDiplomaticByCountry(country, imageUrl) {
-        this.elements.diplomaticCountryDropDown().select(country);
-        cy.get('#countries_image').should('have.attr', 'src').should('include', imageUrl);
+    checkImageDiplomaticByCountry(filename) {
+        cy.fixture(filename).then((data) => {
+            data.forEach((items) => {
+                this.elements.diplomaticCountryDropDown().select(items.country);
+                cy.get('#countries_image').should('have.attr', 'src').should('include', items.imageUrl);
+        })
+      })
     }
 
     checkAlertMessage(text) {

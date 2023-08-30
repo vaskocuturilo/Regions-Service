@@ -17,7 +17,7 @@ describe('Testing main page for application regions', () => {
         mainPage.tapDiplomaticByDescriptionButton('Choose any country first'); 
     })
 
-    it.only('Check main functionality for private plates by description', () => {
+    it('Check main functionality for private plates by description', () => {
         mainPage.selectTypeOfPLates('Private plates');
         mainPage.addDescriptionPlates('regions.json');
     })
