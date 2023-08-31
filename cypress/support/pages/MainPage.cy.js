@@ -1,39 +1,4 @@
 /// <reference types ="cypress"/>
-const todosTitles = [
-"Choose country", 
-"🇦🇲 Armenia", 
-"🇦🇹 Austria", 
-"🇦🇿 Azerbaijan", 
-"🇧🇾 Belarus", 
-"🇻🇬 Great Britain",
-"🇧🇬 Bulgaria",
-"🇭🇷 Croatia",
-"🇨🇿 Czech Republic",
-"🇪🇪 Estonia",
-"🇫🇷 France",
-"🇩🇪 Germany",
-"🇬🇷 Greece",
-"🇭🇺 Hungary",
-"🇮🇪 Ireland",
-"🇮🇹 Italy",
-"🇰🇿 Kazakhstan",
-"🇽🇰 Kosovo",
-"🇰🇬 Kyrgyzstan",
-"🇱🇹 Lithuania",
-"🇲🇩 Moldova",
-"🇲🇪 Montenegro",
-"🇳🇴 Norway",
-"🇵🇱 Poland",
-"🇷🇴 Romania",
-"🇷🇺 Russia",
-"🇸🇰 Slovakia",
-"🇸🇮 Slovenia",
-"🇸🇪 Sweden",
-"🇨🇭 Switzerland",
-"🇹🇷 Turkey",
-"🇺🇦 Ukraine",
-"🇺🇿 Uzbekistan"];
-
 export class MainPage {
     elements = {
         title : () => cy.title(),
@@ -164,9 +129,19 @@ export class MainPage {
         this.elements.navBarBottomMenu();
     }
     
-    checkAppearsCountriesInDropDown() {
-        cy.get('#countries_list option').each( (item, index) => {
-            cy.wrap(item).should('have.text', todosTitles[index])
+    checkAppearsPrivateCountriesInDropDown(filename) {
+        cy.fixture(filename).then((testdata) => {
+            cy.get('#countries_list option').each( (item, index) => {
+                cy.wrap(item).should('have.text', testdata.values[index])
+            })
+        })
+    }
+
+    checkAppearsDiplomaticCountriesInDropDown(filename) {
+        cy.fixture(filename).then((testdata) => {
+            cy.get('#countries_diplomatic_list option').each( (item, index) => {
+                cy.wrap(item).should('have.text', testdata.values[index])
+            })
         })
     }
 
