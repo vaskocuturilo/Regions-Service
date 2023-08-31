@@ -418,16 +418,16 @@ return (
                     class="form__input center" ref={diplomaticRef} data-cy="diplomatic_drop_down">
                 <option value="None">Choose country</option>
                 <option value="austria">🇦🇹&emsp;Austria</option>
-                <option value="germany">🇩🇪&emsp;Germany</option>
-                <option value="poland">🇵🇱&emsp;Poland</option>
                 <option value="croatia">🇭🇷&emsp;Croatia</option>
                 <option value="estonia">🇪🇪&emsp;Estonia</option>
                 <option value="france">🇫🇷&emsp;France</option>
+                <option value="germany">🇩🇪&emsp;Germany</option>
                 <option value="italian">🇮🇹&emsp;Italy</option>
                 <option value="kyrgyzstan">🇰🇬&emsp;Kyrgyzstan</option>
                 <option value="lithuania">🇱🇹&emsp;Lithuania</option>
                 <option value="montenegro">🇲🇪&emsp;Montenegro</option>
                 <option value="norway">🇳🇴&emsp;Norway</option>
+                <option value="poland">🇵🇱&emsp;Poland</option>
                 <option value="romania">🇷🇴&emsp;Romania</option>
                 <option value="sweden">🇸🇪&emsp;Sweden</option>
                 <option value="switzerland">🇨🇭&emsp;Switzerland</option>

@@ -13,7 +13,8 @@ describe('Testing main page for application regions', () => {
         mainPage.checkAppearsPrivatePlatesBlock(); 
         mainPage.checkAppearsDiplomaticPlatesBlock();
         mainPage.checkAppearsUploadPhotoBlock();
-        mainPage.checkAppearsCountriesInDropDown();
+        mainPage.checkAppearsPrivateCountriesInDropDown('flags/private.json');
+        mainPage.checkAppearsDiplomaticCountriesInDropDown('flags/diplomatic.json')
         mainPage.checkAppearsNavBarMenu();
     })
 }) 
