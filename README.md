@@ -37,7 +37,8 @@ You will need the following technologies available to try it out:
 - Will be adding validation fields. :heavy_check_mark:
 - Will be adding V2 (one controller, one service, one repository for all countries)
 - Will be adding UI (Countries field) :heavy_check_mark:
-- Will be adding JWT.
+- Will be adding JWT. :heavy_check_mark:
+- Will be adding API_KEY. :heavy_check_mark:
 - Will be adding a one-time password. :heavy_check_mark:
 - Will be adding docker-compose :heavy_check_mark:
 - Will be adding integration tests for each country. :heavy_check_mark:
@@ -55,7 +56,7 @@ You will need the following technologies available to try it out:
 - Will be adding user controller :heavy_check_mark:
 - Will be adding Jest unit testing for node JS
 - Fix the UI interface
-- Will be adding the Google map. 
+- will be adding the Google map. 
   
 
 ### Actuator
