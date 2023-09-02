@@ -74,7 +74,7 @@ class SimpleIntegrationPolandTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(434)));
+                .andExpect(jsonPath("$[*]", hasSize(440)));
     }
 
     @Test

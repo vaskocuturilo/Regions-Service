@@ -22,7 +22,7 @@ class SimpleIntegrationHungaryTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String PATH = "/api/v1/hungary/plates";
+    private final String PATH = "/api/v1/hungary/plates";
 
     @Value("${notification.description.message}")
     private String descriptionNotFound;
@@ -65,7 +65,7 @@ class SimpleIntegrationHungaryTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(18)));
+                .andExpect(jsonPath("$[*]", hasSize(19)));
     }
 
     @Test
