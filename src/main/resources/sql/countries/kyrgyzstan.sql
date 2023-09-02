@@ -9,16 +9,16 @@ CREATE TABLE `kyrgyzstan_entity` (
 
 LOCK TABLES `kyrgyzstan_entity` WRITE;
 /*!40000 ALTER TABLE `kyrgyzstan_entity` DISABLE KEYS */;
-INSERT INTO `kyrgyzstan_entity` VALUES
-(1,'Баткенская область','03'),
-(2,'Бишкек','01'),
-(3,'Джалабадская область','04'),
-(4,'Иссык-Кульская область','09'),
-(5,'Нарынская область','05'),
-(6,'Ош','02'),
-(7,'Ошская область','06'),
-(8,'Таласская область','07'),
-(9,'Чуйская область','08');
+INSERT INTO `kyrgyzstan_entity` (description, region) VALUES
+('Баткенская область','03'),
+('Бишкек','01'),
+('Джалабадская область','04'),
+('Иссык-Кульская область','09'),
+('Нарынская область','05'),
+('Ош','02'),
+('Ошская область','06'),
+('Таласская область','07'),
+('Чуйская область','08');
 UNLOCK TABLES;
 
 ALTER TABLE kyrgyzstan_entity ADD INDEX kyrgyzstan_index (description, region);

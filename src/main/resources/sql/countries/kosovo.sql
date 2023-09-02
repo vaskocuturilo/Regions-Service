@@ -9,14 +9,14 @@ CREATE TABLE `kosovo_entity` (
 
 LOCK TABLES `kosovo_entity` WRITE;
 /*!40000 ALTER TABLE `kosovo_entity` DISABLE KEYS */;
-INSERT INTO `kosovo_entity` VALUES
-(1,'Pristina','01'),
-(2,'Mitrovica','02'),
-(3,'Peja','03'),
-(4,'Prizren','04'),
-(5,'Ferizaj','05'),
-(6,'Gjilan','06'),
-(7,'Gjakova','07');
+INSERT INTO `kosovo_entity` (description, region) VALUES
+('Pristina','01'),
+('Mitrovica','02'),
+('Peja','03'),
+('Prizren','04'),
+('Ferizaj','05'),
+('Gjilan','06'),
+('Gjakova','07');
 UNLOCK TABLES;
 
 ALTER TABLE kosovo_entity ADD INDEX kosovo_index (description, region);

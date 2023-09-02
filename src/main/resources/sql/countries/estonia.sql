@@ -9,25 +9,25 @@ CREATE TABLE `estonia_entity` (
 
 LOCK TABLES `estonia_entity` WRITE;
 /*!40000 ALTER TABLE `estonia_entity` DISABLE KEYS */;
-INSERT INTO `estonia_entity` VALUES
-(1,'Tallinn','A'),
-(2,'Tallinn','B'),
-(3,'Viljandimaa','D'),
-(4,'Pärnumaa','F'),
-(5,'Valgamaa','G'),
-(6,'Hiiumaa','H'),
-(7,'Ida-Virumaa outside of Narva','I'),
-(8,'Jõgevamaa','J'),
-(9,'Saaremaa as Kuressaare','K'),
-(10,'Raplamaa','L'),
-(11,'Harjumaa outside of Tallinn','M'),
-(12,'Narva','N'),
-(13,'Põlvamaa','O'),
-(14,'Järvamaa as Paide','P'),
-(15,'Lääne-Virumaa as Rakvere','R'),
-(17,'Läänemaa as Haapsalu','S'),
-(18,'Tartumaa','T'),
-(19,'Võrumaa','V');
+INSERT INTO `estonia_entity` (description, region) VALUES
+('Tallinn','A'),
+('Tallinn','B'),
+('Viljandimaa','D'),
+('Pärnumaa','F'),
+('Valgamaa','G'),
+('Hiiumaa','H'),
+('Ida-Virumaa outside of Narva','I'),
+('Jõgevamaa','J'),
+('Saaremaa as Kuressaare','K'),
+('Raplamaa','L'),
+('Harjumaa outside of Tallinn','M'),
+('Narva','N'),
+('Põlvamaa','O'),
+('Järvamaa as Paide','P'),
+('Lääne-Virumaa as Rakvere','R'),
+('Läänemaa as Haapsalu','S'),
+('Tartumaa','T'),
+('Võrumaa','V');
 UNLOCK TABLES;
 
 ALTER TABLE estonia_entity ADD INDEX estonia_index (description, region);

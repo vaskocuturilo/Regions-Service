@@ -10,17 +10,17 @@ CREATE TABLE `lithuania_entity` (
 
 LOCK TABLES `lithuania_entity` WRITE;
 /*!40000 ALTER TABLE `lithuania_entity` DISABLE KEYS */;
-INSERT INTO `lithuania_entity` VALUES
-(1,'Alytus County','A'),
-(2,'Tauragė County (but code from first letter of Jurbarkas)','J'),
-(3,'Kaunas County','K'),
-(4,'Klaipėda County','L'),
-(5,'Marijampolė County','M'),
-(6,'Panevėžys County','P'),
-(7,'Šiauliai County','S'),
-(8,'Telšiai County','T'),
-(9,'Utena County','U'),
-(10,'Vilnius County','V');
+INSERT INTO `lithuania_entity` (description, region) VALUES
+('Alytus County','A'),
+('Tauragė County (but code from first letter of Jurbarkas)','J'),
+('Kaunas County','K'),
+('Klaipėda County','L'),
+('Marijampolė County','M'),
+('Panevėžys County','P'),
+('Šiauliai County','S'),
+('Telšiai County','T'),
+('Utena County','U'),
+('Vilnius County','V');
 UNLOCK TABLES;
 
 ALTER TABLE lithuania_entity ADD INDEX lithuania_index (description, region);
