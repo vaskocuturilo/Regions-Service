@@ -177,6 +177,7 @@
     "yauzl": "^2.10.0"
   },
   "scripts": {
+    "cypress:run:production:test": "cypress run --e2e --browser chrome --env master=1",
     "cypress:run:smoke:test": "cypress run --spec cypress/e2e/smoke/ --e2e --env allure=true",
     "cypress:run:sanity:test": "cypress run --spec cypress/e2e/sanity/ --e2e --env allure=true",
     "cypress:run:allure:report": "allure generate",

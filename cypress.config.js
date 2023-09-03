@@ -13,10 +13,9 @@ module.exports = defineConfig({
 
   e2e: {
     setupNodeEvents(on, config) {
-      allureWriter(on, config);
       if (config.env.master) {
         return {
-          baseUrl: "",
+          baseUrl: "http://regions-service.us-east-2.elasticbeanstalk.com/",
           env: {
             env: "master"
           },
