@@ -77,7 +77,7 @@ class SimpleIntegrationBritishTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(478)));
+                .andExpect(jsonPath("$[*]", hasSize(479)));
     }
 
     @Test
