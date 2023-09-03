@@ -39,7 +39,7 @@ services:
         max-file: "4"
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
     ports:
       - "8080:8080"
       - "8090:8090"
@@ -51,6 +51,37 @@ services:
       retries: 10
       start_period: 40s
 
+  frontend:
+    hostname: frontend-regions
+    container_name: frontend-regions
+    build: ./frontend
+    volumes:
+      - './:/app'
+      - '/app/node_modules'
+    ports:
+      - "3000:3000"
+
+    logging:
+      #limit logs to 200MB (4rotations of 50M each)
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "4"
+
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm start
+
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000/" ]
+      interval: 10s
+      timeout: 2s
+      retries: 10
+      start_period: 40s
+
     depends_on:
       mysqldb:
+        condition: service_healthy
+      server:
         condition: service_healthy
