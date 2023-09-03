@@ -1,0 +1,45 @@
+name: Run smoke/sanity automation scripts on the production.
+on:
+  workflow_dispatch:
+  schedule: ## Schedule the job to run at 9:45.am daily.
+    - cron: '0 10 30 * *'
+jobs:
+  cypress-test:
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+        os: [ ubuntu-latest ]
+        browser: [ chrome, firefox ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        if: github.event.schedule == '0 10 30 * *'
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: |
+          npm ci --force
+
+      - name: Run Cypress Smoke Tests
+        uses: cypress-io/github-action@v4
+        if: github.event.schedule == '0 10 30 * *'
+        with:
+          command: npm run cypress:run:production:test -- --browser ${{ matrix.browser }}
+          parallel: true
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: allure-results
+
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-report
