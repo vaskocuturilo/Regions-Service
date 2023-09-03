@@ -1,7 +1,5 @@
-FROM gradle/build-cache-node AS TEMP_BUILD_IMAGE
+FROM gradle:slim AS TEMP_BUILD_IMAGE
 ENV APP_HOME=/usr/app/
-ENV GRADLE_HOME=$APP_HOME/gradle/
-ENV PATH=$PATH:$GRADLE_HOME/bin
 
 WORKDIR $APP_HOME
 COPY build.gradle settings.gradle $APP_HOME
