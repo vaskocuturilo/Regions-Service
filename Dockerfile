@@ -1,4 +1,4 @@
-FROM gradle:slim AS TEMP_BUILD_IMAGE
+FROM gradle:7.4.2-jdk-alpine AS TEMP_BUILD_IMAGE
 ENV APP_HOME=/usr/app/
 
 WORKDIR $APP_HOME
@@ -8,7 +8,7 @@ COPY gradle $APP_HOME/gradle/
 COPY --chown=gradle:gradle . /home/gradle/src
 
 COPY . .
-RUN gradle clean npm_run_build copyTask build -x test --no-daemon || return 0
+RUN gradle clean build -x test --no-daemon || return 0
 
 FROM eclipse-temurin:17-jdk-alpine
 RUN apk --no-cache add curl
