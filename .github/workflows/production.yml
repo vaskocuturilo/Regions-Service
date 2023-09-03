@@ -1,7 +1,6 @@
 name: Run smoke/sanity automation scripts on the production.
 on:
-  push:
-    branches: [ master ]
+  workflow_dispatch:
   schedule: ## Schedule the job to run at 9:45.am daily.
     - cron: '0 10 30 * *'
 jobs:
@@ -16,12 +15,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Build the Docker image
-        run: docker-compose build --no-cache --force
-
-      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
+        if: github.event.schedule == '0 10 30 * *'
         with:
           node-version: ${{ matrix.node-version }}
       - run: |
@@ -29,6 +25,7 @@ jobs:
 
       - name: Run Cypress Smoke Tests
         uses: cypress-io/github-action@v4
+        if: github.event.schedule == '0 10 30 * *'
         with:
           command: npm run cypress:run:production:test -- --browser ${{ matrix.browser }}
           parallel: true
