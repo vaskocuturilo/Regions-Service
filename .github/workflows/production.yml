@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - main
-  schedule: ## Schedule the job to run at 9:45.am daily.
-    - cron: '*/5 * * * *'
+  schedule: ## Schedule the job to run at 6:00.am daily.
+    - cron: '0 6 * * *'
 jobs:
   cypress-test:
     strategy:
@@ -24,7 +24,7 @@ jobs:
       - run: |
           npm ci --force
 
-      - name: Run Cypress Smoke Tests
+      - name: Run cypress smoke and sanity automation scripts.
         uses: cypress-io/github-action@v4
         with:
           command: npm run cypress:run:production:test -- --browser ${{ matrix.browser }}
