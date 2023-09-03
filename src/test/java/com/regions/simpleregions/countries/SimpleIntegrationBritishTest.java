@@ -55,7 +55,7 @@ class SimpleIntegrationBritishTest {
                 .andExpect(jsonPath("$[*]").isNotEmpty())
                 .andExpect(jsonPath("$[*].region").isNotEmpty())
                 .andExpect(jsonPath("$[*].description").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(11)));
+                .andExpect(jsonPath("$[*]", hasSize(13)));
     }
 
     @Test
@@ -77,7 +77,7 @@ class SimpleIntegrationBritishTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(478)));
+                .andExpect(jsonPath("$[*]", hasSize(479)));
     }
 
     @Test
