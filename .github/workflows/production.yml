@@ -1,7 +1,7 @@
 name: Run smoke/sanity automation scripts on the production.
 on:
   schedule: ## Schedule the job to run at 6:00.am daily.
-    - cron: '*/20 * * * *'
+    - cron: '0 6 * * *'
 jobs:
   cypress-test:
     strategy:

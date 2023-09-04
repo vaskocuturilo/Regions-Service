@@ -9,7 +9,7 @@ jobs:
     steps:
       # Setting up the Java environment
       - uses: actions/checkout@v3
-      - name: Setup Java 17.*
+      - name: '⤵️ Setup Java 17.*'
         uses: actions/setup-java@v3
         with:
           java-version: '17'
@@ -17,7 +17,7 @@ jobs:
           cache: 'gradle'
 
       # Setting up the Gradle version 7.*
-      - name: Setup Gradle 7.*
+      - name: '⤵️ Setup Gradle 7.*'
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 7.4.2
@@ -32,3 +32,21 @@ jobs:
           name: artifact
           #From this path
           path: build/libs/simpleRegions-0.0.1-SNAPSHOT.jar
+
+      - name: '📩 Download JAR file'
+        uses: actions/download-artifact@v2
+        with:
+          name: artifact
+
+      - name: '📦 Deploy to elastic bean'
+        uses: einaregilsson/beanstalk-deploy@v13
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          use_existing_version_if_available: false
+          application_name: regions
+          environment_name: Regions-env-1
+          version_label: ${{github.SHA}}
+          region: us-east-1
+          deployment_package: data-0.0.1-SNAPSHOT.jar
