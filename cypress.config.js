@@ -22,7 +22,7 @@ module.exports = defineConfig({
         };
       } else
         return {
-          baseUrl: "http://localhost:3000",
+          baseUrl: "http://localhost:8080",
           env: {
             env: "qa"
           },

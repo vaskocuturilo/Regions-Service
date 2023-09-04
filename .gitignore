@@ -1,6 +1,7 @@
 HELP.md
 .gradle
 local.env
+*.env
 gradlew
 build/
 node_modules
