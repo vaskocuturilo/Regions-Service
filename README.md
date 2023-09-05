@@ -12,9 +12,9 @@ The Spring Boot REST service for region application.
 - Use the last MySQL database version.
 - Create REST API service.
 - Create docker-compose for run service.
-- provide code and clear instructions on how to run it.
+- Provide code and clear instructions on how to run it.
 
-**Note**: please put your code in a public repository.
+**Note**: Please put your code in a public repository.
 
 **Note**: Please send a link to this repo when you are done.
 
