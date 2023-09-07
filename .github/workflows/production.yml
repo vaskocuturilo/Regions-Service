@@ -1,7 +1,7 @@
 name: Run smoke/sanity automation scripts on the production.
 on:
   schedule: ## Schedule the job to run at 6:00.am daily.
-    - cron: '0 6 * * *'
+    - cron: '*/20 * * * *'
 jobs:
   cypress-test:
     strategy:
@@ -40,3 +40,12 @@ jobs:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: allure-report
+
+      - name: send custom message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            The ${{ github.event_name }} event triggered final step.
+            echo This event is a pull request that had an assignee removed.
