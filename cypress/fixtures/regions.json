@@ -132,6 +132,12 @@
     "description": "KE"
   },
   {
+    "country": "macedonia",
+    "region": "BE",
+    "result": "Berovo",
+    "description": "BE"
+  },
+  {
     "country": "poland",
     "region": "WX",
     "result": "Województwo mazowieckie, Warszawa-Żoliborz",

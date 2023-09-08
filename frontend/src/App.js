@@ -36,6 +36,7 @@ function App() {
     "moldova": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Moldova_MD_license_plate_ABC012_2015.svg/1024px-Moldova_MD_license_plate_ABC012_2015.svg.png",
     "montenegro": "https://upload.wikimedia.org/wikipedia/commons/f/f6/License_plate_Montenegro.jpg",
     "norway": "https://upload.wikimedia.org/wikipedia/commons/3/33/Skilt_elbil.jpg",
+    "macedonia": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/North_Macedonia_plate_2019.jpg/1024px-North_Macedonia_plate_2019.jpg",
     "poland": "https://cdn.skoda-storyboard.com/2019/08/poland-number-plates-infographics-english-1920x1288.jpg",
     "romania": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Romanian_license_plate.svg/1024px-Romanian_license_plate.svg.png",
     "russia": "https://cdn.skoda-storyboard.com/2019/04/Russian-license-plate-english.jpg",
@@ -369,6 +370,7 @@ return (
                     <option value="moldova">🇲🇩&emsp;Moldova</option>
                     <option value="montenegro">🇲🇪&emsp;Montenegro</option>
                     <option value="norway">🇳🇴&emsp;Norway</option>
+                    <option value="macedonia">🇲🇰&emsp;North Macedonia</option>
                     <option value="poland">🇵🇱&emsp;Poland</option>
                     <option value="romania">🇷🇴&emsp;Romania</option>
                     <option value="russia">🇷🇺&emsp;Russia</option>
