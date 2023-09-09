@@ -48,5 +48,17 @@ jobs:
           application_name: regions
           environment_name: Regions-env-1
           version_label: ${{github.SHA}}
-          region: us-east-1
+          region: ${{ secrets.AWS_REGION }}
           deployment_package: data-0.0.1-SNAPSHOT.jar
+
+      - name: send custom message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Repository: ${{ github.repository }}
+
+            The ${{ github.event_name }} event triggered.
+
+            The ${{ github.workflow	 }} are pass.
