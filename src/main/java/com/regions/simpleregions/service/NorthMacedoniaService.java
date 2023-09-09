@@ -27,25 +27,25 @@ public class NorthMacedoniaService {
     @Value("${notification.description.message}")
     private String descriptionNotFound;
 
-    @Cacheable(value = "armenia_region", key = "#region")
+    @Cacheable(value = "north_macedonia_region", key = "#region")
     public NorthMacedoniaModel getNorthMacedoniaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getArmeniaPlatesByRegion");
-        Optional<NorthMacedoniaEntity> armeniaRegion = northMacedoniaRepo.findByRegion(region);
+        Optional<NorthMacedoniaEntity> northMacedoniaRegion = northMacedoniaRepo.findByRegion(region);
 
-        Optional.ofNullable(armeniaRegion.stream().parallel().filter(armeniaEntity -> armeniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        Optional.ofNullable(northMacedoniaRegion.stream().parallel().filter(northMacedoniaEntity -> northMacedoniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region))));
 
-        return NorthMacedoniaModel.toModelRegion(armeniaRegion);
+        return NorthMacedoniaModel.toModelRegion(northMacedoniaRegion);
     }
 
-    @Cacheable(value = "armenia_description", key = "#description")
+    @Cacheable(value = "north_macedonia_description", key = "#description")
     public List<NorthMacedoniaModel> getNorthMacedoniaPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getArmeniaPlatesByDescription");
-        List<NorthMacedoniaEntity> armeniaEntityList = northMacedoniaRepo.findByDescription(description);
-        armeniaEntityList.stream().parallel().findAny().map(armeniaEntity -> armeniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
+        List<NorthMacedoniaEntity> northMacedoniaEntityList = northMacedoniaRepo.findByDescription(description);
+        northMacedoniaEntityList.stream().parallel().findAny().map(northMacedoniaEntity -> northMacedoniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
 
-        return armeniaEntityList.stream().map(NorthMacedoniaModel::toModelDescription).toList();
+        return northMacedoniaEntityList.stream().map(NorthMacedoniaModel::toModelDescription).toList();
     }
 
     public Iterable<NorthMacedoniaEntity> getAllRegions() {
