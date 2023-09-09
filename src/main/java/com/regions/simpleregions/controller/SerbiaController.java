@@ -1,9 +1,9 @@
 package com.regions.simpleregions.controller;
 
-import com.regions.simpleregions.entity.NorthMacedoniaEntity;
+import com.regions.simpleregions.entity.SerbiaEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
-import com.regions.simpleregions.service.NorthMacedoniaService;
+import com.regions.simpleregions.service.SerbiaService;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +15,15 @@ import javax.validation.Valid;
 @Log4j2
 @Data
 @RestController
-@RequestMapping("/api/v1/macedonia/plates")
-public class NorthMacedoniaController {
+@RequestMapping("/api/v1/serbia/plates")
+public class SerbiaController {
 
-    private final NorthMacedoniaService northMacedoniaService;
+    private final SerbiaService serbiaService;
 
     @GetMapping("/region/{region}")
-    public ResponseEntity getNorthMacedoniaPlatesByRegion(@Valid final @PathVariable("region") String region) {
+    public ResponseEntity getSerbiaPlatesByRegion(@Valid final @PathVariable("region") String region) {
         try {
-            return ResponseEntity.ok(northMacedoniaService.getNorthMacedoniaPlatesByRegion(region));
+            return ResponseEntity.ok(serbiaService.getSerbiaPlatesByRegion(region));
         } catch (final RegionNotFoundException | RuntimeException exception) {
             log.debug("RegionNotFoundException", exception);
             return ResponseEntity.badRequest().body(exception.getMessage());
@@ -31,9 +31,9 @@ public class NorthMacedoniaController {
     }
 
     @GetMapping("/description/{description}")
-    public ResponseEntity getNorthMacedoniaPlatesByDescription(@Valid final @PathVariable("description") String description) {
+    public ResponseEntity getSerbiaPlatesByDescription(@Valid final @PathVariable("description") String description) {
         try {
-            return ResponseEntity.ok(northMacedoniaService.getNorthMacedoniaPlatesByDescription(description));
+            return ResponseEntity.ok(serbiaService.getSerbiaPlatesByDescription(description));
         } catch (final DescriptionNotFoundException | RuntimeException exception) {
             log.debug("DescriptionNotFoundException", exception);
             return ResponseEntity.badRequest().body(exception.getMessage());
@@ -41,7 +41,7 @@ public class NorthMacedoniaController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Iterable<NorthMacedoniaEntity>> getAllNorthMacedoniaRegions() {
-        return ResponseEntity.ok(northMacedoniaService.getAllRegions());
+    public ResponseEntity<Iterable<SerbiaEntity>> getAllSerbiaRegions() {
+        return ResponseEntity.ok(serbiaService.getAllRegions());
     }
 }

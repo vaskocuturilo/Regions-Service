@@ -21,6 +21,6 @@ describe('Testing main page for application regions', () => {
 
      it.only('Check diplomatic countries plates images with drop-down menu.', () => {
         mainPage.selectTypeOfPLates('Diplomatic plates');
-        mainPage.checkImageDiplomaticByCountry('diplomaticFlags.json');
+        mainPage.checkImageDiplomaticByCountry('diplomaticsFlags.json');
         })
     })

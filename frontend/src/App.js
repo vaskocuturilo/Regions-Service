@@ -40,6 +40,7 @@ function App() {
     "poland": "https://cdn.skoda-storyboard.com/2019/08/poland-number-plates-infographics-english-1920x1288.jpg",
     "romania": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Romanian_license_plate.svg/1024px-Romanian_license_plate.svg.png",
     "russia": "https://cdn.skoda-storyboard.com/2019/04/Russian-license-plate-english.jpg",
+    "serbia": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/License_plate_of_Serbia%2C_2014.JPG/1024px-License_plate_of_Serbia%2C_2014.JPG",
     "slovakia": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Slovak_car_registration_plate_2023.jpg",
     "slovenia": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Tablica_KR_-_Kranj.jpg/1920px-Tablica_KR_-_Kranj.jpg",
     "sweden": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Sweden_licenseplate_EU.JPG/1920px-Sweden_licenseplate_EU.JPG",
@@ -374,6 +375,7 @@ return (
                     <option value="poland">🇵🇱&emsp;Poland</option>
                     <option value="romania">🇷🇴&emsp;Romania</option>
                     <option value="russia">🇷🇺&emsp;Russia</option>
+                    <option value="serbia">🇷🇸&emsp;Serbia</option>
                     <option value="slovakia">🇸🇰&emsp;Slovakia</option>
                     <option value="slovenia">🇸🇮&emsp;Slovenia</option>
                     <option value="sweden">🇸🇪&emsp;Sweden</option>
