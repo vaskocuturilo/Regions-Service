@@ -52,3 +52,5 @@ jobs:
             The ${{ github.event_name }} event triggered smoke and sanity.
             
             The ${{ github.job }} are pass.
+            
+             The ${{ github.workflow }} are pass.
