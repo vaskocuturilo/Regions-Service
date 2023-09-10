@@ -43,6 +43,7 @@ jobs:
 
       - name: send custom message
         uses: appleboy/telegram-action@master
+        if: success()
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
@@ -54,3 +55,18 @@ jobs:
             The ${{ github.job }} are pass.
             
              The ${{ github.workflow }} are pass.
+
+      - name: send custom message
+        uses: appleboy/telegram-action@master
+        if: failure()
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Repository: ${{ github.repository }}
+
+            The ${{ github.event_name }} event triggered smoke and sanity.
+
+            The ${{ github.job }} are fail.
+
+             The ${{ github.workflow }} are fail.
