@@ -11,7 +11,7 @@ public class RussiaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(nullable = false)
     @Size(min = 2, max = 4, message = "Min 2, Max 4")
