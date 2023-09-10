@@ -48,6 +48,10 @@
         "imageUrl": "Romania_diplomatic_number"
       },
       {
+        "country": "russia",
+        "imageUrl": "Russian_diplomatic_license_plate"
+      },
+      {
         "country": "sweden",
         "imageUrl": "Sweden_diplomatic_license_plate"
       },

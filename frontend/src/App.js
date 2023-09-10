@@ -64,6 +64,7 @@ let diplomaticImages = {
   "montenegro": "https://upload.wikimedia.org/wikipedia/commons/0/08/Montenegro_diplomatic_license_plate_%28Norway%29.jpg",
   "norway": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Norway_diplomatic_license_plate_CD_48160_2014_Oslo.jpg/1280px-Norway_diplomatic_license_plate_CD_48160_2014_Oslo.jpg",
   "romania": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Romania_diplomatic_number_plate_CD_205_113.jpg",
+  "russia": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Russian_diplomatic_license_plate_014_D_161.jpg/640px-Russian_diplomatic_license_plate_014_D_161.jpg",
   "sweden": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Sweden_diplomatic_license_plate_DL004B.jpg/1024px-Sweden_diplomatic_license_plate_DL004B.jpg",
   "switzerland": "https://upload.wikimedia.org/wikipedia/commons/2/22/Switzerland_CD_Diplomatic_license_plate_GE_29%E2%80%A2201.jpg"
   };
@@ -433,6 +434,7 @@ return (
                 <option value="norway">🇳🇴&emsp;Norway</option>
                 <option value="poland">🇵🇱&emsp;Poland</option>
                 <option value="romania">🇷🇴&emsp;Romania</option>
+                <option value="russia">🇷🇺&emsp;Russia</option>
                 <option value="sweden">🇸🇪&emsp;Sweden</option>
                 <option value="switzerland">🇨🇭&emsp;Switzerland</option>
             </select>

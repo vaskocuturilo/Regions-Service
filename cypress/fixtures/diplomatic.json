@@ -72,6 +72,12 @@
     "description": "105"
   },
   {
+    "country": "russia",
+    "region": "009",
+    "result": "Греческая Республика",
+    "description": "009"
+  },
+  {
     "country": "sweden",
     "region": "AB",
     "result": "Albania",
