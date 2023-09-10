@@ -3,11 +3,13 @@ package com.regions.simpleregions.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Data
 @Entity
-public class RussiaEntity {
+public class RussiaDiplomaticEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
