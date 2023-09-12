@@ -56,7 +56,9 @@ You will need the following technologies available to try it out:
 - Will be adding user controller :heavy_check_mark:
 - Will be adding Jest unit testing for node JS
 - Fix the UI interface
-- will be adding the Google map. 
+- will be adding the Google map.
+- Will be adding logout timeout functionality.
+- Will be adding UI form for api_key.
   
 
 ### Actuator
