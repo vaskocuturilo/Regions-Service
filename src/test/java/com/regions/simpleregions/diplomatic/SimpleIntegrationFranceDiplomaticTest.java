@@ -27,12 +27,18 @@ class SimpleIntegrationFranceDiplomaticTest {
     @Value("${notification.region.message}")
     private String regionNotFound;
 
+    @Value("${http.auth-token-header-name}")
+    private String headerName;
+
+    @Value("${http.auth-token}")
+    private String authToken;
+
     @Test
     void getRegionHandle_whenGetFranceByRegion_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/415")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.region").isNotEmpty())
                 .andExpect(jsonPath("$.region", equalTo("415")))
@@ -45,7 +51,7 @@ class SimpleIntegrationFranceDiplomaticTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/European Union")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]").isNotEmpty())
                 .andExpect(jsonPath("$[*].region").isNotEmpty())
@@ -58,7 +64,7 @@ class SimpleIntegrationFranceDiplomaticTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/all")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]").isNotEmpty())
                 .andExpect(jsonPath("$[*]", hasSize(44)));
@@ -69,7 +75,7 @@ class SimpleIntegrationFranceDiplomaticTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/European")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].region").isNotEmpty())
                 .andExpect(jsonPath("$[0].region", equalTo("435")))
@@ -82,7 +88,7 @@ class SimpleIntegrationFranceDiplomaticTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isNotFound());
     }
 
@@ -91,7 +97,7 @@ class SimpleIntegrationFranceDiplomaticTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isNotFound());
     }
 
@@ -101,7 +107,7 @@ class SimpleIntegrationFranceDiplomaticTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/" + region)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.content().string(String.format(regionNotFound, region)));
     }
@@ -112,7 +118,7 @@ class SimpleIntegrationFranceDiplomaticTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/" + description)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.content().string(String.format(descriptionNotFound, description)));
     }

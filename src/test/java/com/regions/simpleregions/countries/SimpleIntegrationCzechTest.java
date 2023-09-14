@@ -23,7 +23,7 @@ class SimpleIntegrationCzechTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private String PATH = "/api/v1/czech/plates";
+    private final String PATH = "/api/v1/czech/plates";
 
     @Value("${notification.description.message}")
     private String descriptionNotFound;
@@ -31,12 +31,18 @@ class SimpleIntegrationCzechTest {
     @Value("${notification.region.message}")
     private String regionNotFound;
 
+    @Value("${http.auth-token-header-name}")
+    private String headerName;
+
+    @Value("${http.auth-token}")
+    private String authToken;
+
     @Test
     void getRegionHandle_whenGetCzech_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/4HU")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.region").isNotEmpty())
                 .andExpect(jsonPath("$.description").isNotEmpty())
@@ -49,7 +55,7 @@ class SimpleIntegrationCzechTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/Královéhradecký kraj (Hradec Králové), (Hradec Králové)")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]").isNotEmpty())
                 .andExpect(jsonPath("$[*].region").isNotEmpty())
@@ -62,7 +68,7 @@ class SimpleIntegrationCzechTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/Králové")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].region", equalTo("H")))
                 .andExpect(jsonPath("$[0].description", equalTo("Královéhradecký kraj (Hradec Králové), (Hradec Králové)")));
@@ -73,7 +79,7 @@ class SimpleIntegrationCzechTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/all")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]").isNotEmpty())
                 .andExpect(jsonPath("$[*]", hasSize(14)));
@@ -84,7 +90,7 @@ class SimpleIntegrationCzechTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isNotFound());
     }
 
@@ -93,7 +99,7 @@ class SimpleIntegrationCzechTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isNotFound());
     }
 
@@ -104,7 +110,7 @@ class SimpleIntegrationCzechTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/" + region)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.content().string(String.format(regionNotFound, getSecondSymbol(region))));
     }
@@ -115,7 +121,7 @@ class SimpleIntegrationCzechTest {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/" + description)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.content().string(String.format(descriptionNotFound, description)));
     }
