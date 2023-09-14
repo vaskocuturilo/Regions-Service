@@ -40,6 +40,8 @@ jobs:
 
       - name: Run Cypress Sanity Tests
         uses: cypress-io/github-action@v4
+        env:
+          REACT_APP_TOKEN: ${{ secrets.REACT_APP_TOKEN }}
         with:
           command: npm run cypress:run:sanity:test -- --browser ${{ matrix.browser }}
           parallel: true
