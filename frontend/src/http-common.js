@@ -3,6 +3,7 @@ import axios from "axios";
 export default axios.create({
   baseURL: "/api/v1",
   headers: {
-    "Content-type": "application/json"
+    "Content-type": "application/json",
+    "x-api-key": process.env.REACT_APP_TOKEN,
   }
 });

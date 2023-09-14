@@ -49,4 +49,6 @@ jobs:
         env:
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
+          REACT_APP_TOKEN: ${{ secrets.REACT_APP_TOKEN }}
         run: gradle clean build test
