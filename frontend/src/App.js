@@ -2,7 +2,7 @@ import './App.css';
 import React, { useRef, useState, useEffect } from "react";
 import apiClient from "./http-common";
 import upload from './img/upload.png';
-import logo from './img/logo.jpg';
+import logo from './img/europe-plates.jpg';
 import $ from 'jquery';
 import JSONPretty from 'react-json-pretty';
 import { createWorker } from "tesseract.js";
@@ -330,9 +330,7 @@ const convertImageToText = async () => {
 return (
     <div className="App">
        <Header></Header>
-      <div class="zoomdiv">
-      <img id="countries_image"
-                     src={file ? URL.createObjectURL(file) : logo} ref={image} alt="this is main image" class="center zoom"/></div>
+      <img id="countries_image" src={file ? URL.createObjectURL(file) : logo} ref={image} alt="this is main image"/>
     <div class="center alert alert-info mt-2" data-cy="alert_message_block" ref={typePlates}>Please choose any type of plates</div>  
       <input
         type="radio"

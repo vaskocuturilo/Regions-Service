@@ -155,7 +155,7 @@ export class MainPage {
     }
     
     checkThatMainImageVisibleCorrectly(){
-        cy.get('#countries_image').should('have.attr', 'src').should('include','/static/media/logo.2844f41831fc92c34483.jpg')
+        cy.get('#countries_image').should('have.attr', 'src').should('include','/static/media/europe-plates.9a8ab99f114d59105d85.jpg')
         cy.get('#countries_image').should('be.visible').and(($img) => {
         expect($img[0].naturalWidth).to.be.greaterThan(0)
       });
