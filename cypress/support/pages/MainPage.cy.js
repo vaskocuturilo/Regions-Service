@@ -31,7 +31,9 @@ export class MainPage {
         uploadImage: () => cy.get('[data-cy="upload_photo_image"]').should('be.visible'),
         uploadPhotoText: () => cy.get('[data-cy="upload_photo_h3_text"]').should('be.visible'),
         jsonResultBlock: () => cy.get('div[id="json-pretty"]').should('be.visible')
-    } 
+    }
+    
+    
 
     checkDefaultMainPageElementsAppears() {
         this.elements.title().should('eq','The application regions');
@@ -210,6 +212,15 @@ export class MainPage {
     this.elements.inputDiplomaticDescription().type('11');
     this.checkAlertMessage(text);  
   }
+
+  clearModal () {
+    cy.wait(2000);
+    cy.elementExists('[data-cy="sometag"]').then((confirmBtn) => {
+        if(confirmBtn) {
+            cy.wrap(confirmBtn).click();
+        } 
+    });  
+   }
 }
 
 export const mainPage = new MainPage();

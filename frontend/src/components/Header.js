@@ -3,6 +3,7 @@ import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { ReactComponent as Logo } from "../img/logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
 function Header() {
     return (
         <Navbar collapseOnSelect expand={false} bg="dark" variant="dark" data-cy="nav-bar-bottom">
@@ -15,7 +16,9 @@ function Header() {
           />
           Regions Service
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" data-cy="nav-bar-button"/>
+        <Navbar.Brand className="ml-auto" onClick={()=>{ alert('SignIn'); }} style={{cursor: 'grab'}}>Sign In</Navbar.Brand>
+        <Navbar.Brand className="ml-auto" onClick={()=>{ alert('SignUp'); }} style={{cursor: 'grab'}}>Sign Up</Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" data-cy="nav-bar-button"/>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="#features">News</Nav.Link>
