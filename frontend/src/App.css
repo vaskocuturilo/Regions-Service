@@ -24,8 +24,8 @@
 
 body {
   margin: 0;
-  color: #6a6f8c;
-  background: #c8c8c8;
+  color: #444;
+  background-color: #f3f3f3;
   font: 600 16px/18px 'Open Sans', sans-serif;
 }
 
@@ -238,5 +238,57 @@ nav .navbar-collapse {
 
 nav .navbar-collapse.show {
   right: 0;
+}
+
+.welcome {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #f3f3f3;
+}
+
+.login {
+  display: flex;
+}
+
+.login__input {
+  border: none;
+  padding: 0.5rem 2rem;
+  font-size: 1.0rem;
+  font-family: inherit;
+  text-align: center;
+  width: 12rem;
+  border-radius: 10rem;
+  margin-right: 1rem;
+  color: inherit;
+  border: 1px solid #fff;
+  transition: all 0.3s;
+}
+
+.login__input:focus {
+  outline: none;
+  border: 1px solid #ccc;
+}
+
+.login__input::placeholder {
+  color: #bbb;
+}
+
+.login__btn {
+  border: none;
+  font-size: 1.4rem;
+  width: 5rem;
+  border-radius: 10rem;
+  margin-right: 1rem;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.login__btn:hover,
+.login__btn:focus,
+.btn--sort:hover,
+.btn--sort:focus {
+  outline: none;
+  color: #777;
 }
 

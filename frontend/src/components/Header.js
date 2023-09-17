@@ -16,8 +16,20 @@ function Header() {
           />
           Regions Service
         </Navbar.Brand>
-        <Navbar.Brand className="ml-auto" onClick={()=>{ alert('SignIn'); }} style={{cursor: 'grab'}}>Sign In</Navbar.Brand>
         <Navbar.Brand className="ml-auto" onClick={()=>{ alert('SignUp'); }} style={{cursor: 'grab'}}>Sign Up</Navbar.Brand>
+        <p class="welcome">Log in to get started</p>
+        <input
+          type="text"
+          placeholder="user"
+          class="login__input login__input--user"
+        />
+        <input
+          type="password"
+          placeholder="PIN"
+          maxlength="4"
+          class="login__input login__input--pin"
+        />
+         <button class="login__btn">&rarr;</button>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" data-cy="nav-bar-button"/>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
