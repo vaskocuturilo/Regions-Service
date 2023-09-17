@@ -8,6 +8,7 @@ describe('Testing main page for application regions', () => {
     })
 
     it('Check upload image functionality', () => {
+        mainPage.clearModal();
         mainPage.selectTypeOfPLates('Upload Photo');
         mainPage.checkUploadImageFunctionality();
         mainPage.selectTypeOfPLates('Private plates');
@@ -15,11 +16,13 @@ describe('Testing main page for application regions', () => {
     })
 
     it('Check countries plates images with drop-down menu.', () => {
+        mainPage.clearModal();
         mainPage.selectTypeOfPLates('Private plates');
         mainPage.checkImageByCountry('regionsFlags.json');
     })
 
      it.only('Check diplomatic countries plates images with drop-down menu.', () => {
+        mainPage.clearModal();
         mainPage.selectTypeOfPLates('Diplomatic plates');
         mainPage.checkImageDiplomaticByCountry('diplomaticsFlags.json');
         })

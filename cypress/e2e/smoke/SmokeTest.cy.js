@@ -8,6 +8,7 @@ describe('Testing main page for application regions', () => {
     })
 
     it('This is simple test for check main page', () => {
+        mainPage.clearModal();
         mainPage.checkDefaultMainPageElementsAppears();
         mainPage.checkThatMainImageVisibleCorrectly();
         mainPage.checkAppearsPrivatePlatesBlock(); 

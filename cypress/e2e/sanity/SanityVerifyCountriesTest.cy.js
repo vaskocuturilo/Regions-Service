@@ -9,11 +9,13 @@ describe('Checking all countries. ', () => {
 
 
     it('Check all regions and desriptions for private plates', () => {
+        mainPage.clearModal();
         mainPage.selectTypeOfPLates('Private plates');
         mainPage.addPrivateRegionPlates('regions.json');
     })
 
     it('Check all regions and desriptions for diplomatic plates', () => {
+        mainPage.clearModal();
         mainPage.selectTypeOfPLates('Diplomatic plates');
         mainPage.addDiplomaticRegionPlates('diplomatic.json');
     })

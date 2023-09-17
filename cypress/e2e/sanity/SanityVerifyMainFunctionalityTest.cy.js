@@ -8,6 +8,7 @@ describe('Testing main page for application regions', () => {
     })
 
     it('Check alert message if user did not change any country', () => {
+        mainPage.clearModal();
         mainPage.selectTypeOfPLates('Private plates');
         mainPage.tapByRegionButton('Choose any country first');
         mainPage.tapByDescriptionButton('Choose any country first');
@@ -18,11 +19,13 @@ describe('Testing main page for application regions', () => {
     })
 
     it('Check main functionality for private plates by description', () => {
+        mainPage.clearModal();
         mainPage.selectTypeOfPLates('Private plates');
         mainPage.addDescriptionPlates('regions.json');
     })
 
     it('Check main functionality for diplomatic plates by region', () => {
+        mainPage.clearModal();
         mainPage.selectTypeOfPLates('Diplomatic plates');
         mainPage.addDiplomaticDescriptionPlates('diplomatic.json');
     })
