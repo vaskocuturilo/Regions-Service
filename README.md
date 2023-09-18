@@ -58,7 +58,7 @@ You will need the following technologies available to try it out:
 - Fix the UI interface
 - will be adding the Google map.
 - Will be adding logout timeout functionality.
-- Will be adding a UI form for api_key.
+- Will be adding a UI form for generation an apiKey.
   
 
 ### Actuator
