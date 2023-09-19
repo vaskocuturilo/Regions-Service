@@ -10,7 +10,7 @@ function Popup() {
       let pop_status = localStorage.getItem('pop_status');
       if(!pop_status){
         setVisible(true);
-        localStorage.setItem('pop_status',1);
+        localStorage.setItem('pop_status', 1);
       }
     },[])
     if(!visible) return null;
