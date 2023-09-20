@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { ReactComponent as Logo } from "../img/logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import SignIn from "./SignIn";
+
+import SignUp from "./SignUp";
+
+import styles from "./Modal.module.css";
 
 function Header() {
+  const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
     return (
         <Navbar collapseOnSelect expand={false} bg="dark" variant="dark" data-cy="nav-bar-bottom">
         <Navbar.Brand href="#home">
@@ -16,8 +23,17 @@ function Header() {
           />
           Regions Service
         </Navbar.Brand>
-        <Navbar.Brand className="ml-auto" width="10" height="10" onClick={()=>{ alert('Sign in'); }} style={{cursor: 'grab'}}>Sign In</Navbar.Brand>
-        <Navbar.Brand className="ml-auto" width="10" height="10" onClick={()=>{ alert('Sign Up'); }} style={{cursor: 'grab'}}>Sign Up</Navbar.Brand>
+
+        <button className={styles.primaryBtn} onClick={() => setIsOpen1(true)}>
+        Sign In
+      </button>
+      {isOpen1 && <SignIn setIsOpen1={setIsOpen1} />}
+
+      <button className={styles.primaryBtn} onClick={() => setIsOpen2(true)}>
+        Sign Up
+      </button>
+      {isOpen2 && <SignUp setIsOpen2={setIsOpen2} />}
+
       <Navbar.Toggle aria-controls="responsive-navbar-nav" data-cy="nav-bar-button"/>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
