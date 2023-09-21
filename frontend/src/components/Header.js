@@ -15,21 +15,15 @@ function Header() {
     return (
         <Navbar collapseOnSelect expand={false} bg="dark" variant="dark" data-cy="nav-bar-bottom">
         <Navbar.Brand href="#home">
-          <Logo
-            alt=""
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-          />
-          Regions Service
+          <p>Regions Service</p>
         </Navbar.Brand>
 
-        <button className={styles.primaryBtn} onClick={() => setIsOpen1(true)}>
+        <button className={styles.primaryBtn} onClick={() => setIsOpen1(true)} data-cy="signIn">
         Sign In
       </button>
       {isOpen1 && <SignIn setIsOpen1={setIsOpen1} />}
 
-      <button className={styles.primaryBtn} onClick={() => setIsOpen2(true)}>
+      <button className={styles.primaryBtn} onClick={() => setIsOpen2(true)} data-cy="signUp">
         Sign Up
       </button>
       {isOpen2 && <SignUp setIsOpen2={setIsOpen2} />}
