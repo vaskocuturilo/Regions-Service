@@ -15,16 +15,16 @@ const SignUp = ({ setIsOpen2 }) => {
             <RiCloseLine style={{ marginBottom: "-3px" }} />
           </button>
           <div className={styles.modalContent}>
-            2
+          Are you sure you want to Sign Up ?
           </div>
           <div className={styles.modalActions}>
             <div className={styles.actionsContainer}>
-              <button className={styles.deleteBtn} onClick={() => setIsOpen2(false)}>
-                Delete
+              <button className={styles.deleteBtn} onClick={() => setIsOpen2(false)} data-cy="registerButton">
+                Sign Up
               </button>
               <button
                 className={styles.cancelBtn}
-                onClick={() => setIsOpen2(false)}>
+                onClick={() => setIsOpen2(false)} data-cy="cancelButton">
                 Cancel
               </button>
             </div>
