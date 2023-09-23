@@ -4,6 +4,6 @@ export default axios.create({
   baseURL: "/api/v1",
   headers: {
     "Content-type": "application/json",
-    "x-api-key": process.env.REACT_APP_TOKEN,
+    "X-API-KEY": process.env.REACT_APP_TOKEN
   }
 });
