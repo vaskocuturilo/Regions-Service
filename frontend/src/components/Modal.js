@@ -19,6 +19,12 @@ const Modal = (e) => {
            <br/>
            <br/>
            If you want to use API, you need register a new account for generation a new API KEY.
+           <br/>
+           <br/>
+           You can use the app for free for only 2 minutes.
+           <br/>
+           <br/>
+          For long-term use without time limit, you need to register
           </div>
           <div className={styles.modalActions}>
             <div className={styles.actionsContainer}>
