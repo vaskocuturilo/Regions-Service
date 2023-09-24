@@ -23,18 +23,21 @@ const SignUp = ({ setIsOpen2 }) => {
           placeholder="EMAIL"
           maxlength="100"
           class="login__input login__input--user"
+          data-cy="emailInput"
         />
          <input
-          type="password"
+          type="text"
           placeholder="NAME"
           maxlength="25"
           class="login__input login__input--pin"
+          data-cy="nameInput"
         />
          <input
           type="password"
           placeholder="PIN"
           maxlength="4"
           class="login__input login__input--pin"
+          data-cy="pinInput"
         />
             <div className={styles.actionsContainer}>
               <button className={styles.deleteBtn} onClick={() => setIsOpen2(false)} data-cy="registerButton">
