@@ -292,3 +292,10 @@ nav .navbar-collapse.show {
   color: #777;
 }
 
+.logout-timer {
+  padding: 0 0.3rem;
+  margin-top: 1.9rem;
+  text-align: right;
+  font-size: 1.25rem;
+}
+

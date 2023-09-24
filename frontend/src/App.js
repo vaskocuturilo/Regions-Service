@@ -102,6 +102,9 @@ let diplomaticImages = {
   
   const [imageData, setImageData] = useState(null);
 
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(2);
+
   const changeHandler = e => {
     setSelected(e.target.value);
   };
@@ -328,12 +331,51 @@ const convertImageToText = async () => {
     convertImageToText();
   }, [imageData]);
 
+  const [showElement,setShowElement] = React.useState(true)
+  useEffect(()=>{
+    setTimeout(function() {
+      setShowElement(false);
+      image.current.src = logo;
+         }, 120000);
+       },
+   []);
+
+  function updateTime() {
+    if (minutes == 0 && seconds == 0) {
+      //reset
+      setSeconds(0);
+      setMinutes(5);
+    }
+    else {
+      if (seconds == 0) {
+        setMinutes(minutes => minutes - 1);
+        setSeconds(59);
+      } else {
+        setSeconds(seconds => seconds - 1);
+      }
+    }
+  }
+
+
+
+  useEffect(() => {
+    // use set timeout and be confident because updateTime will cause rerender
+    // rerender mean re call this effect => then it will be similar to how setinterval works
+    // but with easy to understand logic
+    const token = setTimeout(updateTime, 1000)
+
+    return function cleanUp() {
+      clearTimeout(token);
+    }
+  });
+
 return (
     <div className="App">
        <Header></Header>
        <Popup></Popup>
       <img id="countries_image" src={file ? URL.createObjectURL(file) : logo} ref={image} alt="this is main image" className='center'/>
-    <div class="center alert alert-info mt-2" data-cy="alert_message_block" ref={typePlates}>Please choose any type of plates</div>  
+      {showElement?<div>  
+      <div class="center alert alert-info mt-2" data-cy="alert_message_block" ref={typePlates}>Please choose any type of plates</div>
       <input
         type="radio"
         name="plates"
@@ -482,6 +524,10 @@ return (
     <input id="file-input" type="file" onChange={(e) => setFile(e.target.files[0])} data-cy="upload_photo"/>
      </div>    
     </div>
+    <p class="logout-timer">
+        You will be logged out in <span class="timer">time: {minutes}:{seconds}</span>
+      </p> 
+    </div>:<></>} 
   </div>
  );
 }
