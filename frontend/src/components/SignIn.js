@@ -18,6 +18,19 @@ const SignIn = ({ setIsOpen1 }) => {
           Are you sure you want to Sign In ?
           </div>
           <div className={styles.modalActions}>
+          <input
+          type="text"
+          placeholder="USER"
+          data-cy="userInput"
+          class="login__input login__input--user"
+        />
+         <input
+          type="password"
+          placeholder="PIN"
+          maxlength="4"
+          data-cy="pinInput"
+          class="login__input login__input--pin"
+        />
             <div className={styles.actionsContainer}>
               <button className={styles.deleteBtn} onClick={() => setIsOpen1(false)} data-cy="loginButton">
                 Login
