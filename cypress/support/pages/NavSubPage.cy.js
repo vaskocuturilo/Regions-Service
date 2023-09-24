@@ -8,9 +8,16 @@ export class NavSubPage {
 
         loginButton: ()=> cy.get('[data-cy="loginButton"]').should('be.visible'),
         cancelButton: ()=> cy.get('[data-cy="cancelButton"]').should('be.visible'),
+        
+        userInput: ()=> cy.get('[data-cy="loginButton"]').should('be.visible'),
+        pinInput: ()=> cy.get('[data-cy="loginButton"]').should('be.visible'),
 
         registerButton: ()=> cy.get('[data-cy="registerButton"]').should('be.visible'),
-        cancelButton: ()=> cy.get('[data-cy="cancelButton"]').should('be.visible')
+        cancelButton: ()=> cy.get('[data-cy="cancelButton"]').should('be.visible'),
+        
+        emailInput: ()=> cy.get('[data-cy="loginButton"]').should('be.visible'),
+        nameInput: ()=> cy.get('[data-cy="loginButton"]').should('be.visible'),
+        pinInput: ()=> cy.get('[data-cy="loginButton"]').should('be.visible')
     }
 
 
@@ -24,6 +31,9 @@ export class NavSubPage {
         this.elements.loginButton();
         this.elements.cancelButton().click();
 
+        this.elements.userInput();
+        this.elements.pinInput();
+
     }
 
     checkSignUpButton(text) {
@@ -31,6 +41,10 @@ export class NavSubPage {
         this.elements.signUpButton().click();
         this.elements.registerButton();
         this.elements.cancelButton().click();
+
+        this.elements.emailInput();
+        this.elements.nameInput();
+        this.elements.pinInput();
     }
 }
 

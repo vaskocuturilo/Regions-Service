@@ -18,6 +18,24 @@ const SignUp = ({ setIsOpen2 }) => {
           Are you sure you want to Sign Up ?
           </div>
           <div className={styles.modalActions}>
+          <input
+          type="text"
+          placeholder="EMAIL"
+          maxlength="100"
+          class="login__input login__input--user"
+        />
+         <input
+          type="password"
+          placeholder="NAME"
+          maxlength="25"
+          class="login__input login__input--pin"
+        />
+         <input
+          type="password"
+          placeholder="PIN"
+          maxlength="4"
+          class="login__input login__input--pin"
+        />
             <div className={styles.actionsContainer}>
               <button className={styles.deleteBtn} onClick={() => setIsOpen2(false)} data-cy="registerButton">
                 Sign Up
