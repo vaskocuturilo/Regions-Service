@@ -37,7 +37,7 @@ class SimpleIntegrationAustriaDiplomaticTest {
 
 
     @Test
-    void getRegionHandle_whenGetGermanyByRegion_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetAustriaByRegion_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/22")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -48,7 +48,7 @@ class SimpleIntegrationAustriaDiplomaticTest {
     }
 
     @Test
-    void getRegionHandle_whenGetGermanyByDescription_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetAustriaByDescription_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/Spain")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -61,7 +61,7 @@ class SimpleIntegrationAustriaDiplomaticTest {
     }
 
     @Test
-    void getRegionHandle_whenGetGermanyByDescriptionContains_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetAustriaByDescriptionContains_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/Ca")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -72,7 +72,7 @@ class SimpleIntegrationAustriaDiplomaticTest {
     }
 
     @Test
-    void getRegionHandle_whenGetGermanyWithoutDescription_thenStatus404() throws Exception {
+    void getRegionHandle_whenGetAustriaWithoutDescription_thenStatus404() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -81,7 +81,7 @@ class SimpleIntegrationAustriaDiplomaticTest {
     }
 
     @Test
-    void getRegionHandle_whenGetGermanyWithoutRegion_thenStatus404() throws Exception {
+    void getRegionHandle_whenGetAustriaWithoutRegion_thenStatus404() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -90,7 +90,7 @@ class SimpleIntegrationAustriaDiplomaticTest {
     }
 
     @Test
-    void getRegionHandle_whenGetAllGermanyRegions_thenStatus200() throws Exception {
+    void getRegionHandle_whenGetAllAustriaRegions_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/all")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -101,7 +101,7 @@ class SimpleIntegrationAustriaDiplomaticTest {
     }
 
     @Test
-    void getRegionHandle_whenExceptionGermanyByRegion_thenStatus400() throws Exception {
+    void getRegionHandle_whenExceptionAustriaByRegion_thenStatus400() throws Exception {
         String region = "ABA";
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/" + region)
@@ -112,7 +112,7 @@ class SimpleIntegrationAustriaDiplomaticTest {
     }
 
     @Test
-    void getRegionHandle_whenExceptionGermanyByDescription_thenStatus400() throws Exception {
+    void getRegionHandle_whenExceptionAustriaByDescription_thenStatus400() throws Exception {
         String description = "HHHHHHHHH";
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/description/" + description)
@@ -120,5 +120,14 @@ class SimpleIntegrationAustriaDiplomaticTest {
                         .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.content().string(String.format(descriptionNotFound, description)));
+    }
+
+    @Test
+    void getRegionHandle_whenGetAustriaWithoutApiKey_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/region/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
     }
 }
