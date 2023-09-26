@@ -7,7 +7,7 @@ CREATE TABLE `kyrgyzstan_diplomatic_entity` (
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 LOCK TABLES `kyrgyzstan_diplomatic_entity` WRITE;
-INSERT INTO `kyrgyzstan_diplomatic_entity` VALUES
+INSERT INTO `kyrgyzstan_diplomatic_entity` (description, region) VALUES
 ('Turkey','01'),
 ('United States','02'),
 ('China','03'),

@@ -7,7 +7,7 @@ CREATE TABLE `germany_diplomatic_entity` (
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 LOCK TABLES `germany_diplomatic_entity` WRITE;
-INSERT INTO `germany_diplomatic_entity` VALUES
+INSERT INTO `germany_diplomatic_entity` (description,region) VALUES
 ('Vatican City State','10'),
 ('Egypt','11'),
 ('Angola','12'),

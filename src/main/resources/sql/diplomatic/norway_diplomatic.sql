@@ -7,7 +7,7 @@ CREATE TABLE `norway_diplomatic_entity` (
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 LOCK TABLES `norway_diplomatic_entity` WRITE;
-INSERT INTO `norway_diplomatic_entity` VALUES
+INSERT INTO `norway_diplomatic_entity` (description, region) VALUES
 ('United States','10'),
 ('Argentina','11'),
 ('Afghanistan','12'),
