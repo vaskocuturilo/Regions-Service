@@ -172,7 +172,7 @@ INSERT INTO `italian_diplomatic_entity` (description, region) VALUES
 ('FAO,  United Nations, International organizations, and  European Union','XH'),
 ('Vatican City','XG'),
 ('Australia','ZA'),
-(,'New Zealand','ZC'),
+('New Zealand','ZC'),
 ('Philippines','GQ');
 UNLOCK TABLES;
 

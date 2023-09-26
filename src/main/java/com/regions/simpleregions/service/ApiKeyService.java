@@ -4,7 +4,6 @@ import com.regions.simpleregions.entity.ApiKeyEntity;
 import com.regions.simpleregions.entity.User;
 import com.regions.simpleregions.respository.ApiKeyRepository;
 import com.regions.simpleregions.respository.UserRepository;
-import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,13 +12,17 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@Data
 public class ApiKeyService {
     private static final Long EXPIRY_INTERVAL = 5L * 60 * 1000;
 
     private final ApiKeyRepository apiKeyRepository;
 
     private final UserRepository userRepository;
+
+    public ApiKeyService(ApiKeyRepository apiKeyRepository, UserRepository userRepository) {
+        this.apiKeyRepository = apiKeyRepository;
+        this.userRepository = userRepository;
+    }
 
     public ApiKeyEntity getApiKeyByUser(UUID userId) {
         ApiKeyEntity apiKeyEntity = new ApiKeyEntity();
