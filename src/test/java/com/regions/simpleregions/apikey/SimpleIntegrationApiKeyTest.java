@@ -1,4 +1,4 @@
-package com.regions.simpleregions.onetimepassword;
+package com.regions.simpleregions.apikey;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -10,13 +10,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Disabled
-class SimpleIntegrationOneTimePasswordTest {
+class SimpleIntegrationApiKeyTest {
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    void getOneTimePasswordCodeHandle_whenGetOneTimePasswordCode_thenStatus200() throws Exception {
-        String PATH = "/api/v1/one-time-password";
+    void getApiKeyHandle_whenGetApiKeyForNewUser_thenStatus200() throws Exception {
+        String PATH = "/api/v1/apiKey";
         mockMvc.perform(MockMvcRequestBuilders
                         .post(PATH)
                         .param("userId", "550e8400-e29b-41d4-a716-446655440000")
