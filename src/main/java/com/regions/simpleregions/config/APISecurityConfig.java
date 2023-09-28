@@ -31,8 +31,8 @@ public class APISecurityConfig extends WebSecurityConfigurerAdapter {
             authentication.setAuthenticated(true);
             return authentication;
         });
-        httpSecurity.
-                antMatcher("/api/v1/**")
+        httpSecurity
+                .antMatcher("/api/v1/**")
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
