@@ -1,5 +1,6 @@
 package com.regions.simpleregions.dtos;
 
+import com.regions.simpleregions.entity.OneTimePasswordEntity;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,5 +12,5 @@ public class UserDto {
     private String lastName;
     private String login;
     private String token;
-    private String oneTimePassword;
+    private OneTimePasswordEntity oneTimePassword;
 }
