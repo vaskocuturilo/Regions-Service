@@ -1,20 +1,16 @@
 package com.regions.simpleregions.dtos;
 
-import lombok.AllArgsConstructor;
+import com.regions.simpleregions.entity.OneTimePasswordEntity;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.UUID;
 
 @Builder
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserDto {
-    private UUID id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String login;
     private String token;
+    private OneTimePasswordEntity oneTimePassword;
 }

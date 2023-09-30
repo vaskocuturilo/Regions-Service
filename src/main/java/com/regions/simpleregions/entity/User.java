@@ -1,34 +1,22 @@
 package com.regions.simpleregions.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.UUID;
 
 @Data
+@NoArgsConstructor
 @Entity
-@Builder
-@Table(name = "user")
+@Table(name = "user_entity")
 public class User {
-
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator",
-            parameters = {
-                    @org.hibernate.annotations.Parameter(
-                            name = "uuid_gen_strategy_class",
-                            value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
-                    )
-            }
-    )
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
     @Column(name = "first_name", nullable = false)
     @Size(max = 100)
     private String firstName;
@@ -47,9 +35,5 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonIgnore
-    OneTimePasswordEntity oneTimePasswordEntity;
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    @JsonIgnore
-    ApiKeyEntity apiKeyEntity;
+    OneTimePasswordEntity oneTimePassword;
 }

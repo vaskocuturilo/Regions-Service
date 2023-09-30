@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -21,7 +20,7 @@ public class ApiKeyService {
 
     private final UserRepository userRepository;
 
-    public ApiKeyEntity getApiKeyByUser(UUID userId) {
+    public ApiKeyEntity getApiKeyByUser(Integer userId) {
         ApiKeyEntity apiKeyEntity = new ApiKeyEntity();
         Optional<User> user = userRepository.findById(userId);
 

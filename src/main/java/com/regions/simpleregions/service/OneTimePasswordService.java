@@ -2,41 +2,39 @@ package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.entity.OneTimePasswordEntity;
 import com.regions.simpleregions.entity.User;
+import com.regions.simpleregions.exception.UserException;
 import com.regions.simpleregions.respository.OneTimePasswordRepository;
 import com.regions.simpleregions.respository.UserRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class OneTimePasswordService {
     private static final Long EXPIRY_INTERVAL = 5L * 60 * 1000;
 
     private final OneTimePasswordRepository oneTimePasswordRepository;
-
     private final UserRepository userRepository;
 
-    public OneTimePasswordService(OneTimePasswordRepository oneTimePasswordRepository, UserRepository userRepository) {
-        this.oneTimePasswordRepository = oneTimePasswordRepository;
-        this.userRepository = userRepository;
-    }
+    public OneTimePasswordEntity createOneTimePassword(User userId) {
+        Optional<User> optionalUser = userRepository.findById(userId.getId());
 
-    public OneTimePasswordEntity returnOneTimePassword(UUID userId) {
-        OneTimePasswordEntity oneTimePassword = new OneTimePasswordEntity();
-        Optional<User> user = userRepository.findById(userId);
-
-        if (user.isEmpty()) {
-            throw new IllegalStateException(String.format("The %s not found.", user));
+        if (optionalUser.isEmpty()) {
+            throw new UserException("Not Found", HttpStatus.NOT_FOUND);
         }
 
+        OneTimePasswordEntity oneTimePassword = new OneTimePasswordEntity();
         oneTimePassword.setOneTimePasswordCode(OneTimePasswordHelpService.createRandomOneTimePassword().get());
         oneTimePassword.setExpires(new Date(System.currentTimeMillis() + EXPIRY_INTERVAL));
 
-        oneTimePassword.setUser(user.get());
+        oneTimePassword.setUser(userId);
         oneTimePasswordRepository.save(oneTimePassword);
+
 
         return oneTimePassword;
     }
