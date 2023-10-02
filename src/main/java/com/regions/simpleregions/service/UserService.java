@@ -3,6 +3,7 @@ package com.regions.simpleregions.service;
 import com.regions.simpleregions.dtos.CredentialsDto;
 import com.regions.simpleregions.dtos.SignUpDto;
 import com.regions.simpleregions.dtos.UserDto;
+import com.regions.simpleregions.entity.ApiKeyEntity;
 import com.regions.simpleregions.entity.OneTimePasswordEntity;
 import com.regions.simpleregions.entity.User;
 import com.regions.simpleregions.exception.UserException;
@@ -26,6 +27,8 @@ public class UserService {
     private final UserMapper userMapper;
 
     private final OneTimePasswordService oneTimePasswordService;
+
+    private final ApiKeyService apiKeyService;
 
     public UserDto login(CredentialsDto credentialsDto) {
         User user = userRepository.findByLogin(credentialsDto.login())
@@ -53,7 +56,11 @@ public class UserService {
 
         final OneTimePasswordEntity oneTimePassword = oneTimePasswordService.createOneTimePassword(savedUser);
 
+        final ApiKeyEntity apiKeyEntity = apiKeyService.createApiKey(savedUser);
+
         savedUser.setOneTimePassword(oneTimePassword);
+
+        savedUser.setApiKey(apiKeyEntity);
 
         return userMapper.toUserDto(savedUser);
     }

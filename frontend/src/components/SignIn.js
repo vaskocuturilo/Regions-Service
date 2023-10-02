@@ -18,18 +18,20 @@ const SignIn = ({ setIsOpen1 }) => {
           Are you sure you want to Sign In ?
           </div>
           <div className={styles.modalActions}>
+          <label-modal>Email:</label-modal>
           <input
           type="text"
-          placeholder="USER"
-          data-cy="userInput"
-          class="login__input login__input--user"
+          placeholder="Enter email"
+          data-cy="emailInput"
+          className="form-control input-modal"
         />
+        <label-modal>Password:</label-modal>
          <input
           type="password"
-          placeholder="PIN"
+          placeholder="Enter password"
           maxlength="4"
-          data-cy="pinInput"
-          class="login__input login__input--pin"
+          data-cy="passwordInput"
+          className="form-control input-modal"
         />
             <div className={styles.actionsContainer}>
               <button className={styles.deleteBtn} onClick={() => setIsOpen1(false)} data-cy="loginButton">
