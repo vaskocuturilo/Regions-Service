@@ -1,4 +1,4 @@
-package com.regions.simpleregions.users;
+package com.regions.simpleregions.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
@@ -59,8 +59,15 @@ class SimpleIntegrationUsersTest {
                 .andExpect(jsonPath("$.lastName", equalTo(newUser)))
                 .andExpect(jsonPath("$.login", equalTo(newUser)))
                 .andExpect(jsonPath("$.token").isNotEmpty())
-                .andExpect(jsonPath("$.oneTimePassword").isNotEmpty());
-
+                .andExpect(jsonPath("$.oneTimePassword").isNotEmpty())
+                .andExpect(jsonPath("$.oneTimePassword.id").isNotEmpty())
+                .andExpect(jsonPath("$.oneTimePassword.oneTimePasswordCode").isNotEmpty())
+                .andExpect(jsonPath("$.oneTimePassword.oneTimePasswordCode").isNotEmpty())
+                .andExpect(jsonPath("$.oneTimePassword.expires").isNotEmpty())
+                .andExpect(jsonPath("$.apiKey").isNotEmpty())
+                .andExpect(jsonPath("$.apiKey.id").isNotEmpty())
+                .andExpect(jsonPath("$.apiKey.apiKey").isNotEmpty())
+                .andExpect(jsonPath("$.apiKey.expires").isNotEmpty());
     }
 
     private String createUser() {

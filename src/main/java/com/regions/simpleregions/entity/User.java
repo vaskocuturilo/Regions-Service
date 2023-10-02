@@ -36,4 +36,8 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonIgnore
     OneTimePasswordEntity oneTimePassword;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
+    ApiKeyEntity apiKey;
 }

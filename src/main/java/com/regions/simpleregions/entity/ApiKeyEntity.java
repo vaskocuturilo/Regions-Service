@@ -28,7 +28,7 @@ public class ApiKeyEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    private Integer apiKey;
+    private String apiKey;
     private Date expires;
 
     @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)

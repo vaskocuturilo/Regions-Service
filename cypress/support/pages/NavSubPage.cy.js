@@ -7,19 +7,15 @@ export class NavSubPage {
         signUpButton: ()=> cy.get('[data-cy="signUp"]').should('be.visible'),
 
         loginButton: ()=> cy.get('[data-cy="loginButton"]').should('be.visible'),
-        cancelButton: ()=> cy.get('[data-cy="cancelButton"]').should('be.visible'),
-        
-        userInput: ()=> cy.get('[data-cy="userInput"]').should('be.visible'),
-        pinInput: ()=> cy.get('[data-cy="pinInput"]').should('be.visible'),
-
         registerButton: ()=> cy.get('[data-cy="registerButton"]').should('be.visible'),
         cancelButton: ()=> cy.get('[data-cy="cancelButton"]').should('be.visible'),
-        
-        emailInput: ()=> cy.get('[data-cy="emailInput"]').should('be.visible'),
-        nameInput: ()=> cy.get('[data-cy="nameInput"]').should('be.visible'),
-        pinInput: ()=> cy.get('[data-cy="pinInput"]').should('be.visible')
-    }
 
+        emailInput: ()=> cy.get('[data-cy="emailInput"]').should('be.visible'),
+        passwordInput: ()=> cy.get('[data-cy="passwordInput"]').should('be.visible'),
+
+        firstNameInput: ()=> cy.get('[data-cy="firstNameInput"]').should('be.visible'),
+        lastnameNameInput: ()=> cy.get('[data-cy="lastNameInput"]').should('be.visible')
+     }
 
     checkNavigationBarByText(text) {
         this.elements.navBarMain().find('p').should('have.text', text);
@@ -29,8 +25,8 @@ export class NavSubPage {
         this.elements.signInButton().should('have.text', text);
         this.elements.signInButton().click();
         this.elements.loginButton();
-        this.elements.userInput();
-        this.elements.pinInput();
+        this.elements.emailInput();
+        this.elements.passwordInput();
         this.elements.cancelButton().click();
     }
 
@@ -38,9 +34,10 @@ export class NavSubPage {
         this.elements.signUpButton().should('have.text', text);
         this.elements.signUpButton().click();
         this.elements.registerButton();
+        this.elements.firstNameInput();
+        this.elements.lastnameNameInput();
         this.elements.emailInput();
-        this.elements.nameInput();
-        this.elements.pinInput();
+        this.elements.passwordInput();
         this.elements.cancelButton().click();
     }
 }
