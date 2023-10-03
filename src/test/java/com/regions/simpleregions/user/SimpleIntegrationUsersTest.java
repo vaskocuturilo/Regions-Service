@@ -59,6 +59,7 @@ class SimpleIntegrationUsersTest {
                 .andExpect(jsonPath("$.lastName", equalTo(newUser)))
                 .andExpect(jsonPath("$.login", equalTo(newUser)))
                 .andExpect(jsonPath("$.token").isNotEmpty())
+                .andExpect(jsonPath("$.active", equalTo(false)))
                 .andExpect(jsonPath("$.oneTimePassword").isNotEmpty())
                 .andExpect(jsonPath("$.oneTimePassword.id").isNotEmpty())
                 .andExpect(jsonPath("$.oneTimePassword.oneTimePasswordCode").isNotEmpty())

@@ -34,6 +34,10 @@ public class UserService {
         User user = userRepository.findByLogin(credentialsDto.login())
                 .orElseThrow(() -> new UserException("Unknown user", HttpStatus.NOT_FOUND));
 
+        if (!user.isActive()) {
+            throw new UserException("The user is not activated", HttpStatus.FORBIDDEN);
+        }
+
         if (passwordEncoder.matches(CharBuffer.wrap(credentialsDto.password()), user.getPassword())) {
             return userMapper.toUserDto(user);
         }

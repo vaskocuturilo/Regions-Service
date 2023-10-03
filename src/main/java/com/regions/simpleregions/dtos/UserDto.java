@@ -13,6 +13,7 @@ public class UserDto {
     private String lastName;
     private String login;
     private String token;
+    private boolean active;
     private OneTimePasswordEntity oneTimePassword;
     private ApiKeyEntity apiKey;
 }
