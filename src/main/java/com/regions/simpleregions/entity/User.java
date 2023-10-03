@@ -33,6 +33,9 @@ public class User {
     @Size(max = 100)
     private String password;
 
+    @Column(nullable = false)
+    private boolean active = false;
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonIgnore
     OneTimePasswordEntity oneTimePassword;
