@@ -6,8 +6,11 @@ import com.regions.simpleregions.dtos.UserDto;
 import com.regions.simpleregions.entity.ApiKeyEntity;
 import com.regions.simpleregions.entity.OneTimePasswordEntity;
 import com.regions.simpleregions.entity.User;
+import com.regions.simpleregions.exception.OneTimePasswordException;
+import com.regions.simpleregions.exception.UserAlreadyActive;
 import com.regions.simpleregions.exception.UserException;
 import com.regions.simpleregions.model.UserMapper;
+import com.regions.simpleregions.respository.OneTimePasswordRepository;
 import com.regions.simpleregions.respository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,6 +30,8 @@ public class UserService {
     private final UserMapper userMapper;
 
     private final OneTimePasswordService oneTimePasswordService;
+
+    private final OneTimePasswordRepository oneTimePasswordRepository;
 
     private final ApiKeyService apiKeyService;
 
@@ -68,6 +73,27 @@ public class UserService {
 
         return userMapper.toUserDto(savedUser);
     }
+
+    public UserDto active(final Integer userId, final Integer code) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException("Unknown user", HttpStatus.NOT_FOUND));
+
+        Integer oneTimePasswordCodeExist = oneTimePasswordRepository.findByOneTimePasswordCode(userId);
+
+        if (user.isActive()) {
+            throw new UserAlreadyActive("The user is active now", HttpStatus.BAD_REQUEST);
+        }
+        if (!oneTimePasswordCodeExist.equals(code)) {
+            throw new OneTimePasswordException("The code is incorrect", HttpStatus.NOT_FOUND);
+        }
+
+        user.setActive(true);
+
+        oneTimePasswordService.deleteByOneTimePasswordCode(code);
+
+        return userMapper.toUserDto(user);
+    }
+
 
     public UserDto findByLogin(final String login) {
         final User user = userRepository.findByLogin(login)
