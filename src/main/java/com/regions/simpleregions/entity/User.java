@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
-@Data
 @NoArgsConstructor
+@Data
 @Entity
 @Table(name = "user_entity")
 public class User {
