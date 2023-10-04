@@ -35,9 +35,11 @@ public class UserService {
 
     private final ApiKeyService apiKeyService;
 
+    private static final String UNKNOWN_USER = "Unknown user";
+
     public UserDto login(CredentialsDto credentialsDto) {
         User user = userRepository.findByLogin(credentialsDto.login())
-                .orElseThrow(() -> new UserException("Unknown user", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UserException(UNKNOWN_USER, HttpStatus.NOT_FOUND));
 
         if (!user.isActive()) {
             throw new UserException("The user is not activated", HttpStatus.FORBIDDEN);
@@ -76,7 +78,7 @@ public class UserService {
 
     public UserDto active(final Integer userId, final Integer code) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException("Unknown user", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UserException(UNKNOWN_USER, HttpStatus.NOT_FOUND));
 
         Integer oneTimePasswordCodeExist = oneTimePasswordRepository.findByOneTimePasswordCode(userId);
 
@@ -97,7 +99,7 @@ public class UserService {
 
     public UserDto findByLogin(final String login) {
         final User user = userRepository.findByLogin(login)
-                .orElseThrow(() -> new UserException("Unknown user", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new UserException(UNKNOWN_USER, HttpStatus.NOT_FOUND));
         return userMapper.toUserDto(user);
     }
 }
