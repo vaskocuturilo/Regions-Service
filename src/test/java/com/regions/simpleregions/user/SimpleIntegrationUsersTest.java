@@ -71,6 +71,45 @@ class SimpleIntegrationUsersTest {
                 .andExpect(jsonPath("$.apiKey.expires").isNotEmpty());
     }
 
+
+    @Test
+    void login() throws Exception {
+        final ObjectMapper objectMapper = new ObjectMapper();
+
+        final String newUser = createUser();
+
+        Map<String, Object> bodyNewUser = new HashMap<>();
+        bodyNewUser.put("firstName", newUser);
+        bodyNewUser.put("lastName", newUser);
+        bodyNewUser.put("login", newUser);
+        bodyNewUser.put("password", newUser);
+
+
+        String REGISTER = "/api/v1/users/register";
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post(REGISTER)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(bodyNewUser))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .header(headerName, authToken))
+                .andExpect(status().isCreated());
+
+
+        Map<String, Object> loginUser = new HashMap<>();
+        loginUser.put("login", newUser);
+        loginUser.put("password", newUser);
+
+        String LOGIN = "/api/v1/users/login";
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post(LOGIN)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(loginUser))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .header(headerName, authToken))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.message", equalTo("The user is not activated")));
+    }
+
     private String createUser() {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
         return timeStamp + "@test.com";
