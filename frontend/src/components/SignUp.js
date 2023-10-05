@@ -40,7 +40,7 @@ const SignUp = ({ setIsOpen2 }) => {
           placeholder="Enter email"
           maxlength="25"
           class="form-control inp_text"
-          data-cy="emailInput"
+          data-cy="loginInput"
         />
          <label-modal>Password:</label-modal>
          <input
