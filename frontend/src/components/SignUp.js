@@ -1,69 +1,44 @@
-import React from "react";
-import styles from "./Modal.module.css";
-import { RiCloseLine } from "react-icons/ri";
+import React, { useState } from "react";
 
-const SignUp = ({ setIsOpen2 }) => {
-  return (
-    <>
-      <div className={styles.darkBG} onClick={() => setIsOpen2(false)} />
-      <div className={styles.centered}>
-        <div className={styles.modal}>
-          <div className={styles.modalHeader}>
-            <h5 className={styles.heading}>Dialog</h5>
-          </div>
-          <button className={styles.closeBtn} onClick={() => setIsOpen2(false)}>
-            <RiCloseLine style={{ marginBottom: "-3px" }} />
-          </button>
-          <div className={styles.modalContent}>
-          Are you sure you want to Sign Up ?
-          </div>
-          <div className={styles.modalActions}>
-          <label-modal>Firstname:</label-modal>
-          <input
-          type="text"
-          placeholder="Enter first name"
-          maxlength="100"
-          class="form-control inp_text"
-          data-cy="firstNameInput"
-        />
-        <label-modal>Lastname:</label-modal>
-          <input
-          type="text"
-          placeholder="Enter last name"
-          maxlength="100"
-          class="form-control inp_text"
-          data-cy="lastNameInput"
-        />
-         <label-modal>Email:</label-modal>
-         <input
-          type="text"
-          placeholder="Enter email"
-          maxlength="25"
-          class="form-control inp_text"
-          data-cy="loginInput"
-        />
-         <label-modal>Password:</label-modal>
-         <input
-          type="password"
-          placeholder="Enter password"
-          maxlength="4"
-          class="form-control inp_text"
-          data-cy="passwordInput"
-        />
-            <div className={styles.actionsContainer}>
-              <button className={styles.deleteBtn} onClick={() => setIsOpen2(false)} data-cy="registerButton">
-                Sign Up
-              </button>
-              <button
-                className={styles.cancelBtn}
-                onClick={() => setIsOpen2(false)} data-cy="cancelButton">
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+const SignUp = ({ signInSignUp }) => {
+
+  const [showForm, setShowForm] = useState(false);
+ 
+ return (
+   <>
+     <div>
+     <form>
+     <div className="title">Welcome</div>
+     <div className="subtitle">Let's create your account!</div>
+     <div className="input-container ic1">
+       <input id="firstname" className="input" type="text" placeholder="First Name" data-cy="firstNameInput"/>
+       <div className="cut"></div>
+       <label for="firstname" className="placeholder">First name</label>
+     </div>
+     <div className="input-container ic2">
+       <input id="lastname" className="input" type="text" placeholder="Last Name" data-cy="lastNameInput"/>
+       <div className="cut"></div>
+       <label for="lastname" className="placeholder">Last name</label>
+     </div>
+     <div className="input-container ic2">
+       <input id="email" className="input" type="text" placeholder="Login" data-cy="loginInput"/>
+       <div className="cut cut-short"></div>
+       <label for="email" className="placeholder">Login</label>
+     </div>
+     <div className="input-container ic2">
+       <input id="email" className="input" type="text" placeholder="Password" data-cy="passwordInput"/>
+       <div className="cut cut-short"></div>
+       <label for="email" className="placeholder">Password</label>
+     </div>
+     <button type="text" className="submit" data-cy="createAccountButton">Create Account</button>
+     &nbsp;&nbsp;
+     <button type="text" className="submit" data-cy="cancelButton">Cancel</button>
+     </form>
+     {showForm && (
+       <form></form>
+     )}
+   </div>
+   </>
   );
 };
 

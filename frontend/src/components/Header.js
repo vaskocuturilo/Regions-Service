@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { ReactComponent as Logo } from "../img/logo.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import SignIn from "./SignIn";
@@ -10,23 +9,21 @@ import SignUp from "./SignUp";
 import styles from "./Modal.module.css";
 
 function Header() {
-  const [isOpen1, setIsOpen1] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
+  const [isOpen1, signIsOpen] = useState(false);
+  const [isOpen2, signInSignUp] = useState(false);
     return (
         <Navbar collapseOnSelect expand={false} bg="dark" variant="dark" data-cy="nav-bar-bottom">
         <Navbar.Brand href="#home">
           <p>Regions Service</p>
         </Navbar.Brand>
-
-        <button className={styles.primaryBtn} onClick={() => setIsOpen1(true)} data-cy="signIn">
+        <button className={styles.primaryBtn} onClick={() => signIsOpen(true)} data-cy="signIn">
         Sign In
       </button>
-      {isOpen1 && <SignIn setIsOpen1={setIsOpen1} />}
-
-      <button className={styles.primaryBtn} onClick={() => setIsOpen2(true)} data-cy="signUp">
+      {isOpen1 && <SignIn signIsOpen={signIsOpen} />}
+      <button className={styles.primaryBtn} onClick={() => signInSignUp(true)} data-cy="signUp">
         Sign Up
       </button>
-      {isOpen2 && <SignUp setIsOpen2={setIsOpen2} />}
+      {isOpen2 && <SignUp signInSignUp={signInSignUp} />}
 
       <Navbar.Toggle aria-controls="responsive-navbar-nav" data-cy="nav-bar-button"/>
         <Navbar.Collapse id="responsive-navbar-nav">
