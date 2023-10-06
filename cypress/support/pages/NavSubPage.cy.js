@@ -7,7 +7,7 @@ export class NavSubPage {
         signUpButton: ()=> cy.get('[data-cy="signUp"]').should('be.visible'),
 
         loginButton: ()=> cy.get('[data-cy="loginButton"]').should('be.visible'),
-        registerButton: ()=> cy.get('[data-cy="registerButton"]').should('be.visible'),
+        createAccountButton: ()=> cy.get('[data-cy="createAccountButton"]').should('be.visible'),
         cancelButton: ()=> cy.get('[data-cy="cancelButton"]').should('be.visible'),
 
         loginInput: ()=> cy.get('[data-cy="loginInput"]').should('be.visible'),
@@ -33,7 +33,7 @@ export class NavSubPage {
     checkSignUpButton(text) {
         this.elements.signUpButton().should('have.text', text);
         this.elements.signUpButton().click();
-        this.elements.registerButton();
+        this.elements.createAccountButton();
         this.elements.firstNameInput();
         this.elements.lastnameNameInput();
         this.elements.loginInput();
