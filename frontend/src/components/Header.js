@@ -16,11 +16,11 @@ function Header() {
         <Navbar.Brand href="#home">
           <p>Regions Service</p>
         </Navbar.Brand>
-        <button className={styles.primaryBtn} onClick={() => signIsOpen(true)} data-cy="signIn">
+        <button className={styles.primaryBtn} onClick={() => {signInSignUp(false); signIsOpen(true)}} data-cy="signIn">
         Sign In
       </button>
       {isOpen1 && <SignIn signIsOpen={signIsOpen} />}
-      <button className={styles.primaryBtn} onClick={() => signInSignUp(true)} data-cy="signUp">
+      <button className={styles.primaryBtn} onClick={() => {signIsOpen(false); signInSignUp(true)}} data-cy="signUp">
         Sign Up
       </button>
       {isOpen2 && <SignUp signInSignUp={signInSignUp} />}
