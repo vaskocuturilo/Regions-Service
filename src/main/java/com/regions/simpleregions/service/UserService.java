@@ -2,6 +2,7 @@ package com.regions.simpleregions.service;
 
 import com.regions.simpleregions.dtos.CredentialsDto;
 import com.regions.simpleregions.dtos.SignUpDto;
+import com.regions.simpleregions.dtos.UserActiveDto;
 import com.regions.simpleregions.dtos.UserDto;
 import com.regions.simpleregions.entity.ApiKeyEntity;
 import com.regions.simpleregions.entity.OneTimePasswordEntity;
@@ -76,7 +77,7 @@ public class UserService {
         return userMapper.toUserDto(savedUser);
     }
 
-    public UserDto active(final Integer userId, final Integer code) {
+    public UserActiveDto active(final Integer userId, final Integer code) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserException(UNKNOWN_USER, HttpStatus.NOT_FOUND));
 
@@ -91,9 +92,11 @@ public class UserService {
 
         user.setActive(true);
 
+        final User savedUser = userRepository.save(user);
+
         oneTimePasswordService.deleteByOneTimePasswordCode(code);
 
-        return userMapper.toUserDto(user);
+        return userMapper.toUserActiveDto(savedUser);
     }
 
 

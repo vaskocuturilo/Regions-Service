@@ -1,6 +1,7 @@
 package com.regions.simpleregions.model;
 
 import com.regions.simpleregions.dtos.SignUpDto;
+import com.regions.simpleregions.dtos.UserActiveDto;
 import com.regions.simpleregions.dtos.UserDto;
 import com.regions.simpleregions.entity.User;
 import org.mapstruct.Mapper;
@@ -11,6 +12,8 @@ import org.mapstruct.ReportingPolicy;
 public interface UserMapper {
 
     UserDto toUserDto(User user);
+
+    UserActiveDto toUserActiveDto(User user);
 
     @Mapping(target = "password", ignore = true)
     User signUpToUser(SignUpDto signUpDto);

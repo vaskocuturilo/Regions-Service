@@ -3,6 +3,7 @@ package com.regions.simpleregions.controller;
 import com.regions.simpleregions.config.UserAuthenticationProvider;
 import com.regions.simpleregions.dtos.CredentialsDto;
 import com.regions.simpleregions.dtos.SignUpDto;
+import com.regions.simpleregions.dtos.UserActiveDto;
 import com.regions.simpleregions.dtos.UserDto;
 import com.regions.simpleregions.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +36,8 @@ public class UserController {
     }
 
     @PostMapping("/active")
-    public ResponseEntity<UserDto> active(@RequestParam final Integer userId, @RequestParam final Integer code) {
-        UserDto userDto = userService.active(userId, code);
-        return ResponseEntity.ok(userDto);
+    public ResponseEntity<UserActiveDto> active(@RequestParam final Integer userId, @RequestParam final Integer code) {
+        UserActiveDto userActiveDto = userService.active(userId, code);
+        return ResponseEntity.ok(userActiveDto);
     }
 }
