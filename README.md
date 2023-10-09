@@ -38,7 +38,7 @@ You will need the following technologies available to try it out:
 - Will be adding V2 (one controller, one service, one repository for all countries)
 - Will be adding UI (Countries field) :heavy_check_mark:
 - Will be adding JWT. :heavy_check_mark:
-- Will be adding API_KEY. 
+- Will be adding X-API-KEY. :heavy_check_mark: 
 - Will be adding a one-time password. :heavy_check_mark:
 - Will be adding docker-compose :heavy_check_mark:
 - Will be adding integration tests for each country. :heavy_check_mark:
@@ -46,7 +46,7 @@ You will need the following technologies available to try it out:
 - Will be fixing Germany country. 
 - Will be fixing British country. :heavy_check_mark:
 - Will be adding functionality for deployment to AWS. :heavy_check_mark:
-- Will be adding React or Angular frameworks.
+- Will be adding React or Angular frameworks. :heavy_check_mark:
 - Will be adding functionality for search diplomatic plates. :heavy_check_mark:
 - Will be adding UI (diplomatic field) :heavy_check_mark:
 - Will be adding positive UI automation scripts (Smoke and Sanity) :heavy_check_mark: 
@@ -55,10 +55,10 @@ You will need the following technologies available to try it out:
 - Will be adding Logging. :heavy_check_mark:
 - Will be adding user controller :heavy_check_mark:
 - Will be adding Jest unit testing for node JS
-- Fix the UI interface
+- Fix the UI interface :heavy_check_mark:
 - will be adding the Google map.
-- Will be adding logout timeout functionality.
-- Will be adding a UI form for generation an apiKey.
+- Will be adding logout timeout functionality. :heavy_check_mark:
+- Will be adding a UI form for the generation of an apiKey.
   
 
 ### Actuator
