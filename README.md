@@ -43,7 +43,9 @@ You will need the following technologies available to try it out:
 - Will be adding docker-compose :heavy_check_mark:
 - Will be adding integration tests for each country. :heavy_check_mark:
 - Will be adding unit tests. :heavy_check_mark: 
-- Will be fixing Germany country. 
+- Will be fixing Germany country.
+- Will be adding old registration car plates for Poland
+- Will be adding old registration car plates for Britain.
 - Will be fixing British country. :heavy_check_mark:
 - Will be adding functionality for deployment to AWS. :heavy_check_mark:
 - Will be adding React or Angular frameworks. :heavy_check_mark:
