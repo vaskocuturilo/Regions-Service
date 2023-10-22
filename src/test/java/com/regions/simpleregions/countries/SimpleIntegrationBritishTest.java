@@ -39,7 +39,7 @@ class SimpleIntegrationBritishTest {
     @Test
     void getRegionHandle_whenGetBritishByRegion_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get(PATH + "/region/AA11")
+                        .get(PATH + "/region/AA11 VXD")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
@@ -99,7 +99,7 @@ class SimpleIntegrationBritishTest {
 
     @Test
     void getRegionHandle_whenExceptionBritishByRegion_thenStatus404() throws Exception {
-        String region = "AAA1";
+        String region = "AA99 VXD";
         mockMvc.perform(MockMvcRequestBuilders
                         .get(PATH + "/region/" + region)
                         .contentType(MediaType.APPLICATION_JSON)
