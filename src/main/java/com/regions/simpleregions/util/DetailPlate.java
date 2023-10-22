@@ -1,11 +1,11 @@
 package com.regions.simpleregions.util;
 
-public class DetailPlates {
-    private DetailPlates() {
+public class DetailPlate {
+    private DetailPlate() {
         throw new IllegalStateException("Utility class");
     }
 
-    public static ParseRegion getDetails(final String region) {
+    public static RegionParse getPlateDetail(final String region) {
         int letter = 0;
         int number = 0;
         int space = 0;
@@ -21,6 +21,6 @@ public class DetailPlates {
                 throw new IllegalStateException("This item is incorrect");
             }
         }
-        return new ParseRegion(letter, number, space);
+        return new RegionParse(letter, number, space);
     }
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class ParseRegion {
+public class RegionParse {
     private int letter;
     private int number;
     private int space;
