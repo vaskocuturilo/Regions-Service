@@ -44,9 +44,9 @@ public class PolandDiplomaticService {
                 .orElseThrow(() ->
                         new RegionNotFoundException(String.format(regionNotFound, region))));
 
-        final String test = getDestinationCode(region);
+        final String destinationCode = getDestinationCode(region);
 
-        return PolandDiplomaticModel.toModel(polandDiplomaticRegion, test);
+        return PolandDiplomaticModel.toModel(polandDiplomaticRegion, destinationCode);
     }
 
     @Cacheable(value = "poland_diplomatic_description", key = "#description")

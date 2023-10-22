@@ -16,27 +16,28 @@ public class Utils {
             throw new MissingFormatArgumentException(String.format(IS_EMPTY_DATA, inputData));
         }
 
-        if (inputData.length() > 4) {
-            throw new MissingFormatArgumentException(String.format(DATA_SHOULD_BE_EQUALS, inputData, 4));
+        if (inputData.length() > 8) {
+            throw new MissingFormatArgumentException(String.format(DATA_SHOULD_BE_EQUALS, inputData, 8));
         }
 
-        if (inputData.length() < 4) {
-            throw new MissingFormatArgumentException(String.format(DATA_SHOULD_BE_EQUALS, inputData, 4));
+        if (inputData.length() < 8) {
+            throw new MissingFormatArgumentException(String.format(DATA_SHOULD_BE_EQUALS, inputData, 8));
         }
-        return inputData.length() < 2 ? inputData : inputData.substring(0, 2);
+        return inputData.substring(0, 2);
     }
 
     public static String getLastTwoSymbols(String inputData) {
         if (inputData.isEmpty()) {
             throw new MissingFormatArgumentException(String.format(IS_EMPTY_DATA, inputData));
         }
-        if (inputData.length() > 4) {
-            throw new MissingFormatArgumentException(String.format(DATA_SHOULD_BE_EQUALS, inputData, 4));
+        if (inputData.length() > 8) {
+            throw new MissingFormatArgumentException(String.format(DATA_SHOULD_BE_EQUALS, inputData, 8));
         }
-        if (inputData.length() < 4) {
-            throw new MissingFormatArgumentException(String.format(DATA_SHOULD_BE_EQUALS, inputData, 4));
+        if (inputData.length() < 8) {
+            throw new MissingFormatArgumentException(String.format(DATA_SHOULD_BE_EQUALS, inputData, 8));
         }
-        return inputData.substring(Math.max(inputData.length() - 2, 0));
+
+        return inputData.substring(0, inputData.indexOf(' ')).substring(2, 4);
     }
 
     public static String getFirstThreeSymbols(String inputData) {
@@ -49,7 +50,7 @@ public class Utils {
         if (inputData.length() < 6) {
             throw new MissingFormatArgumentException(String.format(DATA_SHOULD_BE_EQUALS, inputData, 6));
         }
-        return inputData.length() < 3 ? inputData : inputData.substring(0, 3);
+        return inputData.substring(0, 3);
     }
 
     public static String getLastThreeSymbols(String inputData) {

@@ -8,6 +8,7 @@ import com.regions.simpleregions.model.BritishDescriptionModel;
 import com.regions.simpleregions.model.BritishRegionModel;
 import com.regions.simpleregions.respository.BritishAgeRepo;
 import com.regions.simpleregions.respository.BritishRepo;
+import com.regions.simpleregions.util.RegionParse;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static com.regions.simpleregions.util.DetailPlate.getPlateDetail;
 import static com.regions.simpleregions.util.Utils.getFirstTwoSymbols;
 import static com.regions.simpleregions.util.Utils.getLastTwoSymbols;
 
@@ -36,16 +38,23 @@ public class BritishService {
 
     @Cacheable(value = "british_region", key = "#region")
     public BritishRegionModel getBritishPlatesByRegion(final String region) throws RegionNotFoundException {
+        Optional<BritishEntity> britishRegion = getOptionalBritishEntity();
+        Optional<BritishAgeEntity> britishAgeEntity = getOptionalBritishAgeEntity();
+
         log.info("Start method getBritishPlatesByRegion");
-        Optional<BritishEntity> britishRegion = britishRepo.findByRegion(getFirstTwoSymbols(region));
-        Optional<BritishAgeEntity> britishAgeEntity = britishAgeRepo.findByCode(getLastTwoSymbols(region));
 
-        if (britishRegion.isEmpty()) {
-            throw new RegionNotFoundException(String.format(regionNotFound, region));
-        }
+        final RegionParse details = getPlateDetail(region);
+        if (details.getLetter() == 5 && details.getNumber() == 2 && details.getSpace() == 1) {
+            britishRegion = britishRepo.findByRegion(getFirstTwoSymbols(region));
+            britishAgeEntity = britishAgeRepo.findByCode(getLastTwoSymbols(region));
 
-        if (britishAgeEntity.isEmpty()) {
-            throw new RegionNotFoundException(String.format(regionNotFound, region));
+            if (britishRegion.isEmpty()) {
+                throw new RegionNotFoundException(String.format(regionNotFound, region));
+            }
+
+            if (britishAgeEntity.isEmpty()) {
+                throw new RegionNotFoundException(String.format(regionNotFound, region));
+            }
         }
 
         return BritishRegionModel.toModelRegion(britishRegion, britishAgeEntity);
@@ -65,5 +74,13 @@ public class BritishService {
     public Iterable<BritishEntity> getAllRegions() {
         log.info("Start method getAllRegions");
         return britishRepo.findAll();
+    }
+
+    public Optional<BritishEntity> getOptionalBritishEntity() {
+        return Optional.empty();
+    }
+
+    public Optional<BritishAgeEntity> getOptionalBritishAgeEntity() {
+        return Optional.empty();
     }
 }
