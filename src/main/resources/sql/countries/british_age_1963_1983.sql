@@ -1,14 +1,14 @@
-DROP TABLE IF EXISTS `british_age_entity`;
-CREATE TABLE `british_age_entity` (
+DROP TABLE IF EXISTS `british_age_1963_entity`;
+CREATE TABLE `british_age_1963_entity` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `date` varchar(255) DEFAULT NULL,
   `letter` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-LOCK TABLES `british_age_entity` WRITE;
-/*!40000 ALTER TABLE `british_entity` DISABLE KEYS */;
-INSERT INTO `british_age_entity` (date, letter) VALUES
+LOCK TABLES `british_age_1963_entity` WRITE;
+/*!40000 ALTER TABLE `british_age_1963_entity` DISABLE KEYS */;
+INSERT INTO `british_age_1963_entity` (date, letter) VALUES
 ('February 1963 – 31 December 1963','A'),
 ('1 January 1964 – 31 December 1964','B'),
 ('1 January 1965 – 31 December 1965','C'),
@@ -32,4 +32,4 @@ INSERT INTO `british_age_entity` (date, letter) VALUES
 ('1 August 1982 – 31 July 1983','Y');
 UNLOCK TABLES;
 
-ALTER TABLE british_age_entity ADD INDEX british_age_index (date, letter);
+ALTER TABLE british_age_1963_entity ADD INDEX british_age_index (date, letter);
