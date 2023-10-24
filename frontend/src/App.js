@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Header from './components/Header';
 import Popup from './components/Popup';
 import '@popperjs/core';
+import LocationMarker from './components/MapView';
 
 function App() {
 
@@ -105,6 +106,8 @@ let diplomaticImages = {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(2);
 
+  const [isShown, setIsShown] = useState(false);
+
   const changeHandler = e => {
     setSelected(e.target.value);
   };
@@ -135,9 +138,10 @@ let diplomaticImages = {
         const result = {
           information: res.data 
         };
-
+        
         setGetResult(fortmatResponse(result));
         getRegion.current.value = '';
+        setIsShown(true);
       } catch (err) {
         if (!err?.response) {
           alert("No Server Response");
@@ -174,6 +178,7 @@ let diplomaticImages = {
 
         setGetResult(fortmatResponse(result));
         getDiplomaticRegion.current.value = '';
+        setIsShown(true);
       } catch (err) {
         if (!err?.response) {
           alert("No Server Response");
@@ -211,6 +216,7 @@ let diplomaticImages = {
 
         setGetResult(fortmatResponse(result));
         getDescription.current.value = '';
+        setIsShown(true);
       } catch (err) {
         if (!err?.response) {
           alert("No Server Response");
@@ -248,6 +254,7 @@ let diplomaticImages = {
 
         setGetResult(fortmatResponse(result));
         getDiplomaticDescription.current.value = '';
+        setIsShown(true);
       } catch (err) {
         if (!err?.response) {
           alert("No Server Response");
@@ -267,6 +274,7 @@ let diplomaticImages = {
     getRegion.current.value = '';
     getDescription.current.value = '';
     typePlates.current.classList.remove('hidden');
+    setIsShown(false);
   };
 
   const clearGetOutputDiplomaticlates = () => {
@@ -277,6 +285,7 @@ let diplomaticImages = {
     getDiplomaticRegion.current.value = '';
     getDiplomaticDescription.current.value = '';
     typePlates.current.classList.remove('hidden');
+    setIsShown(false);
   };
 
   const simplePlates = (e) => {
@@ -355,8 +364,6 @@ const convertImageToText = async () => {
       }
     }
   }
-
-
 
   useEffect(() => {
     // use set timeout and be confident because updateTime will cause rerender
@@ -527,7 +534,8 @@ return (
     <p class="logout-timer">
         You will be logged out in <span class="timer">time: {minutes}:{seconds}</span>
       </p> 
-    </div>:<></>} 
+    </div>:<></>}
+    {isShown && <LocationMarker />}
   </div>
  );
 }
