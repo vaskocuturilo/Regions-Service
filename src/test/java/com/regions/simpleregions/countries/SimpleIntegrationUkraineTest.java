@@ -58,7 +58,7 @@ class SimpleIntegrationUkraineTest {
                 .andExpect(jsonPath("$[*]").isNotEmpty())
                 .andExpect(jsonPath("$[*].region").isNotEmpty())
                 .andExpect(jsonPath("$[*].description").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(2)));
+                .andExpect(jsonPath("$[*]", hasSize(4)));
     }
 
     @Test
@@ -69,7 +69,7 @@ class SimpleIntegrationUkraineTest {
                         .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]").isNotEmpty())
-                .andExpect(jsonPath("$[*]", hasSize(53)));
+                .andExpect(jsonPath("$[*]", hasSize(108)));
     }
 
     @Test
