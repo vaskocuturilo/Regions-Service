@@ -103,7 +103,7 @@
     "is-unicode-supported": "^0.1.0",
     "isexe": "^2.0.0",
     "isstream": "^0.1.2",
-    "jquery": "^3.7.0",
+    "jquery": "^3.7.1",
     "jsbn": "^0.1.1",
     "json-schema": "^0.4.0",
     "json-stringify-safe": "^5.0.1",
@@ -163,7 +163,7 @@
     "throttleit": "^1.0.0",
     "through": "^2.3.8",
     "tmp": "^0.2.1",
-    "tough-cookie": "^2.5.0",
+    "tough-cookie": "^5.0.0-rc.1",
     "tslib": "^2.5.3",
     "tunnel-agent": "^0.6.0",
     "tweetnacl": "^0.14.5",
@@ -176,7 +176,7 @@
     "wrap-ansi": "^7.0.0",
     "wrappy": "^1.0.2",
     "yallist": "^4.0.0",
-    "yauzl": "^2.10.0"
+    "yauzl": "^3.1.2"
   },
   "scripts": {
     "cypress:run:production:test": "cypress run --e2e --browser chrome --env master=1",
