@@ -65,6 +65,7 @@ let diplomaticImages = {
   "lithuania": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Lithuanian_diplomatic_license_plate.JPG?20120714185557",
   "montenegro": "https://upload.wikimedia.org/wikipedia/commons/0/08/Montenegro_diplomatic_license_plate_%28Norway%29.jpg",
   "norway": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Norway_diplomatic_license_plate_CD_48160_2014_Oslo.jpg/1280px-Norway_diplomatic_license_plate_CD_48160_2014_Oslo.jpg",
+  "portugal": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Portugal_diplomatic_license_plate_200-CD530.jpg/800px-Portugal_diplomatic_license_plate_200-CD530.jpg",
   "romania": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Romania_diplomatic_number_plate_CD_205_113.jpg",
   "russia": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Russian_diplomatic_license_plate_014_D_161.jpg/640px-Russian_diplomatic_license_plate_014_D_161.jpg",
   "sweden": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Sweden_diplomatic_license_plate_DL004B.jpg/1024px-Sweden_diplomatic_license_plate_DL004B.jpg",
@@ -467,29 +468,30 @@ return (
       />
       <label htmlFor="diplomatic_plates" data-cy="diplomatic_label">Diplomatic plates</label>
       <div aria-hidden={selected !== "diplomatic_plates" ? true : false}>
-            <select value= {diplomatic} name="diplomatic_plates" id="countries_diplomatic_list"
-            onChange={diplomaticPlates}
-                    class="form__input center" ref={diplomaticRef} data-cy="diplomatic_drop_down">
-                <option value="None">Choose country</option>
-                <option value="austria">🇦🇹&emsp;Austria</option>
-                <option value="croatia">🇭🇷&emsp;Croatia</option>
-                <option value="estonia">🇪🇪&emsp;Estonia</option>
-                <option value="france">🇫🇷&emsp;France</option>
-                <option value="germany">🇩🇪&emsp;Germany</option>
-                <option value="italian">🇮🇹&emsp;Italy</option>
-                <option value="kyrgyzstan">🇰🇬&emsp;Kyrgyzstan</option>
-                <option value="lithuania">🇱🇹&emsp;Lithuania</option>
-                <option value="montenegro">🇲🇪&emsp;Montenegro</option>
-                <option value="norway">🇳🇴&emsp;Norway</option>
-                <option value="poland">🇵🇱&emsp;Poland</option>
-                <option value="romania">🇷🇴&emsp;Romania</option>
-                <option value="russia">🇷🇺&emsp;Russia</option>
-                <option value="sweden">🇸🇪&emsp;Sweden</option>
-                <option value="switzerland">🇨🇭&emsp;Switzerland</option>
-            </select>
-            
-            <br/><br/><br/>
-  <div id="app" className="container">
+        <select value={diplomatic} name="diplomatic_plates" id="countries_diplomatic_list"
+                onChange={diplomaticPlates}
+                class="form__input center" ref={diplomaticRef} data-cy="diplomatic_drop_down">
+          <option value="None">Choose country</option>
+          <option value="austria">🇦🇹&emsp;Austria</option>
+          <option value="croatia">🇭🇷&emsp;Croatia</option>
+          <option value="estonia">🇪🇪&emsp;Estonia</option>
+          <option value="france">🇫🇷&emsp;France</option>
+          <option value="germany">🇩🇪&emsp;Germany</option>
+          <option value="italian">🇮🇹&emsp;Italy</option>
+          <option value="kyrgyzstan">🇰🇬&emsp;Kyrgyzstan</option>
+          <option value="lithuania">🇱🇹&emsp;Lithuania</option>
+          <option value="montenegro">🇲🇪&emsp;Montenegro</option>
+          <option value="norway">🇳🇴&emsp;Norway</option>
+          <option value="poland">🇵🇱&emsp;Poland</option>
+          <option value="romania">🇷🇴&emsp;Romania</option>
+          <option value="portugal">🇵🇹&emsp;Portugal</option>
+          <option value="russia">🇷🇺&emsp;Russia</option>
+          <option value="sweden">🇸🇪&emsp;Sweden</option>
+          <option value="switzerland">🇨🇭&emsp;Switzerland</option>
+        </select>
+
+        <br/><br/><br/>
+        <div id="app" className="container">
             <div className="card">
         <div className="card-body">
           <div className="input-group input-group-sm">
