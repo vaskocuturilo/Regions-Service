@@ -28,14 +28,14 @@ public class GermanyService {
     private String descriptionNotFound;
 
     @Cacheable(value = "germany_region", key = "#region")
-    public GermanyModel getGermanPlatesByRegion(final String region) throws RegionNotFoundException {
+    public List<GermanyModel> getGermanPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getGermanPlatesByRegion");
-        Optional<GermanyEntity> germanRegion = germanyRepo.findByRegion(region);
+        List<GermanyEntity> germanRegions = germanyRepo.findByRegion(region);
 
-        Optional.ofNullable(germanRegion.stream().parallel().filter(germanyEntity -> germanyEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
+        Optional.ofNullable(germanRegions.stream().parallel().filter(germanyEntity -> germanyEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region))));
 
-        return GermanyModel.toModelRegion(germanRegion);
+        return germanRegions.stream().map(GermanyModel::toModelRegion).toList();
     }
 
     @Cacheable(value = "germany_description", key = "#description")

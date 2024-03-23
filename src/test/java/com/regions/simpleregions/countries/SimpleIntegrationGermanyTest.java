@@ -43,8 +43,27 @@ class SimpleIntegrationGermanyTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.description").isNotEmpty())
-                .andExpect(jsonPath("$.description", equalTo("Berlin")));
+                .andExpect(jsonPath("[0].description").isNotEmpty())
+                .andExpect(jsonPath("[0].description", equalTo("Berlin")));
+    }
+
+    @Test
+    void getRegionHandle_whenGetGermanyByRegions_thenStatus200() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get(PATH + "/region/BO")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*]").isNotEmpty())
+                .andExpect(jsonPath("$[*].region").isNotEmpty())
+                .andExpect(jsonPath("$[*].description").isNotEmpty())
+                .andExpect(jsonPath("$[*]", hasSize(3)))
+                .andExpect(jsonPath("[0].region", equalTo("BO")))
+                .andExpect(jsonPath("[0].description", equalTo("Bochum, North-Rhine-Westphalia")))
+                .andExpect(jsonPath("[1].region", equalTo("BÖ")))
+                .andExpect(jsonPath("[1].description", equalTo("Bördekreis, Saxony-Anhalt")))
+                .andExpect(jsonPath("[2].region", equalTo("BO")))
+                .andExpect(jsonPath("[2].description", equalTo("Bordekreis, Saxony-Anhalt")));
     }
 
     @Test
@@ -63,12 +82,12 @@ class SimpleIntegrationGermanyTest {
     @Test
     void getRegionHandle_whenGetGermanyByDescriptionContains_thenStatus200() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                        .get(PATH + "/description/Berlin")
+                        .get(PATH + "/description/Uberlingen")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].region", equalTo("B")))
-                .andExpect(jsonPath("$[0].description", equalTo("Berlin")));
+                .andExpect(jsonPath("$[0].region", equalTo("UB")))
+                .andExpect(jsonPath("$[0].description", equalTo("Uberlingen, Baden-Württemberg")));
     }
 
     @Test
