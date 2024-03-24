@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.SwedenDiplomaticEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.SwedenDiplomaticModel;
-import com.regions.simpleregions.respository.SwedenDiplomaticRepo;
+import com.regions.simpleregions.respository.SwedenDiplomaticRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class SwedenDiplomaticService {
 
-    private final SwedenDiplomaticRepo swedenDiplomaticRepo;
+    private final SwedenDiplomaticRepository swedenDiplomaticRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class SwedenDiplomaticService {
     @Cacheable(value = "sweden_diplomatic_region", key = "#region")
     public SwedenDiplomaticModel getSwedenDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getSwedenDiplomaticPlatesByRegion");
-        Optional<SwedenDiplomaticEntity> swedenRegion = swedenDiplomaticRepo.findByRegion(region);
+        Optional<SwedenDiplomaticEntity> swedenRegion = swedenDiplomaticRepository.findByRegion(region);
 
         Optional.ofNullable(swedenRegion
                 .stream().parallel()
@@ -44,7 +44,7 @@ public class SwedenDiplomaticService {
     @Cacheable(value = "sweden_diplomatic_description", key = "#description")
     public List<SwedenDiplomaticModel> getSwedenDiplomaticPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getSwedenDiplomaticPlatesByDescription");
-        List<SwedenDiplomaticEntity> swedenEntityList = swedenDiplomaticRepo.findByDescription(description);
+        List<SwedenDiplomaticEntity> swedenEntityList = swedenDiplomaticRepository.findByDescription(description);
 
         swedenEntityList
                 .stream().parallel()
@@ -56,6 +56,6 @@ public class SwedenDiplomaticService {
 
     public Iterable<SwedenDiplomaticEntity> getAllSwedenDiplomaticRegions() {
         log.info("Start method getAllSwedenDiplomaticRegions");
-        return swedenDiplomaticRepo.findAll();
+        return swedenDiplomaticRepository.findAll();
     }
 }

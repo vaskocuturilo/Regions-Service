@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.FranceDiplomaticEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.FranceDiplomaticModel;
-import com.regions.simpleregions.respository.FranceDiplomaticRepo;
+import com.regions.simpleregions.respository.FranceDiplomaticRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Data
 public class FranceDiplomaticService {
 
-    private final FranceDiplomaticRepo franceDiplomaticRepo;
+    private final FranceDiplomaticRepository franceDiplomaticRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -31,7 +31,7 @@ public class FranceDiplomaticService {
     @Cacheable(value = "france_diplomatic_region", key = "#region")
     public FranceDiplomaticModel getFranceDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getFranceDiplomaticPlatesByRegion");
-        Optional<FranceDiplomaticEntity> franceRegion = franceDiplomaticRepo.findByRegion(region);
+        Optional<FranceDiplomaticEntity> franceRegion = franceDiplomaticRepository.findByRegion(region);
 
         Optional.ofNullable(franceRegion.stream().parallel().filter(franceEntity -> franceEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region))));
@@ -42,7 +42,7 @@ public class FranceDiplomaticService {
     @Cacheable(value = "france_diplomatic_description", key = "#description")
     public List<FranceDiplomaticModel> getFranceDiplomaticPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getFranceDiplomaticPlatesByDescription");
-        List<FranceDiplomaticEntity> franceEntityList = franceDiplomaticRepo.findByDescription(description);
+        List<FranceDiplomaticEntity> franceEntityList = franceDiplomaticRepository.findByDescription(description);
 
         franceEntityList.stream().parallel().findAny().map(franceEntity -> franceEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -52,6 +52,6 @@ public class FranceDiplomaticService {
 
     public Iterable<FranceDiplomaticEntity> getAllDiplomaticRegions() {
         log.info("Start method getAllDiplomaticRegions");
-        return franceDiplomaticRepo.findAll();
+        return franceDiplomaticRepository.findAll();
     }
 }

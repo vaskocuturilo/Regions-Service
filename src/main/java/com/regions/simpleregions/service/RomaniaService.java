@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.RomaniaEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.RomaniaModel;
-import com.regions.simpleregions.respository.RomaniaRepo;
+import com.regions.simpleregions.respository.RomaniaRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class RomaniaService {
 
-    private final RomaniaRepo romaniaRepo;
+    private final RomaniaRepository romaniaRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class RomaniaService {
     @Cacheable(value = "romania_region", key = "#region")
     public RomaniaModel getRomaniaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getRomaniaPlatesByRegion");
-        Optional<RomaniaEntity> romaniaRegion = romaniaRepo.findByRegion(region);
+        Optional<RomaniaEntity> romaniaRegion = romaniaRepository.findByRegion(region);
 
         Optional.ofNullable(romaniaRegion
                 .stream().parallel()
@@ -44,7 +44,7 @@ public class RomaniaService {
     @Cacheable(value = "romania_description", key = "#description")
     public List<RomaniaModel> getRomaniaPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getRomaniaPlatesByDescription");
-        List<RomaniaEntity> romaniaEntityList = romaniaRepo.findByDescription(description);
+        List<RomaniaEntity> romaniaEntityList = romaniaRepository.findByDescription(description);
 
         romaniaEntityList.stream().parallel().map(romaniaEntity -> romaniaEntity.getDescription().equalsIgnoreCase(description)).findAny()
                 .orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -55,6 +55,6 @@ public class RomaniaService {
 
     public Iterable<RomaniaEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return romaniaRepo.findAll();
+        return romaniaRepository.findAll();
     }
 }

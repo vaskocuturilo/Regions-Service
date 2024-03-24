@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.SloveniaEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.SloveniaModel;
-import com.regions.simpleregions.respository.SloveniaRepo;
+import com.regions.simpleregions.respository.SloveniaRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class SloveniaService {
 
-    private final SloveniaRepo sloveniaRepo;
+    private final SloveniaRepository sloveniaRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class SloveniaService {
     @Cacheable(value = "slovenia_region", key = "#region")
     public SloveniaModel getSloveniaPlatesRegionByNumber(final String region) throws RegionNotFoundException {
         log.info("Start method getSloveniaPlatesRegionByNumber");
-        Optional<SloveniaEntity> sloveniaRegion = sloveniaRepo.findByRegion(region);
+        Optional<SloveniaEntity> sloveniaRegion = sloveniaRepository.findByRegion(region);
 
         Optional.ofNullable(sloveniaRegion
                 .stream().parallel()
@@ -44,7 +44,7 @@ public class SloveniaService {
     @Cacheable(value = "slovenia_description", key = "#description")
     public List<SloveniaModel> getSloveniaRegionByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getSloveniaRegionByDescription");
-        List<SloveniaEntity> sloveniaEntityList = sloveniaRepo.findByDescription(description);
+        List<SloveniaEntity> sloveniaEntityList = sloveniaRepository.findByDescription(description);
 
         sloveniaEntityList
                 .stream().parallel()
@@ -57,6 +57,6 @@ public class SloveniaService {
 
     public Iterable<SloveniaEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return sloveniaRepo.findAll();
+        return sloveniaRepository.findAll();
     }
 }

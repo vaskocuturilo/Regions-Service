@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.KyrgyzstanDiplomaticEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.KyrgyzstanDiplomaticModel;
-import com.regions.simpleregions.respository.KyrgyzstanDiplomaticRepo;
+import com.regions.simpleregions.respository.KyrgyzstanDiplomaticRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class KyrgyzstanDiplomaticService {
 
-    private final KyrgyzstanDiplomaticRepo kyrgyzstanDiplomaticRepo;
+    private final KyrgyzstanDiplomaticRepository kyrgyzstanDiplomaticRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class KyrgyzstanDiplomaticService {
     @Cacheable(value = "kyrgyzstan_diplomatic_region", key = "#region")
     public KyrgyzstanDiplomaticModel getKyrgyzstanDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getKyrgyzstanDiplomaticPlatesByRegion");
-        Optional<KyrgyzstanDiplomaticEntity> kyrgyzstanRegion = kyrgyzstanDiplomaticRepo.findByRegion(region);
+        Optional<KyrgyzstanDiplomaticEntity> kyrgyzstanRegion = kyrgyzstanDiplomaticRepository.findByRegion(region);
 
         Optional.ofNullable(kyrgyzstanRegion.stream().parallel().filter(kyrgyzstanEntity -> kyrgyzstanEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region))));
@@ -41,7 +41,7 @@ public class KyrgyzstanDiplomaticService {
     @Cacheable(value = "kyrgyzstan_diplomatic_description", key = "#description")
     public List<KyrgyzstanDiplomaticModel> getKyrgyzstanDiplomaticPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getKyrgyzstanDiplomaticPlatesByDescription");
-        List<KyrgyzstanDiplomaticEntity> kyrgyzstanEntityList = kyrgyzstanDiplomaticRepo.findByDescription(description);
+        List<KyrgyzstanDiplomaticEntity> kyrgyzstanEntityList = kyrgyzstanDiplomaticRepository.findByDescription(description);
 
         kyrgyzstanEntityList.stream().parallel().findAny().map(kyrgyzstanEntity -> kyrgyzstanEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -51,6 +51,6 @@ public class KyrgyzstanDiplomaticService {
 
     public Iterable<KyrgyzstanDiplomaticEntity> getAllKyrgyzstanDiplomaticRegions() {
         log.info("Start method getAllKyrgyzstanDiplomaticRegions");
-        return kyrgyzstanDiplomaticRepo.findAll();
+        return kyrgyzstanDiplomaticRepository.findAll();
     }
 }

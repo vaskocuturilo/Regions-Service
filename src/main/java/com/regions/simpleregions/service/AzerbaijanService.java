@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.AzerbaijanEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.AzerbaijanModel;
-import com.regions.simpleregions.respository.AzerbaijanRepo;
+import com.regions.simpleregions.respository.AzerbaijanRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class AzerbaijanService {
 
-    private final AzerbaijanRepo azerbaijanRepo;
+    private final AzerbaijanRepository azerbaijanRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class AzerbaijanService {
     @Cacheable(value = "azerbaijan_region", key = "#region")
     public AzerbaijanModel getAzerbaijanPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getAzerbaijanPlatesByRegion");
-        Optional<AzerbaijanEntity> azerbaijanRegion = azerbaijanRepo.findByRegion(region);
+        Optional<AzerbaijanEntity> azerbaijanRegion = azerbaijanRepository.findByRegion(region);
 
         Optional.ofNullable(azerbaijanRegion.stream().parallel().filter(azerbaijanEntity -> azerbaijanEntity
                         .getRegion()
@@ -43,7 +43,7 @@ public class AzerbaijanService {
     @Cacheable(value = "azerbaijan_description", key = "#description")
     public List<AzerbaijanModel> getAzerbaijanPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getAzerbaijanPlatesByDescription");
-        List<AzerbaijanEntity> azerbaijanEntities = azerbaijanRepo.findByDescription(description);
+        List<AzerbaijanEntity> azerbaijanEntities = azerbaijanRepository.findByDescription(description);
 
         azerbaijanEntities.stream().parallel().findAny().map(azerbaijanEntity -> azerbaijanEntity
                 .getDescription()
@@ -54,6 +54,6 @@ public class AzerbaijanService {
 
     public Iterable<AzerbaijanEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return azerbaijanRepo.findAll();
+        return azerbaijanRepository.findAll();
     }
 }

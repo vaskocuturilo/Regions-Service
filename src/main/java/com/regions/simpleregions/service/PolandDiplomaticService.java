@@ -5,7 +5,7 @@ import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.PolandDiplomaticDescriptionModel;
 import com.regions.simpleregions.model.PolandDiplomaticModel;
-import com.regions.simpleregions.respository.PolandDiplomaticRepo;
+import com.regions.simpleregions.respository.PolandDiplomaticRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +23,7 @@ import static com.regions.simpleregions.util.Utils.getFirstThreeSymbols;
 @Service
 public class PolandDiplomaticService {
 
-    private final PolandDiplomaticRepo polandDiplomaticRepo;
+    private final PolandDiplomaticRepository polandDiplomaticRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -35,7 +35,7 @@ public class PolandDiplomaticService {
     public PolandDiplomaticModel getPolandPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getPolandPlatesByRegion");
 
-        Optional<PolandDiplomaticEntity> polandDiplomaticRegion = polandDiplomaticRepo.findByRegion(getFirstThreeSymbols(region));
+        Optional<PolandDiplomaticEntity> polandDiplomaticRegion = polandDiplomaticRepository.findByRegion(getFirstThreeSymbols(region));
 
         Optional.ofNullable(polandDiplomaticRegion.stream().parallel().filter(polandDiplomaticEntity -> polandDiplomaticEntity
                         .getRegion()
@@ -52,7 +52,7 @@ public class PolandDiplomaticService {
     @Cacheable(value = "poland_diplomatic_description", key = "#description")
     public List<PolandDiplomaticDescriptionModel> getPolandRegionByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getPolandRegionByDescription");
-        List<PolandDiplomaticEntity> polandEntityList = polandDiplomaticRepo.findByDescription(description);
+        List<PolandDiplomaticEntity> polandEntityList = polandDiplomaticRepository.findByDescription(description);
         polandEntityList.stream().parallel().findAny().map(polandDiplomaticEntity -> polandDiplomaticEntity
                 .getDescription()
                 .equalsIgnoreCase(description)).orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -62,6 +62,6 @@ public class PolandDiplomaticService {
 
     public Iterable<PolandDiplomaticEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return polandDiplomaticRepo.findAll();
+        return polandDiplomaticRepository.findAll();
     }
 }

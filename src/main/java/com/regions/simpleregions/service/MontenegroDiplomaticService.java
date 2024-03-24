@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.MontenegroDiplomaticEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.MontenegroDiplomaticModel;
-import com.regions.simpleregions.respository.MontenegroDiplomaticRepo;
+import com.regions.simpleregions.respository.MontenegroDiplomaticRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class MontenegroDiplomaticService {
 
-    private final MontenegroDiplomaticRepo montenegroDiplomaticRepo;
+    private final MontenegroDiplomaticRepository montenegroDiplomaticRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class MontenegroDiplomaticService {
     @Cacheable(value = "montenegro_diplomatic_region", key = "#region")
     public MontenegroDiplomaticModel getMontenegroDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getMontenegroDiplomaticPlatesByRegion");
-        Optional<MontenegroDiplomaticEntity> montenegroRegion = montenegroDiplomaticRepo.findByRegion(region);
+        Optional<MontenegroDiplomaticEntity> montenegroRegion = montenegroDiplomaticRepository.findByRegion(region);
 
         Optional.ofNullable(montenegroRegion.stream().parallel().filter(montenegroEntity -> montenegroEntity.getRegion().equalsIgnoreCase(region))
                 .findFirst()
@@ -42,7 +42,7 @@ public class MontenegroDiplomaticService {
     @Cacheable(value = "montenegro_diplomatic_description", key = "#description")
     public List<MontenegroDiplomaticModel> getMontenegroDiplomaticPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getMontenegroDiplomaticPlatesByDescription");
-        List<MontenegroDiplomaticEntity> montenegroEntityList = montenegroDiplomaticRepo.findByDescription(description);
+        List<MontenegroDiplomaticEntity> montenegroEntityList = montenegroDiplomaticRepository.findByDescription(description);
 
         montenegroEntityList.stream().parallel().map(montenegroEntity -> montenegroEntity
                         .getDescription()
@@ -55,6 +55,6 @@ public class MontenegroDiplomaticService {
 
     public Iterable<MontenegroDiplomaticEntity> getAllMontenegroDiplomaticRegions() {
         log.info("Start method getAllMontenegroDiplomaticRegions");
-        return montenegroDiplomaticRepo.findAll();
+        return montenegroDiplomaticRepository.findAll();
     }
 }

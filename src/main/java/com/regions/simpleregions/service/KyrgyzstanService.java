@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.KyrgyzstanEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.KyrgyzstanModel;
-import com.regions.simpleregions.respository.KyrgyzstanRepo;
+import com.regions.simpleregions.respository.KyrgyzstanRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class KyrgyzstanService {
 
-    private final KyrgyzstanRepo kyrgyzstanRepo;
+    private final KyrgyzstanRepository kyrgyzstanRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class KyrgyzstanService {
     @Cacheable(value = "kyrgyzstan_region", key = "#region")
     public KyrgyzstanModel getKyrgyzstanPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getKyrgyzstanPlatesByRegion");
-        Optional<KyrgyzstanEntity> kyrgyzstanRegion = kyrgyzstanRepo.findByRegion(region);
+        Optional<KyrgyzstanEntity> kyrgyzstanRegion = kyrgyzstanRepository.findByRegion(region);
 
         Optional.ofNullable(kyrgyzstanRegion.stream().parallel().filter(kyrgyzstanEntity -> kyrgyzstanEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region))));
@@ -41,7 +41,7 @@ public class KyrgyzstanService {
     @Cacheable(value = "kyrgyzstan_description", key = "#description")
     public List<KyrgyzstanModel> getKyrgyzstanPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getKyrgyzstanPlatesByDescription");
-        List<KyrgyzstanEntity> kyrgyzstanEntityList = kyrgyzstanRepo.findByDescription(description);
+        List<KyrgyzstanEntity> kyrgyzstanEntityList = kyrgyzstanRepository.findByDescription(description);
 
         kyrgyzstanEntityList.stream().parallel().findAny().map(kyrgyzstanEntity -> kyrgyzstanEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -51,6 +51,6 @@ public class KyrgyzstanService {
 
     public Iterable<KyrgyzstanEntity> getAllRegions() {
         log.info("Start method getKyrgyzstanPlatesByDescription");
-        return kyrgyzstanRepo.findAll();
+        return kyrgyzstanRepository.findAll();
     }
 }

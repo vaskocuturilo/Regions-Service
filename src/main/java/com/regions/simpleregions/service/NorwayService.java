@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.NorwayEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.NorwayModel;
-import com.regions.simpleregions.respository.NorwayRepo;
+import com.regions.simpleregions.respository.NorwayRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class NorwayService {
 
-    private final NorwayRepo norwayRepo;
+    private final NorwayRepository norwayRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class NorwayService {
     @Cacheable(value = "norway_region", key = "#region")
     public NorwayModel getNorwayPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getNorwayPlatesByRegion");
-        Optional<NorwayEntity> norwayRegion = norwayRepo.findByRegion(region);
+        Optional<NorwayEntity> norwayRegion = norwayRepository.findByRegion(region);
 
         Optional.ofNullable(norwayRegion
                 .stream().parallel()
@@ -44,7 +44,7 @@ public class NorwayService {
     @Cacheable(value = "norway_description", key = "#description")
     public List<NorwayModel> getNorwayPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getNorwayPlatesByDescription");
-        List<NorwayEntity> norwayEntityList = norwayRepo.findByDescription(description);
+        List<NorwayEntity> norwayEntityList = norwayRepository.findByDescription(description);
 
         norwayEntityList
                 .stream().parallel()
@@ -56,6 +56,6 @@ public class NorwayService {
 
     public Iterable<NorwayEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return norwayRepo.findAll();
+        return norwayRepository.findAll();
     }
 }

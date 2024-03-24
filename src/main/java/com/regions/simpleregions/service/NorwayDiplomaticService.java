@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.NorwayDiplomaticEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.NorwayDiplomaticModel;
-import com.regions.simpleregions.respository.NorwayDiplomaticRepo;
+import com.regions.simpleregions.respository.NorwayDiplomaticRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class NorwayDiplomaticService {
 
-    private final NorwayDiplomaticRepo norwayDiplomaticRepo;
+    private final NorwayDiplomaticRepository norwayDiplomaticRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class NorwayDiplomaticService {
     @Cacheable(value = "norway_diplomatic_region", key = "#region")
     public NorwayDiplomaticModel getNorwayDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getNorwayDiplomaticPlatesByRegion");
-        Optional<NorwayDiplomaticEntity> norwayRegion = norwayDiplomaticRepo.findByRegion(region);
+        Optional<NorwayDiplomaticEntity> norwayRegion = norwayDiplomaticRepository.findByRegion(region);
 
         Optional.ofNullable(norwayRegion
                 .stream().parallel()
@@ -44,7 +44,7 @@ public class NorwayDiplomaticService {
     @Cacheable(value = "norway_diplomatic_description", key = "#description")
     public List<NorwayDiplomaticModel> getNorwayDiplomaticPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getNorwayDiplomaticPlatesByDescription");
-        List<NorwayDiplomaticEntity> norwayEntityList = norwayDiplomaticRepo.findByDescription(description);
+        List<NorwayDiplomaticEntity> norwayEntityList = norwayDiplomaticRepository.findByDescription(description);
 
         norwayEntityList
                 .stream().parallel()
@@ -56,6 +56,6 @@ public class NorwayDiplomaticService {
 
     public Iterable<NorwayDiplomaticEntity> getAllNorwayDiplomaticRegions() {
         log.info("Start method getAllNorwayDiplomaticRegions");
-        return norwayDiplomaticRepo.findAll();
+        return norwayDiplomaticRepository.findAll();
     }
 }

@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.LithuaniaEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.LithuaniaModel;
-import com.regions.simpleregions.respository.LithuaniaRepo;
+import com.regions.simpleregions.respository.LithuaniaRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class LithuaniaService {
 
-    private final LithuaniaRepo lithuaniaRepo;
+    private final LithuaniaRepository lithuaniaRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class LithuaniaService {
     @Cacheable(value = "lithuania_region", key = "#region")
     public LithuaniaModel getLithuaniaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getLithuaniaPlatesByRegion");
-        Optional<LithuaniaEntity> lithuaniaRegion = lithuaniaRepo.findByRegion(region);
+        Optional<LithuaniaEntity> lithuaniaRegion = lithuaniaRepository.findByRegion(region);
 
         Optional.ofNullable(lithuaniaRegion.stream().parallel().filter(lithuaniaEntity -> lithuaniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region))));
@@ -41,7 +41,7 @@ public class LithuaniaService {
     @Cacheable(value = "lithuania_description", key = "#description")
     public List<LithuaniaModel> getLithuaniaPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getLithuaniaPlatesByDescription");
-        List<LithuaniaEntity> lithuaniaEntityList = lithuaniaRepo.findByDescription(description);
+        List<LithuaniaEntity> lithuaniaEntityList = lithuaniaRepository.findByDescription(description);
 
         lithuaniaEntityList.stream().parallel().findAny().map(lithuaniaEntity -> lithuaniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -50,6 +50,6 @@ public class LithuaniaService {
 
     public Iterable<LithuaniaEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return lithuaniaRepo.findAll();
+        return lithuaniaRepository.findAll();
     }
 }
