@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.MoldovaEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.MoldovaModel;
-import com.regions.simpleregions.respository.MoldovaRepo;
+import com.regions.simpleregions.respository.MoldovaRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class MoldovaService {
 
-    private final MoldovaRepo moldovaRepo;
+    private final MoldovaRepository moldovaRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class MoldovaService {
     @Cacheable(value = "moldova_region", key = "#region")
     public MoldovaModel getMoldovaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getMoldovaPlatesByRegion");
-        Optional<MoldovaEntity> moldovaRegion = moldovaRepo.findByRegion(region);
+        Optional<MoldovaEntity> moldovaRegion = moldovaRepository.findByRegion(region);
 
         Optional.ofNullable(moldovaRegion.stream().parallel().filter(moldovaEntity -> moldovaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
 
@@ -42,7 +42,7 @@ public class MoldovaService {
     @Cacheable(value = "moldova_description", key = "#description")
     public List<MoldovaModel> getMoldovaPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getMoldovaPlatesByDescription");
-        List<MoldovaEntity> moldovaEntityList = moldovaRepo.findByDescription(description);
+        List<MoldovaEntity> moldovaEntityList = moldovaRepository.findByDescription(description);
 
         moldovaEntityList.stream().parallel().map(moldovaEntity -> moldovaEntity.getDescription().equalsIgnoreCase(description)).findAny().orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -52,6 +52,6 @@ public class MoldovaService {
 
     public Iterable<MoldovaEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return moldovaRepo.findAll();
+        return moldovaRepository.findAll();
     }
 }

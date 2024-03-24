@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.SlovakiaEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.SlovakiaModel;
-import com.regions.simpleregions.respository.SlovakiaRepo;
+import com.regions.simpleregions.respository.SlovakiaRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class SlovakiaService {
 
-    private final SlovakiaRepo slovakiaRepo;
+    private final SlovakiaRepository slovakiaRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class SlovakiaService {
     @Cacheable(value = "slovakia_region", key = "#region")
     public SlovakiaModel getSlovakiaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getSlovakiaPlatesByRegion");
-        Optional<SlovakiaEntity> slovakiaRegion = slovakiaRepo.findByRegion(region);
+        Optional<SlovakiaEntity> slovakiaRegion = slovakiaRepository.findByRegion(region);
 
         Optional.ofNullable(slovakiaRegion
                 .stream().parallel()
@@ -44,7 +44,7 @@ public class SlovakiaService {
     @Cacheable(value = "slovakia_description", key = "#description")
     public List<SlovakiaModel> getSlovakiaPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getSlovakiaPlatesByDescription");
-        List<SlovakiaEntity> slovakiaEntityList = slovakiaRepo.findByDescription(description);
+        List<SlovakiaEntity> slovakiaEntityList = slovakiaRepository.findByDescription(description);
 
         slovakiaEntityList
                 .stream().parallel()
@@ -56,6 +56,6 @@ public class SlovakiaService {
 
     public Iterable<SlovakiaEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return slovakiaRepo.findAll();
+        return slovakiaRepository.findAll();
     }
 }

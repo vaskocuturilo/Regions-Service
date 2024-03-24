@@ -86,8 +86,8 @@ class SimpleIntegrationGermanyTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON).header(headerName, authToken))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].region", equalTo("UB")))
-                .andExpect(jsonPath("$[0].description", equalTo("Uberlingen, Baden-Württemberg")));
+                .andExpect(jsonPath("$[0].region", equalTo("ÜB")))
+                .andExpect(jsonPath("$[0].description", equalTo("Überlingen, Baden-Württemberg")));
     }
 
     @Test

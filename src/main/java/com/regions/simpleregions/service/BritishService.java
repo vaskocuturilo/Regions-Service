@@ -6,8 +6,8 @@ import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.BritishDescriptionModel;
 import com.regions.simpleregions.model.BritishRegionModel;
-import com.regions.simpleregions.respository.BritishAgeRepo;
-import com.regions.simpleregions.respository.BritishRepo;
+import com.regions.simpleregions.respository.BritishAgeRepository;
+import com.regions.simpleregions.respository.BritishRepository;
 import com.regions.simpleregions.util.RegionParse;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
@@ -26,9 +26,9 @@ import static com.regions.simpleregions.util.Utils.getLastTwoSymbols;
 @Data
 @Service
 public class BritishService {
-    private final BritishRepo britishRepo;
+    private final BritishRepository britishRepository;
 
-    private final BritishAgeRepo britishAgeRepo;
+    private final BritishAgeRepository britishAgeRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -45,8 +45,8 @@ public class BritishService {
 
         final RegionParse details = getPlateDetail(region);
         if (details.getLetter() == 5 && details.getNumber() == 2 && details.getSpace() == 1) {
-            britishRegion = britishRepo.findByRegion(getFirstTwoSymbols(region));
-            britishAgeEntity = britishAgeRepo.findByCode(getLastTwoSymbols(region));
+            britishRegion = britishRepository.findByRegion(getFirstTwoSymbols(region));
+            britishAgeEntity = britishAgeRepository.findByCode(getLastTwoSymbols(region));
 
             if (britishRegion.isEmpty()) {
                 throw new RegionNotFoundException(String.format(regionNotFound, region));
@@ -63,7 +63,7 @@ public class BritishService {
     @Cacheable(value = "british_description", key = "#description")
     public List<BritishDescriptionModel> getBritishPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getBritishPlatesByDescription");
-        List<BritishEntity> britishEntities = britishRepo.findByDescription(description);
+        List<BritishEntity> britishEntities = britishRepository.findByDescription(description);
 
         britishEntities.parallelStream().findAny().map(britishEntity -> britishEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -73,7 +73,7 @@ public class BritishService {
 
     public Iterable<BritishEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return britishRepo.findAll();
+        return britishRepository.findAll();
     }
 
     public Optional<BritishEntity> getOptionalBritishEntity() {

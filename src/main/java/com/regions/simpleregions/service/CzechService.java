@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.CzechEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.CzechModel;
-import com.regions.simpleregions.respository.CzechRepo;
+import com.regions.simpleregions.respository.CzechRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +21,7 @@ import static com.regions.simpleregions.util.Utils.getSecondSymbol;
 @Data
 public class CzechService {
 
-    private final CzechRepo czechRepo;
+    private final CzechRepository czechRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -33,7 +33,7 @@ public class CzechService {
     public CzechModel getCzechPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getCzechPlatesByRegion");
 
-        Optional<CzechEntity> czechRegion = czechRepo.findByRegion(getSecondSymbol(region));
+        Optional<CzechEntity> czechRegion = czechRepository.findByRegion(getSecondSymbol(region));
 
         Optional.ofNullable(czechRegion
                 .stream()
@@ -49,7 +49,7 @@ public class CzechService {
     @Cacheable(value = "czech_description", key = "#description")
     public List<CzechModel> getCzechPlatesRegionByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getCzechPlatesRegionByDescription");
-        List<CzechEntity> czechEntityList = czechRepo.findByDescription(description);
+        List<CzechEntity> czechEntityList = czechRepository.findByDescription(description);
 
         czechEntityList.stream().parallel().findAny().map(czechEntity -> czechEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -59,6 +59,6 @@ public class CzechService {
 
     public Iterable<CzechEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return czechRepo.findAll();
+        return czechRepository.findAll();
     }
 }

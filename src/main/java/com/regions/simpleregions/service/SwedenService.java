@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.SwedenEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.SwedenModel;
-import com.regions.simpleregions.respository.SwedenRepo;
+import com.regions.simpleregions.respository.SwedenRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class SwedenService {
 
-    private final SwedenRepo swedenRepo;
+    private final SwedenRepository swedenRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class SwedenService {
     @Cacheable(value = "sweden_region", key = "#region")
     public SwedenModel getSwedenPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getSwedenPlatesByRegion");
-        Optional<SwedenEntity> swedenRegion = swedenRepo.findByRegion(region);
+        Optional<SwedenEntity> swedenRegion = swedenRepository.findByRegion(region);
 
         Optional.ofNullable(swedenRegion
                 .stream().parallel()
@@ -44,7 +44,7 @@ public class SwedenService {
     @Cacheable(value = "sweden_description", key = "#description")
     public List<SwedenModel> getSwedenPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getSwedenPlatesByDescription");
-        List<SwedenEntity> swedenEntityList = swedenRepo.findByDescription(description);
+        List<SwedenEntity> swedenEntityList = swedenRepository.findByDescription(description);
 
         swedenEntityList
                 .stream().parallel()
@@ -56,6 +56,6 @@ public class SwedenService {
 
     public Iterable<SwedenEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return swedenRepo.findAll();
+        return swedenRepository.findAll();
     }
 }

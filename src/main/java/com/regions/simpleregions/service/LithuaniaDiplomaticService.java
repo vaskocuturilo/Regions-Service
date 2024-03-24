@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.LithuaniaDiplomaticEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.LithuaniaDiplomaticModel;
-import com.regions.simpleregions.respository.LithuaniaDiplomaticRepo;
+import com.regions.simpleregions.respository.LithuaniaDiplomaticRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class LithuaniaDiplomaticService {
 
-    private final LithuaniaDiplomaticRepo lithuaniaDiplomaticRepo;
+    private final LithuaniaDiplomaticRepository lithuaniaDiplomaticRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class LithuaniaDiplomaticService {
     @Cacheable(value = "lithuania_diplomatic_region", key = "#region")
     public LithuaniaDiplomaticModel getLithuaniaDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getLithuaniaDiplomaticPlatesByRegion");
-        Optional<LithuaniaDiplomaticEntity> lithuaniaRegion = lithuaniaDiplomaticRepo.findByRegion(region);
+        Optional<LithuaniaDiplomaticEntity> lithuaniaRegion = lithuaniaDiplomaticRepository.findByRegion(region);
 
         Optional.ofNullable(lithuaniaRegion.stream().parallel().filter(lithuaniaEntity -> lithuaniaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region))));
@@ -41,7 +41,7 @@ public class LithuaniaDiplomaticService {
     @Cacheable(value = "lithuania_diplomatic_description", key = "#description")
     public List<LithuaniaDiplomaticModel> getLithuaniaDiplomaticPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getLithuaniaDiplomaticPlatesByDescription");
-        List<LithuaniaDiplomaticEntity> lithuaniaEntityList = lithuaniaDiplomaticRepo.findByDescription(description);
+        List<LithuaniaDiplomaticEntity> lithuaniaEntityList = lithuaniaDiplomaticRepository.findByDescription(description);
 
         lithuaniaEntityList.stream().parallel().findAny().map(lithuaniaEntity -> lithuaniaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -50,6 +50,6 @@ public class LithuaniaDiplomaticService {
 
     public Iterable<LithuaniaDiplomaticEntity> getAllLithuaniaDiplomaticRegions() {
         log.info("Start method getAllLithuaniaDiplomaticRegions");
-        return lithuaniaDiplomaticRepo.findAll();
+        return lithuaniaDiplomaticRepository.findAll();
     }
 }

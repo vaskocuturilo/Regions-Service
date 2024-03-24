@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.BulgariaEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.BulgariaModel;
-import com.regions.simpleregions.respository.BulgariaRepo;
+import com.regions.simpleregions.respository.BulgariaRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class BulgariaService {
 
-    private final BulgariaRepo bulgariaRepo;
+    private final BulgariaRepository bulgariaRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class BulgariaService {
     @Cacheable(value = "bulgaria_region", key = "#region")
     public BulgariaModel getBulgariaPlatesByRegion(String region) throws RegionNotFoundException {
         log.info("Start method getBulgariaPlatesByRegion");
-        Optional<BulgariaEntity> bulgariaRegion = bulgariaRepo.findByRegion(region);
+        Optional<BulgariaEntity> bulgariaRegion = bulgariaRepository.findByRegion(region);
 
         Optional.ofNullable(bulgariaRegion.stream().parallel().filter(bulgariaEntity -> bulgariaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region))));
@@ -41,7 +41,7 @@ public class BulgariaService {
     @Cacheable(value = "bulgaria_description", key = "#description")
     public List<BulgariaModel> getBulgariaPlatesByDescription(String description) throws DescriptionNotFoundException {
         log.info("Start method getBulgariaPlatesByDescription");
-        List<BulgariaEntity> bulgariaEntityList = bulgariaRepo.findByDescription(description);
+        List<BulgariaEntity> bulgariaEntityList = bulgariaRepository.findByDescription(description);
 
         bulgariaEntityList.parallelStream().findAny().map(bulgariaEntity -> bulgariaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -51,6 +51,6 @@ public class BulgariaService {
 
     public Iterable<BulgariaEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return bulgariaRepo.findAll();
+        return bulgariaRepository.findAll();
     }
 }

@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.AustriaEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.AustriaModel;
-import com.regions.simpleregions.respository.AustriaRepo;
+import com.regions.simpleregions.respository.AustriaRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @Data
 @Service
 public class AustriaService {
-    private final AustriaRepo austriaRepo;
+    private final AustriaRepository austriaRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class AustriaService {
     public AustriaModel getAustriaPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getAustriaPlatesByRegion");
 
-        Optional<AustriaEntity> austriaRegion = austriaRepo.findByRegion(region);
+        Optional<AustriaEntity> austriaRegion = austriaRepository.findByRegion(region);
 
         Optional.ofNullable(austriaRegion.stream().parallel().filter(austriaEntity -> austriaEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region))));
@@ -41,7 +41,7 @@ public class AustriaService {
     @Cacheable(value = "austria_description", key = "#description")
     public List<AustriaModel> getAustriaPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getAustriaPlatesByDescription");
-        List<AustriaEntity> austriaEntityList = austriaRepo.findByDescription(description);
+        List<AustriaEntity> austriaEntityList = austriaRepository.findByDescription(description);
 
         austriaEntityList.stream().parallel().findAny().map(austriaEntity -> austriaEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(
                 () -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -51,6 +51,6 @@ public class AustriaService {
 
     public Iterable<AustriaEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return austriaRepo.findAll();
+        return austriaRepository.findAll();
     }
 }

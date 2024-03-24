@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.GreeceEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.GreeceModel;
-import com.regions.simpleregions.respository.GreeceRepo;
+import com.regions.simpleregions.respository.GreeceRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @Data
 @Service
 public class GreeceService {
-    private final GreeceRepo greeceRepo;
+    private final GreeceRepository greeceRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -29,7 +29,7 @@ public class GreeceService {
     @Cacheable(value = "greece_region", key = "#region")
     public GreeceModel getGreecePlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getGreecePlatesByRegion");
-        Optional<GreeceEntity> greeceRegionExist = greeceRepo.findByRegion(region);
+        Optional<GreeceEntity> greeceRegionExist = greeceRepository.findByRegion(region);
 
         Optional.ofNullable(greeceRegionExist.stream().parallel().filter(greeceEntity -> greeceEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region))));
@@ -40,7 +40,7 @@ public class GreeceService {
     @Cacheable(value = "greece_description", key = "#description")
     public List<GreeceModel> getGreecePlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getGreecePlatesByDescription");
-        List<GreeceEntity> greeceEntityList = greeceRepo.findByDescription(description);
+        List<GreeceEntity> greeceEntityList = greeceRepository.findByDescription(description);
 
         greeceEntityList.stream().parallel().findAny().map(greeceEntity -> greeceEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -51,6 +51,6 @@ public class GreeceService {
 
     public Iterable<GreeceEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return greeceRepo.findAll();
+        return greeceRepository.findAll();
     }
 }

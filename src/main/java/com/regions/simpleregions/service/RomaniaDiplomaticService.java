@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.RomaniaDiplomaticEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.RomaniaDiplomaticModel;
-import com.regions.simpleregions.respository.RomaniaDiplomaticRepo;
+import com.regions.simpleregions.respository.RomaniaDiplomaticRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class RomaniaDiplomaticService {
 
-    private final RomaniaDiplomaticRepo romaniaDiplomaticRepo;
+    private final RomaniaDiplomaticRepository romaniaDiplomaticRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class RomaniaDiplomaticService {
     @Cacheable(value = "romania_diplomatic_region", key = "#region")
     public RomaniaDiplomaticModel getRomaniaDiplomaticPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getRomaniaDiplomaticPlatesByRegion");
-        Optional<RomaniaDiplomaticEntity> romaniaRegion = romaniaDiplomaticRepo.findByRegion(region);
+        Optional<RomaniaDiplomaticEntity> romaniaRegion = romaniaDiplomaticRepository.findByRegion(region);
 
         Optional.ofNullable(romaniaRegion
                 .stream().parallel()
@@ -44,7 +44,7 @@ public class RomaniaDiplomaticService {
     @Cacheable(value = "romania_diplomatic_description", key = "#description")
     public List<RomaniaDiplomaticModel> getRomaniaDiplomaticPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getRomaniaDiplomaticPlatesByDescription");
-        List<RomaniaDiplomaticEntity> romaniaEntityList = romaniaDiplomaticRepo.findByDescription(description);
+        List<RomaniaDiplomaticEntity> romaniaEntityList = romaniaDiplomaticRepository.findByDescription(description);
 
         romaniaEntityList.stream().parallel().map(romaniaEntity -> romaniaEntity.getDescription().equalsIgnoreCase(description)).findAny()
                 .orElseThrow(() -> new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -55,6 +55,6 @@ public class RomaniaDiplomaticService {
 
     public Iterable<RomaniaDiplomaticEntity> getAllRomaniaDiplomaticRegions() {
         log.info("Start method getAllRomaniaDiplomaticRegions");
-        return romaniaDiplomaticRepo.findAll();
+        return romaniaDiplomaticRepository.findAll();
     }
 }

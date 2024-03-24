@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.SwitzerlandEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.SwitzerlandModel;
-import com.regions.simpleregions.respository.SwitzerlandRepo;
+import com.regions.simpleregions.respository.SwitzerlandRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class SwitzerlandService {
 
-    private final SwitzerlandRepo switzerlandRepo;
+    private final SwitzerlandRepository switzerlandRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -30,7 +30,7 @@ public class SwitzerlandService {
     @Cacheable(value = "switzerland_region", key = "#region")
     public SwitzerlandModel getSwitzerlandPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getSwitzerlandPlatesByRegion");
-        Optional<SwitzerlandEntity> switzerlandRegion = switzerlandRepo.findByRegion(region);
+        Optional<SwitzerlandEntity> switzerlandRegion = switzerlandRepository.findByRegion(region);
 
         Optional.ofNullable(
                 switzerlandRegion
@@ -44,7 +44,7 @@ public class SwitzerlandService {
     @Cacheable(value = "switzerland_description", key = "#description")
     public List<SwitzerlandModel> getSwitzerlandPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getSwitzerlandPlatesByDescription");
-        List<SwitzerlandEntity> switzerlandEntityList = switzerlandRepo.findByDescription(description);
+        List<SwitzerlandEntity> switzerlandEntityList = switzerlandRepository.findByDescription(description);
 
         switzerlandEntityList
                 .stream().parallel()
@@ -56,6 +56,6 @@ public class SwitzerlandService {
 
     public Iterable<SwitzerlandEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return switzerlandRepo.findAll();
+        return switzerlandRepository.findAll();
     }
 }

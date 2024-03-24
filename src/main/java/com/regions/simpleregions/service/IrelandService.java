@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.IrelandEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.IrelandModel;
-import com.regions.simpleregions.respository.IrelandRepo;
+import com.regions.simpleregions.respository.IrelandRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @Data
 @Service
 public class IrelandService {
-    private final IrelandRepo irelandRepo;
+    private final IrelandRepository irelandRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -29,7 +29,7 @@ public class IrelandService {
     @Cacheable(value = "ireland_region", key = "#region")
     public IrelandModel getPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getPlatesByRegion");
-        Optional<IrelandEntity> irelandRegion = irelandRepo.findByRegion(region);
+        Optional<IrelandEntity> irelandRegion = irelandRepository.findByRegion(region);
 
         Optional.ofNullable(irelandRegion.stream().parallel().filter(irelandEntity -> irelandEntity.getRegion().equalsIgnoreCase(region)).findFirst().orElseThrow(() ->
                 new RegionNotFoundException(String.format(regionNotFound, region))));
@@ -40,7 +40,7 @@ public class IrelandService {
     @Cacheable(value = "ireland_description", key = "#description")
     public List<IrelandModel> getPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getPlatesByDescription");
-        List<IrelandEntity> irelandEntityList = irelandRepo.findByDescription(description);
+        List<IrelandEntity> irelandEntityList = irelandRepository.findByDescription(description);
 
         irelandEntityList.stream().parallel().findAny().map(irelandEntity -> irelandEntity.getDescription().equalsIgnoreCase(description)).orElseThrow(() ->
                 new DescriptionNotFoundException(String.format(descriptionNotFound, description)));
@@ -50,6 +50,6 @@ public class IrelandService {
 
     public Iterable<IrelandEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return irelandRepo.findAll();
+        return irelandRepository.findAll();
     }
 }

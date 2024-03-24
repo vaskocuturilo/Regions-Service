@@ -4,7 +4,7 @@ import com.regions.simpleregions.entity.UzbekistanEntity;
 import com.regions.simpleregions.exception.DescriptionNotFoundException;
 import com.regions.simpleregions.exception.RegionNotFoundException;
 import com.regions.simpleregions.model.UzbekistanModel;
-import com.regions.simpleregions.respository.UzbekistanRepo;
+import com.regions.simpleregions.respository.UzbekistanRepository;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @Data
 @Service
 public class UzbekistanService {
-    private final UzbekistanRepo uzbekistanRepo;
+    private final UzbekistanRepository uzbekistanRepository;
 
     @Value("${notification.region.message}")
     private String regionNotFound;
@@ -29,7 +29,7 @@ public class UzbekistanService {
     @Cacheable(value = "uzbekistan_region", key = "#region")
     public UzbekistanModel getUzbekistanPlatesByRegion(final String region) throws RegionNotFoundException {
         log.info("Start method getUzbekistanPlatesByRegion");
-        Optional<UzbekistanEntity> uzbekistanRegion = uzbekistanRepo.findByRegion(region);
+        Optional<UzbekistanEntity> uzbekistanRegion = uzbekistanRepository.findByRegion(region);
 
         Optional.ofNullable(uzbekistanRegion
                 .stream().parallel()
@@ -43,7 +43,7 @@ public class UzbekistanService {
     @Cacheable(value = "uzbekistan_description", key = "#description")
     public List<UzbekistanModel> getUzbekistanPlatesByDescription(final String description) throws DescriptionNotFoundException {
         log.info("Start method getUzbekistanPlatesByDescription");
-        List<UzbekistanEntity> uzbekistanEntityList = uzbekistanRepo.findByDescription(description);
+        List<UzbekistanEntity> uzbekistanEntityList = uzbekistanRepository.findByDescription(description);
 
         uzbekistanEntityList
                 .stream().parallel()
@@ -55,6 +55,6 @@ public class UzbekistanService {
 
     public Iterable<UzbekistanEntity> getAllRegions() {
         log.info("Start method getAllRegions");
-        return uzbekistanRepo.findAll();
+        return uzbekistanRepository.findAll();
     }
 }
