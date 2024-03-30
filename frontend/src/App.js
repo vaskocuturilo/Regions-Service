@@ -35,6 +35,7 @@ function App() {
     "kosovo": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Kosovo_car_registration_plate_labels.svg/320px-Kosovo_car_registration_plate_labels.svg.png",
     "kyrgyzstan": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Plak_shakhsi-KG.png/800px-Plak_shakhsi-KG.png",
     "lithuania": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Lithuanian_license_plate.svg/1280px-Lithuanian_license_plate.svg.png",
+    "malaysia": "https://en.m.wikipedia.org/wiki/Vehicle_registration_plates_of_Malaysia#/media/File%3AMalaysia_penang_license_plate_front.JPG",
     "moldova": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Moldova_MD_license_plate_ABC012_2015.svg/1024px-Moldova_MD_license_plate_ABC012_2015.svg.png",
     "montenegro": "https://upload.wikimedia.org/wikipedia/commons/f/f6/License_plate_Montenegro.jpg",
     "norway": "https://upload.wikimedia.org/wikipedia/commons/3/33/Skilt_elbil.jpg",
@@ -63,6 +64,7 @@ let diplomaticImages = {
   "italian": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Targa_automobilistica_Italia_1985_CD%E2%80%A20213%E2%80%A2XG_Corpo_Diplomatico_Citt%C3%A0_del_Vaticano.jpg/1024px-Targa_automobilistica_Italia_1985_CD%E2%80%A20213%E2%80%A2XG_Corpo_Diplomatico_Citt%C3%A0_del_Vaticano.jpg",
   "kyrgyzstan": "https://upload.wikimedia.org/wikipedia/commons/3/38/Kyrgyzstan_diplomatic_technical_staff_license_plate.png",
   "lithuania": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Lithuanian_diplomatic_license_plate.JPG?20120714185557",
+  "malaysia": "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Malaysia#/media/File:Diplomat_Plate_Number.jpg",
   "montenegro": "https://upload.wikimedia.org/wikipedia/commons/0/08/Montenegro_diplomatic_license_plate_%28Norway%29.jpg",
   "norway": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Norway_diplomatic_license_plate_CD_48160_2014_Oslo.jpg/1280px-Norway_diplomatic_license_plate_CD_48160_2014_Oslo.jpg",
   "portugal": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Portugal_diplomatic_license_plate_200-CD530.jpg/800px-Portugal_diplomatic_license_plate_200-CD530.jpg",
@@ -396,47 +398,48 @@ return (
       />
       <label htmlFor="private_plates" data-cy="private_label">Private plates</label>
       <div aria-hidden={selected !== "private_plates" ? true : false}>
-      <select value= {plates} name="countries_plates" id="countries_list"
-                        onChange={simplePlates}
-                        class="form__input center" ref={regionRef} data-cy="countries_drop_down">
-                    <option value="None">Choose country</option>
-                    <option value="armenia">🇦🇲&emsp;Armenia</option>
-                    <option value="austria">🇦🇹&emsp;Austria</option>
-                    <option value="azerbaijan">🇦🇿&emsp;Azerbaijan</option>
-                    <option value="belarus">🇧🇾&emsp;Belarus</option>
-                    <option value="british">🇻🇬&emsp;Great Britain</option>
-                    <option value="bulgaria">🇧🇬&emsp;Bulgaria</option>
-                    <option value="croatia">🇭🇷&emsp;Croatia</option>
-                    <option value="czech">🇨🇿&emsp;Czech Republic</option>
-                    <option value="estonia">🇪🇪&emsp;Estonia</option>
-                    <option value="france">🇫🇷&emsp;France</option>
-                    <option value="germany">🇩🇪&emsp;Germany</option>
-                    <option value="greece">🇬🇷&emsp;Greece</option>
-                    <option value="hungary">🇭🇺&emsp;Hungary</option>
-                    <option value="ireland">🇮🇪&emsp;Ireland</option>
-                    <option value="italian">🇮🇹&emsp;Italy</option>
-                    <option value="kazakhstan">🇰🇿&emsp;Kazakhstan</option>
-                    <option value="kosovo">🇽🇰&emsp;Kosovo</option>
-                    <option value="kyrgyzstan">🇰🇬&emsp;Kyrgyzstan</option>
-                    <option value="lithuania">🇱🇹&emsp;Lithuania</option>
-                    <option value="moldova">🇲🇩&emsp;Moldova</option>
-                    <option value="montenegro">🇲🇪&emsp;Montenegro</option>
-                    <option value="norway">🇳🇴&emsp;Norway</option>
-                    <option value="macedonia">🇲🇰&emsp;North Macedonia</option>
-                    <option value="poland">🇵🇱&emsp;Poland</option>
-                    <option value="romania">🇷🇴&emsp;Romania</option>
-                    <option value="russia">🇷🇺&emsp;Russia</option>
-                    <option value="serbia">🇷🇸&emsp;Serbia</option>
-                    <option value="slovakia">🇸🇰&emsp;Slovakia</option>
-                    <option value="slovenia">🇸🇮&emsp;Slovenia</option>
-                    <option value="sweden">🇸🇪&emsp;Sweden</option>
-                    <option value="switzerland">🇨🇭&emsp;Switzerland</option>
-                    <option value="turkey">🇹🇷&emsp;Turkey</option>
-                    <option value="ukraine">🇺🇦&emsp;Ukraine</option>
-                    <option value="uzbekistan">🇺🇿&emsp;Uzbekistan</option>
-                </select>
-                <br/>
-  <div id="app" className="container">
+        <select value={plates} name="countries_plates" id="countries_list"
+                onChange={simplePlates}
+                class="form__input center" ref={regionRef} data-cy="countries_drop_down">
+          <option value="None">Choose country</option>
+          <option value="armenia">🇦🇲&emsp;Armenia</option>
+          <option value="austria">🇦🇹&emsp;Austria</option>
+          <option value="azerbaijan">🇦🇿&emsp;Azerbaijan</option>
+          <option value="belarus">🇧🇾&emsp;Belarus</option>
+          <option value="british">🇻🇬&emsp;Great Britain</option>
+          <option value="bulgaria">🇧🇬&emsp;Bulgaria</option>
+          <option value="croatia">🇭🇷&emsp;Croatia</option>
+          <option value="czech">🇨🇿&emsp;Czech Republic</option>
+          <option value="estonia">🇪🇪&emsp;Estonia</option>
+          <option value="france">🇫🇷&emsp;France</option>
+          <option value="germany">🇩🇪&emsp;Germany</option>
+          <option value="greece">🇬🇷&emsp;Greece</option>
+          <option value="hungary">🇭🇺&emsp;Hungary</option>
+          <option value="ireland">🇮🇪&emsp;Ireland</option>
+          <option value="italian">🇮🇹&emsp;Italy</option>
+          <option value="kazakhstan">🇰🇿&emsp;Kazakhstan</option>
+          <option value="kosovo">🇽🇰&emsp;Kosovo</option>
+          <option value="kyrgyzstan">🇰🇬&emsp;Kyrgyzstan</option>
+          <option value="lithuania">🇱🇹&emsp;Lithuania</option>
+          <option value="malaysia">🇲🇾&emsp;Malaysia</option>
+          <option value="moldova">🇲🇩&emsp;Moldova</option>
+          <option value="montenegro">🇲🇪&emsp;Montenegro</option>
+          <option value="norway">🇳🇴&emsp;Norway</option>
+          <option value="macedonia">🇲🇰&emsp;North Macedonia</option>
+          <option value="poland">🇵🇱&emsp;Poland</option>
+          <option value="romania">🇷🇴&emsp;Romania</option>
+          <option value="russia">🇷🇺&emsp;Russia</option>
+          <option value="serbia">🇷🇸&emsp;Serbia</option>
+          <option value="slovakia">🇸🇰&emsp;Slovakia</option>
+          <option value="slovenia">🇸🇮&emsp;Slovenia</option>
+          <option value="sweden">🇸🇪&emsp;Sweden</option>
+          <option value="switzerland">🇨🇭&emsp;Switzerland</option>
+          <option value="turkey">🇹🇷&emsp;Turkey</option>
+          <option value="ukraine">🇺🇦&emsp;Ukraine</option>
+          <option value="uzbekistan">🇺🇿&emsp;Uzbekistan</option>
+        </select>
+        <br/>
+        <div id="app" className="container">
       <div className="card">
         <div className="card-body">
           <div className="input-group input-group-sm">
@@ -480,6 +483,7 @@ return (
           <option value="italian">🇮🇹&emsp;Italy</option>
           <option value="kyrgyzstan">🇰🇬&emsp;Kyrgyzstan</option>
           <option value="lithuania">🇱🇹&emsp;Lithuania</option>
+          <option value="malaysia">🇲🇾&emsp;Malaysia</option>
           <option value="montenegro">🇲🇪&emsp;Montenegro</option>
           <option value="norway">🇳🇴&emsp;Norway</option>
           <option value="poland">🇵🇱&emsp;Poland</option>
