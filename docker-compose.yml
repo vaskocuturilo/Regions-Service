@@ -43,7 +43,6 @@ services:
       args:
         REACT_APP_TOKEN: abc123
     ports:
-      - "8080:8080"
       - "8090:8090"
 
     healthcheck:
