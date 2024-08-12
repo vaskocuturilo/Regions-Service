@@ -56,3 +56,22 @@ services:
     depends_on:
       mysqldb:
         condition: service_healthy
+
+  nginx:
+    hostname: nginx-regions
+    container_name: nginx-regions
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx_config/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      server:
+        condition: service_healthy
+    logging:
+      # limit logs to 200MB (4 rotations of 50M each)
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "4"
