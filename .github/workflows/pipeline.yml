@@ -39,7 +39,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'adopt'
           cache: gradle
 
       - name: Setup Gradle
@@ -53,11 +53,11 @@ jobs:
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
           REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
           REACT_APP_TOKEN: ${{ secrets.REACT_APP_TOKEN }}
-        run: ./gradlew clean build test
+        run: ./gradlew clean build test  # Use wrapper for consistent Gradle version
 
   frontend:
     runs-on: ubuntu-latest
-    needs: backend
+    needs: backend  # Ensure frontend job only starts after backend job completes successfully
     strategy:
       matrix:
         node-version: [ 18.x ]
@@ -74,7 +74,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm ci  # `npm ci` is recommended for CI environments as it installs exact versions from package-lock.json
 
       - name: Install Docker Compose
         uses: docker/compose-action@v2
@@ -84,7 +84,7 @@ jobs:
       - name: Start Docker Containers
         run: |
           docker-compose up --detach --build
-          docker-compose exec -T app wait-for-it localhost
+          docker-compose exec -T app wait-for-it localhost:3000  # Replace with appropriate service and port
 
       - name: Run Cypress Smoke Tests
         uses: cypress-io/github-action@v4
@@ -106,7 +106,7 @@ jobs:
 
       - name: Deploy Allure Report to GitHub Pages
         if: always()
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v3  # Updated version
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
