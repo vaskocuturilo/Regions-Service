@@ -11,7 +11,7 @@ jobs:
   cypress-test:
     strategy:
       matrix:
-        node-version: [ 18.x ]
+        node-version: [ 15.x ]
         os: [ ubuntu-latest ]
         browser: [ chrome, firefox ]
 
@@ -22,56 +22,31 @@ jobs:
       - name: Build the Docker image
         run: docker-compose build --no-cache --force
 
-      - name: Install Docker and Docker Compose
+      - name: Start containers
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-          sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose --version
-
-      - name: Build Docker Image
-        run: docker-compose build --no-cache --force
-
-      - name: Start Docker container.
-        run: |
-          docker-compose -f "docker-compose.yml" up --detach --build
+          docker-compose -f "docker-compose.yml" up -d
           for attempt in {1..20}; do sleep 1; if exit 0; then echo ready; break; fi; echo waiting...; done
 
-          - uses: actions/checkout@v3
-          - name: Use Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v3
-          with:
-            node-version: ${{ matrix.node-version }}
-          - run: |
-            npm ci --force
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci --force
 
-          - name: Run Cypress Smoke Tests
-          uses: cypress-io/github-action@v4
-          with:
-            command: npm run cypress:run:smoke:test -- --browser ${{ matrix.browser }}
-            parallel: true
+      - name: Run Cypress Test
+        uses: cypress-io/github-action@v4
+        with:
+          command: npm run cypress:run:test -- --browser ${{ matrix.browser }}
+          parallel: true
 
-          - name: Run Cypress Sanity Tests
-          uses: cypress-io/github-action@v4
-          with:
-            command: npm run cypress:run:sanity:test -- --browser ${{ matrix.browser }}
-            parallel: true
+      - name: Archive test screenshots
+        uses: actions/upload-artifact@v1
+        with:
+          name: screenshots
+          path: cypress/screenshots
+        if: ${{ failure() }}
 
-          - name: Generate Allure Report
-          uses: simple-elf/allure-report-action@master
-          if: always()
-          with:
-            allure_results: allure-results
-
-          - name: Deploy report to Github Pages
-          if: always()
-          uses: peaceiris/actions-gh-pages@v2
-          env:
-            PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            PUBLISH_BRANCH: gh-pages
-            PUBLISH_DIR: allure-report
-
-          - name: Stop containers
-          if: always()
-          run: docker-compose -f "docker-compose.yml" down
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "docker-compose.yml" down
