@@ -1,22 +1,26 @@
 name: Build Frontend
-
 on:
-  workflow_run:
-    workflows: [ "Build Backend" ]
-    types:
-      - completed
-
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
 jobs:
   cypress-test:
     strategy:
       matrix:
-        node-version: [ 15.x ]
+        node-version: [ 18.x ]
         os: [ ubuntu-latest ]
         browser: [ chrome, firefox ]
 
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Install Compose
+        uses: ndeloof/install-compose-action@v0.0.1
+        with:
+          version: v2.1.0
+          legacy: true
+
       - uses: actions/checkout@v3
       - name: Build the Docker image
         run: docker-compose build --no-cache --force
@@ -31,20 +35,34 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci --force
+      - run: |
+          npm ci --force
 
-      - name: Run Cypress Test
+      - name: Run Cypress Smoke Tests
         uses: cypress-io/github-action@v4
         with:
-          command: npm run cypress:run:test -- --browser ${{ matrix.browser }}
+          command: npm run cypress:run:smoke:test -- --browser ${{ matrix.browser }}
           parallel: true
 
-      - name: Archive test screenshots
-        uses: actions/upload-artifact@v1
+      - name: Run Cypress Sanity Tests
+        uses: cypress-io/github-action@v4
         with:
-          name: screenshots
-          path: cypress/screenshots
-        if: ${{ failure() }}
+          command: npm run cypress:run:sanity:test -- --browser ${{ matrix.browser }}
+          parallel: true
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          allure_results: allure-results
+
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-report
 
       - name: Stop containers
         if: always()
