@@ -1,9 +1,9 @@
 name: Build Frontend
 on:
-  workflow_dispatch:
-  pull_request:
-    branches:
-      - main
+  workflow_run:
+    workflows: [ "Build Backend" ]
+    types:
+      - completed
 jobs:
   cypress-test:
     strategy:
