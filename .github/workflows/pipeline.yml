@@ -82,11 +82,6 @@ jobs:
           legacy: true
           version: v2.1.0
 
-      - name: Install Docker Compose
-        uses: docker/compose-action@v2
-        with:
-          version: 'v2.1.0'
-
       - name: Start Docker Containers
         run: |
           docker-compose up --detach --build
