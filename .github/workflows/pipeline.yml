@@ -53,7 +53,7 @@ jobs:
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
           REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
           REACT_APP_TOKEN: ${{ secrets.REACT_APP_TOKEN }}
-        run: gradlew clean build test
+        run: gradle clean build test
 
   frontend:
     runs-on: ubuntu-latest
