@@ -1,11 +1,10 @@
 name: Build Frontend
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths-ignore:
-      - frontend-ready.txt
+  workflow_run:
+    workflows: [ "Build Backend" ]
+    types:
+      - completed
 
 jobs:
   cypress-test:
