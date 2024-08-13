@@ -57,9 +57,9 @@ jobs:
     needs: backend
     strategy:
       matrix:
-        node-version: [18.x]
-        os: [ubuntu-latest]
-        browser: [chrome, firefox]
+        node-version: [ 18.x ]
+        os: [ ubuntu-latest ]
+        browser: [ chrome, firefox ]
 
     steps:
       - name: Checkout Code
@@ -73,10 +73,8 @@ jobs:
       - name: Install Dependencies
         run: npm ci --force
 
-      - name: Install Docker and Docker Compose
+      - name: Install Docker Compose
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
           sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
