@@ -50,10 +50,3 @@ jobs:
           REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
           REACT_APP_TOKEN: ${{ secrets.REACT_APP_TOKEN }}
         run: gradle clean build test
-
-      - name: Signal Frontend Workflow
-        run: echo "frontend-ready" > frontend-ready.txt
-      - uses: actions/upload-artifact@v3
-        with:
-          name: frontend-ready
-          path: frontend-ready.txt
