@@ -23,7 +23,7 @@ jobs:
 
       - name: Start containers
         run: |
-          docker-compose -f "docker-compose.yml" up --detach --build
+          docker-compose up --detach --build
           for attempt in {1..20}; do sleep 1; if exit 0; then echo ready; break; fi; echo waiting...; done
 
       - uses: actions/checkout@v3
