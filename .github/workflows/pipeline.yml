@@ -82,6 +82,10 @@ jobs:
           legacy: true
           version: v2.1.0
 
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker-compose build --no-cache --force
+
       - name: Start Docker Containers
         run: |
           docker-compose up --detach --build
