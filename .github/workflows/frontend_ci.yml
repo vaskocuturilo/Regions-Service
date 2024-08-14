@@ -15,10 +15,6 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Build the Docker image
-        run: docker-compose build --no-cache --force
-
       - name: Install Compose
         uses: ndeloof/install-compose-action@v0.0.1
         with:
