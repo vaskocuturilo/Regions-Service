@@ -61,7 +61,6 @@ services:
     container_name: nginx-regions
     image: nginx:alpine
     restart: always
-    tty: true
     ports:
       - "80:80"
     volumes:
