@@ -15,24 +15,27 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: npm ci --force
+
       - name: Install Compose
         uses: ndeloof/install-compose-action@v0.0.1
         with:
           legacy: true
           version: v2.1.0
 
-      - name: Start containers
+      - name: Start Docker Containers
         run: |
           docker-compose up --detach --build
-          for attempt in {1..20}; do sleep 1; if exit 0; then echo ready; break; fi; echo waiting...; done
-
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: |
-          npm ci --force
+          docker-compose exec -T app wait-for-it localhost
 
       - name: Run Cypress Smoke Tests
         uses: cypress-io/github-action@v4
