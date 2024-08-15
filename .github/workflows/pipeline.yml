@@ -18,7 +18,7 @@ jobs:
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
           MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-        options: --health-cmd="mysqladmin ping --silent" --health-interval=5s --health-timeout=2s --health-retries=3
+        options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=5
 
     steps:
       - name: Checkout Code
@@ -53,7 +53,7 @@ jobs:
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
           REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
           REACT_APP_TOKEN: ${{ secrets.REACT_APP_TOKEN }}
-        run: gradle clean build test
+        run: gradle clean build test --info --stacktrace --no-daemon
 
   frontend:
     runs-on: ubuntu-latest
@@ -86,6 +86,9 @@ jobs:
         run: |
           docker-compose up --detach --build
           docker-compose exec -T app wait-for-it localhost
+
+      - name: Check Running Containers
+        run: docker ps -a
 
       - name: Run Cypress Smoke Tests
         uses: cypress-io/github-action@v4
