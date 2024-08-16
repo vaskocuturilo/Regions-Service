@@ -207,16 +207,23 @@ function App() {
         }
     }
 
-    const clearGetOutputPrivatePlates = () => {
-        setPlates('');
+    function resetState() {
+        setFile('');
         image.current.src = logo;
+        setGetResult(null);
+        setPlates('');
+        getRegion.current.value = '';
+        getDescription.current.value = '';
         typePlates.current.classList.remove('hidden');
+        setIsShown(false);
+    }
+
+    const clearGetOutputPrivatePlates = () => {
+        resetState();
     };
 
     const clearGetOutputDiplomaticPlates = () => {
-        setDiplomatic('');
-        image.current.src = logo;
-        typePlates.current.classList.remove('hidden');
+        resetState();
     };
 
     const simplePlates = (e) => {
@@ -253,54 +260,33 @@ function App() {
         await worker.terminate();
     };
 
-    function handleImageChange(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            const imageDataUri = reader.result;
-            console.log({imageDataUri});
-            setImageData(imageDataUri);
-        };
-        reader.readAsDataURL(file);
-    }
-
     useEffect(() => {
-        convertImageToText();
+        convertImageToText().then()
     }, [imageData]);
 
     const [showElement, setShowElement] = React.useState(true)
     useEffect(() => {
             setTimeout(function () {
                 setShowElement(false);
+                setIsShown(false);
                 image.current.src = logo;
             }, 120000);
         },
         []);
 
     function updateTime() {
-        if (minutes === 0 && seconds === 0) {
-            //reset
-            setSeconds(0);
-            setMinutes(5);
-        } else {
-            if (seconds === 0) {
-                setMinutes(minutes => minutes - 1);
-                setSeconds(59);
-            } else {
-                setSeconds(seconds => seconds - 1);
-            }
-        }
+        const shouldReset = minutes === 0 && seconds === 0;
+        const shouldDecrementMinutes = seconds === 0 && !shouldReset;
+
+        setMinutes(shouldReset ? 5 : shouldDecrementMinutes ? minutes - 1 : minutes);
+        setSeconds(shouldReset ? 0 : shouldDecrementMinutes ? 59 : seconds - 1);
     }
 
     useEffect(() => {
-        // use set timeout and be confident because updateTime will cause rerender
-        // rerender mean re call this effect => then it will be similar to how setinterval works
-        // but with easy to understand logic
-        const token = setTimeout(updateTime, 1000)
+        const timeOut = setTimeout(updateTime, 1000)
 
         return function cleanUp() {
-            clearTimeout(token);
+            clearTimeout(timeOut);
         }
     });
 
@@ -492,7 +478,8 @@ function App() {
                     </div>
                 </div>
                 <p className="logout-timer">
-                    You will be logged out in <span className="timer">time: {minutes}:{seconds}</span>
+                    You will be logged out in <span
+                    className="timer">time: {minutes.toString().padStart(2, '0')}:{seconds.toString().padStart(2, '0')}</span>
                 </p>
             </div> : <></>}
             {isShown && <LocationMarker/>}
