@@ -178,9 +178,13 @@ function App() {
                                         </button>
                                     </div>
                                 </div>
-                                <JSONPretty id="json-pretty" style={{fontSize: "1.1em", textAlign: 'left'}}
-                                            data={getResult} mainStyle="padding:1em"
-                                            valueStyle="font-size:1.5em"></JSONPretty>
+                                <JSONPretty
+                                    id="json-pretty"
+                                    style={{fontSize: "1.1em", textAlign: 'left'}}
+                                    data={getResult}
+                                    mainStyle="padding:1em"
+                                    valueStyle="font-size:1.5em">
+                                </JSONPretty>
                             </div>
                             <button className="btn btn-primary" onClick={clearGetOutputPrivatePlates}
                                     data-cy="clear_button">Clear
