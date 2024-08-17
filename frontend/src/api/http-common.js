@@ -26,7 +26,6 @@ apiClient.interceptors.request.use(
 
 apiClient.interceptors.response.use(
     (response) => {
-        // Handle successful responses
         return response;
     },
     (error) => {
