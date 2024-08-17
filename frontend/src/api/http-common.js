@@ -13,6 +13,8 @@ const apiClient = axios.create({
     },
     timeout: 5000,
 });
+
+
 apiClient.interceptors.request.use(
     (config) => {
         return config;
@@ -24,6 +26,7 @@ apiClient.interceptors.request.use(
 
 apiClient.interceptors.response.use(
     (response) => {
+        // Handle successful responses
         return response;
     },
     (error) => {

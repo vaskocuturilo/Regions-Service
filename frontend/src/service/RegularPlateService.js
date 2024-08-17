@@ -1,4 +1,6 @@
-class RegularPlateService extends PlateService {
+import {PlateService} from './PlateService';
+
+export class RegularPlateService extends PlateService {
     async getPlatesByRegion(plates) {
         await this.getPlates(`/${plates}/plates/region/${this.getRegionRef.current.value}`);
     }

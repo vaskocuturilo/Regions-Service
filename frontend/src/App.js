@@ -4,7 +4,6 @@ import logo from './img/europe-plates.jpg';
 import upload from './img/upload.png';
 import $ from 'jquery';
 import JSONPretty from 'react-json-pretty';
-import {createWorker} from "tesseract.js";
 import 'bootstrap/dist/css/bootstrap.css';
 import Header from './components/Header';
 import Popup from './components/Popup';
@@ -16,6 +15,8 @@ import countriesForPlates from './countries/countriesForPlates';
 import countriesForDiplomaticPlates from './countries/countriesForDiplomaticPlates';
 import CountrySelect from "./components/CountrySelect";
 import Timer from "./components/Timer";
+import {RegularPlateService} from './service/RegularPlateService';
+import {DiplomaticPlateService} from './service/DiplomaticPlateService';
 
 function App() {
     const imageManager = new ImageManager();
@@ -32,43 +33,47 @@ function App() {
 
     const [file, setFile] = useState("");
 
-    const [ocr, setOcr] = useState("");
-
-    const [imageData, setImageData] = useState(null);
-
     const [getResult, setGetResult] = useState('');
 
     const [isShown, setIsShown] = useState(false);
 
     const regionRef = useRef();
 
+    const diplomaticRef = useRef();
+
     const getRegion = useRef();
 
     const getDescription = useRef();
 
-    const diplomaticRef = useRef();
-
     const getDiplomaticRegion = useRef();
 
     const getDiplomaticDescription = useRef();
-    const handleGetPlatesByRegion = () => {
-        const plateService = new RegularPlateService(apiClient, getRegionRef, setGetResult, setIsShown, regionRef);
-        plateService.getPlatesByRegion(plates).then(result => console.log('Success:', result)).catch(error => console.error('Error:', error));
-    };
 
-    const handleGetDiplomaticPlatesByRegion = () => {
-        const diplomaticPlateService = new DiplomaticPlateService(apiClient, getRegionRef, setGetResult, setIsShown, regionRef);
-        diplomaticPlateService.getPlatesByRegion(diplomatic).then(result => console.log('Success:', result)).catch(error => console.error('Error:', error));
+    const handleGetPlatesByRegion = () => {
+        const plateService = new RegularPlateService(apiClient, getRegion, setGetResult, setIsShown, regionRef);
+        plateService.getPlatesByRegion(plates)
+            .then(result => console.log('Success:', result))
+            .catch(error => console.error('Error:', error));
     };
 
     const handleGetPlatesByDescription = () => {
-        const plateService = new RegularPlateService(apiClient, getRegionRef, setGetResult, setIsShown, regionRef);
-        plateService.getPlatesByDescription(plates).then(result => console.log('Success:', result)).catch(error => console.error('Error:', error));
+        const plateService = new RegularPlateService(apiClient, getDescription, setGetResult, setIsShown, regionRef);
+        plateService.getPlatesByDescription(plates)
+            .then(result => console.log('Success:', result))
+            .catch(error => console.error('Error:', error));
     };
 
+    const handleGetDiplomaticPlatesByRegion = () => {
+        const diplomaticPlateService = new DiplomaticPlateService(apiClient, getDiplomaticRegion, setGetResult, setIsShown, diplomaticRef);
+        diplomaticPlateService.getPlatesByRegion(diplomatic)
+            .then(result => console.log('Success:', result))
+            .catch(error => console.error('Error:', error));
+    };
     const handleGetDiplomaticPlatesByDescription = () => {
-        const diplomaticPlateService = new DiplomaticPlateService(apiClient, getRegionRef, setGetResult, setIsShown, regionRef);
-        diplomaticPlateService.getPlatesByDescription(diplomatic).then(result => console.log('Success:', result)).catch(error => console.error('Error:', error));
+        const diplomaticPlateService = new DiplomaticPlateService(apiClient, getDiplomaticDescription, setGetResult, setIsShown, diplomaticRef);
+        diplomaticPlateService.getPlatesByDescription(diplomatic)
+            .then(result => console.log('Success:', result))
+            .catch(error => console.error('Error:', error));
     };
 
     const clearGetOutputPlates = (plateSetter, regionRef, descriptionRef) => {
@@ -102,31 +107,13 @@ function App() {
         typePlates.current.classList.add('hidden');
     };
 
-    $(document).on("change", "#countries_list", function (e) {
+    $(document).on("change", "#countries_list", () => {
         $('#countries_diplomatic_list').val('None');
     });
 
-    $(document).on("change", "#countries_diplomatic_list", function (e) {
+    $(document).on("change", "#countries_diplomatic_list", () => {
         $('#countries_list').val('None');
     });
-
-    const convertImageToText = async () => {
-        if (!imageData) return;
-        const worker = await createWorker();
-        await worker.load();
-        await worker.loadLanguage('eng');
-        await worker.initialize('eng');
-        const {
-            data: {text},
-        } = await worker.recognize(imageData);
-        setOcr(text);
-        console.log(`This is result: ${text}`);
-        await worker.terminate();
-    };
-
-    useEffect(() => {
-        convertImageToText().then()
-    }, [imageData]);
 
     const [showElement, setShowElement] = React.useState(true)
 
@@ -168,7 +155,6 @@ function App() {
                         onChange={simplePlates}
                         id="countries_list"
                         selectRef={regionRef}
-                        imageId="countries_image"
                     />
                     <br/>
                     <div id="app" className="container">
@@ -221,7 +207,6 @@ function App() {
                         onChange={diplomaticPlates}
                         id="countries_diplomatic_list"
                         selectRef={diplomaticRef}
-                        imageId="countries_image"
                     />
                     <br/><br/><br/>
                     <div id="app" className="container">

@@ -1,4 +1,4 @@
-class PlateService {
+export class PlateService {
     constructor(apiClient, getRegionRef, setGetResult, setIsShown, regionRef) {
         this.apiClient = apiClient;
         this.getRegionRef = getRegionRef;

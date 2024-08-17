@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CountrySelect({countries, value, onChange, id, selectRef, imageId}) {
+function CountrySelect({countries, value, onChange, id, selectRef}) {
     return (
         <div className="country-select-container">
             <select value={value} id={id} onChange={onChange} className="form__input center" ref={selectRef}>
