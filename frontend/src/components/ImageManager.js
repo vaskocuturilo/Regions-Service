@@ -18,7 +18,7 @@ class ImageManager {
             "ireland": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Revised_format_Republic_of_Ireland_numberplate_%282013-%29.svg/1920px-Revised_format_Republic_of_Ireland_numberplate_%282013-%29.svg.png",
             "italian": "https://cdn.skoda-storyboard.com/2019/06/Italy-license-plate-english.jpg",
             "kazakhstan": "https://upload.wikimedia.org/wikipedia/commons/f/fe/License_plate_Kazakhstan_2012.png",
-            "kosovo": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Kosovo_car_registration_plate_labels.svg/320px-Kosovo_car_registration_plate_labels.svg.png",
+            "kosovo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Kosovar_license_plate.svg/640px-Kosovar_license_plate.svg.png",
             "kyrgyzstan": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Plak_shakhsi-KG.png/800px-Plak_shakhsi-KG.png",
             "lithuania": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Lithuanian_license_plate.svg/1280px-Lithuanian_license_plate.svg.png",
             "malaysia": "https://en.m.wikipedia.org/wiki/Vehicle_registration_plates_of_Malaysia#/media/File%3AMalaysia_penang_license_plate_front.JPG",

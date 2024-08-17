@@ -1,87 +1,86 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 body {
-  margin: 0;
-  color: #444;
-  background-color: #f3f3f3;
-  font: 600 16px/18px 'Open Sans', sans-serif;
+    margin: 0;
+    color: #444;
+    background-color: #f3f3f3;
+    font: 600 16px/18px 'Open Sans', sans-serif;
 }
 
 select {
-  height: 50px;
-  line-height: 50px;
-  font-size: 12pt;
+    height: 50px;
+    line-height: 50px;
+    font-size: 12pt;
 }
 
 #image img {
-  padding-left: 60px;
-  position: absolute;
-  padding-top: -10px;
+    padding-left: 60px;
+    position: absolute;
+    padding-top: -10px;
 }
 
 .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
 .image-upload > input {
-  display: none;
+    display: none;
 }
 
 h3, label {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .form__input {
-  height: 50px;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.4);
-  font-family: inherit;
-  font-size: 1.5rem;
-  text-align: center;
-  color: #333;
-  padding: 0.3rem 1rem;
-  border-radius: 0.7rem;
-  transition: all 0.3s;
+    height: 50px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.4);
+    font-family: inherit;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #333;
+    padding: 0.3rem 1rem;
+    border-radius: 0.7rem;
+    transition: all 0.3s;
 }
 
 .text-area {
-  resize: none;
-  overflow: hidden;
-  min-height: 30px;
+    resize: none;
+    overflow: hidden;
+    min-height: 30px;
 }
 
 #app {
-  max-width: 600px;
+    max-width: 600px;
 }
 
-#menuToggle
-{
+#menuToggle {
     display: block;
     position: absolute;
     top: 50px;
@@ -93,8 +92,7 @@ h3, label {
     user-select: none;
 }
 
-#menuToggle input
-{
+#menuToggle input {
     display: block;
     width: 40px;
     height: 32px;
@@ -113,8 +111,7 @@ h3, label {
 /*
  * Just a quick hamburger
  */
-#menuToggle span
-{
+#menuToggle span {
     display: block;
     width: 33px;
     height: 4px;
@@ -128,18 +125,16 @@ h3, label {
 
     transform-origin: 4px 0px;
 
-    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-    background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
     opacity 0.55s ease;
 }
 
-#menuToggle span:first-child
-{
+#menuToggle span:first-child {
     transform-origin: 0% 0%;
 }
 
-#menuToggle span:nth-last-child(2)
-{
+#menuToggle span:nth-last-child(2) {
     transform-origin: 0% 100%;
 }
 
@@ -147,8 +142,7 @@ h3, label {
  * Transform all the slices of hamburger
  * into a crossmark.
  */
-#menuToggle input:checked ~ span
-{
+#menuToggle input:checked ~ span {
     opacity: 1;
     transform: rotate(45deg) translate(-2px, -1px);
     background: #232323;
@@ -157,8 +151,7 @@ h3, label {
 /*
  * But let's hide the middle one.
  */
-#menuToggle input:checked ~ span:nth-last-child(3)
-{
+#menuToggle input:checked ~ span:nth-last-child(3) {
     opacity: 0;
     transform: rotate(0deg) scale(0.2, 0.2);
 }
@@ -166,8 +159,7 @@ h3, label {
 /*
  * Ohyeah and the last one should go the other direction
  */
-#menuToggle input:checked ~ span:nth-last-child(2)
-{
+#menuToggle input:checked ~ span:nth-last-child(2) {
     opacity: 1;
     transform: rotate(-45deg) translate(0, -1px);
 }
@@ -176,8 +168,7 @@ h3, label {
  * Make this absolute positioned
  * at the top left of the screen
  */
-#menu
-{
+#menu {
     position: absolute;
     width: 300px;
     margin: -100px 0 0 0;
@@ -192,11 +183,10 @@ h3, label {
     transform-origin: 0% 0%;
     transform: translate(100%, 0);
 
-    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
 }
 
-#menu li
-{
+#menu li {
     padding: 10px 0;
     font-size: 22px;
 }
@@ -204,108 +194,120 @@ h3, label {
 /*
  * And let's fade it in from the left
  */
-#menuToggle input:checked ~ ul
-{
+#menuToggle input:checked ~ ul {
     transform: none;
     opacity: 1;
 }
 
 [aria-hidden="true"] {
-  display: none;
+    display: none;
 }
 
-img.zoom{
-transition: transform .2s;
+img.zoom {
+    transition: transform .2s;
 }
+
 img.zoom:hover {
-transform: scale(3.5);
+    transform: scale(3.5);
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
 nav .navbar-collapse {
-  position: fixed;
-  top: 56px;
-  background: #343a40;
-  right: -100%;
-  width: 100vw;
-  height: 100vh;
-  display: block;
-  transition: right 0.3s ease;
+    position: fixed;
+    top: 56px;
+    background: #343a40;
+    right: -100%;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    transition: right 0.3s ease;
 }
 
 nav .navbar-collapse.show {
-  right: 0;
+    right: 0;
 }
 
 .welcome {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #f3f3f3;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #f3f3f3;
 }
 
 .login {
-  display: flex;
+    display: flex;
 }
 
 .login__input {
-  border: none;
-  padding: 0.5rem 2rem;
-  font-size: 1.0rem;
-  font-family: inherit;
-  text-align: center;
-  width: 12rem;
-  border-radius: 10rem;
-  margin-right: 1rem;
-  color: inherit;
-  border: 1px solid #fff;
-  transition: all 0.3s;
+    padding: 0.5rem 2rem;
+    font-size: 1.0rem;
+    font-family: inherit;
+    text-align: center;
+    width: 12rem;
+    border-radius: 10rem;
+    margin-right: 1rem;
+    color: inherit;
+    border: 1px solid #fff;
+    transition: all 0.3s;
 }
 
 .login__input:focus {
-  outline: none;
-  border: 1px solid #ccc;
+    outline: none;
+    border: 1px solid #ccc;
 }
 
 .login__input::placeholder {
-  color: #bbb;
+    color: #bbb;
 }
 
 .login__btn {
-  border: none;
-  font-size: 1.4rem;
-  width: 5rem;
-  border-radius: 10rem;
-  margin-right: 1rem;
-  color: inherit;
-  cursor: pointer;
-  transition: all 0.3s;
+    border: none;
+    font-size: 1.4rem;
+    width: 5rem;
+    border-radius: 10rem;
+    margin-right: 1rem;
+    color: inherit;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
 .login__btn:hover,
 .login__btn:focus,
 .btn--sort:hover,
 .btn--sort:focus {
-  outline: none;
-  color: #777;
+    outline: none;
+    color: #777;
 }
 
 .logout-timer {
-  padding: 0 0.3rem;
-  margin-top: 1.9rem;
-  text-align: right;
-  font-size: 1.25rem;
+    padding: 0 0.3rem;
+    margin-top: 1.9rem;
+    text-align: right;
+    font-size: 1.25rem;
 }
 
 .leaflet-container {
-  width: 100%;
-  height: 60vh;
-  }
+    width: 100%;
+    height: 60vh;
+}
 
 .leaflet-div-icon {
     background: transparent;
     border: none;
+}
+
+.country-select-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between the dropdown and the flag */
+}
+
+.flag-container {
+    display: inline-block;
+    width: 30px; /* Adjust the size as needed */
+    height: 20px;
+    overflow: hidden;
 }
 
