@@ -273,7 +273,7 @@ function App() {
                                                                              initialSeconds={0}/></span>
                 </p>
             </div> : <></>}
-            {isShown && <LocationMarker/>}
+            {isShown && <LocationMarker getResult={getResult}/>}
         </div>
     );
 }

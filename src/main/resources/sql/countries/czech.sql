@@ -20,7 +20,7 @@ INSERT INTO `czech_entity` (description, region) VALUES
 ('Liberecký kraj (Liberec), (Liberec)','L'),
 ('Olomoucký kraj (Olomouc), (Olomouc)','M'),
 ('Plzeňský kraj (Plzeň), (Plzeň)','P'),
-('Středočeský kraj (Praha)','S'),
+('Středočeský kraj (Praha), Central Bohemia (Prague)','S'),
 ('Moravskoslezský kraj (Ostrava), Moravia-Silesia Region(Ostrava)','T'),
 ('Ústecký kraj (Ústí nad Labem), (Ústí nad Labem)','U'),
 ('Zlínský kraj (Zlín), (Zlín)','Z');
