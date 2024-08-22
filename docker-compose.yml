@@ -30,6 +30,8 @@ services:
     hostname: server-regions
     container_name: server-regions
     image: myapp
+    environment:
+      - REACT_APP_TOKEN=${REACT_APP_TOKEN}
     restart: always
     logging:
       #limit logs to 200MB (4rotations of 50M each)
@@ -40,10 +42,11 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-      args:
-        REACT_APP_TOKEN: abc123
     ports:
+      - "8080:8080"
       - "8090:8090"
+    env_file:
+      - frontend/.env
 
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8090/actuator/health" ]

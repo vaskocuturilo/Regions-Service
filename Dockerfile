@@ -1,10 +1,11 @@
 FROM gradle:7.4.2-jdk-alpine AS TEMP_BUILD_IMAGE
 
-RUN apk add --no-cache bash
-RUN echo "@personal http://dl-cdn.alpinelinux.org/alpine/v3.15/main" >> /etc/apk/repositories
-RUN apk add nodejs@personal npm@personal
-RUN node --version
-RUN npm --version
+# Install dependencies
+RUN apk add --no-cache bash \
+    && echo "@personal https://dl-cdn.alpinelinux.org/alpine/v3.15/main" >> /etc/apk/repositories \
+    && apk add --no-cache nodejs@personal npm@personal \
+    && node --version \
+    && npm --version
 
 ENV APP_HOME=/usr/app/
 
@@ -15,10 +16,6 @@ COPY gradle $APP_HOME/gradle/
 COPY --chown=gradle:gradle . /home/gradle/src
 
 COPY . .
-
-ARG REACT_APP_TOKEN
-ENV REACT_APP_TOKEN $REACT_APP_TOKEN
-
 RUN gradle clean npm_run_build copyTask build -x test --no-daemon || return 0
 
 FROM eclipse-temurin:17-jdk-alpine

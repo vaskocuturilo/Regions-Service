@@ -73,6 +73,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Set environment variables
+        run: echo "REACT_APP_TOKEN=${{ secrets.REACT_APP_TOKEN }}" > frontend/.env
+
       - name: Install Dependencies
         run: npm ci --force
 
