@@ -87,8 +87,8 @@ jobs:
 
       - name: Start Docker Containers
         run: |
-          docker-compose up --detach --build
-          docker-compose exec -T app wait-for-it localhost
+          docker compose up --detach --build
+          docker compose exec -T app wait-for-it localhost
 
       - name: Run Cypress Smoke Tests
         uses: cypress-io/github-action@v4
