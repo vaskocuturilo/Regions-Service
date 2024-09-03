@@ -281,6 +281,13 @@ nav .navbar-collapse.show {
     color: #777;
 }
 
+.distance-display {
+    padding: 0 0.3rem;
+    margin-top: 1.9rem;
+    text-align: left;
+    font-size: 1.25rem;
+}
+
 .logout-timer {
     padding: 0 0.3rem;
     margin-top: 1.9rem;
